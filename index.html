@@ -144,7 +144,7 @@ input {
 
 </head>
 <body>
-  <div id="my-signin2"></div>
+  <div id="my-signin2" style="float: left;"></div>
   <script>
     function onSuccess(googleUser) {
       console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
@@ -155,7 +155,6 @@ input {
     function renderButton() {
       gapi.signin2.render('my-signin2', {
         'scope': 'profile email',
-        'display': 'inline-block',
         'width': 240,
         'height': 50,
         'longtitle': true,
@@ -185,7 +184,7 @@ input {
     </script>
 
   <div class="container" align="right">
-        <a href="#" onclick="signOut();" class="btn btn-info btn-lg">
+        <a href="#" style="float: right;" onclick="signOut();" class="btn btn-info btn-lg">
           <span class="glyphicon glyphicon-log-out"></span> Log out
         </a>
     </div>
