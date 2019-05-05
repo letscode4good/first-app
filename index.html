@@ -1,17 +1,12 @@
-<div id="myDIV" class="header">
-  <h2>My To Do List</h2>
-  <input type="text" id="myInput" placeholder="Title...">
-  <span onclick="newElement()" class="addBtn">Add</span>
-</div>
-
-<ul id="myUL">
-  <li>Hit the gym</li>
-  <li class="checked">Pay bills</li>
-  <li>Meet George</li>
-  <li>Buy eggs</li>
-  <li>Read a book</li>
-  <li>Organize office</li>
-</ul>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  margin: 0;
+  min-width: 250px;
+}
 
 /* Include the padding and border in an element's total width and height */
 * {
@@ -29,10 +24,11 @@ ul li {
   cursor: pointer;
   position: relative;
   padding: 12px 8px 12px 40px;
+  list-style-type: none;
   background: #eee;
   font-size: 18px;
   transition: 0.2s;
-
+  
   /* make the list items unselectable */
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -127,7 +123,26 @@ input {
 .addBtn:hover {
   background-color: #bbb;
 }
+</style>
+</head>
+<body>
 
+<div id="myDIV" class="header">
+  <h2 style="margin:5px">My To Do List</h2>
+  <input type="text" id="myInput" placeholder="Title...">
+  <span onclick="newElement()" class="addBtn">Add</span>
+</div>
+
+<ul id="myUL">
+  <li>Hit the gym</li>
+  <li class="checked">Pay bills</li>
+  <li>Meet George</li>
+  <li>Buy eggs</li>
+  <li>Read a book</li>
+  <li>Organize office</li>
+</ul>
+
+<script>
 // Create a "close" button and append it to each list item
 var myNodelist = document.getElementsByTagName("LI");
 var i;
@@ -183,3 +198,7 @@ function newElement() {
     }
   }
 }
+</script>
+
+</body>
+</html>
