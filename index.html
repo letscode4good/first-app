@@ -132,6 +132,13 @@ input {
     enable_page_level_ads: true
   });
   
+  function onSuccess(googleUser) {
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    }
+    function onFailure(error) {
+      console.log(error);
+    }
+  
   function renderButton() {
       gapi.signin2.render('my-signin2', {
         'scope': 'profile email',
@@ -156,7 +163,7 @@ input {
 </head>
 <body>
 
-  <div class="my-signin2" align="left" data-onsuccess="onSignIn" data-theme="dark"></div>
+  <div class="g-signin2" data-width="300" data-height="200" data-longtitle="true"></div>
     <script>
       function onSignIn(googleUser) {
         // Useful data for your client-side scripts:
