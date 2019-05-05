@@ -145,7 +145,7 @@ input {
 </head>
 <body>
 
-  <div class="my-signin2" data-longtitle="true">Sign in with gmail</div>
+  <div class="my-signin2" data-longtitle="true"></div>
   <div id="my-signin2"></div>
   <script>
     function onSuccess(googleUser) {
@@ -157,6 +157,7 @@ input {
     function renderButton() {
       gapi.signin2.render('my-signin2', {
         'scope': 'profile email',
+        'display': 'inline',
         'width': 240,
         'height': 50,
         'longtitle': true,
