@@ -138,20 +138,7 @@ input {
     <meta name="google-signin-client_id" content="478247907950-5obturgcg5ah1or25mts0eedm9gv534b.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
   
-  <div class="container">
-        <a href="#" onclick="signOut(); class="btn btn-info btn-lg">
-          <span class="glyphicon glyphicon-log-out"></span> Log out
-        </a>
-    </div>
   
-<script>
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-  }
-</script>
 
 </head>
 <body>
@@ -173,6 +160,21 @@ input {
         console.log("ID Token: " + id_token);
       }
     </script>
+  
+  <div class="container">
+        <a href="#" onclick="signOut(); class="btn btn-info btn-lg">
+          <span class="glyphicon glyphicon-log-out"></span> Log out
+        </a>
+    </div>
+  
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+</script>
   
 <div id="myDIV" class="header">
   <h2 style="margin:5px">My To Do List</h2>
