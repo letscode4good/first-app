@@ -131,12 +131,25 @@ input {
     google_ad_client: "ca-pub-8460520131192129",
     enable_page_level_ads: true
   });
+  
+  function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+    }
+  
 </script>
   
   
   <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="478247907950-5obturgcg5ah1or25mts0eedm9gv534b.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
   
   
 
