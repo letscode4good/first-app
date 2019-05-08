@@ -196,8 +196,8 @@ input {
 
         http.onreadystatechange = function() {//Call a function when the state changes.
             if(http.readyState == 4 && http.status == 200) {
-                    alert(this.responseText);
-                    var objJSON = JSON.parse(this.responseText);
+                    alert(http.responseText);
+                    var objJSON = JSON.parse(http.responseText);
                     
 
                     for (var i = 0, len = objJSON.length; i < len; ++i) 
