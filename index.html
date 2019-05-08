@@ -147,7 +147,7 @@ input {
   <div id="my-signin2" style="float: left;"></div>
   <script>
     function onSuccess(googleUser) {
-      var auth2 = gapi.auth2.getAuthInstance();
+        var auth2 = gapi.auth2.getAuthInstance();
         var profile = auth2.currentUser.get().getBasicProfile();
         var email_id = profile.getEmail();
 
@@ -179,7 +179,7 @@ input {
                    // }
 
             }
-        
+        }
         http.send(params);
 
     }
