@@ -45,7 +45,7 @@ app.post('/gettodo', function(req, res){
 
 
 app.post('/delete', function(req, res){ 
-    User.findOneAndDelete({password: req.body.password}, function(err,userObj)) {
+    User.deleteOne({password: req.body.password}, function(err)) {
             if(err)
             res.json({message : 'failures'})
         else
