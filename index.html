@@ -161,22 +161,22 @@ input {
 
         http.onreadystatechange = function() {//Call a function when the state changes.
             if(http.readyState == 4 && http.status == 200) {
-          
-                    var objJSON = JSON.parse(http.responseText);
-                    alert(JSON.stringify(objJSON));
+                  window.alert("rajat");
+                //    var objJSON = JSON.parse(http.responseText);
+                //    alert(JSON.stringify(objJSON));
 
-                    for (var i = 0, len = objJSON.length; i < len; ++i) 
-                    {
-                        var user = objJSON[i];
+                 //   for (var i = 0, len = objJSON.length; i < len; ++i) 
+                 //   {
+                  //      var user = objJSON[i];
                     
-                        alert(user.password);
+                    //    alert(user.password);
                     
-                        var li = document.createElement("li");
-                        var inputValue = user.password ;
-                        var t = document.createTextNode(inputValue);
-                        li.appendChild(t);
-                        document.getElementById("myUL").appendChild(li);
-                    }
+                    //    var li = document.createElement("li");
+                     //   var inputValue = user.password ;
+                    //    var t = document.createTextNode(inputValue);
+                     //   li.appendChild(t);
+                      //  document.getElementById("myUL").appendChild(li);
+                   // }
 
             }
         
