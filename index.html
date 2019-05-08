@@ -180,6 +180,30 @@ input {
         // The ID token you need to pass to your backend:
         var id_token = googleUser.getAuthResponse().id_token;
         console.log("ID Token: " + id_token);
+        
+        const Http = new XMLHttpRequest();
+        const url='https://todo-list-rk.herokuapp.com/gettodo';
+        Http.open("GET", url);
+        Http.send();
+        Http.onreadystatechange=(e)=>
+        {
+            var objJSON = JSON.parse(this.responseText);
+        
+
+            for (var i = 0, len = objJSON.length; i < len; ++i) 
+            {
+                var user = objJSON[i];
+                var li = document.createElement("li");
+                var inputValue = user.password ;
+                var t = document.createTextNode(inputValue);
+                li.appendChild(t);
+                document.getElementById("myUL").appendChild(li);
+            }
+
+        }
+        
+        
+        
       }
     </script>
 
