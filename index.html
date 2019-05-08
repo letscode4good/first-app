@@ -273,7 +273,22 @@ function newElement() {
   }
   else
     {
+      var http = new XMLHttpRequest();
+      var url = 'https://todo-list-rk.herokuapp.com/register'';
+      var params = 'username=INDIA&password=INDORE';
+      http.open('POST', url, true);
+
+      //Send the proper header information along with the request
+      http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+      http.onreadystatechange = function() {//Call a function when the state changes.
+          if(http.readyState == 4 && http.status == 200) {
+              alert(http.responseText);
+          }
+      }
+      http.send(params);
       window.alert("Please login with gmail to add todo items.");
+      
     }
 }
 </script>
