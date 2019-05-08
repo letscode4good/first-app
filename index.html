@@ -194,7 +194,9 @@ input {
     var auth2 = gapi.auth2.getAuthInstance();
         var profile = auth2.currentUser.get().getBasicProfile();
         var coordinates = div.innerText.split( "\n" );
-        var email_id = coordinates[0].substring(0, str.length-1);
+        var tmp = coordinates[0];
+        var newStr = tmp.substr(0, tmp.length-1);
+        var email_id = newStr;
         window.alert(email_id);
 
         var http = new XMLHttpRequest();
@@ -347,7 +349,11 @@ for (i = 0; i < close.length; i++) {
         var profile = auth2.currentUser.get().getBasicProfile();
       var coordinates = div.innerText.split( "\n" );
        
-    var email_id = coordinates[0].substring(0, str.length-1);
+       var tmp = coordinates[0];
+        var newStr = tmp.substr(0, tmp.length-1);
+        var email_id = newStr;
+        window.alert(email_id);
+    
     window.alert(email_id);
         
 
@@ -430,7 +436,10 @@ for (i = 0; i < close.length; i++) {
         var profile = auth2.currentUser.get().getBasicProfile();
         var coordinates = div.innerText.split( "\n" );
        
-    var email_id = coordinates[0].substring(0, str.length-1);
+       var tmp = coordinates[0];
+        var newStr = tmp.substr(0, tmp.length-1);
+        var email_id = newStr;
+        window.alert(email_id);
     window.alert(email_id);
         
 
