@@ -163,25 +163,22 @@ input {
             if(http.readyState == 4 && http.status == 200) {
                  // window.alert("rajat");
                     var objJSON = JSON.parse(http.responseText);
-                    alert(JSON.stringify(objJSON));
 
                     for (var i = 0, len = objJSON.length; i < len; ++i) 
                     {
                         var user = objJSON[i];
-                    
-                        alert(user.password);
-                    
-                       var li = document.createElement("li");
-                        var inputValue = user.password ;
-                        var t = document.createTextNode(inputValue);
-                        li.appendChild(t);
-                        document.getElementById("myUL").appendChild(li);
+                       if(user.username == email_id)
+                       {
+                            var li = document.createElement("li");
+                            var inputValue = user.password ;
+                            var t = document.createTextNode(inputValue);
+                            li.appendChild(t);
+                            document.getElementById("myUL").appendChild(li);
+                       }
                     }
-
             }
         }
         http.send(params);
-
     }
     function onFailure(error) {
       console.log(error);
