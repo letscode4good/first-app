@@ -38,7 +38,7 @@ app.post('/register', function(req, res){
 })
 
 app.post('/gettodo', function(req, res){
-    User.find({username : req.username}, function(err, userObj){
+    User.find({username : req.body.username}, function(err, userObj){
         res.json(userObj);
     })
 })
