@@ -244,6 +244,7 @@ list.addEventListener('click', function(ev) {
 
 // Create a new list item when clicking on the "Add" button
 function newElement() {
+  var auth2 = gapi.auth2.getAuthInstance();
   if (auth2.isSignedIn.get()) {
       var li = document.createElement("li");
       var inputValue = document.getElementById("myInput").value;
@@ -268,11 +269,12 @@ function newElement() {
           div.style.display = "none";
         }
     }
-    else
+    
+  }
+  else
     {
       window.alert("Please login with gmail to add todo items.");
     }
-  }
 }
 </script>
 
