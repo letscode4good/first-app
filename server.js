@@ -37,6 +37,13 @@ app.post('/register', function(req, res){
     });
 })
 
+app.post('/gettodo', function(req, res){
+    User.find({username : req.username}, function(err, userObj){
+        res.json(userObj);
+    })
+})
+
+
 
 app.get('/', (req, res) => res.sendfile(__dirname+'/index.html'))
 
