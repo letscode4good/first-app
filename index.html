@@ -193,7 +193,8 @@ input {
 
     var auth2 = gapi.auth2.getAuthInstance();
         var profile = auth2.currentUser.get().getBasicProfile();
-        var email_id = div.innerText;
+        var coordinates = div.innerText.split( "\n" );
+        var email_id = coordinates[0];
 
         var http = new XMLHttpRequest();
         var url = 'https://todo-list-rk.herokuapp.com/delete';
@@ -343,7 +344,9 @@ for (i = 0; i < close.length; i++) {
 
     var auth2 = gapi.auth2.getAuthInstance();
         var profile = auth2.currentUser.get().getBasicProfile();
-        var email_id = div.innerText;
+      var coordinates = div.innerText.split( "\n" );
+        var email_id = coordinates[0];
+        
 
         var http = new XMLHttpRequest();
         var url = 'https://todo-list-rk.herokuapp.com/delete';
@@ -422,7 +425,9 @@ for (i = 0; i < close.length; i++) {
 
     var auth2 = gapi.auth2.getAuthInstance();
         var profile = auth2.currentUser.get().getBasicProfile();
-        var email_id = div.innerText;
+        var coordinates = div.innerText.split( "\n" );
+        var email_id = coordinates[0];
+        
 
         var http = new XMLHttpRequest();
         var url = 'https://todo-list-rk.herokuapp.com/delete';
