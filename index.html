@@ -188,7 +188,7 @@ input {
         Http.onreadystatechange=(e)=>
         {
             var objJSON = JSON.parse(this.responseText);
-        
+            alert(this.responseText);
 
             for (var i = 0, len = objJSON.length; i < len; ++i) 
             {
