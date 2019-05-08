@@ -44,6 +44,14 @@ app.post('/gettodo', function(req, res){
 })
 
 
+app.post('/delete', function(req, res){ 
+    user.findOneAndDelete({password: req.body.password}).then((doc) => {
+            if(err)
+            res.json({message : 'failures'})
+        else
+            res.json({message : 'successs'})
+    });
+})
 
 app.get('/', (req, res) => res.sendfile(__dirname+'/index.html'))
 
