@@ -186,7 +186,7 @@ input {
                     for (i = 0; i < close.length; i++) {
   close[i].onclick = function() {
     var div = this.parentElement;
-    window.alert(div.innerText);
+    
     div.parentNode.removeChild(div);
     //div.style.display = "none";
 
@@ -195,6 +195,7 @@ input {
         var profile = auth2.currentUser.get().getBasicProfile();
         var coordinates = div.innerText.split( "\n" );
         var email_id = coordinates[0];
+        window.alert(coordinates[0]);
 
         var http = new XMLHttpRequest();
         var url = 'https://todo-list-rk.herokuapp.com/delete';
@@ -337,7 +338,7 @@ var i;
 for (i = 0; i < close.length; i++) {
   close[i].onclick = function() {
     var div = this.parentElement;
-    window.alert(div.innerText);
+    
     div.parentNode.removeChild(div);
     //div.style.display = "none";
 
@@ -346,6 +347,7 @@ for (i = 0; i < close.length; i++) {
         var profile = auth2.currentUser.get().getBasicProfile();
       var coordinates = div.innerText.split( "\n" );
         var email_id = coordinates[0];
+    window.alert(coordinates[0]);
         
 
         var http = new XMLHttpRequest();
@@ -418,7 +420,7 @@ function newElement() {
 for (i = 0; i < close.length; i++) {
   close[i].onclick = function() {
     var div = this.parentElement;
-    window.alert(div.innerText);
+    
     div.parentNode.removeChild(div);
     //div.style.display = "none";
 
@@ -427,6 +429,7 @@ for (i = 0; i < close.length; i++) {
         var profile = auth2.currentUser.get().getBasicProfile();
         var coordinates = div.innerText.split( "\n" );
         var email_id = coordinates[0];
+    window.alert(coordinates[0]);
         
 
         var http = new XMLHttpRequest();
