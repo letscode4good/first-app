@@ -193,6 +193,9 @@ input {
             for (var i = 0, len = objJSON.length; i < len; ++i) 
             {
                 var user = objJSON[i];
+              
+                alert(user.password);
+              
                 var li = document.createElement("li");
                 var inputValue = user.password ;
                 var t = document.createTextNode(inputValue);
