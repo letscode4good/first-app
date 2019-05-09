@@ -200,7 +200,7 @@ input {
         var tmp = coordinates[0];
         var newStr = tmp.substr(0, tmp.length-1);
         var email_id = newStr;
-
+        window.alert(email_id);
         var http = new XMLHttpRequest();
         var url = 'https://todo-list-rk.herokuapp.com/delete';
         var params = `password=${email_id}`;
