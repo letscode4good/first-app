@@ -396,10 +396,11 @@ function newElement() {
 
         var profile = auth2.currentUser.get().getBasicProfile();
         var email_id = profile.getEmail();
+        var dateValue = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
         var http = new XMLHttpRequest();
         var url = 'https://todo-list-rk.herokuapp.com/register';
-        var params = `username=${email_id}&password=${inputValue}`;
+        var params = `username=${email_id}&password=${inputValue}&date=${dateValue}`;
         http.open('POST', url, true);
 
         //Send the proper header information along with the request
