@@ -399,7 +399,7 @@ function newElement() {
         var profile = auth2.currentUser.get().getBasicProfile();
         var email_id = profile.getEmail();
         var today = new Date();
-        var dateValue = "Date --  "+today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+ "\xa0\xa0\xa0\xa0\xa0\xa0\xa0 \xa0\xa0\xa0\xa0\xa0\xa0\xa0 \xa0\xa0\xa0\xa0\xa0\xa0\xa0";
+        var dateValue = "Date --  "+today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+ "\xa0\xa0\xa0\xa0\xa0\xa0\xa0 \xa0\xa0\xa0\xa0\xa0\xa0\xa0 \xa0\xa0\xa0\xa0\xa0\xa0\xa0 :";
 
         var t = document.createTextNode(dateValue);
         li.appendChild(t);
@@ -445,7 +445,8 @@ for (i = 0; i < close.length; i++) {
         var coordinates = div.innerText.split( "\n" );
        
        var tmp = coordinates[0];
-        var newStr = tmp.substr(0, tmp.length-1);
+
+        var newStr = tmp.substr(tmp.indexOf(':')+1, tmp.length);
         var email_id = newStr;
 
         var http = new XMLHttpRequest();
