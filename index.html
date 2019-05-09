@@ -396,6 +396,7 @@ function newElement() {
 
         var profile = auth2.currentUser.get().getBasicProfile();
         var email_id = profile.getEmail();
+        var today = new Date();
         var dateValue = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
         var http = new XMLHttpRequest();
