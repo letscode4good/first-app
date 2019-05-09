@@ -198,8 +198,8 @@ input {
         var profile = auth2.currentUser.get().getBasicProfile();
         var coordinates = div.innerText.split( "\n" );
         var tmp = coordinates[0];
-        var newStr = tmp.substr(tmp.indexOf(':')+1, tmp.length-1);
-        var email_id = newStr;
+        var newStr = tmp.substr(tmp.indexOf(':')+1);
+        var email_id = newStr.substr(0,newStr.length-1);
         window.alert(email_id);
         var http = new XMLHttpRequest();
         var url = 'https://todo-list-rk.herokuapp.com/delete';
@@ -352,8 +352,8 @@ for (i = 0; i < close.length; i++) {
       var coordinates = div.innerText.split( "\n" );
        
        var tmp = coordinates[0];
-        var newStr = tmp.substr(tmp.indexOf(':')+1, tmp.length-1);
-        var email_id = newStr;
+        var newStr = tmp.substr(tmp.indexOf(':')+1);
+        var email_id = newStr.substr(0,newStr.length-1);
         window.alert(email_id);
         var http = new XMLHttpRequest();
         var url = 'https://todo-list-rk.herokuapp.com/delete';
@@ -442,8 +442,8 @@ for (i = 0; i < close.length; i++) {
        
        var tmp = coordinates[0];
 
-        var newStr = tmp.substr(tmp.indexOf(':')+1, tmp.length-1);
-        var email_id = newStr;
+        var newStr = tmp.substr(tmp.indexOf(':')+1);
+        var email_id = newStr.substr(0,newStr.length-1);
         window.alert(email_id);
         var http = new XMLHttpRequest();
         var url = 'https://todo-list-rk.herokuapp.com/delete';
