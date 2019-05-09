@@ -387,8 +387,7 @@ function newElement() {
   if (auth2.isSignedIn.get()) {
       var li = document.createElement("li");
       var inputValue = document.getElementById("myInput").value;
-      var t = document.createTextNode(inputValue);
-      li.appendChild(t);
+      
       if (inputValue === '') {
         alert("You must write something!");
       } 
@@ -397,10 +396,13 @@ function newElement() {
         var profile = auth2.currentUser.get().getBasicProfile();
         var email_id = profile.getEmail();
         var today = new Date();
-        var dateValue = "\xa0\xa0\xa0\xa0\xa0\xa0\xa0 \xa0\xa0\xa0\xa0\xa0\xa0\xa0  To-Do added on --  "+today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var dateValue = "Date --  "+today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+ "\xa0\xa0\xa0\xa0\xa0\xa0\xa0 \xa0\xa0\xa0\xa0\xa0\xa0\xa0 \xa0\xa0\xa0\xa0\xa0\xa0\xa0";
 
         var t = document.createTextNode(dateValue);
         li.appendChild(t);
+        
+        var s = document.createTextNode(inputValue);
+        li.appendChild(s);
 
         var http = new XMLHttpRequest();
         var url = 'https://todo-list-rk.herokuapp.com/register';
