@@ -200,6 +200,7 @@ input {
         var tmp = coordinates[0];
         var newStr = tmp.substr(tmp.indexOf(':')+1, tmp.length-1);
         var email_id = newStr;
+        window.alert(email_id);
         var http = new XMLHttpRequest();
         var url = 'https://todo-list-rk.herokuapp.com/delete';
         var params = `password=${email_id}`;
@@ -353,7 +354,7 @@ for (i = 0; i < close.length; i++) {
        var tmp = coordinates[0];
         var newStr = tmp.substr(tmp.indexOf(':')+1, tmp.length-1);
         var email_id = newStr;
-
+        window.alert(email_id);
         var http = new XMLHttpRequest();
         var url = 'https://todo-list-rk.herokuapp.com/delete';
         var params = `password=${email_id}`;
@@ -396,7 +397,6 @@ function newElement() {
         var email_id = profile.getEmail();
         var today = new Date();
         var dateValue = "Date --  "+today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+ "\xa0\xa0\xa0\xa0\xa0\xa0\xa0 \xa0\xa0\xa0\xa0\xa0\xa0\xa0 \xa0\xa0\xa0\xa0\xa0\xa0\xa0 :";
-        window.alert(dateValue);
         var t = document.createTextNode(dateValue);
         li.appendChild(t);
         
@@ -444,7 +444,7 @@ for (i = 0; i < close.length; i++) {
 
         var newStr = tmp.substr(tmp.indexOf(':')+1, tmp.length-1);
         var email_id = newStr;
-
+        window.alert(email_id);
         var http = new XMLHttpRequest();
         var url = 'https://todo-list-rk.herokuapp.com/delete';
         var params = `password=${email_id}`;
