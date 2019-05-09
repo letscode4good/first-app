@@ -171,8 +171,11 @@ input {
                        {
                             var li = document.createElement("li");
                             var inputValue = user.password ;
-                            var t = document.createTextNode(inputValue);
-                            li.appendChild(t);
+                            var dateValue = user.date;
+                            var t = document.createTextNode(dateValue);
+                            li.appendChild(t);                       
+                            var s = document.createTextNode(inputValue);
+                            li.appendChild(s);
                             document.getElementById("myUL").appendChild(li);
                             var span = document.createElement("SPAN");
                                 var txt = document.createTextNode("\u00D7");
