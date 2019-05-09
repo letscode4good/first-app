@@ -21,13 +21,14 @@ mongoose.connect('mongodb+srv://dbadmin:dbpassword@cluster0-v6hog.mongodb.net/te
 
 var userSchema = new mongoose.Schema({
     username: String,
-    password : String
+    password : String,
+    date : String
 });
 
 var User = mongoose.model('User', userSchema);
 
 app.post('/register', function(req, res){
-    var user = new User({'username' : req.body.username, 'password': req.body.password}) 
+    var user = new User({'username' : req.body.username, 'password': req.body.password, 'date': req.body.date}) 
     
     user.save(function(err, savedUser){
         if(err)
@@ -55,4 +56,3 @@ app.post('/delete', function(req, res){
 app.get('/', (req, res) => res.sendfile(__dirname+'/index.html'))
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-
