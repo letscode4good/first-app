@@ -397,7 +397,7 @@ function newElement() {
         var profile = auth2.currentUser.get().getBasicProfile();
         var email_id = profile.getEmail();
         var today = new Date();
-        var dateValue = "                To-Do added on --  "today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var dateValue = "                To-Do added on --  "+today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
         var t = document.createTextNode(dateValue);
         li.appendChild(t);
