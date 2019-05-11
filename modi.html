@@ -19,7 +19,7 @@ body, html {
   
 .bg {
   /* The image used */
-  background-image: url("/modi.jpeg");
+  background-image: url("/modivsrahul.jpg");
 
   /* Full height */
   height: 50%; 
@@ -53,17 +53,7 @@ function clickCounter() {
 }
   
   function clickCounter1() {
-  if (typeof(Storage) !== "undefined") {
-    if (localStorage.clickcount1) {
-      localStorage.clickcount1 = Number(localStorage.clickcount1)+1;
-    } else {
-      
-      localStorage.clickcount1 = 1;
-    }
-    document.getElementById("result1").innerHTML = "Votes for rahul " + localStorage.clickcount1 + " time(s).";
-  } else {
-    document.getElementById("result1").innerHTML = "Sorry, your browser does not support web storage...";
-  }
+  
 }
   
 </script>
@@ -72,7 +62,8 @@ function clickCounter() {
 <h1>Vote for your favourite</h1>
 
 <p><button onclick="clickCounter()" type="button">Vote for Modi!</button></p>
-  <p><button onclick="clickCounter1()" type="button">Vote for Rahul!</button></p>
+  <p><button onclick="window.open('modi.jpeg' type="button">Vote for Rahul!</button></p>
+
   
 <div id="result"></div>
   <div id="result1"></div>
