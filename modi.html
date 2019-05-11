@@ -11,6 +11,19 @@ body, html {
   margin: 0;
 }
 
+  .button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+  
   img {
   display: block;
   margin-left: auto;
@@ -61,8 +74,9 @@ function clickCounter() {
 <body >
 <h1>Vote for your favourite</h1>
 
-<p><button onclick="clickCounter()" type="button"   style="float: right;">Vote for Modi!</button></p>
-  <p><button onclick="window.open('modi.jpeg');" type="button"  style="float: left;">Vote for Rahul!</button></p>
+<p><button class="button" onclick="clickCounter()" type="button"   style="float: right;">Vote for Modi!</button></p>
+
+  <p><button  class="button" onclick="window.open('modi.jpeg');" type="button"  style="float: left;">Vote for Rahul!</button></p>
 
   
 <div id="result"></div>
