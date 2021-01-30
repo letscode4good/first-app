@@ -54,9 +54,7 @@ app.post('/delete', function(req, res){
 })
 
 app.get('/', (req, res) => res.sendfile(__dirname+'/index.html'))
-app.get('/modivsrahul.html', (req, res) => res.sendfile(__dirname+'/modivsrahul.html'))
-app.get('/modi.jpeg', (req, res) => res.sendfile(__dirname+'/modi.jpeg'))
-app.get('/modivsrahul.jpg', (req, res) => res.sendfile(__dirname+'/modivsrahul.jpg'))
+app.get('/modivsrahul.html', (req, res) => res.sendfile(__dirname+'/tshirts.html'))
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
