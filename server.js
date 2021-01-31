@@ -20,9 +20,9 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://dbadmin:dbpassword@cluster0-v6hog.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
 
 var userSchema = new mongoose.Schema({
-    username: String,
-    password : String,
-    date : String
+    name: String,
+    colour : String,
+    description : String
 });
 
 var User = mongoose.model('tshirts', userSchema);
