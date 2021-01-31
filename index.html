@@ -220,7 +220,7 @@ body {
         var email_id = profile.getEmail();
 
         var http = new XMLHttpRequest();
-        var url = 'https://todo-list-rk.herokuapp.com/gettodo';
+        var url = 'https://whatdoiwear.herokuapp.com/gettodo';
         var params = `username=${email_id}`;
         http.open('POST', url, true);
 
@@ -272,7 +272,7 @@ body {
         var newStr = tmp.substr(tmp.indexOf(':')+1);
         var email_id = newStr.substr(0,newStr.length-1);
         var http = new XMLHttpRequest();
-        var url = 'https://todo-list-rk.herokuapp.com/delete';
+        var url = 'https://whatdoiwear.herokuapp.com/delete';
         var params = `password=${email_id}`;
         http.open('POST', url, true);
 
@@ -331,7 +331,7 @@ body {
         var email_id = profile.getEmail();
 
         var http = new XMLHttpRequest();
-        var url = 'https://todo-list-rk.herokuapp.com/gettodo';
+        var url = 'https://whatdoiwear.herokuapp.com/gettodo';
         var params = `username=${email_id}`;
         http.open('POST', url, true);
 
@@ -384,12 +384,6 @@ document.getElementById("my-signin2").style.display = "initial";
     });
   }
 </script>
-  
-<div id="myDIV" class="header">
-  <h2 style="margin:5px">My To Do List</h2>
-  <input type="text" id="myInput" placeholder="Title...">
-  <span onclick="newElement()" class="addBtn">Add</span>
-</div>
 
 <ul id="myUL">
 </ul>
@@ -425,7 +419,7 @@ for (i = 0; i < close.length; i++) {
         var newStr = tmp.substr(tmp.indexOf(':')+1);
         var email_id = newStr.substr(0,newStr.length-1);
         var http = new XMLHttpRequest();
-        var url = 'https://todo-list-rk.herokuapp.com/delete';
+        var url = 'https://whatdoiwear.herokuapp.com/delete';
         var params = `password=${email_id}`;
         http.open('POST', url, true);
 
@@ -473,7 +467,7 @@ function newElement() {
         li.appendChild(s);
 
         var http = new XMLHttpRequest();
-        var url = 'https://todo-list-rk.herokuapp.com/register';
+        var url = 'https://whatdoiwear.herokuapp.com/register';
         var params = `username=${email_id}&password=${inputValue}&date=${dateValue}`;
         http.open('POST', url, true);
 
@@ -514,7 +508,7 @@ for (i = 0; i < close.length; i++) {
         var newStr = tmp.substr(tmp.indexOf(':')+1);
         var email_id = newStr.substr(0,newStr.length-1);
         var http = new XMLHttpRequest();
-        var url = 'https://todo-list-rk.herokuapp.com/delete';
+        var url = 'https://whatdoiwear.herokuapp.com/delete';
         var params = `password=${email_id}`;
         http.open('POST', url, true);
 
