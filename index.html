@@ -232,7 +232,18 @@ body {
       <option value="Trousers">Yes Bank</option>
       </select>
 
-     
+
+      <script>
+        $( function() {
+          $( "#datepicker" ).datepicker();
+        } );
+        </script>
+
+    <div class="form-group">
+      <label for="Description">Description of issue:</label>
+      <input type="text" id="datepicker">
+      </div>
+
       <select name="cars" class="custom-select mb-3">
       <option selected>Select type of item</option>
       <option value="Tshirt">Inverter Failure</option>
@@ -263,8 +274,7 @@ body {
         </div>
 
         <div class="container" align="center" margin="100px 200px">
-        <input type="submit" value="OK">
-        <button type="button" class="btn btn-primary">Submit</button>
+        <input type="submit"  class="btn btn-primary" value="Submit">
          </div>
 
         <!-- Uploaded image area-->
