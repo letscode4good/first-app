@@ -28,7 +28,7 @@ var userSchema = new mongoose.Schema({
 var User = mongoose.model('tshirts', userSchema);
 
 app.post('/register', function(req, res){
-    var user = new User({'employee' : req.body.employee, 'VisitingOrg': req.body.VisitingOrg, 'Dateofvisit': req.body.DOV}) 
+    var user = new User({'employee' : req.body.employee, 'VisitingOrg': req.body.VisitingOrg, 'Dateofvisit': req.body.DOV , 'Issuedescription': req.body.IssueDescription}) 
     
     user.save(function(err, savedUser){
         if(err)
