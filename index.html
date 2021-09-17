@@ -193,7 +193,11 @@ body {
     <meta name="google-signin-client_id" content="478247907950-5obturgcg5ah1or25mts0eedm9gv534b.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
   
-  
+    <script>
+      $( function() {
+        $( "#datepicker" ).datepicker();
+      } );
+      </script>
 
 </head>
 <body>
@@ -233,14 +237,8 @@ body {
       </select>
 
 
-      <script>
-        $( function() {
-          $( "#datepicker" ).datepicker();
-        } );
-        </script>
-
-    <div class="form-group">
-      <label for="Description">Description of issue:</label>
+      <div class="form-group">
+      <label for="Description">Date of visit</label>
       <input type="text" id="datepicker">
       </div>
 
