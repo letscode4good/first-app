@@ -193,11 +193,6 @@ body {
     <meta name="google-signin-client_id" content="478247907950-5obturgcg5ah1or25mts0eedm9gv534b.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
   
-    <script>
-      $( function() {
-        $( "#datepicker" ).datepicker();
-      } );
-      </script>
 
 </head>
 <body>
@@ -241,10 +236,9 @@ body {
       <option value="Trousers">Yes Bank</option>
       </select>
 
-
       <div class="form-group">
-      <label for="Description">Date of visit</label>
-      <input type="text" id="datepicker">
+      <label for="Description">Date of Visit</label>
+      <input type="date" id="dateofvisit" name="dateofvisit">
       </div>
 
       <select name="cars" class="custom-select mb-3">
