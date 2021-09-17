@@ -24,12 +24,13 @@ var userSchema = new mongoose.Schema({
     VisitingOrg : String,
     Dateofvisit : String,
     Issuedescription : String,
+    ResolutionOfIssue : String
 });
 
 var User = mongoose.model('tshirts', userSchema);
 
 app.post('/register', function(req, res){
-    var user = new User({'employee' : req.body.employee, 'VisitingOrg': req.body.VisitingOrg, 'Dateofvisit': req.body.DOV , 'Issuedescription': req.body.IssueDescription}) 
+    var user = new User({'employee' : req.body.employee, 'VisitingOrg': req.body.VisitingOrg, 'Dateofvisit': req.body.DOV , 'Issuedescription': req.body.IssueDescription, 'ResolutionOfIssue': req.body.ResolutionOfIssue}) 
     
     user.save(function(err, savedUser){
         if(err)
