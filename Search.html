@@ -11,7 +11,8 @@
         function myFunction() {
     var request = new XMLHttpRequest()
 
-      request.open('GET', '/fetch', true)
+      request.open('GET', '/fetch', false)
+      request.send()
       request.onload = function () {
         // Begin accessing JSON data here
         var data = JSON.parse(this.response)
@@ -36,16 +37,14 @@
         }
       }
 
-      request.send()
+      
     
   }
-  window.onload = myFunction;
+  myFunction()
       </script>
 
 
       <script src="jquery/jquery-3.5.1.js"></script>
-
-      
 
 
       <script>
