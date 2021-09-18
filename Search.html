@@ -11,9 +11,9 @@
         function myFunction() {
     var request = new XMLHttpRequest()
 
-      request.open('GET', '/fetch', false)
+      request.open('GET', '/fetch', true)
       request.send()
-     // request.onload = function () {
+      request.onload = function () {
         // Begin accessing JSON data here
         console.log(this.response.status)
         var data = JSON.parse(this.response)
@@ -37,10 +37,8 @@
         } else {
           console.log('error')
         }
-  //    }
+      }
 
-      
-    
   }
   myFunction()
       </script>
