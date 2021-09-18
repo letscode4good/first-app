@@ -13,7 +13,7 @@
 
       request.open('GET', '/fetch', false)
       request.send()
-    //  request.onload = function () {
+      request.onload = function () {
         // Begin accessing JSON data here
         var data = JSON.parse(this.response)
 
@@ -35,12 +35,12 @@
         } else {
           console.log('error')
         }
-    //  }
+      }
 
       
     
   }
-  //myFunction()
+  myFunction()
       </script>
 
 
