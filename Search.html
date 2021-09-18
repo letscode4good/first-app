@@ -51,7 +51,52 @@
         });
 
 
-        function myFunction() {
+      </script>
+
+
+
+
+      <script src="jquery/jquery.dataTables.min.js"></script>
+      <link href="jquery/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+        rel="stylesheet"
+      />
+      <link
+        href="https://use.fontawesome.com/releases/v5.0.1/css/all.css"
+        rel="stylesheet"
+      />
+  
+      <link href="css/desgin.css" rel="stylesheet" />
+      
+    </head>
+    <body >
+
+
+      <div id="formContent">
+        <h2>Customer Info</h2>
+        <hr />
+        <table id="tblCustomer" class="display" style="width: 100%;">
+          <thead>
+            <tr>
+              <th scope="col">Employee</th>
+              <th scope="col">Visting Org</th>
+              <th scope="col">Issue Description</th>
+              <th scope="col">Issue Resolution</th>
+            </tr>
+          </thead>
+          <tbody>
+           
+           
+            
+           
+            
+            
+           
+            
+           
+            <script>
+              function myFunction() {
           var request = new XMLHttpRequest()
 
             request.open('GET', '/fetch', true)
@@ -82,53 +127,8 @@
             request.send()
           
         }
-
-
-      </script>
-
-
-
-
-      <script src="jquery/jquery.dataTables.min.js"></script>
-      <link href="jquery/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
-        rel="stylesheet"
-      />
-      <link
-        href="https://use.fontawesome.com/releases/v5.0.1/css/all.css"
-        rel="stylesheet"
-      />
-  
-      <link href="css/desgin.css" rel="stylesheet" />
-      
-    </head>
-    <body onload="myFunction()">
-
-
-      <div id="formContent">
-        <h2>Customer Info</h2>
-        <hr />
-        <table id="tblCustomer" class="display" style="width: 100%;">
-          <thead>
-            <tr>
-              <th scope="col">Employee</th>
-              <th scope="col">Visting Org</th>
-              <th scope="col">Issue Description</th>
-              <th scope="col">Issue Resolution</th>
-            </tr>
-          </thead>
-          <tbody>
-           
-           
-            
-           
-            
-            
-           
-            
-           
-            
+        myFunction();
+            </script>
             
             
             
