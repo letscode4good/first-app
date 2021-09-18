@@ -57,6 +57,8 @@ app.post('/delete', function(req, res){
 
 app.get('/', (req, res) => res.sendfile(__dirname+'/index.html'))
 app.get('/tshirts.html', (req, res) => res.sendfile(__dirname+'/tshirts.html'))
+app.get('/search.html', (req, res) => res.sendfile(__dirname+'/search.html'))
+
 
 
 
