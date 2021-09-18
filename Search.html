@@ -22,16 +22,18 @@
       
     </head>
     <body>
+
+
       <div id="formContent">
         <h2>Customer Info</h2>
         <hr />
         <table id="tblCustomer" class="display" style="width: 100%;">
           <thead>
             <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Company</th>
-              <th scope="col">Relationship</th>
-              <th scope="col">City</th>
+              <th scope="col">Employee</th>
+              <th scope="col">Visting Org</th>
+              <th scope="col">Issue Description</th>
+              <th scope="col">Issue Resolution</th>
             </tr>
           </thead>
           <tbody>
@@ -762,6 +764,25 @@
       <script>
         $(document).ready(function () {
           $("#tblCustomer").DataTable();
+
+          var request = new XMLHttpRequest()
+
+            request.open('GET', '/fetch', true)
+            request.onload = function () {
+              // Begin accessing JSON data here
+              var data = JSON.parse(this.response)
+
+              if (request.status >= 200 && request.status < 400) {
+                data.forEach((movie) => {
+                  console.log(movie.title)
+                })
+              } else {
+                console.log('error')
+              }
+            }
+
+            request.send()
+
         });
       </script>
     </body>
