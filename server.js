@@ -60,6 +60,11 @@ app.get('/tshirts.html', (req, res) => res.sendfile(__dirname+'/tshirts.html'))
 app.get('/Search.html', (req, res) => res.sendfile(__dirname+'/Search.html'))
 
 
+app.get('/jquery/jquery-3.5.1.js', (req, res) => res.sendfile(__dirname+'/jquery/jquery-3.5.1.js'))
+app.get('/jquery/jquery.dataTables.min.js', (req, res) => res.sendfile(__dirname+'/jquery/jquery.dataTables.min.js'))
+app.get('/jquery/jquery.dataTables.min.css', (req, res) => res.sendfile(__dirname+'/jquery/jquery.dataTables.min.css'))
+
+
 
 
 app.get('/fetch', function(req, res){ 
