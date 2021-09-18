@@ -64,6 +64,7 @@ app.get('/jquery/jquery-3.5.1.js', (req, res) => res.sendfile(__dirname+'/jquery
 app.get('/jquery/jquery.dataTables.min.js', (req, res) => res.sendfile(__dirname+'/jquery/jquery.dataTables.min.js'))
 app.get('/jquery/jquery.dataTables.min.css', (req, res) => res.sendfile(__dirname+'/jquery/jquery.dataTables.min.css'))
 
+app.get('/css/desgin.css', (req, res) => res.sendfile(__dirname+'/css/desgin.css'))
 
 
 
