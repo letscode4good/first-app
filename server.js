@@ -59,4 +59,22 @@ app.get('/', (req, res) => res.sendfile(__dirname+'/index.html'))
 app.get('/tshirts.html', (req, res) => res.sendfile(__dirname+'/tshirts.html'))
 
 
+
+app.get('/fetch', function(req, res){ 
+    User.find(function (err, docs) {
+        if (err){
+            res.json({message : 'failure'})
+        }
+        else{
+            res.json(docs);
+        }
+    });
+   
+})
+
+    
+
+
+
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
