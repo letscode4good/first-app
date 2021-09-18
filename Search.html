@@ -37,14 +37,43 @@
             </tr>
           </thead>
           <tbody>
+           
+           
             
+           
+            
+            
+           
+            
+           
+            
+            
+            
+            
+           
+            
+            
+            
+            
+            <tr>
+              <td>Zbyszek Piestrzeniewicz</td>
+              <td>Wolski Zajazd</td>
+              <td>Customers</td>
+              <td>Warszawa</td>
+            </tr>
+            <tr>
+              <td>Dirk Luchte</td>
+              <td>Zaanse Snoepfabriek</td>
+              <td>Suppliers</td>
+              <td>Zaandam</td>
+            </tr>
           </tbody>
         </table>
       </div>
   
       <script>
         $(document).ready(function () {
-          $("#tblCustomer").DataTable();
+          
 
           var request = new XMLHttpRequest()
 
@@ -67,7 +96,6 @@
                       cell3.innerHTML = jsonData.Issuedescription;
                       cell4.innerHTML = jsonData.ResolutionOfIssue;
 
-                  console.log(jsonData.employee)
                 })
               } else {
                 console.log('error')
@@ -75,6 +103,7 @@
             }
 
             request.send()
+            $("#tblCustomer").DataTable();
 
         });
       </script>
