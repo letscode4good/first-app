@@ -21,26 +21,47 @@ var mongoose = require('mongoose');
 
 mongoose.connect('mongodb+srv://dbadmin:dbpassword@cluster0-v6hog.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
 
-var userSchema = new mongoose.Schema({
-    employee: String,
-    VisitingOrg : String,
-    Dateofvisit : String,
-    Issuedescription : String,
-    ResolutionOfIssue : String
+var userDetailsSchema = new mongoose.Schema({
+    fName: String,
+    lName : String,
+    userId : String,
+    emailId : String,
+    phoneNumber : Number
 });
 
-var User = mongoose.model('tshirts', userSchema);
 
-app.post('/register', function(req, res){
-    var user = new User({'employee' : req.body.employee, 'VisitingOrg': req.body.VisitingOrg, 'Dateofvisit': req.body.DOV , 'Issuedescription': req.body.IssueDescription, 'ResolutionOfIssue': req.body.ResolutionOfIssue}) 
+var userLoginSchema = new mongoose.Schema({
+    userId : String,
+    password : String,
+    userType : String
+});
+
+var userDetailsSchemaObject = mongoose.model('UserDetails', userDetailsSchema);
+
+var userLoginSchemaObject = mongoose.model('UserLogin', userLoginSchema);
+
+app.post('/addUserDetail', function(req, res){
+    var newDBEntry = new userDetailsSchemaObject({'fName' : req.body.fName, 'lName': req.body.lName, 'userId': req.body.userId , 'emailId': req.body.emailId, 'phoneNumber': req.body.phoneNumber}) 
     
-    user.save(function(err, savedUser){
+    newDBEntry.save(function(err, savedUser){
         if(err)
             res.json({message : 'failures'})
         else
             res.json({message : 'successs'})
     });
 })
+
+app.post('/addUserLogin', function(req, res){
+    var newDBEntry = new userLoginSchemaObject({'userId': req.body.userId , 'password': req.body.password , 'userType':req.body.userType}) 
+    
+    newDBEntry.save(function(err, savedUser){
+        if(err)
+            res.json({message : 'failures'})
+        else
+            res.json({message : 'successs'})
+    });
+})
+
 
 app.get('/', (req, res) => res.sendfile(__dirname+'/index.html'))
 app.get('/accounts.html', (req, res) => res.sendfile(__dirname+'/accounts.html'))
