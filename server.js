@@ -42,7 +42,11 @@ app.post('/register', function(req, res){
     });
 })
 
-
 app.get('/', (req, res) => res.sendfile(__dirname+'/index.html'))
+app.get('/', (req, res) => res.sendfile(__dirname+'/accounts.html'))
+app.get('/', (req, res) => res.sendfile(__dirname+'/add-product.html'))
+app.get('/', (req, res) => res.sendfile(__dirname+'/edit-product.html'))
+app.get('/', (req, res) => res.sendfile(__dirname+'/login.html'))
+app.get('/', (req, res) => res.sendfile(__dirname+'/products.html'))
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
