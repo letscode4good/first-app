@@ -43,10 +43,10 @@ app.post('/register', function(req, res){
 })
 
 app.get('/', (req, res) => res.sendfile(__dirname+'/index.html'))
-app.get('/', (req, res) => res.sendfile(__dirname+'/accounts.html'))
-app.get('/', (req, res) => res.sendfile(__dirname+'/add-product.html'))
-app.get('/', (req, res) => res.sendfile(__dirname+'/edit-product.html'))
-app.get('/', (req, res) => res.sendfile(__dirname+'/login.html'))
-app.get('/', (req, res) => res.sendfile(__dirname+'/products.html'))
+app.get('/accounts.html', (req, res) => res.sendfile(__dirname+'/accounts.html'))
+app.get('/add-product.html', (req, res) => res.sendfile(__dirname+'/add-product.html'))
+app.get('/edit-product.html', (req, res) => res.sendfile(__dirname+'/edit-product.html'))
+app.get('/login.html', (req, res) => res.sendfile(__dirname+'/login.html'))
+app.get('/products.html', (req, res) => res.sendfile(__dirname+'/products.html'))
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
