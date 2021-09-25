@@ -201,7 +201,7 @@
                 url: "/getStockItems",
                 dataType: "json",
                 success: function (result, status, xhr) {
-                $.each(response,function(key, value)
+                $.each(result,function(key, value)
                 {
                     $("#category").append('<option value=' + key + '>' + value + '</option>');
                 });
