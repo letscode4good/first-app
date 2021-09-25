@@ -94,13 +94,13 @@ app.post('/addStockDetail', function(req, res){
 })
 
 
-app.get("/getStockItems").get(function(req, res) {
+app.get("/getStockItems",function(req, res) {
 
     stockDetailsSchemaObject.SomeValue.find({}, 'itemName', function(err, someValue){
         if(err) return next(err);
         res.send(someValue);
       });
-  });
+  })
 
 
 app.get('/', (req, res) => res.sendfile(__dirname+'/index.html'))
