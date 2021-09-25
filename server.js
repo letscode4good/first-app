@@ -94,6 +94,15 @@ app.post('/addStockDetail', function(req, res){
 })
 
 
+app.get("/getStockItems").get(function(req, res) {
+
+    stockDetailsSchemaObject.SomeValue.find({}, 'itemName', function(err, someValue){
+        if(err) return next(err);
+        res.send(someValue);
+      });
+  });
+
+
 app.get('/', (req, res) => res.sendfile(__dirname+'/index.html'))
 app.get('/accounts.html', (req, res) => res.sendfile(__dirname+'/accounts.html'))
 app.get('/add-product.html', (req, res) => res.sendfile(__dirname+'/add-product.html'))
