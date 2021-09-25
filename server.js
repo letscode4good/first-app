@@ -43,11 +43,11 @@ var stockDetailsSchema = new mongoose.Schema({
     itemCode : String
 });
 
-var userDetailsSchemaObject = mongoose.model('UserDetails', userDetailsSchema);
+var userDetailsSchemaObject = mongoose.model('UserDetails', userDetailsSchema,'UserDetails');
 
-var userLoginSchemaObject = mongoose.model('UserLogin', userLoginSchema);
+var userLoginSchemaObject = mongoose.model('UserLogin', userLoginSchema,'UserLogin');
 
-var stockDetailsSchemaObject = mongoose.model('StockDetails', stockDetailsSchema);
+var stockDetailsSchemaObject = mongoose.model('StockDetails', stockDetailsSchema,'StockDetails');
 
 app.post('/addUserDetail', function(req, res){
     var newDBEntry = new userDetailsSchemaObject({'fName' : req.body.fName, 'lName': req.body.lName, 'userId': req.body.userId , 'emailId': req.body.emailId, 'phoneNumber': req.body.phoneNumber}) 
