@@ -36,9 +36,18 @@ var userLoginSchema = new mongoose.Schema({
     userType : String
 });
 
+
+var stockDetailsSchema = new mongoose.Schema({
+    itemName : String,
+    quantity : Number,
+    itemCode : String
+});
+
 var userDetailsSchemaObject = mongoose.model('UserDetails', userDetailsSchema);
 
 var userLoginSchemaObject = mongoose.model('UserLogin', userLoginSchema);
+
+var stockDetailsSchemaObject = mongoose.model('StockDetails', stockDetailsSchema);
 
 app.post('/addUserDetail', function(req, res){
     var newDBEntry = new userDetailsSchemaObject({'fName' : req.body.fName, 'lName': req.body.lName, 'userId': req.body.userId , 'emailId': req.body.emailId, 'phoneNumber': req.body.phoneNumber}) 
@@ -59,6 +68,28 @@ app.post('/addUserLogin', function(req, res){
             res.json({message : 'failures'})
         else
             res.json({message : 'successs'})
+    });
+})
+
+app.post('/addStockDetail', function(req, res){
+    stockDetailsSchemaObject.findOne({itemName: req.body.itemName}, function (err, docs) {
+        if (err){
+            console.log(err)
+        }
+        else{
+            console.log("Result : ", docs);
+            const update = { quantity: docs.quantity +  req.body.quantity};
+            stockDetailsSchemaObject.findOneAndUpdate({ itemName: req.body.itemName}, update, function(
+                err,
+                result
+              ) {
+                if (err) {
+                  res.send(err);
+                } else {
+                  res.send(result);
+                }
+              });
+        }
     });
 })
 
