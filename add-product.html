@@ -195,6 +195,20 @@
     <script>
       $(function() {
         $("#expire_date").datepicker();
+
+        $.ajax({
+                type: "GET",
+                url: "/getStockItems",
+                dataType: "json",
+                success: function (result, status, xhr) {
+                  $('#category').append(json.map(function(sObj){
+                  return '<option id="'+sObj.itemCode+'">'+ sObj.itemName +'</option>'
+                  }));
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
       });
     </script>
   </body>
