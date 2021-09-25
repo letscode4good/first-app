@@ -95,10 +95,9 @@ app.post('/addStockDetail', function(req, res){
 
 
 app.get("/getStockItems",function(req, res) {
-
-    stockDetailsSchemaObject.SomeValue.find({}, 'itemName', function(err, someValue){
+    stockDetailsSchemaObject.find({}, 'itemName', function (err, docs) {
         if(err) return next(err);
-        res.send(someValue);
+        res.send(docs);
       });
   })
 
