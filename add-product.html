@@ -203,7 +203,7 @@
                 success: function (result, status, xhr) {
                 $.each(result,function(key, value)
                 {
-                    $("#category").append('<option value=' + key + '>' + value.itemName + '</option>');
+                    $("#category").append('<option value=' + value.itemCode + '>' + value.itemName + '</option>');
                 });
                 },
                 error: function (xhr, status, error) {
