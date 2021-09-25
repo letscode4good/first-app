@@ -95,7 +95,7 @@ app.post('/addStockDetail', function(req, res){
 
 
 app.get("/getStockItems",function(req, res) {
-    stockDetailsSchemaObject.find({},{itemName}, function (err, docs) {
+    stockDetailsSchemaObject.find({},{itemName: 1}, function (err, docs) {
         if(err) return next(err);
         res.send(docs);
       });
