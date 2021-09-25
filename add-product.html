@@ -201,9 +201,9 @@
                 url: "/getStockItems",
                 dataType: "json",
                 success: function (result, status, xhr) {
-                  $('#category').append(json.map(function(sObj){
-                  return '<option id="'+sObj.itemCode+'">'+ sObj.itemName +'</option>'
-                  }));
+                  $.each(result, function (index, value) {
+                    return '<option id="'+value.itemCode+'">'+ value.itemName +'</option>'         
+                  });
                 },
                 error: function (xhr, status, error) {
                     alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
