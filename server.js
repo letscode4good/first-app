@@ -77,7 +77,8 @@ app.post('/addStockDetail', function(req, res){
         }
         else{
             console.log("Result : ", docs);
-            const update = { quantity: docs.quantity +  req.body.quantity};
+            var newQuantity = docs.quantity +  req.body.quantity
+            const update = { quantity: newQuantity};
             stockDetailsSchemaObject.findOneAndUpdate({ itemCode: req.body.itemName}, update, function(
                 err,
                 result
