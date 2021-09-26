@@ -71,7 +71,7 @@ app.post('/addUserLogin', function(req, res){
 })
 
 app.post('/addStockDetail', function(req, res){
-    stockDetailsSchemaObject.findOne({itemName: req.body.itemName}, function (err, docs) {
+    stockDetailsSchemaObject.findOne({itemCode: req.body.itemName}, function (err, docs) {
         if (err){
             console.log(err)
         }
