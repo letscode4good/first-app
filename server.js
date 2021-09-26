@@ -5,7 +5,8 @@ const port = process.env.PORT || 80
 app.use(express.static('public'))
 
 var bodyParser = require('body-parser')
-
+app.use(express.json());       // to support JSON-encoded bodies
+app.use(express.urlencoded()); // to support URL-encoded bodies
         app.use(bodyParser.urlencoded({ extended: false }))
         app.use(bodyParser.json())
 

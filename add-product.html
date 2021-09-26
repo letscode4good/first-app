@@ -120,7 +120,7 @@
             </div>
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
-                <form action="/addStockDetail" class="tm-edit-product-form">
+                <form action="/addStockDetail" method = "POST" class="tm-edit-product-form">
                   <div class="form-group mb-3">
                     <label
                       for="itemName"
@@ -129,6 +129,7 @@
                     <select
                       class="custom-select tm-select-accounts"
                       id="itemName"
+                      name="itemName"
                     >
                       <option selected>Select category</option>
                       <option value="1">New Arrival</option>
