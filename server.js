@@ -71,33 +71,14 @@ app.post('/addUserLogin', function(req, res){
 })
 
 app.post('/addStockDetail', function(req, res){
-    stockDetailsSchemaObject.findOne({itemCode: req.body.itemName}, function (err, docs) {
+    stockDetailsSchemaObject.findOneAndUpdate({itemCode: req.body.itemName},{$inc:{ quantity: Number(req.body.quantity)}}  function (err, docs) {
         if (err){
             //console.log(err)
             res.send('failure');
         }
         else{
             //console.log("Result : ", docs);
-            res.send('Success ' );
-            
-            var first = Number(req.body.quantity);
-            var second = Number(docs.quantity);
-            var newQuantity = Number(first + second);
-            const update = { quantity: newQuantity};
-  //res.send('Success ' );
-            stockDetailsSchemaObject.updateOne({ itemCode: 'ISO001'}, {$set:{ quantity: 60}}, function(
-                err,
-                result
-              ) {
-                if (err) {
-                   //res.send('error ' );
-                  res.send(err);
-                } else {
-                    //res.send('Success ' );
-                  res.send(result);
-                }
-              });
-              
+            res.send('Success ' );   
         }
     });
 })
