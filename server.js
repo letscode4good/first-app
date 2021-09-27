@@ -74,7 +74,6 @@ app.post('/addUserLogin', function(req, res){
 })
 
 app.post('/addStockDetail', function(req, res){
-    
     stockDetailsSchemaObject.findOneAndUpdate({itemCode: req.body.itemName},{$inc:{ quantity: req.body.quantity}}, function (err, docs) {
         if (err){
             //console.log(err)
@@ -85,9 +84,7 @@ app.post('/addStockDetail', function(req, res){
             res.send(docs);   
         }
     });
-
 })
-
 
 app.get("/getStockItems",function(req, res) {
     stockDetailsSchemaObject.find({}, function (err, docs) {
@@ -95,6 +92,16 @@ app.get("/getStockItems",function(req, res) {
         res.send(docs);
       });
   })
+
+app.post('/addNewStock', function(req, res){
+    var newDBEntry = new stockDetailsSchemaObject({'itemName' : req.body.itemName, 'quantity': req.body.quantity, 'itemCode': req.body.itemCode}) 
+    newDBEntry.save(function(err, savedUser){
+        if(err)
+            res.json({message : 'failures'})
+        else
+            res.json({message : 'successs'})
+    });
+})
 
 
 app.get('/', (req, res) => res.sendfile(__dirname+'/index.html'))
