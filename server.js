@@ -77,7 +77,7 @@ app.post('/addStockDetail', function(req, res){
         }
         else{
             console.log("Result : ", docs);
-            
+            /*
             var first = parseInt(req.body.quantity);
             var second = parseInt(docs.quantity);
             var newQuantity = Number(first + second);
@@ -92,6 +92,7 @@ app.post('/addStockDetail', function(req, res){
                   res.send(result);
                 }
               });
+              */
         }
     });
 })
