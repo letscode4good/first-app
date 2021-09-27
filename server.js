@@ -78,10 +78,10 @@ app.post('/addStockDetail', function(req, res){
         }
         else{
             //console.log("Result : ", docs);
-            res.send('Success ' );
-            /*
-            var first = parseInt(req.body.quantity);
-            var second = parseInt(docs.quantity);
+            //res.send('Success ' );
+            
+            var first = Number(req.body.quantity);
+            var second = Number(docs.quantity);
             var newQuantity = Number(first + second);
             const update = { quantity: newQuantity};
             stockDetailsSchemaObject.findOneAndUpdate({ itemCode: req.body.itemName}, update, function(
@@ -94,7 +94,7 @@ app.post('/addStockDetail', function(req, res){
                   res.send(result);
                 }
               });
-              */
+              
         }
     });
 })
