@@ -71,8 +71,6 @@ app.post('/addUserLogin', function(req, res){
 })
 
 app.post('/addStockDetail', function(req, res){
-
-
     
     stockDetailsSchemaObject.findOneAndUpdate({itemCode: req.query.itemName},{$inc:{ quantity: req.query.quantity}}, function (err, docs) {
         if (err){
