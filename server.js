@@ -72,9 +72,7 @@ app.post('/addUserLogin', function(req, res){
 
 app.post('/addStockDetail', function(req, res){
 
-
-    
-    stockDetailsSchemaObject.findOneAndUpdate({itemCode: req.params.itemName},{$inc:{ quantity: Number(req.params.quantity)}}, function (err, docs) {
+    stockDetailsSchemaObject.findOneAndUpdate({itemCode: 'ISO001'},{$inc:{ quantity: 5 }}, function (err, docs) {
         if (err){
             //console.log(err)
             res.send('failure');
