@@ -110,13 +110,11 @@
         <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
           <div class="tm-bg-primary-dark tm-block tm-block-products">
             <div class="tm-product-table-container">
-              <table class="table table-hover tm-table-small tm-product-table">
+              <table id= "stockTable" class="table table-hover tm-table-small tm-product-table">
                 <thead>
                   <tr>
-                    <th scope="col">&nbsp;</th>
                     <th scope="col">PRODUCT NAME</th>
                     <th scope="col">IN STOCK</th>
-                    <th scope="col">&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -197,7 +195,46 @@
         $(".tm-product-name").on("click", function() {
           window.location.href = "edit-product.html";
         });
+
+        $("#stockTable").DataTable();
+
+        loadData();
+        function loadData() {
+          $.ajax({
+            type: 'GET',
+            url: /getStockItems,
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (data) {
+              myJsonData = data;
+              populateDataTable(myJsonData);
+            },
+            error: function (e) {
+              console.log("There was an error with your request...");
+              console.log("error: " + JSON.stringify(e));
+            }
+          });
+        }
+
+        // populate the data table with JSON data
+        function populateDataTable(data) {
+          console.log("populating data table...");
+          // clear the table before populating it with more data
+          $("#stockTable").DataTable().clear();
+          var length = Object.keys(data).length;
+          for(var i = 1; i < length+1; i++) {
+            // You could also use an ajax property on the data table initialization
+            $('#stockTable').dataTable().fnAddData( [
+              data[i].itemName,
+              data[i].quantity,
+            ]);
+          }
+        }
       });
     </script>
   </body>
 </html>
+
+
+
+ 
