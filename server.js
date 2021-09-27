@@ -73,10 +73,12 @@ app.post('/addUserLogin', function(req, res){
 app.post('/addStockDetail', function(req, res){
     stockDetailsSchemaObject.findOne({itemCode: req.body.itemName}, function (err, docs) {
         if (err){
-            console.log(err)
+            //console.log(err)
+            res.send('failure');
         }
         else{
-            console.log("Result : ", docs);
+            //console.log("Result : ", docs);
+            res.send('Success ' );
             /*
             var first = parseInt(req.body.quantity);
             var second = parseInt(docs.quantity);
