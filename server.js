@@ -71,7 +71,10 @@ app.post('/addUserLogin', function(req, res){
 })
 
 app.post('/addStockDetail', function(req, res){
-    stockDetailsSchemaObject.findOneAndUpdate({itemCode: req.body.itemName},{$inc:{ quantity: Number(req.body.quantity)}}  function (err, docs) {
+
+
+    
+    stockDetailsSchemaObject.findOneAndUpdate({itemCode: req.body.itemName},{$inc:{ quantity: req.body.quantity}}, function (err, docs) {
         if (err){
             //console.log(err)
             res.send('failure');
@@ -81,6 +84,7 @@ app.post('/addStockDetail', function(req, res){
             res.send('Success ' );   
         }
     });
+
 })
 
 
