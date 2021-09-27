@@ -85,15 +85,15 @@ app.post('/addStockDetail', function(req, res){
             var newQuantity = Number(first + second);
             const update = { quantity: newQuantity};
   //res.send('Success ' );
-            stockDetailsSchemaObject.findOneAndUpdate({ itemCode: req.body.itemName},  {$set: { quantity: newQuantity}},null, function(
+            stockDetailsSchemaObject.findOneAndUpdate({ itemCode: req.body.itemName}, { quantity: 60}, function(
                 err,
                 result
               ) {
                 if (err) {
-                   res.send('error ' );
+                   //res.send('error ' );
                   res.send(err);
                 } else {
-                    res.send('Success ' );
+                    //res.send('Success ' );
                   res.send(result);
                 }
               });
