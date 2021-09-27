@@ -84,14 +84,16 @@ app.post('/addStockDetail', function(req, res){
             var second = Number(docs.quantity);
             var newQuantity = Number(first + second);
             const update = { quantity: newQuantity};
-            res.send('Success ' );
-            stockDetailsSchemaObject.findOneAndUpdate({ itemCode: req.body.itemName}, update, function(
+  //res.send('Success ' );
+            stockDetailsSchemaObject.findOneAndUpdate({ itemCode: req.body.itemName},  $set: update, function(
                 err,
                 result
               ) {
                 if (err) {
+                   res.send('error ' );
                   res.send(err);
                 } else {
+                    res.send('Success ' );
                   res.send(result);
                 }
               });
