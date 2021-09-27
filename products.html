@@ -228,7 +228,7 @@
           // clear the table before populating it with more data
           $("#stockTable").DataTable().clear();
           var length = Object.keys(data).length;
-          for(var i = 1; i < length+1; i++) {
+          for(var i = 0; i < length; i++) {
             // You could also use an ajax property on the data table initialization
             $('#stockTable').dataTable().fnAddData( [
               data[i].itemName,
