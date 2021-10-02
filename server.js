@@ -104,8 +104,9 @@ app.post('/addCustomerDetail', function(req, res){
     newDBEntry.save(function(err, savedUser){
         if(err)
         {
-            console.log(err);
-            res.json({message : 'failures'})
+            console.log("hiii");
+            //res.json({message : 'failures'})
+            res.json({ error: err.message || err.toString() });
         }
         else
             res.json({message : 'successs'})
