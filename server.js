@@ -39,6 +39,15 @@ var userLoginSchema = new mongoose.Schema({
 });
 
 
+var customerDetailsSchema = new mongoose.Schema({
+    customerName : String,
+    address : Number,
+    email : String,
+    officialphone : String,
+    contactperson : String,
+    contactpersonphone : String
+});
+
 var stockDetailsSchema = new mongoose.Schema({
     itemName : String,
     quantity : Number,
@@ -48,6 +57,8 @@ var stockDetailsSchema = new mongoose.Schema({
 var userDetailsSchemaObject = mongoose.model('UserDetails', userDetailsSchema,'UserDetails');
 
 var userLoginSchemaObject = mongoose.model('UserLogin', userLoginSchema,'UserLogin');
+
+var customerDetailsSchemaObject = mongoose.model('Customer_Info ', customerDetailsSchema,'Customer_Info ');
 
 var stockDetailsSchemaObject = mongoose.model('StockDetails', stockDetailsSchema,'StockDetails');
 
@@ -85,6 +96,26 @@ app.post('/addStockDetail', function(req, res){
         }
     });
 })
+
+
+app.post('/addCustomerDetail', function(req, res){
+    var newDBEntry = new customerDetailsSchemaObject({'customerName': req.body.custName , 'address': req.body.custAddress , 'email':req.body.custEmail, 'officialphone':req.body.custOfficialPhone, 'contactperson':req.body.contactPersonName, 'contactpersonphone':req.body.contactPersonPhone     }) 
+    
+    newDBEntry.save(function(err, savedUser){
+        if(err)
+            res.json({message : 'failures'})
+        else
+            res.json({message : 'successs'})
+    });
+})
+
+
+app.get("/getCustomerDetails",function(req, res) {
+    customerDetailsSchemaObject.find({}, function (err, docs) {
+        if(err) return next(err);
+        res.send(docs);
+      });
+  })
 
 app.get("/getStockItems",function(req, res) {
     stockDetailsSchemaObject.find({}, function (err, docs) {
