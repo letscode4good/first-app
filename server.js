@@ -58,7 +58,7 @@ var userDetailsSchemaObject = mongoose.model('UserDetails', userDetailsSchema,'U
 
 var userLoginSchemaObject = mongoose.model('UserLogin', userLoginSchema,'UserLogin');
 
-var customerDetailsSchemaObject = mongoose.model('Customer_Info ', customerDetailsSchema,'Customer_Info ');
+var customerDetailsSchemaObject = mongoose.model('Customer_Info', customerDetailsSchema,'Customer_Info');
 
 var stockDetailsSchemaObject = mongoose.model('StockDetails', stockDetailsSchema,'StockDetails');
 
