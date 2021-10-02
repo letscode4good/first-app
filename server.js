@@ -139,6 +139,12 @@ app.get('/', (req, res) => res.sendfile(__dirname+'/index.html'))
 app.get('/accounts.html', (req, res) => res.sendfile(__dirname+'/accounts.html'))
 app.get('/add-product.html', (req, res) => res.sendfile(__dirname+'/add-product.html'))
 app.get('/edit-product.html', (req, res) => res.sendfile(__dirname+'/edit-product.html'))
+
+app.get('/add-customer-info.html', (req, res) => res.sendfile(__dirname+'/add-customer-info.html'))
+app.get('/view-customer-info.html', (req, res) => res.sendfile(__dirname+'/view-customer-info.html'))
+app.get('/index.html', (req, res) => res.sendfile(__dirname+'/index.html'))
+
+
 app.get('/login.html', (req, res) => res.sendfile(__dirname+'/login.html'))
 app.get('/products.html', (req, res) => res.sendfile(__dirname+'/products.html'))
 
