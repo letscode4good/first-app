@@ -41,7 +41,7 @@ var userLoginSchema = new mongoose.Schema({
 
 var customerDetailsSchema = new mongoose.Schema({
     customerName : String,
-    address : Number,
+    address : String,
     email : String,
     officialphone : String,
     contactperson : String,
