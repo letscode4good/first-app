@@ -149,7 +149,10 @@ app.post('/addNewStock', function(req, res){
 app.get('/',(req,res) => {
     session=req.session;
     if(session.userId && (session.userType == 'admin')){
-        res.send('Welcome User')
+        res.sendFile(__dirname+'/index.html')
+    }
+    else if(session.userId && (session.userType == 'engineer')){
+        res.sendFile(__dirname+'/accounts.html')
     }
     else
         res.sendFile(__dirname+'/login.html')
@@ -186,7 +189,7 @@ app.post('/login', function(req, res){
                 session.userId=req.body.userId;
                 session.userType=req.body.userType;
                 console.log(req.session)
-                res.send('Hey there, welcome');
+                res.sendFile(__dirname+'/index.html')
             }
             //res.send(docs);
         }
