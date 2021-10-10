@@ -11,14 +11,6 @@ var bodyParser = require('body-parser')
         app.use(bodyParser.urlencoded({ extended: true }))
         app.use(bodyParser.json())
 
-        app.post('/login', function(req, res){
-            // if username = admin, password = admin
-            if(req.body.username == "admin" && req.body.password == "admin")
-                res.json({'message' : 'success'});
-            else
-                res.json({'message': 'failure'});
-        })
-
 var mongoose = require('mongoose');
 
 mongoose.connect('mongodb+srv://dbadmin:dbpassword@cluster0-v6hog.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
@@ -151,5 +143,25 @@ app.get('/index.html', (req, res) => res.sendfile(__dirname+'/index.html'))
 
 app.get('/login.html', (req, res) => res.sendfile(__dirname+'/login.html'))
 app.get('/products.html', (req, res) => res.sendfile(__dirname+'/products.html'))
+
+
+app.post('/login', function(req, res){
+    userLoginSchemaObject.findOne({ userId: req.body.userId , password: req.body.password, userType: req.body.userType}, function (err, docs) {
+        if (err){
+            //console.log(err)
+            res.send('login failed');
+        }
+        else{
+            //console.log("Result : ", docs);
+            res.send(docs);
+        }
+    });
+})
+
+
+
+
+
+
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
