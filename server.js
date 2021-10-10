@@ -194,8 +194,15 @@ app.post('/login', function(req, res){
 })
 
 app.get('/logout',(req,res) => {
+    req.logOut();
+    res.status(200).clearCookie('connect.sid', {
+        path: '/',
+        secure: false,
+        httpOnly: true,
+        domain: 'rspowertest.herokuapp.com',
+        sameSite: None,
+    });
     req.session.destroy()
-    res.clearCookie('connect.sid');
     res.redirect('/')
 });
 
