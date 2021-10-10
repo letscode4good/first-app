@@ -194,9 +194,10 @@ app.post('/login', function(req, res){
 })
 
 app.get('/logout',(req,res) => {
-    req.session.destroy();
-    res.clearCookie('connect.sid')
-    res.redirect('/');
+    req.session.destroy()
+    // hsck to delete cookie
+    res.cookies.set('testtoken', {expires: Date.now()});
+    res.redirect('/')
 });
 
 
