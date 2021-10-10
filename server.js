@@ -194,8 +194,8 @@ app.post('/login', function(req, res){
 })
 
 app.get('/logout',(req,res) => {
-    req.session = null
-    //req.session.destroy()
+    req.session.destroy()
+    res.session = null
     res.redirect('/')
 });
 
