@@ -194,8 +194,8 @@ app.post('/login', function(req, res){
 })
 
 app.get('/logout',(req,res) => {
+    req.session.cookie.expires = new Date().getTime();
     req.session.destroy()
-    res.session = null
     res.redirect('/')
 });
 
