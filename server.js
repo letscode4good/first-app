@@ -148,11 +148,12 @@ app.post('/addNewStock', function(req, res){
 
 app.get('/',(req,res) => {
     session=req.session;
-    if(session.userId && (session.userType == 'admin'){
+    if(session.userId && (session.userType == 'admin')){
         res.send("Welcome User");
-    }else
+    }
+    else
     res.sendFile(__dirname+'/index.html')
-});
+})
 
 
 app.get('/accounts.html', (req, res) => res.sendfile(__dirname+'/accounts.html'))
