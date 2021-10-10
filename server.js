@@ -196,7 +196,7 @@ app.post('/login', function(req, res){
 app.get('/logout',(req,res) => {
     req.session.destroy()
     // hsck to delete cookie
-    res.cookies.set('testtoken', {expires: Date.now()});
+    res.cookies.set('connect.sid', {expires: Date.now()});
     res.redirect('/')
 });
 
