@@ -149,7 +149,7 @@ app.post('/login', function(req, res){
     userLoginSchemaObject.findOne({ userId: req.body.userId , password: req.body.password, userType: req.body.userType}, function (err, docs) {
         if (err){
             //console.log(err)
-            res.send('login failed');
+            res.send(err);
         }
         else{
             //console.log("Result : ", docs);
