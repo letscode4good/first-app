@@ -149,10 +149,10 @@ app.post('/addNewStock', function(req, res){
 app.get('/',(req,res) => {
     session=req.session;
     if(session.userId && (session.userType == 'admin')){
-        res.send("Welcome User");
+        res.send('Welcome User')
     }
     else
-    res.sendFile(__dirname+'/index.html')
+        res.sendFile(__dirname+'/login.html')
 })
 
 
@@ -177,7 +177,7 @@ app.post('/login', function(req, res){
         }
         else{
             //console.log("Result : ", docs);
-            if (docs === null) {
+            if (docs == null) {
                 res.send('Login not found');
             }
             else
@@ -197,11 +197,6 @@ app.get('/logout',(req,res) => {
     req.session.destroy();
     res.redirect('/');
 });
-
-
-
-
-
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
