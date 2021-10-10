@@ -188,8 +188,8 @@ app.post('/login', function(req, res){
                 session=req.session;
                 session.userId=req.body.userId;
                 session.userType=req.body.userType;
-                console.log(req.session)
-                res.sendFile(__dirname+'/index.html')
+                //res.sendFile(__dirname+'/index.html')
+                res.redirect('/index.html')
             }
             //res.send(docs);
         }
