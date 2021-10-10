@@ -20,7 +20,7 @@ var session;
 app.use(sessions({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
     saveUninitialized:true,
-    cookie: { maxAge: 1000 * 60 * 60 * 24},
+    cookie: { maxAge: 1000 * 60 * 60 * 2},
     resave: false 
 }));
 
@@ -194,14 +194,6 @@ app.post('/login', function(req, res){
 })
 
 app.get('/logout',(req,res) => {
-    req.logOut();
-    res.status(200).clearCookie('connect.sid', {
-        path: '/',
-        secure: false,
-        httpOnly: true,
-        domain: 'rspowertest.herokuapp.com',
-        sameSite: None,
-    });
     req.session.destroy()
     res.redirect('/')
 });
