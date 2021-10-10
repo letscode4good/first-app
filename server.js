@@ -11,6 +11,19 @@ var bodyParser = require('body-parser')
         app.use(bodyParser.urlencoded({ extended: true }))
         app.use(bodyParser.json())
 
+const cookieParser = require("cookie-parser");
+const sessions = require('express-session');
+app.use(cookieParser());
+
+var session;
+
+app.use(sessions({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized:true,
+    cookie: { maxAge: 1000 * 60 * 60 * 24},
+    resave: false 
+}));
+
 var mongoose = require('mongoose');
 
 mongoose.connect('mongodb+srv://dbadmin:dbpassword@cluster0-v6hog.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
@@ -131,7 +144,17 @@ app.post('/addNewStock', function(req, res){
 })
 
 
-app.get('/', (req, res) => res.sendfile(__dirname+'/index.html'))
+//app.get('/', (req, res) => res.sendfile(__dirname+'/index.html'))
+
+app.get('/',(req,res) => {
+    session=req.session;
+    if(session.userId && (session.userType == 'admin'){
+        res.send("Welcome User");
+    }else
+    res.sendFile(__dirname+'/index.html')
+});
+
+
 app.get('/accounts.html', (req, res) => res.sendfile(__dirname+'/accounts.html'))
 app.get('/add-product.html', (req, res) => res.sendfile(__dirname+'/add-product.html'))
 app.get('/edit-product.html', (req, res) => res.sendfile(__dirname+'/edit-product.html'))
@@ -156,10 +179,23 @@ app.post('/login', function(req, res){
             if (docs === null) {
                 res.send('Login not found');
             }
-            res.send(docs);
+            else
+            {
+                session=req.session;
+                session.userId=req.body.userId;
+                session.userType=req.body.userType;
+                console.log(req.session)
+                res.send('Hey there, welcome');
+            }
+            //res.send(docs);
         }
     });
 })
+
+app.get('/logout',(req,res) => {
+    req.session.destroy();
+    res.redirect('/');
+});
 
 
 
