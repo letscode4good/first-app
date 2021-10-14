@@ -134,7 +134,7 @@ app.post('/addCustomerDetail', function(req, res){
 })
 
 app.post('/addCustomerInventory', function(req, res){
-    var newDBEntry = new customerInventorySchemaObject({'customerName': req.body.custName , 'custId': req.body.custId , 'installDate':req.body.installDate, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity, 'batteryName':req.body.batteryName , 'batteryCapacity':req.body.batteryCapacity, 'numOfBattery':req.body.numOfBattery , 'stabilizer':req.body.stabilizer }) 
+    var newDBEntry = new customerInventorySchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'installDate':req.body.installDate, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity, 'batteryName':req.body.batteryName , 'batteryCapacity':req.body.batteryCapacity, 'numOfBattery':req.body.numOfBattery , 'stabilizer':req.body.stabilizer }) 
     newDBEntry.save(function(err, savedUser){
         if(err)
         {
@@ -162,7 +162,7 @@ app.get("/getCustomerDetails",function(req, res) {
         else{
             //console.log("Result : ", docs);
             if (docs == null) {
-                res.send('CUstomer Inventory not found.');
+                res.send('Customer Inventory not found.');
             }
             else
             {
