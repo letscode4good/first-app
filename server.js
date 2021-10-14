@@ -53,6 +53,19 @@ var customerDetailsSchema = new mongoose.Schema({
     contactpersonphone : String
 });
 
+
+var customerInventorySchema = new mongoose.Schema({
+    customerName : String,
+    custId : String,
+    installDate : String,
+    upsName : String,
+    upsCapacity : String,
+    batteryName : String,
+    batteryCapacity : String,
+    numOfBattery : String,
+    stabilizer : String
+});
+
 var stockDetailsSchema = new mongoose.Schema({
     itemName : String,
     quantity : Number,
@@ -64,6 +77,8 @@ var userDetailsSchemaObject = mongoose.model('UserDetails', userDetailsSchema,'U
 var userLoginSchemaObject = mongoose.model('UserLogin', userLoginSchema,'UserLogin');
 
 var customerDetailsSchemaObject = mongoose.model('Customer_Info', customerDetailsSchema,'Customer_Info');
+
+var customerInventorySchemaObject = mongoose.model('Customer_Inventory', customerInventorySchema,'Customer_Inventory');
 
 var stockDetailsSchemaObject = mongoose.model('StockDetails', stockDetailsSchema,'StockDetails');
 
@@ -118,6 +133,18 @@ app.post('/addCustomerDetail', function(req, res){
     });
 })
 
+app.post('/addCustomerInventory', function(req, res){
+    var newDBEntry = new customerInventorySchemaObject({'customerName': req.body.custName , 'custId': req.body.custId , 'installDate':req.body.installDate, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity, 'batteryName':req.body.batteryName , 'batteryCapacity':req.body.batteryCapacity, 'numOfBattery':req.body.numOfBattery , 'stabilizer':req.body.stabilizer }) 
+    newDBEntry.save(function(err, savedUser){
+        if(err)
+        {
+            res.json({ error: err.message || err.toString() });
+        }
+        else
+            res.json({message : 'successs'})
+    });
+})
+
 
 app.get("/getCustomerDetails",function(req, res) {
     customerDetailsSchemaObject.find({}, function (err, docs) {
@@ -125,6 +152,26 @@ app.get("/getCustomerDetails",function(req, res) {
         res.send(docs);
       });
   })
+
+
+  app.get("/getCustomerInventory",function(req, res) {
+      customerInventorySchemaObject.findOne({ custId: req.body.custId}, function (err, docs) {
+        if (err){
+            res.send(err);
+        }
+        else{
+            //console.log("Result : ", docs);
+            if (docs == null) {
+                res.send('CUstomer Inventory not found.');
+            }
+            else
+            {
+                res.send(docs)
+            }
+        }
+    });
+  })
+
 
 app.get("/getStockItems",function(req, res) {
     stockDetailsSchemaObject.find({}, function (err, docs) {
