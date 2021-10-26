@@ -196,6 +196,27 @@
           }
         }
       });
+    
+
+
+      function showInventory(p1, p2) 
+      {
+        document.getElementById("stockTable").style.opacity = "0.2";
+      }
+
+      function onCloseInventory(p1, p2) 
+      {
+        document.getElementById("stockTable").style.opacity = "1";
+      }
+
+      var table = $("#stockTable").DataTable();
+      $('#stockTable tbody').on('click', 'tr', function () {
+        //var data = table.row( this ).data();
+        //alert( 'You clicked on '+data[0]+'\'s row' );
+        showInventory()
+    })
+
+    
     </script>
   </body>
 </html>
