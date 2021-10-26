@@ -155,7 +155,7 @@ app.get("/getCustomerDetails",function(req, res) {
 
 
   app.get("/getCustomerInventory",function(req, res) {
-      customerInventorySchemaObject.findOne({ custId: req.body.custId}, function (err, docs) {
+      customerInventorySchemaObject.findOne({ custId: req.query.custId}, function (err, docs) {
         if (err){
             res.send(err);
         }

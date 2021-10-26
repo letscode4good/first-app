@@ -245,7 +245,8 @@
             type: 'GET',
             data: 'custId=2',
             url: "/getCustomerInventory",
-            contentType: 'application/x-www-form-urlencoded',
+            contentType: "text/plain",
+            dataType: 'json',
             success: function (data) {
               myJsonData = data;
               populateInventoryTable(myJsonData);
