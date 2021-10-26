@@ -183,7 +183,7 @@
         document.getElementById("inventoryDiv").style.opacity = "0";
 
         $("#custInfo").DataTable();
-        $("#custInventory").DataTable();
+        $("#custInventory").DataTable({searching: false, paging: false, info: false});
 
         loadData();
         function loadData() {
@@ -268,8 +268,7 @@
               data.batteryCapacity,
               data.numOfBattery,
               data.stabilizer
-            ]);
-          $("#custInventory").DataTable({searching: false, paging: false, info: false});  
+            ]); 
         }
 
       function onCloseInventory() 
