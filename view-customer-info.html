@@ -263,20 +263,18 @@
           console.log("populating data table...");
           // clear the table before populating it with more data
           $("#custInventory").DataTable().clear();
-         // as returned inventory object will have only 1 row
-          for(var i = 0; i < 1; i++) {
             // You could also use an ajax property on the data table initialization
             $('#custInventory').dataTable().fnAddData( [
-              data[i].customerName,
-              data[i].installDate,
-              data[i].upsName,
-              data[i].upsCapacity,
-              data[i].batteryName,
-              data[i].batteryCapacity,
-              data[i].numOfBattery,
-              data[i].stabilizer
+              data.customerName,
+              data.installDate,
+              data.upsName,
+              data.upsCapacity,
+              data.batteryName,
+              data.batteryCapacity,
+              data.numOfBattery,
+              data.stabilizer
             ]);
-          }
+          
         }
 
       function onCloseInventory() 
