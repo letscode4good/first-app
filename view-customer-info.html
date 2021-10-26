@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="css/templatemo-style.css">
+    <link rel="stylesheet" href="css/model_popup.css">
     <!--
 	Product Admin CSS Template
 	https://templatemo.com/tm-524-product-admin
@@ -129,8 +130,8 @@
             </div>
 
             <!--   try adding customer inventory table on nclick  -->
-            <div id="inventoryDiv">
-              <table id= "custInventory" class="table table-hover tm-table-small tm-product-table">
+            <div id="inventoryDiv" class="modal" >
+              <table id= "custInventory" class="table table-hover tm-table-small modal tm-product-table">
                 <thead>
                   <tr>
                     <th scope="col">Customer Name</th>
@@ -146,9 +147,10 @@
                 <tbody>
                 </tbody>
               </table>
-              <!--   close adding customer inventory table on nclick  -->
+              <a href="#custInfo" class="link-2"></a>
             </div>
-            
+             <!--   close adding customer inventory table on nclick  -->
+
           </div>
         </div>
       </div>
