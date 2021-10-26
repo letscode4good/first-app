@@ -229,7 +229,7 @@
       {
         document.getElementById("custInfo").style.opacity = "0.2";
 
-
+        $('custInventory').dataTable({searching: false, paging: false, info: false});
         loadInventoryData();
         
         document.getElementById("inventoryDiv").style.opacity = "1";
