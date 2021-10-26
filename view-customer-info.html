@@ -262,8 +262,8 @@
           console.log("populating data table...");
           // clear the table before populating it with more data
           $("#custInventory").DataTable().clear();
-          var length = Object.keys(data).length;
-          for(var i = 0; i < length; i++) {
+         // as returned inventory object will have only 1 row
+          for(var i = 0; i < 1; i++) {
             // You could also use an ajax property on the data table initialization
             $('#custInventory').dataTable().fnAddData( [
               data[i].customerName,
