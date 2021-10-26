@@ -115,6 +115,7 @@
               <table id= "custInfo" class="table table-hover tm-table-small tm-product-table">
                 <thead>
                   <tr>
+                    <th scope="col">ID</th>
                     <th scope="col">Customer Name</th>
                     <th scope="col">Address</th>
                     <th scope="col">Email</th>
@@ -214,6 +215,7 @@
           for(var i = 0; i < length; i++) {
             // You could also use an ajax property on the data table initialization
             $('#custInfo').dataTable().fnAddData( [
+              data[i].custId,
               data[i].customerName,
               data[i].address,
               data[i].email,
@@ -227,21 +229,20 @@
     
 
 
-      function showInventory() 
+      function showInventory(cutomerID) 
       {
-        document.getElementById("custInfo").style.opacity = "0.2";
         location.href = "#inventoryDiv";
 
-        loadInventoryData();
+        loadInventoryData(cutomerID);
         
         document.getElementById("inventoryDiv").style.opacity = "1";
 
       }
 
-      function loadInventoryData() {
+      function loadInventoryData(cutomerID) {
           $.ajax({
             type: 'GET',
-            data: 'custId=2',
+            data: { custId: cutomerID },
             url: "/getCustomerInventory",
             contentType: "text/plain",
             dataType: 'json',
@@ -281,9 +282,9 @@
 
       var table = $("#custInfo").DataTable();
       $('#custInfo tbody').on('click', 'tr', function () {
-        //var data = table.row( this ).data();
+        var data = table.row( this ).data();
         //alert( 'You clicked on '+data[0]+'\'s row' );
-        showInventory()
+        showInventory(data[0])
     })
 
     
