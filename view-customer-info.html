@@ -232,7 +232,7 @@
       function showInventory(cutomerID) 
       {
         location.href = "#inventoryDiv";
-
+        $("#custInventory").DataTable().clear();
         loadInventoryData(cutomerID);
         
         document.getElementById("inventoryDiv").style.opacity = "1";
