@@ -111,7 +111,7 @@
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
           <div class="tm-bg-primary-dark tm-block tm-block-products">
             <div class="tm-product-table-container">
-              <table id= "stockTable" class="table table-hover tm-table-small tm-product-table">
+              <table id= "custInfo" class="table table-hover tm-table-small tm-product-table">
                 <thead>
                   <tr>
                     <th scope="col">Customer Name</th>
@@ -126,6 +126,32 @@
                 <tbody>
                 </tbody>
               </table>
+
+
+
+      <!--   try adding customer inventory table on nclick  -->
+
+      
+      <table id= "custInventory" class="table table-hover tm-table-small tm-product-table">
+        <thead>
+          <tr>
+            <th scope="col">Customer Name</th>
+            <th scope="col">installDate</th>
+            <th scope="col">upsName</th>
+            <th scope="col">upsCapacity</th>
+            <th scope="col">batteryName</th>
+            <th scope="col">batteryCapacity</th>
+            <th scope="col">numOfBattery </th>
+            <th scope="col">stabilizer </th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+
+      <!--   close adding customer inventory table on nclick  -->
+
+
             </div>
           </div>
         </div>
@@ -157,7 +183,10 @@
           window.location.href = "edit-product.html";
         });
 
-        $("#stockTable").DataTable();
+        <!--  hide inventory table initially-->
+        document.getElementById("custInventory").style.opacity = "1";
+
+        $("#custInfo").DataTable();
 
         loadData();
         function loadData() {
@@ -181,11 +210,11 @@
         function populateDataTable(data) {
           console.log("populating data table...");
           // clear the table before populating it with more data
-          $("#stockTable").DataTable().clear();
+          $("#custInfo").DataTable().clear();
           var length = Object.keys(data).length;
           for(var i = 0; i < length; i++) {
             // You could also use an ajax property on the data table initialization
-            $('#stockTable').dataTable().fnAddData( [
+            $('#custInfo').dataTable().fnAddData( [
               data[i].customerName,
               data[i].address,
               data[i].email,
@@ -199,18 +228,62 @@
     
 
 
-      function showInventory(p1, p2) 
+      function showInventory() 
       {
-        document.getElementById("stockTable").style.opacity = "0.2";
+        document.getElementById("custInfo").style.opacity = "0.2";
+
+
+        loadInventoryData();
+        
+        // populate the data table with JSON data
+        function populateInventoryTable(data) {
+          console.log("populating data table...");
+          // clear the table before populating it with more data
+          $("#custInventory").DataTable().clear();
+          var length = Object.keys(data).length;
+          for(var i = 0; i < length; i++) {
+            // You could also use an ajax property on the data table initialization
+            $('#custInventory').dataTable().fnAddData( [
+              data[i].customerName,
+              data[i].installDate,
+              data[i].upsName,
+              data[i].upsCapacity,
+              data[i].batteryName,
+              data[i].batteryCapacity,
+              data[i].numOfBattery,
+              data[i].stabilizer
+            ]);
+          }
+        }
+        document.getElementById("custInventory").style.opacity = "1";
+
       }
 
-      function onCloseInventory(p1, p2) 
+      function loadInventoryData() {
+          $.ajax({
+            type: 'GET',
+            data: 'custId=2',
+            url: "/getCustomerInventory",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (data) {
+              myJsonData = data;
+              populateInventoryTable(myJsonData);
+            },
+            error: function (e) {
+              console.log("There was an error with your request...");
+              console.log("error: " + JSON.stringify(e));
+            }
+          });
+        }
+
+      function onCloseInventory() 
       {
-        document.getElementById("stockTable").style.opacity = "1";
+        document.getElementById("custInfo").style.opacity = "1";
       }
 
-      var table = $("#stockTable").DataTable();
-      $('#stockTable tbody').on('click', 'tr', function () {
+      var table = $("#custInfo").DataTable();
+      $('#custInfo tbody').on('click', 'tr', function () {
         //var data = table.row( this ).data();
         //alert( 'You clicked on '+data[0]+'\'s row' );
         showInventory()
