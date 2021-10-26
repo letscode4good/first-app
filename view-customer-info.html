@@ -183,7 +183,7 @@
           window.location.href = "edit-product.html";
         });
 
-        <!--  hide inventory table initially-->
+        
         document.getElementById("custInventory").style.opacity = "1";
 
         $("#custInfo").DataTable();
@@ -234,27 +234,8 @@
 
 
         loadInventoryData();
+        populateInventoryTable();
         
-        // populate the data table with JSON data
-        function populateInventoryTable(data) {
-          console.log("populating data table...");
-          // clear the table before populating it with more data
-          $("#custInventory").DataTable().clear();
-          var length = Object.keys(data).length;
-          for(var i = 0; i < length; i++) {
-            // You could also use an ajax property on the data table initialization
-            $('#custInventory').dataTable().fnAddData( [
-              data[i].customerName,
-              data[i].installDate,
-              data[i].upsName,
-              data[i].upsCapacity,
-              data[i].batteryName,
-              data[i].batteryCapacity,
-              data[i].numOfBattery,
-              data[i].stabilizer
-            ]);
-          }
-        }
         document.getElementById("custInventory").style.opacity = "1";
 
       }
@@ -275,6 +256,27 @@
               console.log("error: " + JSON.stringify(e));
             }
           });
+        }
+
+        // populate the data table with JSON data
+        function populateInventoryTable(data) {
+          console.log("populating data table...");
+          // clear the table before populating it with more data
+          $("#custInventory").DataTable().clear();
+          var length = Object.keys(data).length;
+          for(var i = 0; i < length; i++) {
+            // You could also use an ajax property on the data table initialization
+            $('#custInventory').dataTable().fnAddData( [
+              data[i].customerName,
+              data[i].installDate,
+              data[i].upsName,
+              data[i].upsCapacity,
+              data[i].batteryName,
+              data[i].batteryCapacity,
+              data[i].numOfBattery,
+              data[i].stabilizer
+            ]);
+          }
         }
 
       function onCloseInventory() 
