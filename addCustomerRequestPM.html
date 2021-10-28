@@ -122,7 +122,7 @@
             </div>
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
-                <form id = "myform" action="javascript:;" onsubmit="myfun(this)" class="tm-edit-product-form" >
+                <form id = "myform" action="/addupcomingPM"  class="tm-edit-product-form" >
                     <div class="row">
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
@@ -250,23 +250,6 @@
             });
       });
 
-
-                function myfun(theForm) {
-                $.ajax({
-                    type: "POST",
-                    contentType: "text/plain",
-                    url: "/addupcomingPM",
-                    data: { custId: theForm.custId, customerName:theForm.customerName},
-                    success: function (res) { 
-                        //console.log("SUCCESS : ", data); 
-                        alert(res)
-                    },
-                    error: function (e) {
-                        alert(e)
-                        //console.log("ERROR : ", e);
-                    }
-                });
-            };
     </script>
   </body>
 </html>
