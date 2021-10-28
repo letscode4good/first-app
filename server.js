@@ -352,6 +352,12 @@ app.get('/login.html', (req, res) => res.sendfile(__dirname+'/login.html'))
 app.get('/products.html', (req, res) => res.sendfile(__dirname+'/products.html'))
 
 
+app.get('/upcomingCustomerPM.html', (req, res) => res.sendfile(__dirname+'/upcomingCustomerPM.html'))
+app.get('/upcomingPlannedPM.html', (req, res) => res.sendfile(__dirname+'/upcomingPlannedPM.html'))
+app.get('/allupcomingPM.html', (req, res) => res.sendfile(__dirname+'/allupcomingPM.html'))
+
+
+
 app.post('/login', function(req, res){
     userLoginSchemaObject.findOne({ userId: req.body.userId , password: req.body.password, userType: req.body.userType}, function (err, docs) {
         if (err){
