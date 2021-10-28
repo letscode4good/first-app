@@ -254,12 +254,12 @@
       {
         $.ajax({
             type: 'POST',
-            data: { custId: document.getElementById("myForm").elements.custId.value,
-                    customerName: document.getElementById("myForm").elements.customerName.value, 
-                    maintenanceType: document.getElementById("myForm").elements.maintenanceType.value, 
-                    dateWhenScheduled: document.getElementById("myForm").elements.dateWhenScheduled.value, 
-                    engineer: document.getElementById("myForm").elements.engineer.value, 
-                    maintenanceID: document.getElementById("myForm").elements.maintenanceID.value},
+            data: { custId: document.getElementById("myform").elements.custId.value,
+                    customerName: document.getElementById("myform").elements.customerName.value, 
+                    maintenanceType: document.getElementById("myform").elements.maintenanceType.value, 
+                    dateWhenScheduled: document.getElementById("myform").elements.dateWhenScheduled.value, 
+                    engineer: document.getElementById("myform").elements.engineer.value, 
+                    maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
             url: "/addupcomingPM",
             contentType: "text/plain",
             dataType: 'json',
