@@ -261,8 +261,7 @@
                     engineer: document.getElementById("myform").elements.engineer.value, 
                     maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
             url: "/addupcomingPM",
-            contentType: "text/plain",
-            dataType: 'json',
+            contentType: "application/json",
             success: function (data) {
                alert(JSON.stringify(data))
             },
