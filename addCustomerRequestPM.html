@@ -251,13 +251,12 @@
       });
 
 
-
                 function myfun(theForm) {
                 $.ajax({
                     type: "POST",
                     enctype: 'multipart/form-data',
                     url: "/addupcomingPM",
-                    data: theForm,
+                    data: { custId: theForm.custId, customerName:theForm.custId.customerName},
                     processData: false,
                     contentType: false,
                     success: function (res) { 
