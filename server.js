@@ -284,6 +284,28 @@ app.get("/getAllUpcomingPM",function(req, res) {
 })
 
 
+app.get("/getAllUpcomingPlannedPM",function(req, res) {
+    upcomingMaintenanceSchemaObject.find({ maintenanceType: 'Planned'}, function (err, docs) {
+        if(err) return next(err);
+        if (docs == null) {
+            res.send('Upcoming planned maintenance record not found.');
+        }
+        res.send(docs);
+      });
+})
+
+app.get("/getAllUpcomingCustPM",function(req, res) {
+    upcomingMaintenanceSchemaObject.find({ maintenanceType: 'Customer'}, function (err, docs) {
+        if(err) return next(err);
+        if (docs == null) {
+            res.send('Upcoming customer requested maintenance record not found.');
+        }
+        res.send(docs);
+      });
+})
+
+
+
 app.get("/getStockItems",function(req, res) {
     stockDetailsSchemaObject.find({}, function (err, docs) {
         if(err) return next(err);

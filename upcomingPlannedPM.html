@@ -61,9 +61,9 @@
                 <span> Reports <i class="fas fa-angle-down"></i> </span>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="upcomingPlannedPM.html">Upcoming Planned Maintenance</a>
-                <a class="dropdown-item" href="upcomingCustomerPM.html">Upcoming Customer Requested Maintenance</a>
-                <a class="dropdown-item" href="allupcomingPM.html">All Upcoming Maintenance</a>
+                <a class="dropdown-item" href="#">Daily Report</a>
+                <a class="dropdown-item" href="#">Weekly Report</a>
+                <a class="dropdown-item" href="#">Yearly Report</a>
               </div>
             </li>
             <li class="nav-item">
@@ -192,7 +192,7 @@
         function loadData() {
           $.ajax({
             type: 'GET',
-            url: "/getCustomerDetails",
+            url: "/getAllUpcomingPlannedPM",
             contentType: "text/plain",
             dataType: 'json',
             success: function (data) {
@@ -217,11 +217,10 @@
             $('#custInfo').dataTable().fnAddData( [
               data[i].custId,
               data[i].customerName,
-              data[i].address,
-              data[i].email,
-              data[i].officialphone,
-              data[i].contactperson,
-              data[i].contactpersonphone,
+              data[i].maintenanceType,
+              data[i].dateWhenScheduled,
+              data[i].engineer,
+              data[i].maintenanceID
             ]);
           }
         }
