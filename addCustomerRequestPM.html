@@ -98,7 +98,6 @@
                 <a class="dropdown-item" href="add-customer-info.html">Add Customer</a>
                 <a class="dropdown-item" href="view-customer-info.html">View Customers</a>
                 <a class="dropdown-item" href="addCustomerRequestPM.html">Add Customer Request Maintenace</a>
-
             </div>
             </li>
           </ul>
@@ -123,8 +122,8 @@
             </div>
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
-                <form action="/addCustomerDetail" class="tm-edit-product-form" method="POST">
-                  <div class="row">
+                <form action="/addupcomingPM" class="tm-edit-product-form" method="POST">
+                    <div class="row">
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
                             for="custName"
@@ -154,12 +153,12 @@
 
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                             <label
-                              for="custAddress"
-                              >Customer Address
+                              for="maintenanceType"
+                              >Maintenance Type
                             </label>
                             <input
-                              id="custAddress"
-                              name="custAddress"
+                              id="maintenanceType"
+                              name="maintenanceType"
                               type="text"
                               class="form-control validate"
                               required
@@ -168,12 +167,12 @@
 
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                             <label
-                              for="custEmail"
-                              >Customer Email
+                              for="dateWhenScheduled"
+                              >Date When sceduled
                             </label>
                             <input
-                              id="custEmail"
-                              name="custEmail"
+                              id="dateWhenScheduled"
+                              name="dateWhenScheduled"
                               type="text"
                               class="form-control validate"
                               required
@@ -182,12 +181,12 @@
 
                           <div class="form-group mb-3 col-xs-12 col-sm-6">
                             <label
-                              for="custOfficialPhone"
-                              >Official Phone
+                              for="engineer"
+                              >Enginner name
                             </label>
                             <input
-                              id="custOfficialPhone"
-                              name="custOfficialPhone"
+                              id="engineer"
+                              name="engineer"
                               type="text"
                               class="form-control validate"
                               required
@@ -196,32 +195,17 @@
 
                           <div class="form-group mb-3 col-xs-12 col-sm-6">
                             <label
-                              for="contactPersonName"
-                              >Contact Person's Name
+                              for="maintenanceID"
+                              >Maintenace ID
                             </label>
                             <input
-                              id="contactPersonName"
-                              name="contactPersonName"
+                              id="maintenanceID"
+                              name="maintenanceID"
                               type="text"
                               class="form-control validate"
                               required
                             />
-                          </div>
-
-                          <div class="form-group mb-3 col-xs-12 col-sm-6">
-                            <label
-                              for="contactPersonPhone"
-                              >Contact Person's Phone
-                            </label>
-                            <input
-                              id="contactPersonPhone"
-                              name="contactPersonPhone"
-                              type="text"
-                              class="form-control validate"
-                              required
-                            />
-                          </div>
-                        
+                          </div>   
                   </div>
                   
               </div>
