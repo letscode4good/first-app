@@ -252,16 +252,8 @@
 
 
 
-      $("#submit").click(function (event) {
-                //stop submit the form, we will post it manually.
-                event.preventDefault();
-         
-                // Get form
-                var form = $('#myform')[0];
-         
-                // FormData object 
-                var data = new FormData(form);
-         
+                $('#myForm').submit(function() {
+                var data = $(this).serialize();
                 $.ajax({
                     type: "POST",
                     enctype: 'multipart/form-data',
@@ -270,10 +262,12 @@
                     processData: false,
                     contentType: false,
                     success: function (data) { 
-                        console.log("SUCCESS : ", data); 
+                        //console.log("SUCCESS : ", data); 
+                        alert(data)
                     },
                     error: function (e) {
-                        console.log("ERROR : ", e);
+                        alert(e)
+                        //console.log("ERROR : ", e);
                     }
                 });
             });
