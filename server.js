@@ -76,7 +76,7 @@ var preventiveMaintenanceHistorySchema = new mongoose.Schema({
     customerName : String,
     custId : String,
     maintenanceType : String,
-    dateWhenDone : String,
+    dateWhenDone : Date,
     engineer : String,
     maintenanceID : String
 });
