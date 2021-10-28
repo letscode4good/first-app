@@ -77,7 +77,7 @@ var preventiveMaintenanceHistorySchema = new mongoose.Schema({
     custId : String,
     maintenanceType : String,
     dateWhenDone : Date,
-    enginner : String,
+    engineer : String,
     maintenanceID : String,
 });
 
@@ -88,7 +88,7 @@ var upcomingMaintenanceSchema = new mongoose.Schema({
     custId : String,
     maintenanceType : String,
     dateWhenScheduled : Date,
-    enginner : String,
+    engineer : String,
     maintenanceID : String,
 });
 
@@ -187,7 +187,7 @@ app.post('/addCustomerInventory', function(req, res){
 
 
 app.post('/addPMHistory', function(req, res){
-    var newDBEntry = new preventiveMaintenanceHistorySchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'dateWhenDone':req.body.dateWhenDone, 'enginner':req.body.enginner, 'maintenanceID':req.body.maintenanceID}) 
+    var newDBEntry = new preventiveMaintenanceHistorySchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'dateWhenDone':req.body.dateWhenDone, 'engineer':req.body.engineer, 'maintenanceID':req.body.maintenanceID}) 
     newDBEntry.save(function(err, savedUser){
         if(err)
         {
@@ -199,7 +199,7 @@ app.post('/addPMHistory', function(req, res){
 })
 
 app.post('/addupcomingPM', function(req, res){
-    var newDBEntry = new upcomingMaintenanceSchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'dateWhenScheduled':req.body.dateWhenScheduled, 'enginner':req.body.enginner, 'maintenanceID':req.body.maintenanceID}) 
+    var newDBEntry = new upcomingMaintenanceSchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'dateWhenScheduled':req.body.dateWhenScheduled, 'engineer':req.body.engineer, 'maintenanceID':req.body.maintenanceID}) 
     newDBEntry.save(function(err, savedUser){
         if(err)
         {
