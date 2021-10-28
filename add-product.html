@@ -207,7 +207,7 @@
         $.ajax({
             type: 'POST',
             data: { itemName: document.getElementById("myform").elements.itemName.value,
-                    itemCode: document.getElementById("myform").elements.itemCode.value},
+                    quantity: document.getElementById("myform").elements.quantity.value},
             url: "/addStockDetail",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
