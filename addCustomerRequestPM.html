@@ -263,10 +263,10 @@
             url: "/addupcomingPM",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
-               alert(JSON.stringify(data))
+               alert("Data added Successfully")
             },
             error: function (e) {
-              alert("Error: " + JSON.stringify(e))
+              alert("Error while adding data: " + JSON.stringify(e))
             }
           });
       }
