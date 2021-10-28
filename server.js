@@ -67,6 +67,39 @@ var customerInventorySchema = new mongoose.Schema({
     stabilizer : String
 });
 
+
+
+
+
+
+var preventiveMaintenanceHistorySchema = new mongoose.Schema({
+    customerName : String,
+    custId : String,
+    maintenanceType : String,
+    dateWhenDone : String,
+    enginner : String,
+    maintenanceID : String,
+});
+
+
+
+var upcomingMaintenanceSchema = new mongoose.Schema({
+    customerName : String,
+    custId : String,
+    maintenanceType : String,
+    dateWhenScheduled : String,
+    enginner : String,
+    maintenanceID : String,
+});
+
+
+
+
+
+
+
+
+
 var stockDetailsSchema = new mongoose.Schema({
     itemName : String,
     quantity : Number,
@@ -80,6 +113,12 @@ var userLoginSchemaObject = mongoose.model('UserLogin', userLoginSchema,'UserLog
 var customerDetailsSchemaObject = mongoose.model('Customer_Info', customerDetailsSchema,'Customer_Info');
 
 var customerInventorySchemaObject = mongoose.model('Customer_Inventory', customerInventorySchema,'Customer_Inventory');
+
+var preventiveMaintenanceHistorySchemaObject = mongoose.model('PM_History', preventiveMaintenanceHistorySchema,'PM_History');
+
+var upcomingMaintenanceSchemaObject = mongoose.model('Upcoming_PM', upcomingMaintenanceSchema,'Upcoming_PM');
+
+
 
 var stockDetailsSchemaObject = mongoose.model('StockDetails', stockDetailsSchema,'StockDetails');
 
@@ -147,6 +186,31 @@ app.post('/addCustomerInventory', function(req, res){
 })
 
 
+app.post('/addPMHistory', function(req, res){
+    var newDBEntry = new preventiveMaintenanceHistorySchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'dateWhenDone':req.body.dateWhenDone, 'enginner':req.body.enginner, 'maintenanceID':req.body.maintenanceID}) 
+    newDBEntry.save(function(err, savedUser){
+        if(err)
+        {
+            res.json({ error: err.message || err.toString() });
+        }
+        else
+            res.json({message : 'successs'})
+    });
+})
+
+app.post('/addupcomingPM', function(req, res){
+    var newDBEntry = new upcomingMaintenanceSchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'dateWhenScheduled':req.body.dateWhenScheduled, 'enginner':req.body.enginner, 'maintenanceID':req.body.maintenanceID}) 
+    newDBEntry.save(function(err, savedUser){
+        if(err)
+        {
+            res.json({ error: err.message || err.toString() });
+        }
+        else
+            res.json({message : 'successs'})
+    });
+})
+
+
 app.get("/getCustomerDetails",function(req, res) {
     customerDetailsSchemaObject.find({}, function (err, docs) {
         if(err) return next(err);
@@ -172,6 +236,52 @@ app.get("/getCustomerDetails",function(req, res) {
         }
     });
   })
+
+  app.get("/getPMHistory",function(req, res) {
+    preventiveMaintenanceHistorySchemaObject.findOne({ custId: req.query.custId}, function (err, docs) {
+      if (err){
+          res.send(err);
+      }
+      else{
+          //console.log("Result : ", docs);
+          if (docs == null) {
+              res.send('Preventive maintenance history not found.');
+          }
+          else
+          {
+              res.send(docs)
+          }
+      }
+  });
+})
+
+app.get("/getUpcomingPMForCust",function(req, res) {
+    upcomingMaintenanceSchemaObject.findOne({ custId: req.query.custId}, function (err, docs) {
+      if (err){
+          res.send(err);
+      }
+      else{
+          //console.log("Result : ", docs);
+          if (docs == null) {
+              res.send('Upcoming maintenance record not found.');
+          }
+          else
+          {
+              res.send(docs)
+          }
+      }
+  });
+})
+
+app.get("/getAllUpcomingPM",function(req, res) {
+    upcomingMaintenanceSchemaObject.find({}, function (err, docs) {
+        if(err) return next(err);
+        if (docs == null) {
+            res.send('Upcoming maintenance record not found.');
+        }
+        res.send(docs);
+      });
+})
 
 
 app.get("/getStockItems",function(req, res) {
