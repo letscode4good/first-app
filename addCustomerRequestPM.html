@@ -122,7 +122,7 @@
             </div>
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
-                <form id = "myform" class="tm-edit-product-form" action="#" onsubmit="return func();>
+                <form id = "myform" action="javascript:;" onsubmit="myfun() class="tm-edit-product-form" >
                     <div class="row">
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
@@ -252,7 +252,7 @@
 
 
 
-                function myfunc() {
+                function myfun() {
                 var data = $(this).serialize();
                 $.ajax({
                     type: "POST",
@@ -270,8 +270,7 @@
                         //console.log("ERROR : ", e);
                     }
                 });
-                return true;
-            }
+            };
     </script>
   </body>
 </html>
