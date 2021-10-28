@@ -122,7 +122,7 @@
             </div>
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
-                <form action="/addupcomingPM" class="tm-edit-product-form" method="POST">
+                <form id = "myform" action="" class="tm-edit-product-form" method="POST">
                     <div class="row">
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
@@ -206,7 +206,7 @@
               </div>
               </div>
               <div class="col-12">
-                <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Customer</button>
+                <button id ="submit" type="submit" class="btn btn-primary btn-block text-uppercase">Add Customer PM</button>
               </div>
             </form>
             </div>
@@ -249,6 +249,34 @@
                 }
             });
       });
+
+
+
+      $("#submit").click(function (event) {
+                //stop submit the form, we will post it manually.
+                event.preventDefault();
+         
+                // Get form
+                var form = $('#myform')[0];
+         
+                // FormData object 
+                var data = new FormData(form);
+         
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "/addupcomingPM",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) { 
+                        console.log("SUCCESS : ", data); 
+                    },
+                    error: function (e) {
+                        console.log("ERROR : ", e);
+                    }
+                });
+            });
     </script>
   </body>
 </html>
