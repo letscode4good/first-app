@@ -123,7 +123,7 @@
             </div>
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
-                <form action="/addCustomerDetail" class="tm-edit-product-form" method="POST">
+                <form class="tm-edit-product-form" id = "myform" action="javascript:;" onsubmit="myfun()" >
                   <div class="row">
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
@@ -270,6 +270,30 @@
                 }
             });
       });
+
+      function myfun()
+      {
+        $.ajax({
+            type: 'POST',
+            data: { custId: document.getElementById("myform").elements.custId.value,
+                    customerName: document.getElementById("myform").elements.custName.value, 
+                    address: document.getElementById("myform").elements.custAddress.value, 
+                    email: document.getElementById("myform").elements.custEmail.value, 
+                    officialphone: document.getElementById("myform").elements.custOfficialPhone.value, 
+                    contactperson: document.getElementById("myform").elements.contactPersonName.value,
+                    contactpersonphone: document.getElementById("myform").elements.contactPersonPhone.value},
+            url: "/addCustomerDetail",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+               alert("Data added Successfully")
+               document.getElementById('myform').reset();
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+      }
+
     </script>
   </body>
 </html>
