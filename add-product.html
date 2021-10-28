@@ -122,7 +122,7 @@
             </div>
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
-                <form action="/addStockDetail" class="tm-edit-product-form" method="POST">
+                <form  id = "myform" action="javascript:;" onsubmit="myfun()" class="tm-edit-product-form" >
                   <div class="form-group mb-3">
                     <label
                       for="itemName"
@@ -200,6 +200,25 @@
                     alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
                 }
             });
+
+      function myfun()
+      {
+        $.ajax({
+            type: 'POST',
+            data: { itemName: document.getElementById("myform").elements.itemName.value,
+                    itemCode: document.getElementById("myform").elements.itemCode.value},
+            url: "/addStockDetail",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+               alert("Stock details added Successfully")
+               document.getElementById('myform').reset();
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+      }
+
       });
     </script>
   </body>
