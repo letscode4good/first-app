@@ -276,12 +276,12 @@
         $.ajax({
             type: 'POST',
             data: { custId: document.getElementById("myform").elements.custId.value,
-                    customerName: document.getElementById("myform").elements.custName.value, 
-                    address: document.getElementById("myform").elements.custAddress.value, 
-                    email: document.getElementById("myform").elements.custEmail.value, 
-                    officialphone: document.getElementById("myform").elements.custOfficialPhone.value, 
-                    contactperson: document.getElementById("myform").elements.contactPersonName.value,
-                    contactpersonphone: document.getElementById("myform").elements.contactPersonPhone.value},
+                    custName: document.getElementById("myform").elements.custName.value, 
+                    custAddress: document.getElementById("myform").elements.custAddress.value, 
+                    custEmail: document.getElementById("myform").elements.custEmail.value, 
+                    custOfficialPhone: document.getElementById("myform").elements.custOfficialPhone.value, 
+                    contactPersonName: document.getElementById("myform").elements.contactPersonName.value,
+                    contactPersonPhone: document.getElementById("myform").elements.contactPersonPhone.value},
             url: "/addCustomerDetail",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
