@@ -254,11 +254,9 @@
                 function myfun(theForm) {
                 $.ajax({
                     type: "POST",
-                    enctype: 'multipart/form-data',
+                    contentType: "text/plain",
                     url: "/addupcomingPM",
-                    data: { custId: theForm.custId, customerName:theForm.custId.customerName},
-                    processData: false,
-                    contentType: false,
+                    data: { custId: theForm.custId, customerName:theForm.customerName},
                     success: function (res) { 
                         //console.log("SUCCESS : ", data); 
                         alert(res)
