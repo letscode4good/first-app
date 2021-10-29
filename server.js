@@ -153,8 +153,8 @@ app.post('/addStockDetail', function(req, res){
 })
 
 app.post('/addStatusDetail', function(req, res){
-    var newDBEntry = new statusDetailsSchemaObject({'date': req.body.date , 'name': req.body.name , 'status':req.body.status}) 
-    
+    session = req.session;
+    var newDBEntry = new statusDetailsSchemaObject({'date': req.body.statusDate , 'name': session.userName , 'status':req.body.status}) 
     newDBEntry.save(function(err, savedUser){
         if(err)
             res.json({message : 'failures'})
@@ -393,9 +393,7 @@ app.post('/login', function(req, res){
                 session.userType=req.body.userType;
                 session.userName = docs.userName;
                 //res.sendFile(__dirname+'/index.html')
-                console.log(session.userName)
-                res.send(session.userName)
-                //res.redirect('/index.html')
+                res.redirect('/index.html')
             }
             //res.send(docs);
         }

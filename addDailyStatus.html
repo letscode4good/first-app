@@ -129,7 +129,7 @@
                             for="statusDate"
                             >Select Date
                           </label>
-                          <input type="date" id="statusDate" name="statusDate">
+                          <input class="form-control validate"  type="date" id="statusDate" name="statusDate">
                         </div>
                   </div>
 
@@ -177,19 +177,16 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
     <script>
-      $(function() {
-        $("#expire_date").datepicker();
-
       function myfun()
       {
         $.ajax({
             type: 'POST',
-            data: { itemName: document.getElementById("myform").elements.itemName.value,
-                    quantity: document.getElementById("myform").elements.quantity.value},
-            url: "/addStockDetail",
+            data: { statusDate: document.getElementById("myform").elements.statusDate.value,
+                    status: document.getElementById("myform").elements.status.value},
+            url: "/addStatusDetail",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
-               alert("Stock details added Successfully")
+               alert("Daily status detail added successfully")
                document.getElementById('myform').reset();
             },
             error: function (e) {
