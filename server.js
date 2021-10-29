@@ -67,11 +67,6 @@ var customerInventorySchema = new mongoose.Schema({
     stabilizer : String
 });
 
-
-
-
-
-
 var preventiveMaintenanceHistorySchema = new mongoose.Schema({
     customerName : String,
     custId : String,
@@ -93,17 +88,16 @@ var upcomingMaintenanceSchema = new mongoose.Schema({
 });
 
 
-
-
-
-
-
-
-
 var stockDetailsSchema = new mongoose.Schema({
     itemName : String,
     quantity : Number,
     itemCode : String
+});
+
+var statusDetailsSchema = new mongoose.Schema({
+    date : String,
+    name : Number,
+    status : String
 });
 
 var userDetailsSchemaObject = mongoose.model('UserDetails', userDetailsSchema,'UserDetails');
@@ -118,9 +112,9 @@ var preventiveMaintenanceHistorySchemaObject = mongoose.model('PM_History', prev
 
 var upcomingMaintenanceSchemaObject = mongoose.model('Upcoming_PM', upcomingMaintenanceSchema,'Upcoming_PM');
 
-
-
 var stockDetailsSchemaObject = mongoose.model('StockDetails', stockDetailsSchema,'StockDetails');
+var statusDetailsSchemaObject = mongoose.model('StatusDetails', statusDetailsSchema,'StatusDetails');
+
 
 app.post('/addUserDetail', function(req, res){
     var newDBEntry = new userDetailsSchemaObject({'fName' : req.body.fName, 'lName': req.body.lName, 'userId': req.body.userId , 'emailId': req.body.emailId, 'phoneNumber': req.body.phoneNumber}) 
@@ -157,6 +151,16 @@ app.post('/addStockDetail', function(req, res){
     });
 })
 
+app.post('/addStatusDetail', function(req, res){
+    var newDBEntry = new statusDetailsSchemaObject({'date': req.body.date , 'name': req.body.name , 'status':req.body.status}) 
+    
+    newDBEntry.save(function(err, savedUser){
+        if(err)
+            res.json({message : 'failures'})
+        else
+            res.json({message : 'successs'})
+    });
+})
 
 app.post('/addCustomerDetail', function(req, res){
     var newDBEntry = new customerDetailsSchemaObject({'customerName': req.body.custName , 'custId' : req.body.custId, 'address': req.body.custAddress , 'email':req.body.custEmail, 'officialphone':req.body.custOfficialPhone, 'contactperson':req.body.contactPersonName, 'contactpersonphone':req.body.contactPersonPhone     }) 
@@ -312,6 +316,14 @@ app.get("/getStockItems",function(req, res) {
         res.send(docs);
       });
   })
+
+
+app.get("/getStatusDetail",function(req, res) {
+    statusDetailsSchemaObject.find({}, function (err, docs) {
+        if(err) return next(err);
+        res.send(docs);
+      });
+})
 
 app.post('/addNewStock', function(req, res){
     var newDBEntry = new stockDetailsSchemaObject({'itemName' : req.body.itemName, 'quantity': req.body.quantity, 'itemCode': req.body.itemCode}) 

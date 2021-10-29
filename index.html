@@ -106,6 +106,26 @@
             <div class="row tm-content-row">
                 <div class="col-12 tm-block-col">
 
+                    <div class="tm-product-table-container">
+                        <table id= "stockTable" class="table table-hover tm-table-small tm-product-table">
+                          <thead>
+                            <tr>
+                              <th scope="col">Date</th>
+                              <th scope="col">Name</th>
+                              <th scope="col">Status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            
+                            
+                          </tbody>
+                        </table>
+                      </div>
+          
+
+
+
+
                 </div>
             </div>
         </div>
@@ -128,29 +148,48 @@
     <!-- https://getbootstrap.com/ -->
     <script src="js/tooplate-scripts.js"></script>
     <script>
-        Chart.defaults.global.defaultFontColor = 'white';
-        let ctxLine,
-            ctxBar,
-            ctxPie,
-            optionsLine,
-            optionsBar,
-            optionsPie,
-            configLine,
-            configBar,
-            configPie,
-            lineChart;
-        barChart, pieChart;
-        // DOM is ready
-        $(function () {
-            drawLineChart(); // Line Chart
-            drawBarChart(); // Bar Chart
-            drawPieChart(); // Pie Chart
 
-            $(window).resize(function () {
-                updateLineChart();
-                updateBarChart();                
-            });
-        })
+      $(function() {
+        $(".tm-product-name").on("click", function() {
+          window.location.href = "edit-product.html";
+        });
+
+        $("#stockTable").DataTable();
+
+        loadData();
+        function loadData() {
+          $.ajax({
+            type: 'GET',
+            url: "/getStatusDetail",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (data) {
+              myJsonData = data;
+              populateDataTable(myJsonData);
+            },
+            error: function (e) {
+              console.log("There was an error with your request...");
+              console.log("error: " + JSON.stringify(e));
+            }
+          });
+        }
+
+        // populate the data table with JSON data
+        function populateDataTable(data) {
+          console.log("populating data table...");
+          // clear the table before populating it with more data
+          $("#stockTable").DataTable().clear();
+          var length = Object.keys(data).length;
+          for(var i = 0; i < length; i++) {
+            // You could also use an ajax property on the data table initialization
+            $('#stockTable').dataTable().fnAddData( [
+              data[i].date,
+              data[i].name,
+              data[i].status,
+            ]);
+          }
+        }
+      });
     </script>
 </body>
 
