@@ -96,7 +96,7 @@ var stockDetailsSchema = new mongoose.Schema({
 
 var statusDetailsSchema = new mongoose.Schema({
     date : String,
-    name : Number,
+    name : String,
     status : String
 });
 
