@@ -40,7 +40,8 @@ var userDetailsSchema = new mongoose.Schema({
 var userLoginSchema = new mongoose.Schema({
     userId : String,
     password : String,
-    userType : String
+    userType : String,
+    userName : String
 });
 
 
@@ -128,7 +129,7 @@ app.post('/addUserDetail', function(req, res){
 })
 
 app.post('/addUserLogin', function(req, res){
-    var newDBEntry = new userLoginSchemaObject({'userId': req.body.userId , 'password': req.body.password , 'userType':req.body.userType}) 
+    var newDBEntry = new userLoginSchemaObject({'userId': req.body.userId , 'password': req.body.password , 'userType':req.body.userType, 'userName':req.body.userName}) 
     
     newDBEntry.save(function(err, savedUser){
         if(err)
@@ -387,7 +388,9 @@ app.post('/login', function(req, res){
                 session=req.session;
                 session.userId=req.body.userId;
                 session.userType=req.body.userType;
+                session.userName = docs.userName;
                 //res.sendFile(__dirname+'/index.html')
+                console.log(session.userName)
                 res.redirect('/index.html')
             }
             //res.send(docs);
