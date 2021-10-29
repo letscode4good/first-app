@@ -394,7 +394,8 @@ app.post('/login', function(req, res){
                 session.userName = docs.userName;
                 //res.sendFile(__dirname+'/index.html')
                 console.log(session.userName)
-                res.redirect('/index.html')
+                res.send(session.userName)
+                //res.redirect('/index.html')
             }
             //res.send(docs);
         }
