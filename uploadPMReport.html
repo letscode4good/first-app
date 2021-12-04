@@ -186,9 +186,9 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
     <script>
+        var imageBase64;
       function myfun()
       {
-        var imageBase64 = ""
         $.ajax({
             type: 'POST',
             data: { maintenanceID: document.getElementById("myform").elements.maintenanceID.value,
