@@ -370,6 +370,7 @@ app.get('/upcomingPlannedPM.html', (req, res) => res.sendfile(__dirname+'/upcomi
 app.get('/allupcomingPM.html', (req, res) => res.sendfile(__dirname+'/allupcomingPM.html'))
 app.get('/addCustomerRequestPM.html', (req, res) => res.sendfile(__dirname+'/addCustomerRequestPM.html'))
 app.get('/addDailyStatus.html', (req, res) => res.sendfile(__dirname+'/addDailyStatus.html'))
+app.get('/uploadPMReport.html', (req, res) => res.sendfile(__dirname+'/uploadPMReport.html'))
 
 
 
