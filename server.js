@@ -101,6 +101,12 @@ var statusDetailsSchema = new mongoose.Schema({
     status : String
 });
 
+var pmImagesSchema = new mongoose.Schema({
+    maintenanceID : String,
+    serviceReport : String,
+    imageData : String
+});
+
 var userDetailsSchemaObject = mongoose.model('UserDetails', userDetailsSchema,'UserDetails');
 
 var userLoginSchemaObject = mongoose.model('UserLogin', userLoginSchema,'UserLogin');
@@ -116,6 +122,7 @@ var upcomingMaintenanceSchemaObject = mongoose.model('Upcoming_PM', upcomingMain
 var stockDetailsSchemaObject = mongoose.model('StockDetails', stockDetailsSchema,'StockDetails');
 var statusDetailsSchemaObject = mongoose.model('StatusDetails', statusDetailsSchema,'StatusDetails');
 
+var pmImagesSchemaObject = mongoose.model('PM_Images', pmImagesSchema,'PM_Images');
 
 app.post('/addUserDetail', function(req, res){
     var newDBEntry = new userDetailsSchemaObject({'fName' : req.body.fName, 'lName': req.body.lName, 'userId': req.body.userId , 'emailId': req.body.emailId, 'phoneNumber': req.body.phoneNumber}) 
@@ -162,6 +169,19 @@ app.post('/addStatusDetail', function(req, res){
             res.json({message : 'successs'})
     });
 })
+
+app.post('/addPMImages', function(req, res){
+    session = req.session;
+    var newDBEntry = new pmImagesSchemaObject({'maintenanceID': req.body.maintenanceID , 'serviceReport': req.body.serviceReport , 'imageData':req.body.imageData}) 
+    newDBEntry.save(function(err, savedUser){
+        if(err)
+            res.json({message : 'failures'})
+        else
+            res.json({message : 'successs'})
+    });
+})
+
+
 
 app.post('/addCustomerDetail', function(req, res){
     var newDBEntry = new customerDetailsSchemaObject({'customerName': req.body.custName , 'custId' : req.body.custId, 'address': req.body.custAddress , 'email':req.body.custEmail, 'officialphone':req.body.custOfficialPhone, 'contactperson':req.body.contactPersonName, 'contactpersonphone':req.body.contactPersonPhone     }) 
@@ -321,6 +341,13 @@ app.get("/getStockItems",function(req, res) {
 
 app.get("/getStatusDetail",function(req, res) {
     statusDetailsSchemaObject.find({}, function (err, docs) {
+        if(err) return next(err);
+        res.send(docs);
+      });
+})
+
+app.get("/getPMImages",function(req, res) {
+    pmImagesSchemaObject.find({}, function (err, docs) {
         if(err) return next(err);
         res.send(docs);
       });

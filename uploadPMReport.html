@@ -123,27 +123,34 @@
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
                 <form  id = "myform" action="javascript:;" onsubmit="myfun()" class="tm-edit-product-form" >
-
-                    <input type="file" onchange="uploadFile(this)" />
                     <div class="row">
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
-                            for="statusDate"
-                            >Select Date
+                            for="imageData"
+                            >Upload Image
                           </label>
-                          <input class="form-control validate"  type="date" id="statusDate" name="statusDate">
+                          <input class="form-control validate" id="imageData" name="imageData" type="file" onchange="uploadFile(this)" />
+                        </div>
+                  </div>    
+                    <div class="row">
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="maintenanceID"
+                            >Enter Maintenace ID
+                          </label>
+                          <input class="form-control validate"  type="input" id="maintenanceID" name="maintenanceID">
                         </div>
                   </div>
 
                   <div class="row">
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
-                            for="status"
-                            >Add Status
+                            for="serviceReport"
+                            >Is Service report
                           </label>
                           <input
-                            id="status"
-                            name="status"
+                            id="serviceReport"
+                            name="serviceReport"
                             type="text"
                             class="form-control validate"
                             required
@@ -181,14 +188,16 @@
     <script>
       function myfun()
       {
+        var imageBase64 = ""
         $.ajax({
             type: 'POST',
-            data: { statusDate: document.getElementById("myform").elements.statusDate.value,
-                    status: document.getElementById("myform").elements.status.value},
-            url: "/addStatusDetail",
+            data: { maintenanceID: document.getElementById("myform").elements.maintenanceID.value,
+                    serviceReport: document.getElementById("myform").elements.serviceReport.value
+                    imageData: imageBase64},
+            url: "/addPMImages",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
-               alert("Daily status detail added successfully")
+               alert("Image added successfully")
                document.getElementById('myform').reset();
             },
             error: function (e) {
@@ -203,16 +212,10 @@
         var reader = new FileReader();
         reader.onloadend = function() {
             console.log('Encoded Base 64 File String:', reader.result);
-            
-            /******************* for Binary ***********************/
-            var data=(reader.result).split(',')[1];
-            var binaryBlob = atob(data);
-            console.log('Encoded Binary File String:', binaryBlob);
+            imageBase64 = reader.result;
         }
         reader.readAsDataURL(file);
         }
-
-
 
     </script>
   </body>
