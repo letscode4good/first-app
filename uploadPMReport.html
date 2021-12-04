@@ -195,7 +195,7 @@
                     serviceReport: document.getElementById("myform").elements.serviceReport.value,
                     imageData: imageBase64},
             url: "/addPMImages",
-            contentType: "application/x-www-form-urlencoded",
+            contentType: "multipart/form-data",
             success: function (data) {
                alert("Image added successfully")
                document.getElementById('myform').reset();
