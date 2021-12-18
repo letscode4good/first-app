@@ -16,13 +16,21 @@ const sessions = require('express-session');
 app.use(cookieParser());
 
 var session;
-
 app.use(sessions({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
     saveUninitialized:true,
     cookie: { maxAge: 1000 * 60 * 60 * 2},
     resave: false 
 }));
+
+const Multer = require('multer');
+  
+  const multer = Multer({
+    storage: Multer.MemoryStorage,
+    limits: {
+      fileSize: 10 * 1024 * 1024, // Maximum file size is 10MB
+    },
+  });
 
 var mongoose = require('mongoose');
 
@@ -123,6 +131,42 @@ var stockDetailsSchemaObject = mongoose.model('StockDetails', stockDetailsSchema
 var statusDetailsSchemaObject = mongoose.model('StatusDetails', statusDetailsSchema,'StatusDetails');
 
 var pmImagesSchemaObject = mongoose.model('PM_Images', pmImagesSchema,'PM_Images');
+
+
+// By default, the client will authenticate using the service account file
+// specified by the GOOGLE_APPLICATION_CREDENTIALS environment variable and use
+// the project specified by the GOOGLE_CLOUD_PROJECT environment variable. See
+// https://github.com/GoogleCloudPlatform/google-cloud-node/blob/master/docs/authentication.md
+// These environment variables are set automatically on Google App Engine
+const {Storage} = require('@google-cloud/storage');
+// Instantiate a storage client
+const storage = new Storage();
+
+// Process the file upload and upload to Google Cloud Storage.
+app.post('/upload', multer.single('file'), (req, res, next) => {
+    if (!req.file) {
+      res.status(400).send('No file uploaded.');
+      return;
+    }
+  
+    // Create a new blob in the bucket and upload the file data.
+    const blob = bucket.file(req.file.originalname);
+    const blobStream = blob.createWriteStream();
+  
+    blobStream.on('error', err => {
+      next(err);
+    });
+  
+    blobStream.on('finish', () => {
+      // The public URL can be used to directly access the file via HTTP.
+      const publicUrl = format(
+        `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+      );
+      res.status(200).send(publicUrl);
+    });
+  
+    blobStream.end(req.file.buffer);
+  });
 
 app.post('/addUserDetail', function(req, res){
     var newDBEntry = new userDetailsSchemaObject({'fName' : req.body.fName, 'lName': req.body.lName, 'userId': req.body.userId , 'emailId': req.body.emailId, 'phoneNumber': req.body.phoneNumber}) 
