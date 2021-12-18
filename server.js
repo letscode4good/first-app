@@ -153,6 +153,7 @@ app.post('/upload', multer.single('file'), (req, res, next) => {
     if (!req.file) {
       res.status(400).send('No file uploaded.');
       return;
+      
     }
   
     // Create a new blob in the bucket and upload the file data.
