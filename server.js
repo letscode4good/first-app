@@ -23,12 +23,13 @@ app.use(sessions({
     resave: false 
 }));
 
+
 const Multer = require('multer');
   
   const multer = Multer({
     storage: Multer.MemoryStorage,
     limits: {
-      fileSize: 10 * 1024 * 1024, // Maximum file size is 10MB
+      fileSize: 5 * 1024 * 1024, // Maximum file size is 10MB
     },
   });
 
@@ -140,7 +141,12 @@ var pmImagesSchemaObject = mongoose.model('PM_Images', pmImagesSchema,'PM_Images
 // These environment variables are set automatically on Google App Engine
 const {Storage} = require('@google-cloud/storage');
 // Instantiate a storage client
-const storage = new Storage();
+const storage = new Storage(
+    {
+        projectId: process.env.GOOGLE_CLOUD_PROJECT,
+        keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+      }
+);
 
 // Process the file upload and upload to Google Cloud Storage.
 app.post('/upload', multer.single('file'), (req, res, next) => {
