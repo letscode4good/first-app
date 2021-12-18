@@ -139,6 +139,7 @@ var pmImagesSchemaObject = mongoose.model('PM_Images', pmImagesSchema,'PM_Images
 // the project specified by the GOOGLE_CLOUD_PROJECT environment variable. See
 // https://github.com/GoogleCloudPlatform/google-cloud-node/blob/master/docs/authentication.md
 // These environment variables are set automatically on Google App Engine
+const {format} = require('util');
 const {Storage} = require('@google-cloud/storage');
 // Instantiate a storage client
 const storage = new Storage(
