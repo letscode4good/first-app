@@ -147,13 +147,15 @@ const storage = new Storage(
         keyFilename: process.env.GOOGLE_CREDENTIALS,
       }
 );
+const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);
+
 
 // Process the file upload and upload to Google Cloud Storage.
 app.post('/upload', multer.single('file'), (req, res, next) => {
     if (!req.file) {
       res.status(400).send('No file uploaded.');
       return;
-      
+
     }
   
     // Create a new blob in the bucket and upload the file data.
