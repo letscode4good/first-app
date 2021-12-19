@@ -450,6 +450,9 @@ app.get('/upcomingCustomerPM.html', (req, res) => res.sendfile(__dirname+'/upcom
 app.get('/upcomingPlannedPM.html', (req, res) => res.sendfile(__dirname+'/upcomingPlannedPM.html'))
 app.get('/allupcomingPM.html', (req, res) => res.sendfile(__dirname+'/allupcomingPM.html'))
 app.get('/addCustomerRequestPM.html', (req, res) => res.sendfile(__dirname+'/addCustomerRequestPM.html'))
+
+app.get('/completedPlannedPM.html', (req, res) => res.sendfile(__dirname+'/completedPlannedPM.html'))
+
 app.get('/addDailyStatus.html', (req, res) => res.sendfile(__dirname+'/addDailyStatus.html'))
 app.get('/uploadPMReport.html', (req, res) => res.sendfile(__dirname+'/uploadPMReport.html'))
 
