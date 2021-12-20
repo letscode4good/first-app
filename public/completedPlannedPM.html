@@ -138,14 +138,14 @@
             <!--   try adding customer inventory table on nclick  -->
             <div id="inventoryDiv" class="modal-container" style = "font-size: 62.5%;">
               
-                <div id="demo" class="carousel slide" data-ride="carousel">
-                    <ul class="carousel-indicators">
-                      <li data-target="#demo" data-slide-to="0" class="active"></li>
-                      <li data-target="#demo" data-slide-to="1"></li>
-                      <li data-target="#demo" data-slide-to="2"></li>
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <ul id="imageIndicator" class="carousel-indicators">
+                      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                      <li data-target="#myCarousel" data-slide-to="1"></li>
+                      <li data-target="#myCarousel" data-slide-to="2"></li>
                     </ul>
                     <div class="carousel-inner">
-                      <div class="carousel-item active">
+                      <div id="imageList" class="carousel-item active">
                         <img src="img/notification-01.jpg" alt="Los Angeles" width="1100" height="500">
                         <div class="carousel-caption">
                           <h3>Los Angeles</h3>
@@ -159,25 +159,12 @@
                          
                         </div>   
                       </div>
-                      <div class="carousel-item">
-                        <img src="img/notification-03.jpg" alt="New York" width="1100" height="500">
-                        <div class="carousel-caption">
-                          <h3>New York</h3>
-                          
-                        </div>   
-                      </div>
-                      <div class="carousel-item">
-                        <img src="img/avatar.png" alt="New York" width="1100" height="500">
-                        <div class="carousel-caption">
-                          <h3>New York</h3>
-                          
-                        </div>   
-                      </div>
+                      
                     </div>
-                    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                    <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
                       <span class="carousel-control-prev-icon"></span>
                     </a>
-                    <a class="carousel-control-next" href="#demo" data-slide="next">
+                    <a class="carousel-control-next" href="#myCarousel" data-slide="next">
                       <span class="carousel-control-next-icon"></span>
                     </a>
                   </div>
@@ -262,21 +249,22 @@
       {
         location.href = "#inventoryDiv";
         //$("#custInventory").DataTable().clear();
-        //loadInventoryData(cutomerID);
+        loadImages(cutomerID);
         
         document.getElementById("inventoryDiv").style.opacity = "1";
 
       }
 
-      function loadInventoryData(cutomerID) {
+      function loadImages(maintenanceID) {
           $.ajax({
             type: 'GET',
-            data: { custId: cutomerID },
-            url: "/getCustomerInventory",
+            data: { maintenanceID: maintenanceID },
+            url: "/getPMImages",
             contentType: "text/plain",
             dataType: 'json',
             success: function (data) {
               myJsonData = data;
+              console.log("error: " + JSON.stringify(myJsonData));
               populateInventoryTable(myJsonData);
             },
             error: function (e) {
@@ -289,20 +277,20 @@
         // populate the data table with JSON data
         function populateInventoryTable(data) {
           console.log("populating data table...");
-          // clear the table before populating it with more data
-          $("#custInventory").DataTable().clear();
-            // You could also use an ajax property on the data table initialization
-            $('#custInventory').dataTable().fnAddData( [
-              data.customerName,
-              data.installDate,
-              data.upsName,
-              data.upsCapacity,
-              data.batteryName,
-              data.batteryCapacity,
-              data.numOfBattery,
-              data.stabilizer
-            ]); 
-        }
+          
+          var response = '',
+            indicator = '';
+            for (var i = 0; i < data.d.results.length; i++) {
+                response += '<div class="item"><img src="' + data.d.results[i].imageLink + '"><div class="carousel-caption"><h3>' + data.d.results[i].maintenanceID + '</div></div>';
+                indicator += '<li data-target="#myCarousel" data-slide-to="'+i+'"></li>';
+            }
+            $('#imageList').append(response);
+            $('#imageIndicators').append(indicator);
+            $('.item').first().addClass('active');
+            $('.carousel-indicators > li').first().addClass('active');
+            $("#myCarousel").carousel();
+
+            }
 
       function onCloseInventory() 
       {
