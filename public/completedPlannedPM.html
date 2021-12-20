@@ -280,7 +280,7 @@
           
           var response = '',
             indicator = '';
-            for (var i = 0; i < data.d.results.length; i++) {
+            for (var i = 0; i < data.length; i++) {
                 response += '<div class="item"><img src="' + data.d.results[i].imageLink + '"><div class="carousel-caption"><h3>' + data.d.results[i].maintenanceID + '</div></div>';
                 indicator += '<li data-target="#myCarousel" data-slide-to="'+i+'"></li>';
             }
