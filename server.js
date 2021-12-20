@@ -113,7 +113,7 @@ var statusDetailsSchema = new mongoose.Schema({
 var pmImagesSchema = new mongoose.Schema({
     maintenanceID : String,
     serviceReport : String,
-    imageData : String
+    imageLink : String
 });
 
 var userDetailsSchemaObject = mongoose.model('UserDetails', userDetailsSchema,'UserDetails');
@@ -226,7 +226,7 @@ app.post('/addStatusDetail', function(req, res){
 
 app.post('/addPMImages', function(req, res){
     session = req.session;
-    var newDBEntry = new pmImagesSchemaObject({'maintenanceID': req.body.maintenanceID , 'serviceReport': req.body.serviceReport , 'imageData':req.body.imageData}) 
+    var newDBEntry = new pmImagesSchemaObject({'maintenanceID': req.body.maintenanceID , 'serviceReport': req.body.serviceReport , 'imageLink':req.body.imageLink}) 
     newDBEntry.save(function(err, savedUser){
         if(err)
             res.json({message : 'failures'})
@@ -401,8 +401,19 @@ app.get("/getStatusDetail",function(req, res) {
 })
 
 app.get("/getPMImages",function(req, res) {
-    pmImagesSchemaObject.find({}, function (err, docs) {
+    pmImagesSchemaObject.find({maintenanceID: req.query.maintenanceID}, function (err, docs) {
         if(err) return next(err);
+        res.send(docs);
+      });
+})
+
+
+app.get("/getAllUpcomingCustPM",function(req, res) {
+    upcomingMaintenanceSchemaObject.find({ maintenanceType: 'Customer'}, function (err, docs) {
+        if(err) return next(err);
+        if (docs == null) {
+            res.send('Upcoming customer requested maintenance record not found.');
+        }
         res.send(docs);
       });
 })
