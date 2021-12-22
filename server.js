@@ -437,7 +437,7 @@ app.get('/',(req,res) => {
         res.sendFile(__dirname+'/index.html')
     }
     else if(session.userId && (session.userType == 'engineer')){
-        res.sendFile(__dirname+'/accounts.html')
+        res.sendFile(__dirname+'/addDailyStatus.html')
     }
     else
         res.sendFile(__dirname+'/login.html')
