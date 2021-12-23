@@ -489,7 +489,7 @@ app.post('/login', function(req, res){
                 session.userType=req.body.userType;
                 session.userName = docs.userName;
                 //res.sendFile(__dirname+'/index.html')
-                res.redirect('/index.html')
+                res.redirect('/')
             }
             //res.send(docs);
         }
