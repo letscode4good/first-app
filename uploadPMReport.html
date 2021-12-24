@@ -202,7 +202,8 @@
             type: 'POST',
             data: { file: imageData.files[0]},
             url: "/upload",
-            contentType: "application/x-www-form-urlencoded",
+            contentType: false,
+            processData: false,
             success: function (data) {
                alert("Image added successfully")
                document.getElementById('myform').reset();
