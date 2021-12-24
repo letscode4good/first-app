@@ -153,14 +153,14 @@ const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);
 
 // Process the file upload and upload to Google Cloud Storage.
 app.post('/upload', multer.single('file'), (req, res, next) => {
-    if (!req.file) {
+    if (!req.body.file) {
       res.status(400).send('No file uploaded.');
       return;
 
     }
   
     // Create a new blob in the bucket and upload the file data.
-    const blob = bucket.file(req.file.originalname);
+    const blob = bucket.file(req.body.file.originalname);
     const blobStream = blob.createWriteStream();
   
     blobStream.on('error', err => {
@@ -175,7 +175,7 @@ app.post('/upload', multer.single('file'), (req, res, next) => {
       res.status(200).send(publicUrl);
     });
   
-    blobStream.end(req.file.buffer);
+    blobStream.end(req.body.file.buffer);
   });
 
 app.post('/addUserDetail', function(req, res){
