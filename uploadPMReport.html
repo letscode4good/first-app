@@ -218,13 +218,13 @@
           document.getElementById("myform").elements.maintenanceID.value = mID;
       }
 
-      function addImageInfoInDB(data)
+      function addImageInfoInDB(imageUrl)
       {
         $.ajax({
             type: 'POST',
             data: { maintenanceID: document.getElementById("myform").elements.maintenanceID.value,
                     serviceReport: document.getElementById("myform").elements.serviceReport.value,
-                    imageData: data},
+                    imageLink: imageUrl},
             url: "/addPMImages",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
