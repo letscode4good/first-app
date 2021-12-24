@@ -122,7 +122,6 @@
                     <th scope="col">Schedule Date</th>
                     <th scope="col">Enginner Assigned</th>
                     <th scope="col">Maintenance ID</th>
-                    <th scope="col">Complete task</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -220,8 +219,7 @@
               data[i].maintenanceType,
               data[i].dateWhenScheduled,
               data[i].engineer,
-              data[i].maintenanceID,
-              "<a href=/"/uploadPMReport.html/">Upload report</a>"
+              data[i].maintenanceID
             ]);
           }
         }
@@ -231,11 +229,14 @@
 
       function showInventory(cutomerID) 
       {
-        location.href = "#inventoryDiv";
-        $("#custInventory").DataTable().clear();
-        loadInventoryData(cutomerID);
+        var favoritemovie = "Shrek";
+        sessionStorage.setItem(cutomerID, favoritemovie);
+        location.replace("/uploadPMReport.html")
+        //location.href = "#inventoryDiv";
+        //$("#custInventory").DataTable().clear();
+        //loadInventoryData(cutomerID);
         
-        document.getElementById("inventoryDiv").style.opacity = "1";
+        //document.getElementById("inventoryDiv").style.opacity = "1";
 
       }
 

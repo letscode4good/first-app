@@ -187,6 +187,14 @@
     <!-- https://getbootstrap.com/ -->
     <script>
         var imageBase64;
+
+        $(function() {
+          var favoritemovie = sessionStorage.getItem("favoriteMovie");
+          console.log(favoritemovie);
+          document.getElementById("myform").elements.maintenanceID.value = favoritemovie;
+        });
+
+
       function myfun()
       {
         $.ajax({
