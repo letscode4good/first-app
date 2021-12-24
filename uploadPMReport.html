@@ -208,6 +208,7 @@
             processData: false,
             success: function (data) {
                alert("Image added successfully")
+               addImageInfoInDB(data);
                document.getElementById('myform').reset();
             },
             error: function (e) {
@@ -215,6 +216,26 @@
             }
           });
           document.getElementById("myform").elements.maintenanceID.value = mID;
+      }
+
+      function addImageInfoInDB(data)
+      {
+        $.ajax({
+            type: 'POST',
+            data: { maintenanceID: document.getElementById("myform").elements.maintenanceID.value,
+                    serviceReport: document.getElementById("myform").elements.serviceReport.value,
+                    imageData: data},
+            url: "/addPMImages",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+               alert("Image info added in DB")
+               document.getElementById('myform').reset();
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+        
       }
 
 
