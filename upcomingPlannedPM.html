@@ -229,8 +229,8 @@
 
       function showInventory(cutomerID) 
       {
-        var favoritemovie = "Shrek";
-        sessionStorage.setItem("favoriteMovie", favoritemovie);
+        var mID = cutomerID;
+        sessionStorage.setItem("maintenanceID", mID);
         location.replace("/uploadPMReport.html")
         //location.href = "#inventoryDiv";
         //$("#custInventory").DataTable().clear();

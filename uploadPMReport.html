@@ -138,7 +138,7 @@
                             for="maintenanceID"
                             >Enter Maintenace ID
                           </label>
-                          <input class="form-control validate"  type="input" id="maintenanceID" name="maintenanceID">
+                          <input class="form-control validate"  type="input" id="maintenanceID" name="maintenanceID" disabled>
                         </div>
                   </div>
 
@@ -189,9 +189,9 @@
         var imageBase64;
 
         $(function() {
-          var favoritemovie = sessionStorage.getItem("favoriteMovie");
-          console.log(favoritemovie);
-          document.getElementById("myform").elements.maintenanceID.value = favoritemovie;
+          var mID = sessionStorage.getItem("maintenanceID");
+          console.log(mID);
+          document.getElementById("myform").elements.maintenanceID.value = mID;
         });
 
 
