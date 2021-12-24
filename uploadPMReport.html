@@ -198,9 +198,11 @@
 
       function myfun()
       {
+        let files = new FormData();
+        files.append('fileName', $('#imageData')[0].files[0]); 
         $.ajax({
             type: 'POST',
-            data: { file: imageData.files[0]},
+            data: files,
             url: "/upload",
             contentType: false,
             processData: false,
