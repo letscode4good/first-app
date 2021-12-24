@@ -199,7 +199,7 @@
       function myfun()
       {
         let files = new FormData();
-        files.append('fileName', $('#imageData')[0].files[0]); 
+        files.append('file', $('#imageData')[0].files[0]); 
         $.ajax({
             type: 'POST',
             data: files,
