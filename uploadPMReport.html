@@ -129,7 +129,7 @@
                             for="imageData"
                             >Upload Image
                           </label>
-                          <input class="form-control validate" id="imageData" name="imageData" type="file" onchange="uploadFile(this)" />
+                          <input class="form-control validate" id="imageData" name="imageData" type="file"  />
                         </div>
                   </div>    
                     <div class="row">
@@ -198,12 +198,12 @@
 
       function myfun()
       {
+        let formData = new FormData(); 
+        formData.append("file", imageData.files[0]);
         $.ajax({
             type: 'POST',
-            data: { maintenanceID: document.getElementById("myform").elements.maintenanceID.value,
-                    serviceReport: document.getElementById("myform").elements.serviceReport.value,
-                    imageData: imageBase64},
-            url: "/addPMImages",
+            data: { file: formData},
+            url: "/upload",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
                alert("Image added successfully")
@@ -215,16 +215,6 @@
           });
       }
 
-        /******************for base 64 *****************************/
-        function uploadFile(inputElement) {
-        var file = inputElement.files[0];
-        var reader = new FileReader();
-        reader.onloadend = function() {
-            console.log('Encoded Base 64 File String:', reader.result);
-            imageBase64 = reader.result;
-        }
-        reader.readAsDataURL(file);
-        }
 
     </script>
   </body>
