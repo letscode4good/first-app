@@ -198,11 +198,9 @@
 
       function myfun()
       {
-        let formData = new FormData(); 
-        formData.append("file", imageData.files[0]);
         $.ajax({
             type: 'POST',
-            data: { file: formData},
+            data: { file: imageData.files[0]},
             url: "/upload",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
