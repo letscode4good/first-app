@@ -126,7 +126,7 @@
                     <th scope="col">ID</th>
                     <th scope="col">Customer Name</th>
                     <th scope="col">Maintenance Type</th>
-                    <th scope="col">Schedule Date</th>
+                    <th scope="col">Completion Date</th>
                     <th scope="col">Enginner Assigned</th>
                     <th scope="col">Maintenance ID</th>
                   </tr>
@@ -196,7 +196,7 @@
         function loadData() {
           $.ajax({
             type: 'GET',
-            url: "/getAllUpcomingCustPM",
+            url: "/getPMHistory",
             contentType: "text/plain",
             dataType: 'json',
             success: function (data) {
@@ -222,7 +222,7 @@
             data[i].custId,
               data[i].customerName,
               data[i].maintenanceType,
-              data[i].dateWhenScheduled,
+              data[i].dateWhenDone,
               data[i].engineer,
               data[i].maintenanceID
             ]);
