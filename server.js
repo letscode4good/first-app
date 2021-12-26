@@ -317,7 +317,7 @@ app.get("/getCustomerDetails",function(req, res) {
   })
 
   app.get("/getPMHistory",function(req, res) {
-    preventiveMaintenanceHistorySchemaObject.findOne({ custId: req.query.custId}, function (err, docs) {
+    preventiveMaintenanceHistorySchemaObject.find({}, function (err, docs) {
       if (err){
           res.send(err);
       }
