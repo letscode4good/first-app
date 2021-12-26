@@ -370,6 +370,20 @@ app.get("/getUpcomingPMForMid",function(req, res) {
   });
 })
 
+app.get("/deleteFromUpcomingPM",function(req, res) {
+    upcomingMaintenanceSchemaObject.findOneAndRemove({maintenanceID: req.query.maintenanceID}, function (err, docs) {
+        if(err) 
+        {
+            return next(err);
+        }
+        else
+        {
+           res.send(docs);
+        }
+      });
+})
+
+
 app.get("/getAllUpcomingPM",function(req, res) {
     upcomingMaintenanceSchemaObject.find({}, function (err, docs) {
         if(err) return next(err);

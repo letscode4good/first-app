@@ -237,7 +237,6 @@
               alert("Error while adding data: " + JSON.stringify(e))
             }
           });
-
       }
 
       function addImageInfoInDB(imageUrl)
@@ -258,7 +257,6 @@
           });
         
       }
-
 
       function completeTask()
       {
@@ -294,6 +292,7 @@
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
                alert("Task Record Successfully added.")
+               removeOlderRecord()
                sessionStorage.removeItem('maintenanceID');
             },
             error: function (e) {
@@ -302,10 +301,23 @@
           });
       }
 
-
-
-      
-
+      function removeOlderRecord()
+      {
+        $.ajax({
+            type: 'GET',
+            data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
+            url: "/deleteFromUpcomingPM",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (resposeJson) {
+               alert("Old record deleted")
+               document.getElementById('myform').reset();
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+      }
 
     </script>
   </body>
