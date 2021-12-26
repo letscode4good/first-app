@@ -352,6 +352,24 @@ app.get("/getUpcomingPMForCust",function(req, res) {
   });
 })
 
+app.get("/getUpcomingPMForMid",function(req, res) {
+    upcomingMaintenanceSchemaObject.findOne({ maintenanceID: req.query.maintenanceID}, function (err, docs) {
+      if (err){
+          res.send(err);
+      }
+      else{
+          //console.log("Result : ", docs);
+          if (docs == null) {
+              res.send('Upcoming maintenance record not found for given Maintenance ID.');
+          }
+          else
+          {
+              res.send(docs)
+          }
+      }
+  });
+})
+
 app.get("/getAllUpcomingPM",function(req, res) {
     upcomingMaintenanceSchemaObject.find({}, function (err, docs) {
         if(err) return next(err);
@@ -403,17 +421,6 @@ app.get("/getStatusDetail",function(req, res) {
 app.get("/getPMImages",function(req, res) {
     pmImagesSchemaObject.find({maintenanceID: req.query.maintenanceID}, function (err, docs) {
         if(err) return next(err);
-        res.send(docs);
-      });
-})
-
-
-app.get("/getAllUpcomingCustPM",function(req, res) {
-    upcomingMaintenanceSchemaObject.find({ maintenanceType: 'Customer'}, function (err, docs) {
-        if(err) return next(err);
-        if (docs == null) {
-            res.send('Upcoming customer requested maintenance record not found.');
-        }
         res.send(docs);
       });
 })

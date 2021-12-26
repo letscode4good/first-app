@@ -170,7 +170,7 @@
               </div>
              </div>
               <div class="col-12">
-                <button type="submit"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Complete Task</button>
+                <button type="submit" onclick="completeTask();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Complete Task</button>
               </div>
             </div>
           </div>
@@ -195,7 +195,21 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
     <script>
-        var imageBase64;
+        
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; 
+        var yyyy = today.getFullYear();
+        if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        } 
+        today = dd+'-'+mm+'-'+yyyy;
 
         $(function() {
           var mID = sessionStorage.getItem("maintenanceID");
@@ -246,6 +260,54 @@
           });
         
       }
+
+
+      function completeTask()
+      {
+        $.ajax({
+            type: 'GET',
+            data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
+            url: "/getUpcomingPMForMid",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (resposeJson) {
+               alert("Record fetched for mid")
+               addCompletedRecordToDB(resposeJson);
+               document.getElementById('myform').reset();
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+
+      }
+
+      function addCompletedRecordToDB(resposeJson)
+      {
+        $.ajax({
+            type: 'POST',
+            data: { custId: resposeJson.custId,
+                    customerName: resposeJson.customerName, 
+                    maintenanceType: resposeJson.maintenanceType, 
+                    dateWhenDone: today, 
+                    engineer: resposeJson.engineer, 
+                    maintenanceID: resposeJson.maintenanceID},
+            url: "/addPMHistory",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+               alert("Task Record Successfully added.")
+               sessionStorage.removeItem('maintenanceID');
+               document.getElementById('myform').reset();
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+      }
+
+
+
+      
 
 
     </script>
