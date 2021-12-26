@@ -118,7 +118,7 @@ var pmImagesSchema = new mongoose.Schema({
 
 var countersSchema = new mongoose.Schema({
     customerCount : Int64,
-    maintenanceCount : Int64,
+    maintenanceCount : Int64
 });
 
 var userDetailsSchemaObject = mongoose.model('UserDetails', userDetailsSchema,'UserDetails');
@@ -139,8 +139,6 @@ var statusDetailsSchemaObject = mongoose.model('StatusDetails', statusDetailsSch
 var pmImagesSchemaObject = mongoose.model('PM_Images', pmImagesSchema,'PM_Images');
 
 var countersSchemaObject = mongoose.model('Counters', countersSchema,'Counters');
-
-
 
 // By default, the client will authenticate using the service account file
 // specified by the GOOGLE_APPLICATION_CREDENTIALS environment variable and use
@@ -296,6 +294,20 @@ app.post('/addupcomingPM', function(req, res){
             res.json({message : 'successs'})
     });
 })
+
+
+app.post('/addValuesInCounter', function(req, res){
+    var newDBEntry = new countersSchemaObject({'customerCount': req.body.customerCount , 'maintenanceCount': req.body.maintenanceCount}) 
+    newDBEntry.save(function(err, savedUser){
+        if(err)
+        {
+            res.json({ error: err.message || err.toString() });
+        }
+        else
+            res.json({message : 'successs'})
+    });
+})
+
 
 app.get("/getCounters",function(req, res) {
     countersSchemaObject.find({}, function (err, docs) {
