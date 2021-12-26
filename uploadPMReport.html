@@ -269,7 +269,6 @@
             success: function (resposeJson) {
                alert("Record fetched for mid")
                addCompletedRecordToDB(resposeJson);
-               document.getElementById('myform').reset();
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
