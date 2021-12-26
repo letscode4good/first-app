@@ -117,7 +117,7 @@
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
             <div class="row">
               <div class="col-12">
-                <h2 class="tm-block-title d-inline-block">Add Daily Status</h2>
+                <h2 class="tm-block-title d-inline-block">Upload Maintenance Reports</h2>
               </div>
             </div>
             <div class="row tm-edit-product-row">
@@ -164,10 +164,17 @@
               <div class="col-12">
                 <button type="submit" class="btn btn-primary btn-block text-uppercase">Upload Image</button>
               </div>
+
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary btn-block text-uppercase">Complete Task</button>
+              </div>
             </form>
             </div>
           </div>
         </div>
+
+
+
       </div>
     </div>
     <footer class="tm-footer row tm-mt-small">
@@ -215,6 +222,7 @@
               alert("Error while adding data: " + JSON.stringify(e))
             }
           });
+          var mID = sessionStorage.getItem("maintenanceID");
           document.getElementById("myform").elements.maintenanceID.value = mID;
       }
 
