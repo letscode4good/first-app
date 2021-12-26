@@ -117,8 +117,8 @@ var pmImagesSchema = new mongoose.Schema({
 });
 
 var countersSchema = new mongoose.Schema({
-    customerCount : Int64,
-    maintenanceCount : Int64
+    customerCount : Number,
+    maintenanceCount : Number
 });
 
 var userDetailsSchemaObject = mongoose.model('UserDetails', userDetailsSchema,'UserDetails');
