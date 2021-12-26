@@ -118,7 +118,8 @@ var pmImagesSchema = new mongoose.Schema({
 
 var countersSchema = new mongoose.Schema({
     customerCount : Number,
-    maintenanceCount : Number
+    maintenanceCount : Number,
+    searchId : String
 });
 
 var userDetailsSchemaObject = mongoose.model('UserDetails', userDetailsSchema,'UserDetails');
@@ -295,20 +296,6 @@ app.post('/addupcomingPM', function(req, res){
     });
 })
 
-
-app.post('/addValuesInCounter', function(req, res){
-    var newDBEntry = new countersSchemaObject({'customerCount': req.body.customerCount , 'maintenanceCount': req.body.maintenanceCount}) 
-    newDBEntry.save(function(err, savedUser){
-        if(err)
-        {
-            res.json({ error: err.message || err.toString() });
-        }
-        else
-            res.json({message : 'successs'})
-    });
-})
-
-
 app.get("/getCounters",function(req, res) {
     countersSchemaObject.find({}, function (err, docs) {
         if(err) return next(err);
@@ -318,7 +305,7 @@ app.get("/getCounters",function(req, res) {
 
 
 app.post('/incrementCustCounter', function(req, res){
-    countersSchemaObject.findOneAndUpdate({$inc:{ customerCount: 1}}, function (err, docs) {
+    countersSchemaObject.findOneAndUpdate({searchId: "keywordforsearch"}, {$inc:{ customerCount: 1}}, function (err, docs) {
         if (err){
             //console.log(err)
             res.send('failure');
@@ -331,7 +318,7 @@ app.post('/incrementCustCounter', function(req, res){
 })
 
 app.post('/incrementMaintenanceCounter', function(req, res){
-    countersSchemaObject.findOneAndUpdate({$inc:{ maintenanceCount: 1}}, function (err, docs) {
+    countersSchemaObject.findOneAndUpdate({searchId: "keywordforsearch"},{$inc:{ maintenanceCount: 1}}, function (err, docs) {
         if (err){
             //console.log(err)
             res.send('failure');
