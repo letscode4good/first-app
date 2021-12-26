@@ -231,14 +231,13 @@
             success: function (data) {
                alert("Image added successfully")
                addImageInfoInDB(data);
-               document.getElementById('myform').reset();
+               
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
             }
           });
-          var mID = sessionStorage.getItem("maintenanceID");
-          document.getElementById("myform").elements.maintenanceID.value = mID;
+
       }
 
       function addImageInfoInDB(imageUrl)
