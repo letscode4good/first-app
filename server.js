@@ -116,6 +116,11 @@ var pmImagesSchema = new mongoose.Schema({
     imageLink : String
 });
 
+var countersSchema = new mongoose.Schema({
+    customerCount : Int64,
+    maintenanceCount : Int64,
+});
+
 var userDetailsSchemaObject = mongoose.model('UserDetails', userDetailsSchema,'UserDetails');
 
 var userLoginSchemaObject = mongoose.model('UserLogin', userLoginSchema,'UserLogin');
@@ -132,6 +137,9 @@ var stockDetailsSchemaObject = mongoose.model('StockDetails', stockDetailsSchema
 var statusDetailsSchemaObject = mongoose.model('StatusDetails', statusDetailsSchema,'StatusDetails');
 
 var pmImagesSchemaObject = mongoose.model('PM_Images', pmImagesSchema,'PM_Images');
+
+var countersSchemaObject = mongoose.model('Counters', countersSchema,'Counters');
+
 
 
 // By default, the client will authenticate using the service account file
@@ -288,6 +296,41 @@ app.post('/addupcomingPM', function(req, res){
             res.json({message : 'successs'})
     });
 })
+
+app.get("/getCounters",function(req, res) {
+    countersSchemaObject.find({}, function (err, docs) {
+        if(err) return next(err);
+        res.send(docs);
+      });
+  })
+
+
+app.post('/incrementCustCounter', function(req, res){
+    countersSchemaObject.findOneAndUpdate({$inc:{ customerCount: 1}}, function (err, docs) {
+        if (err){
+            //console.log(err)
+            res.send('failure');
+        }
+        else{
+            //console.log("Result : ", docs);
+            res.send(docs);   
+        }
+    });
+})
+
+app.post('/incrementMaintenanceCounter', function(req, res){
+    countersSchemaObject.findOneAndUpdate({$inc:{ maintenanceCount: 1}}, function (err, docs) {
+        if (err){
+            //console.log(err)
+            res.send('failure');
+        }
+        else{
+            //console.log("Result : ", docs);
+            res.send(docs);   
+        }
+    });
+})
+
 
 
 app.get("/getCustomerDetails",function(req, res) {
