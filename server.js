@@ -297,7 +297,7 @@ app.post('/addupcomingPM', function(req, res){
 })
 
 app.get("/getCounters",function(req, res) {
-    countersSchemaObject.find({}, function (err, docs) {
+    countersSchemaObject.findOne({ searchId: "keywordforsearch"}, function (err, docs) {
         if(err) return next(err);
         res.send(docs);
       });
