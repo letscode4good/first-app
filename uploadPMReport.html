@@ -319,8 +319,8 @@
             url: "/getCounters",
             contentType: "text/plain",
             dataType: 'json',
-            success: function (resposeJson) {
-               futureMid = "M_" + responseJson.maintenanceCount;
+            success: function (data) {
+               futureMid = "M_" + data.maintenanceCount;
                alert("Future Mid generated")
             },
             error: function (e) {
