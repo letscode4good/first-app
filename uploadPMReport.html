@@ -321,7 +321,7 @@
             dataType: 'json',
             success: function (data) {
                futureMid = "M_" + data.maintenanceCount;
-               alert("Future Mid generated")
+               alert("Future Mid generated" + futureMid)
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
@@ -339,8 +339,7 @@
             url: "/addupcomingPM",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
-               alert("Task Record Successfully added.")
-               removeOlderRecord()
+               alert("Future Maintenance Record Successfully added. " + futureMid)
                sessionStorage.removeItem('maintenanceID');
             },
             error: function (e) {
