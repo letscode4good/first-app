@@ -196,20 +196,28 @@
     <!-- https://getbootstrap.com/ -->
     <script>
         
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth()+1; 
-        var yyyy = today.getFullYear();
-        if(dd<10) 
+        function getDate(inputDate, flag)
         {
-            dd='0'+dd;
-        } 
+          //var today = new Date();
+          if (flag == 1)
+          {
+            inputDate.setDate(inputDate.getDate() + 90);
+          }
+          var dd = inputDate.getDate();
+          var mm = inputDate.getMonth()+1; 
+          var yyyy = inputDate.getFullYear();
+          if(dd<10) 
+          {
+              dd='0'+dd;
+          } 
 
-        if(mm<10) 
-        {
-            mm='0'+mm;
-        } 
-        today = dd+'-'+mm+'-'+yyyy;
+          if(mm<10) 
+          {
+              mm='0'+mm;
+          } 
+          var today = dd+'-'+mm+'-'+yyyy;
+          return today;
+      }
 
         $(function() {
           var mID = sessionStorage.getItem("maintenanceID");
@@ -279,15 +287,56 @@
 
       function addCompletedRecordToDB(resposeJson)
       {
+        var todaysDate = getDate(new Date(), 0);
         $.ajax({
             type: 'POST',
             data: { custId: resposeJson.custId,
                     customerName: resposeJson.customerName, 
                     maintenanceType: resposeJson.maintenanceType, 
-                    dateWhenDone: today, 
+                    dateWhenDone: todaysDate, 
                     engineer: resposeJson.engineer, 
                     maintenanceID: resposeJson.maintenanceID},
             url: "/addPMHistory",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+               alert("Task Record Successfully added.")
+               addFutureMaintenanceRecord(resposeJson)
+               removeOlderRecord()
+               sessionStorage.removeItem('maintenanceID');
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+      }
+
+      function addFutureMaintenanceRecord(resposeJson)
+      {
+        var futureDate = getDate(new Date(), 1);
+        var futureMid;
+        $.ajax({
+            type: 'GET',
+            url: "/getCounters",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (resposeJson) {
+               futureMid = "M_" + responseJson.maintenanceCount;
+               alert("Future Mid generated")
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+
+        $.ajax({
+            type: 'POST',
+            data: { custId: resposeJson.custId,
+                    customerName: resposeJson.customerName, 
+                    maintenanceType: resposeJson.maintenanceType, 
+                    dateWhenScheduled: futureDate, 
+                    engineer: resposeJson.engineer, 
+                    maintenanceID: futureMid},
+            url: "/addupcomingPM",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
                alert("Task Record Successfully added.")
@@ -298,6 +347,8 @@
               alert("Error while adding data: " + JSON.stringify(e))
             }
           });
+
+
       }
 
       function removeOlderRecord()
