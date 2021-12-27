@@ -322,31 +322,31 @@
             success: function (data) {
                futureMid = "M_" + data.maintenanceCount;
                alert("Future Mid generated" + futureMid)
+
+               $.ajax({
+                type: 'POST',
+                data: { custId: resposeJson.custId,
+                        customerName: resposeJson.customerName, 
+                        maintenanceType: resposeJson.maintenanceType, 
+                        dateWhenScheduled: futureDate, 
+                        engineer: resposeJson.engineer, 
+                        maintenanceID: futureMid},
+                url: "/addupcomingPM",
+                contentType: "application/x-www-form-urlencoded",
+                success: function (data) {
+                  alert("Future Maintenance Record Successfully added. " + futureMid)
+                  sessionStorage.removeItem('maintenanceID');
+                },
+                error: function (e) {
+                  alert("Error while adding data: " + JSON.stringify(e))
+                }
+              });
+              
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
             }
           });
-
-        $.ajax({
-            type: 'POST',
-            data: { custId: resposeJson.custId,
-                    customerName: resposeJson.customerName, 
-                    maintenanceType: resposeJson.maintenanceType, 
-                    dateWhenScheduled: futureDate, 
-                    engineer: resposeJson.engineer, 
-                    maintenanceID: futureMid},
-            url: "/addupcomingPM",
-            contentType: "application/x-www-form-urlencoded",
-            success: function (data) {
-               alert("Future Maintenance Record Successfully added. " + futureMid)
-               sessionStorage.removeItem('maintenanceID');
-            },
-            error: function (e) {
-              alert("Error while adding data: " + JSON.stringify(e))
-            }
-          });
-
 
       }
 
