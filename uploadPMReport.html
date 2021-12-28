@@ -238,8 +238,7 @@
             processData: false,
             success: function (data) {
                alert("Image added successfully")
-               addImageInfoInDB(data);
-               
+               addImageInfoInDB(data);   
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
@@ -257,7 +256,7 @@
             url: "/addPMImages",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
-               alert("Image info added in DB")
+               console.log("Image info added in DB");
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
@@ -275,7 +274,6 @@
             contentType: "text/plain",
             dataType: 'json',
             success: function (resposeJson) {
-               alert("Record fetched for mid")
                addCompletedRecordToDB(resposeJson);
             },
             error: function (e) {
@@ -299,9 +297,9 @@
             url: "/addPMHistory",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
-               alert("Task Record Successfully added.")
                addFutureMaintenanceRecord(resposeJson)
                removeOlderRecord()
+               alert("Successfully saved details.")
                sessionStorage.removeItem('maintenanceID');
             },
             error: function (e) {
@@ -321,7 +319,6 @@
             dataType: 'json',
             success: function (responseData) {
                futureMid = "M_" + responseData.maintenanceCount;
-               alert("Future Mid generated" + futureMid )
 
                $.ajax({
                 type: 'POST',
@@ -334,13 +331,25 @@
                 url: "/addupcomingPM",
                 contentType: "application/x-www-form-urlencoded",
                 success: function (data) {
-                  alert("Future Maintenance Record Successfully added. " + futureMid)
+                  console.log("Future Maintenance Record Successfully added.");
                   sessionStorage.removeItem('maintenanceID');
                 },
                 error: function (e) {
                   alert("Error while adding data: " + JSON.stringify(e))
                 }
               });
+
+              $.ajax({
+              type: 'POST',
+              url: "/incrementMaintenanceCounter",
+              contentType: "application/x-www-form-urlencoded",
+              success: function (data) {
+                console.log("Maintenance counter incremented");
+              },
+              error: function (e) {
+                alert("Error while adding data: " + JSON.stringify(e))
+              }
+            });
 
             },
             error: function (e) {
@@ -359,7 +368,7 @@
             contentType: "text/plain",
             dataType: 'json',
             success: function (resposeJson) {
-               alert("Old record deleted")
+               console.log("Old record deleted");
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
