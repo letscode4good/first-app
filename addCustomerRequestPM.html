@@ -203,6 +203,7 @@
                               type="text"
                               class="form-control validate"
                               required
+                              style="background-color: #54657d;" readonly=""
                             />
                           </div>   
                   </div>
@@ -267,7 +268,20 @@
                     alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
                 }
             });
-        
+
+            $.ajax({
+            type: 'GET',
+            url: "/getCounters",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (responseData) {
+               futureMid = "M_" + responseData.maintenanceCount;
+               document.getElementById("myform").elements.maintenanceID.value = futureMid;
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });        
       });
 
       function myfun()
@@ -284,6 +298,18 @@
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
                alert("Data added Successfully")
+               $.ajax({
+                type: 'POST',
+                url: "/incrementMaintenanceCounter",
+                contentType: "application/x-www-form-urlencoded",
+                success: function (data) {
+                  console.log("Maintenance counter incremented");
+                },
+                error: function (e) {
+                  alert("Error while adding data: " + JSON.stringify(e))
+                }
+              });
+
                document.getElementById('myform').reset();
             },
             error: function (e) {
