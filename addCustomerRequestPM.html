@@ -128,16 +128,20 @@
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
                             for="customerName"
-                            >Customer Name
-                          </label>
-                          <input
+                            >Customer Name</label>
+                          <select
+                            class="custom-select tm-select-accounts"
                             id="customerName"
                             name="customerName"
-                            type="text"
-                            class="form-control validate"
-                            required
-                          />
+                          >
+                            <option selected>Select category</option>
+                            <option value="1">New Arrival</option>
+                            <option value="2">Most Popular</option>
+                            <option value="3">Trending</option>
+                          </select>
+
                         </div>
+
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                         <label
                             for="custId"
@@ -237,12 +241,12 @@
 
         $.ajax({
                 type: "GET",
-                url: "/getStockItems",
+                url: "/getCustomerDetails",
                 dataType: "json",
                 success: function (result, status, xhr) {
                 $.each(result,function(key, value)
                 {
-                    $("#itemName").append('<option value=' + value.itemCode + '>' + value.itemName + '</option>');
+                    $("#customerName").append('<option value=' + value.custId + '>' + value.customerName + '</option>');
                 });
                 },
                 error: function (xhr, status, error) {
