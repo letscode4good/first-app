@@ -133,6 +133,7 @@
                             class="custom-select tm-select-accounts"
                             id="customerName"
                             name="customerName"
+                            onchange="myFunction()"
                           >
                           </select>
 
@@ -273,7 +274,11 @@
           });
       }
 
-
+      function myFunction()
+      {
+        document.getElementById("custId").value = document.getElementById("customerName").value;
+      }
+      
     </script>
   </body>
 </html>
