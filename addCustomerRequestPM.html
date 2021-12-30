@@ -167,12 +167,12 @@
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                             <label
                               for="dateWhenScheduled"
-                              >Date When sceduled
+                              >Schedule Date
                             </label>
                             <input
                               id="dateWhenScheduled"
                               name="dateWhenScheduled"
-                              type="text"
+                              type="date"
                               class="form-control validate"
                               required
                             />
@@ -183,13 +183,13 @@
                               for="engineer"
                               >Engineer name
                             </label>
-                            <input
-                              id="engineer"
-                              name="engineer"
-                              type="text"
-                              class="form-control validate"
-                              required
-                            />
+                            <select
+                            class="custom-select tm-select-accounts"
+                            id="engineer"
+                            name="engineer"
+                           >
+                           <option value="">Select Engineer</option>
+                           </select>
                           </div>
 
                           <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -252,6 +252,22 @@
                     alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
                 }
             });
+
+            $.ajax({
+                type: "GET",
+                url: "/getAllEngineers",
+                dataType: "json",
+                success: function (result, status, xhr) {
+                $.each(result,function(key, value)
+                {
+                    $("#engineer").append('<option value=' + value.userType + '>' + value.userName + '</option>');
+                });
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+        
       });
 
       function myfun()

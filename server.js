@@ -339,6 +339,12 @@ app.get("/getCustomerDetails",function(req, res) {
       });
   })
 
+  app.get("/getAllEngineers",function(req, res) {
+    userLoginSchemaObject.find({ userType: "engineer" }, function (err, docs) {
+        if(err) return next(err);
+        res.send(docs);
+      });
+  })
 
   app.get("/getCustomerInventory",function(req, res) {
       customerInventorySchemaObject.findOne({ custId: req.query.custId}, function (err, docs) {
