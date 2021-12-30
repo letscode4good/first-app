@@ -135,6 +135,7 @@
                             name="customerName"
                             onchange="myFunction()"
                           >
+                          <option value="">Select customer</option>
                           </select>
 
                         </div>
@@ -149,7 +150,8 @@
                             name="custId"
                             type="text"
                             class="form-control validate"
-                            required
+                            required 
+                            style="background-color: #54657d;" readonly=""
                           />
                         </div>
 
@@ -278,7 +280,7 @@
       {
         document.getElementById("custId").value = document.getElementById("customerName").value;
       }
-      
+
     </script>
   </body>
 </html>
