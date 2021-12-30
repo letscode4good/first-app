@@ -261,7 +261,7 @@
                 success: function (result, status, xhr) {
                 $.each(result,function(key, value)
                 {
-                    $("#engineer").append('<option value=' + value.userName + '>' + value.userName + '</option>');
+                    $("#engineer").append('<option value="' + value.userName + '">' + value.userName + '</option>');
                 });
                 },
                 error: function (xhr, status, error) {
@@ -289,7 +289,7 @@
         $.ajax({
             type: 'POST',
             data: { custId: document.getElementById("myform").elements.custId.value,
-                    customerName: document.getElementById("myform").elements.customerName.value, 
+                    customerName: document.getElementById(document.getElementById("myform").elements.custId.value).text, 
                     maintenanceType: document.getElementById("myform").elements.maintenanceType.value, 
                     dateWhenScheduled: document.getElementById("myform").elements.dateWhenScheduled.value, 
                     engineer: document.getElementById("myform").elements.engineer.value, 
