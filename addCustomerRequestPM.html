@@ -286,10 +286,12 @@
 
       function myfun()
       {
+        custName = document.getElementById("myform").elements.custId.value
+        custFullname = document.getElementById(custName).text
         $.ajax({
             type: 'POST',
             data: { custId: document.getElementById("myform").elements.custId.value,
-                    customerName: document.getElementById(document.getElementById("myform").elements.custId.value).text, 
+                    customerName: custFullname, 
                     maintenanceType: document.getElementById("myform").elements.maintenanceType.value, 
                     dateWhenScheduled: document.getElementById("myform").elements.dateWhenScheduled.value, 
                     engineer: document.getElementById("myform").elements.engineer.value, 
