@@ -261,7 +261,7 @@
                 success: function (result, status, xhr) {
                 $.each(result,function(key, value)
                 {
-                    $("#engineer").append('<option value=' + value.userType + '>' + value.userName + '</option>');
+                    $("#engineer").append('<option value=' + value.userName + '>' + value.userName + '</option>');
                 });
                 },
                 error: function (xhr, status, error) {
