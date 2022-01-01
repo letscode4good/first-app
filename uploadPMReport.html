@@ -286,6 +286,7 @@
       function addCompletedRecordToDB(resposeJson)
       {
         var todaysDate = getDate(new Date(), 0);
+        var mType = resposeJson.maintenanceType;
         $.ajax({
             type: 'POST',
             data: { custId: resposeJson.custId,
@@ -297,7 +298,10 @@
             url: "/addPMHistory",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
-               addFutureMaintenanceRecord(resposeJson)
+               if(mType == "Planned")
+               {
+                  addFutureMaintenanceRecord(resposeJson)
+               }
                removeOlderRecord()
                alert("Successfully saved details.")
                sessionStorage.removeItem('maintenanceID');

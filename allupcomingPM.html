@@ -230,11 +230,15 @@
 
       function showInventory(cutomerID) 
       {
-        location.href = "#inventoryDiv";
-        $("#custInventory").DataTable().clear();
-        loadInventoryData(cutomerID);
+        var mID = cutomerID;
+        sessionStorage.setItem("maintenanceID", mID);
+        location.replace("/uploadPMReport.html")
+
+       // location.href = "#inventoryDiv";
+       // $("#custInventory").DataTable().clear();
+        //loadInventoryData(cutomerID);
         
-        document.getElementById("inventoryDiv").style.opacity = "1";
+        //document.getElementById("inventoryDiv").style.opacity = "1";
 
       }
 
