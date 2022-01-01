@@ -287,14 +287,27 @@
 
       function myfun()
       {
-        var strDate = new Date(document.getElementById("myform").elements.dateWhenScheduled.value).toString("dd-MM-yyyy");
-        window.alert(strDate);
+        var inputDate = new Date(document.getElementById("myform").elements.dateWhenScheduled.value);
+        var dd = inputDate.getDate();
+        var mm = inputDate.getMonth()+1; 
+        var yyyy = inputDate.getFullYear();
+        if(dd<10) 
+        {
+             dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        } 
+        var scheduleDate = dd+'-'+mm+'-'+yyyy;
+        
         $.ajax({
             type: 'POST',
             data: { custId: document.getElementById("myform").elements.custId.value,
                     customerName: $( "#customerName option:selected" ).text(), 
                     maintenanceType: document.getElementById("myform").elements.maintenanceType.value, 
-                    dateWhenScheduled: strDate, 
+                    dateWhenScheduled: scheduleDate, 
                     engineer: document.getElementById("myform").elements.engineer.value, 
                     maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
             url: "/addupcomingPM",
