@@ -286,12 +286,16 @@
 
       function myfun()
       {
+
+        var mydate = new Date(document.getElementById("myform").elements.dateWhenScheduled.value);
+        var strDate = mydate.toString("dd-mm-yyyy");
+        window.alert(strDate);
         $.ajax({
             type: 'POST',
             data: { custId: document.getElementById("myform").elements.custId.value,
                     customerName: $( "#customerName option:selected" ).text(), 
                     maintenanceType: document.getElementById("myform").elements.maintenanceType.value, 
-                    dateWhenScheduled: document.getElementById("myform").elements.dateWhenScheduled.value, 
+                    dateWhenScheduled: strDate, 
                     engineer: document.getElementById("myform").elements.engineer.value, 
                     maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
             url: "/addupcomingPM",
