@@ -433,13 +433,24 @@ app.get("/deleteFromUpcomingPM",function(req, res) {
 
 
 app.get("/getAllUpcomingPM",function(req, res) {
-    upcomingMaintenanceSchemaObject.find({}, function (err, docs) {
-        if(err) return next(err);
-        if (docs == null) {
-            res.send('Upcoming maintenance record not found.');
-        }
-        res.send(docs);
-      });
+    if(session.userId && (session.userType == 'admin')){
+        upcomingMaintenanceSchemaObject.find({}, function (err, docs) {
+            if(err) return next(err);
+            if (docs == null) {
+                res.send('Upcoming maintenance record not found.');
+            }
+            res.send(docs);
+          });
+    }
+    else if(session.userId && (session.userType == 'engineer')){
+        upcomingMaintenanceSchemaObject.find({engineer: session.userName}, function (err, docs) {
+            if(err) return next(err);
+            if (docs == null) {
+                res.send('Upcoming maintenance record not found.');
+            }
+            res.send(docs);
+          });
+    }
 })
 
 
