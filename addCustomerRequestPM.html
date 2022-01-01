@@ -234,7 +234,6 @@
     <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
     <!-- https://jqueryui.com/download/ -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="http://www.datejs.com/build/date.js" type="text/javascript"></script>
     <!-- https://getbootstrap.com/ -->
     <script>
       $(function() {
@@ -301,7 +300,7 @@
             mm='0'+mm;
         } 
         var scheduleDate = dd+'-'+mm+'-'+yyyy;
-        
+
         $.ajax({
             type: 'POST',
             data: { custId: document.getElementById("myform").elements.custId.value,
