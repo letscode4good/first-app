@@ -33,14 +33,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script>
 
-        $(function() {
-          $(".tm-product-name").on("click", function() {
-            window.location.href = "edit-product.html";
-          });
-  
-          $("#stockTable").DataTable();
-  
-          function getDate(inputDate, flag)
+        function getDate(inputDate, flag)
           {
             //var today = new Date();
             if (flag == 1)
@@ -62,9 +55,8 @@
             var today = dd+'-'+mm+'-'+yyyy;
             return today;
         }
-  
-          loadData("1");
-          function loadData(flag) {
+
+        function loadData(flag) {
             $.ajax({
               type: 'GET',
               url: "/getStatusDetail",
@@ -85,9 +77,9 @@
               }
             });
           }
-  
-          // populate the data table with JSON data
-          function populateDataTable(data) {
+        
+        // populate the data table with JSON data
+        function populateDataTable(data) {
             console.log("populating data table...");
             // clear the table before populating it with more data
             $("#stockTable").DataTable().clear();
@@ -101,7 +93,7 @@
               ]);
             }
           }
-  
+
           function populateDataTableMonth(data) {
           $("#stockTable").DataTable().clear();
             var previousDate = getDate(new Date(), 1);
@@ -123,7 +115,7 @@
               }
             }
           }
-  
+
           function populateDataTableToday(data) {
             $("#stockTable").DataTable().clear();
             var todaysDate = getDate(new Date(), 0);
@@ -143,6 +135,14 @@
                 }
             }
           }
+
+        $(function() {
+          $(".tm-product-name").on("click", function() {
+            window.location.href = "edit-product.html";
+          });
+          $("#stockTable").DataTable();
+          loadData("1");
+
         });
   
     </script>
