@@ -80,7 +80,7 @@
         
         // populate the data table with JSON data
         function populateDataTable(data) {
-            console.log("populating data table...");
+            console.log("populating data table for all data");
             // clear the table before populating it with more data
             $("#stockTable").DataTable().clear().draw();
             var length = Object.keys(data).length;
@@ -96,13 +96,16 @@
 
           function populateDataTableMonth(data) {
             var previousDate = getDate(new Date(), 1);
-            console.log("populating data table...");
+            console.log("populating data table for this month");
             // clear the table before populating it with more data
             $("#stockTable").DataTable().clear().draw();
             var length = Object.keys(data).length;
             for(var i = 0; i < length; i++) {
               var oldDate = new Date(previousDate);
               var dbDate = new Date(data[i].date);
+
+              console.log(oldDate);
+              console.log(dbDate);
               if((dbDate - oldDate) < 30)
               {
                   // You could also use an ajax property on the data table initialization
@@ -117,7 +120,7 @@
 
           function populateDataTableToday(data) {
             var todaysDate = getDate(new Date(), 0);
-            console.log("populating data table...");
+            console.log("populating data table for today");
             console.log(todaysDate);
             // clear the table before populating it with more data
             $("#stockTable").DataTable().clear().draw();
