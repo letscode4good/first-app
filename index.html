@@ -95,7 +95,6 @@
           }
 
           function populateDataTableMonth(data) {
-          $("#stockTable").DataTable().clear();
             var previousDate = getDate(new Date(), 1);
             console.log("populating data table...");
             // clear the table before populating it with more data
@@ -117,13 +116,14 @@
           }
 
           function populateDataTableToday(data) {
-            $("#stockTable").DataTable().clear();
             var todaysDate = getDate(new Date(), 0);
             console.log("populating data table...");
+            console.log(todaysDate);
             // clear the table before populating it with more data
             $("#stockTable").DataTable().clear();
             var length = Object.keys(data).length;
             for(var i = 0; i < length; i++) {
+                console.log(data[i].date);
                 if(todaysDate == data[i].date)
                 {
                       // You could also use an ajax property on the data table initialization
