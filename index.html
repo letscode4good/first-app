@@ -101,8 +101,14 @@
             $("#stockTable").DataTable().clear().draw();
             var length = Object.keys(data).length;
             for(var i = 0; i < length; i++) {
-              var oldDate = new Date(previousDate);
-              var dbDate = new Date(data[i].date);
+
+
+                var dateParts = previousDate.split("-");
+                // month is 0-based, that's why we need dataParts[1] - 1
+                var oldDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
+
+                dateParts = data[i].date.split("-")
+                var dbDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
 
               console.log(oldDate);
               console.log(dbDate);
