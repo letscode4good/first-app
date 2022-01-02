@@ -18,6 +18,121 @@
 	https://templatemo.com/tm-524-product-admin
 	-->
 </head>
+<script>
+
+    $(function() {
+      $(".tm-product-name").on("click", function() {
+        window.location.href = "edit-product.html";
+      });
+
+      $("#stockTable").DataTable();
+
+      function getDate(inputDate, flag)
+      {
+        //var today = new Date();
+        if (flag == 1)
+        {
+          inputDate.setDate(inputDate.getDate() - 30);
+        }
+        var dd = inputDate.getDate();
+        var mm = inputDate.getMonth()+1; 
+        var yyyy = inputDate.getFullYear();
+        if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        } 
+        var today = dd+'-'+mm+'-'+yyyy;
+        return today;
+    }
+
+      loadData("1");
+      function loadData(flag) {
+        $.ajax({
+          type: 'GET',
+          url: "/getStatusDetail",
+          contentType: "text/plain",
+          dataType: 'json',
+          success: function (data) {
+            myJsonData = data;
+            if(flag == "0")
+              populateDataTable(myJsonData);
+            else if(flag == "1")
+              populateDataTableToday(myJsonData);
+            else if(flag == "2")
+              populateDataTableMonth(myJsonData);
+          },
+          error: function (e) {
+            console.log("There was an error with your request...");
+            console.log("error: " + JSON.stringify(e));
+          }
+        });
+      }
+
+      // populate the data table with JSON data
+      function populateDataTable(data) {
+        console.log("populating data table...");
+        // clear the table before populating it with more data
+        $("#stockTable").DataTable().clear();
+        var length = Object.keys(data).length;
+        for(var i = 0; i < length; i++) {
+          // You could also use an ajax property on the data table initialization
+          $('#stockTable').dataTable().fnAddData( [
+            data[i].date,
+            data[i].name,
+            data[i].status,
+          ]);
+        }
+      }
+
+      function populateDataTableMonth(data) {
+      $("#stockTable").DataTable().clear();
+        var previousDate = getDate(new Date(), 1);
+        console.log("populating data table...");
+        // clear the table before populating it with more data
+        $("#stockTable").DataTable().clear();
+        var length = Object.keys(data).length;
+        for(var i = 0; i < length; i++) {
+          var oldDate = new Date(previousDate);
+          var dbDate = new Date(data[i].date);
+          if((dbDate - oldDate) < 30)
+          {
+              // You could also use an ajax property on the data table initialization
+              $('#stockTable').dataTable().fnAddData( [
+              data[i].date,
+              data[i].name,
+              data[i].status,
+              ]);
+          }
+        }
+      }
+
+      function populateDataTableToday(data) {
+        $("#stockTable").DataTable().clear();
+        var todaysDate = getDate(new Date(), 0);
+        console.log("populating data table...");
+        // clear the table before populating it with more data
+        $("#stockTable").DataTable().clear();
+        var length = Object.keys(data).length;
+        for(var i = 0; i < length; i++) {
+            if(todaysDate == data[i].date)
+            {
+                  // You could also use an ajax property on the data table initialization
+                  $('#stockTable').dataTable().fnAddData( [
+                  data[i].date,
+                  data[i].name,
+                  data[i].status,
+                  ]);
+            }
+        }
+      }
+    });
+
+  </script>
 
 <body id="reportsPage">
     <div class="" id="home">
@@ -158,121 +273,7 @@
     <!-- https://getbootstrap.com/ -->
     <script src="js/tooplate-scripts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script>
 
-      $(function() {
-        $(".tm-product-name").on("click", function() {
-          window.location.href = "edit-product.html";
-        });
-
-        $("#stockTable").DataTable();
-
-        function getDate(inputDate, flag)
-        {
-          //var today = new Date();
-          if (flag == 1)
-          {
-            inputDate.setDate(inputDate.getDate() - 30);
-          }
-          var dd = inputDate.getDate();
-          var mm = inputDate.getMonth()+1; 
-          var yyyy = inputDate.getFullYear();
-          if(dd<10) 
-          {
-              dd='0'+dd;
-          } 
-
-          if(mm<10) 
-          {
-              mm='0'+mm;
-          } 
-          var today = dd+'-'+mm+'-'+yyyy;
-          return today;
-      }
-
-        loadData("1");
-        function loadData(flag) {
-          $.ajax({
-            type: 'GET',
-            url: "/getStatusDetail",
-            contentType: "text/plain",
-            dataType: 'json',
-            success: function (data) {
-              myJsonData = data;
-              if(flag == "0")
-                populateDataTable(myJsonData);
-              else if(flag == "1")
-                populateDataTableToday(myJsonData);
-              else if(flag == "2")
-                populateDataTableMonth(myJsonData);
-            },
-            error: function (e) {
-              console.log("There was an error with your request...");
-              console.log("error: " + JSON.stringify(e));
-            }
-          });
-        }
-
-        // populate the data table with JSON data
-        function populateDataTable(data) {
-          console.log("populating data table...");
-          // clear the table before populating it with more data
-          $("#stockTable").DataTable().clear();
-          var length = Object.keys(data).length;
-          for(var i = 0; i < length; i++) {
-            // You could also use an ajax property on the data table initialization
-            $('#stockTable').dataTable().fnAddData( [
-              data[i].date,
-              data[i].name,
-              data[i].status,
-            ]);
-          }
-        }
-
-        function populateDataTableMonth(data) {
-        $("#stockTable").DataTable().clear();
-          var previousDate = getDate(new Date(), 1);
-          console.log("populating data table...");
-          // clear the table before populating it with more data
-          $("#stockTable").DataTable().clear();
-          var length = Object.keys(data).length;
-          for(var i = 0; i < length; i++) {
-            var oldDate = new Date(previousDate);
-            var dbDate = new Date(data[i].date);
-            if((dbDate - oldDate) < 30)
-            {
-                // You could also use an ajax property on the data table initialization
-                $('#stockTable').dataTable().fnAddData( [
-                data[i].date,
-                data[i].name,
-                data[i].status,
-                ]);
-            }
-          }
-        }
-
-        function populateDataTableToday(data) {
-          $("#stockTable").DataTable().clear();
-          var todaysDate = getDate(new Date(), 0);
-          console.log("populating data table...");
-          // clear the table before populating it with more data
-          $("#stockTable").DataTable().clear();
-          var length = Object.keys(data).length;
-          for(var i = 0; i < length; i++) {
-              if(todaysDate == data[i].date)
-              {
-                    // You could also use an ajax property on the data table initialization
-                    $('#stockTable').dataTable().fnAddData( [
-                    data[i].date,
-                    data[i].name,
-                    data[i].status,
-                    ]);
-              }
-          }
-        }
-      });
-
-    </script>
 </body>
 
 </html>
