@@ -82,7 +82,7 @@
         function populateDataTable(data) {
             console.log("populating data table...");
             // clear the table before populating it with more data
-            $("#stockTable").DataTable().clear();
+            $("#stockTable").DataTable().clear().draw();
             var length = Object.keys(data).length;
             for(var i = 0; i < length; i++) {
               // You could also use an ajax property on the data table initialization
@@ -98,7 +98,7 @@
             var previousDate = getDate(new Date(), 1);
             console.log("populating data table...");
             // clear the table before populating it with more data
-            $("#stockTable").DataTable().clear();
+            $("#stockTable").DataTable().clear().draw();
             var length = Object.keys(data).length;
             for(var i = 0; i < length; i++) {
               var oldDate = new Date(previousDate);
@@ -120,7 +120,7 @@
             console.log("populating data table...");
             console.log(todaysDate);
             // clear the table before populating it with more data
-            $("#stockTable").DataTable().clear();
+            $("#stockTable").DataTable().clear().draw();
             var length = Object.keys(data).length;
             for(var i = 0; i < length; i++) {
                 console.log(data[i].date);
