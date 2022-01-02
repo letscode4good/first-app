@@ -105,9 +105,9 @@
             </div>
             <div class="row">
                 <div class="btn-group">
-                    <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  ">Today</button>
-                    <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  ">This Month</button>
-                    <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  ">Show All</button>
+                    <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('1')">Today</button>
+                    <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('2')">This Month</button>
+                    <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('0')">Show All</button>
                 </div>
             </div>
             <br>
@@ -167,8 +167,31 @@
 
         $("#stockTable").DataTable();
 
-        loadData();
-        function loadData() {
+        function getDate(inputDate, flag)
+        {
+          //var today = new Date();
+          if (flag == 1)
+          {
+            inputDate.setDate(inputDate.getDate() - 30);
+          }
+          var dd = inputDate.getDate();
+          var mm = inputDate.getMonth()+1; 
+          var yyyy = inputDate.getFullYear();
+          if(dd<10) 
+          {
+              dd='0'+dd;
+          } 
+
+          if(mm<10) 
+          {
+              mm='0'+mm;
+          } 
+          var today = dd+'-'+mm+'-'+yyyy;
+          return today;
+      }
+
+        loadData("1");
+        function loadData(flag) {
           $.ajax({
             type: 'GET',
             url: "/getStatusDetail",
@@ -176,7 +199,12 @@
             dataType: 'json',
             success: function (data) {
               myJsonData = data;
-              populateDataTable(myJsonData);
+              if(flag == "0")
+                populateDataTable(myJsonData);
+              else if(flag == "1")
+                populateDataTableToday(myJsonData);
+              else if(flag == "2")
+                populateDataTableMonth(myJsonData);
             },
             error: function (e) {
               console.log("There was an error with your request...");
@@ -200,7 +228,50 @@
             ]);
           }
         }
+
+        function populateDataTableMonth(data) {
+        $("#stockTable").DataTable().clear();
+          var previousDate = getDate(new Date(), 1);
+          console.log("populating data table...");
+          // clear the table before populating it with more data
+          $("#stockTable").DataTable().clear();
+          var length = Object.keys(data).length;
+          for(var i = 0; i < length; i++) {
+            var oldDate = new Date(previousDate);
+            var dbDate = new Date(data[i].date);
+            if((dbDate - oldDate) < 30)
+            {
+                // You could also use an ajax property on the data table initialization
+                $('#stockTable').dataTable().fnAddData( [
+                data[i].date,
+                data[i].name,
+                data[i].status,
+                ]);
+            }
+          }
+        }
+
+        function populateDataTableToday(data) {
+          $("#stockTable").DataTable().clear();
+          var todaysDate = getDate(new Date(), 0);
+          console.log("populating data table...");
+          // clear the table before populating it with more data
+          $("#stockTable").DataTable().clear();
+          var length = Object.keys(data).length;
+          for(var i = 0; i < length; i++) {
+              if(todaysDate == data[i].date)
+              {
+                    // You could also use an ajax property on the data table initialization
+                    $('#stockTable').dataTable().fnAddData( [
+                    data[i].date,
+                    data[i].name,
+                    data[i].status,
+                    ]);
+              }
+          }
+        }
       });
+
     </script>
 </body>
 
