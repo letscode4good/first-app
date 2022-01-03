@@ -365,21 +365,24 @@ app.get("/getCustomerDetails",function(req, res) {
   })
 
   app.get("/getPMHistory",function(req, res) {
-    preventiveMaintenanceHistorySchemaObject.find({}, function (err, docs) {
-      if (err){
-          res.send(err);
-      }
-      else{
-          //console.log("Result : ", docs);
-          if (docs == null) {
-              res.send('Preventive maintenance history not found.');
-          }
-          else
-          {
-              res.send(docs)
-          }
-      }
-  });
+    if(session.userId && (session.userType == 'admin')){
+        preventiveMaintenanceHistorySchemaObject.find({}, function (err, docs) {
+            if(err) return next(err);
+            if (docs == null) {
+                res.send('Preventive maintenance history not found.');
+            }
+            res.send(docs);
+          });
+    }
+    else if(session.userId && (session.userType == 'engineer')){
+        preventiveMaintenanceHistorySchemaObject.find({engineer: session.userName}, function (err, docs) {
+            if(err) return next(err);
+            if (docs == null) {
+                res.send('Preventive maintenance history not found.');
+            }
+            res.send(docs);
+          });
+    }
 })
 
 app.get("/getUpcomingPMForCust",function(req, res) {
