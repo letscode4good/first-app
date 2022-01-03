@@ -365,6 +365,7 @@ app.get("/getCustomerDetails",function(req, res) {
   })
 
   app.get("/getPMHistory",function(req, res) {
+
     if(session.userId && (session.userType == 'admin')){
         preventiveMaintenanceHistorySchemaObject.find({}, function (err, docs) {
             if(err) return next(err);
@@ -382,6 +383,9 @@ app.get("/getCustomerDetails",function(req, res) {
             }
             res.send(docs);
           });
+    }
+    else{
+        res.send('Preventive maintenance history not found.');
     }
 })
 
