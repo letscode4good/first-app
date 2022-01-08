@@ -169,7 +169,7 @@ app.post('/upload', multer.single('file'), (req, res, next) => {
     // Create a new blob in the bucket and upload the file data.
     const blob = bucket.file(req.file.originalname);
     const blobStream = blob.createWriteStream();
-    const mid = req.maintenanceID;
+    const mid = req.body.maintenanceID;
     blobStream.on('error', err => {
       next(err);
     });
