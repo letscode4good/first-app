@@ -230,7 +230,8 @@
         files.append('file', $('#imageData')[0].files[0]); 
         $.ajax({
             type: 'POST',
-            data: files,
+            data: {files,
+                   maintenanceID: document.getElementById("myform").elements.maintenanceID.value,},
             url: "/upload",
             contentType: false,
             processData: false,

@@ -169,7 +169,7 @@ app.post('/upload', multer.single('file'), (req, res, next) => {
     // Create a new blob in the bucket and upload the file data.
     const blob = bucket.file(req.file.originalname);
     const blobStream = blob.createWriteStream();
-  
+    const mid = req.maintenanceID;
     blobStream.on('error', err => {
       next(err);
     });
@@ -177,7 +177,7 @@ app.post('/upload', multer.single('file'), (req, res, next) => {
     blobStream.on('finish', () => {
       // The public URL can be used to directly access the file via HTTP.
       const publicUrl = format(
-        `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+        `https://storage.googleapis.com/${bucket.name}/${mid}_${blob.name}`
       );
       res.status(200).send(publicUrl);
     });
@@ -365,7 +365,6 @@ app.get("/getCustomerDetails",function(req, res) {
   })
 
   app.get("/getPMHistory",function(req, res) {
-
     if(session.userId && (session.userType == 'admin')){
         preventiveMaintenanceHistorySchemaObject.find({}, function (err, docs) {
             if(err) return next(err);
