@@ -268,7 +268,7 @@
           var response = '',
             indicator = '';
             for (var i = 0; i < data.length; i++) {
-                response += '<div class="carousel-item"><img src="' + data[i].imageLink + '" width="1100" height="500"><div class="carousel-caption"><h3>' + data[i].maintenanceID + '</div></div>';
+                response += '<div class="carousel-item"><img src="' + data[i].imageLink + '" width="auto" height="auto"><div class="carousel-caption"><h3>' + data[i].maintenanceID + '</div></div>';
                 indicator += '<li data-target="#myCarousel" data-slide-to="'+i+'"></li>';
             }
             $('#imageList').append(response);
