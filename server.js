@@ -169,7 +169,7 @@ app.post('/upload', multer.single('file'), (req, res, next) => {
     // Create a new blob in the bucket and upload the file data.
     const randomNumber = Math.floor(Math.random() * Math.floor(9999999));
     const fileName = randomNumber + "_" + req.file.originalname;
-    const blob = bucket.file(req.file.originalname);
+    const blob = bucket.file(fileName);
     const blobStream = blob.createWriteStream();
     
   
