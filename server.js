@@ -169,7 +169,8 @@ app.post('/upload', multer.single('file'), (req, res, next) => {
     // Create a new blob in the bucket and upload the file data.
     const blob = bucket.file(req.file.originalname);
     const blobStream = blob.createWriteStream();
-    const mid = req.body.maintenanceID;
+    const randomNumber = Math.floor(Math.random() * Math.floor(9999999));;
+  
     blobStream.on('error', err => {
       next(err);
     });
@@ -177,7 +178,7 @@ app.post('/upload', multer.single('file'), (req, res, next) => {
     blobStream.on('finish', () => {
       // The public URL can be used to directly access the file via HTTP.
       const publicUrl = format(
-        `https://storage.googleapis.com/${bucket.name}/${mid}_${blob.name}`
+        `https://storage.googleapis.com/${bucket.name}/${randomNumber}-${blob.name}`
       );
       res.status(200).send(publicUrl);
     });

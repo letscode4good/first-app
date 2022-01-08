@@ -230,10 +230,9 @@
         files.append('file', $('#imageData')[0].files[0]); 
         $.ajax({
             type: 'POST',
-            data: {files,
-                   maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
+            data: {files},
             url: "/upload",
-            contentType: "application/x-www-form-urlencoded",
+            contentType: false,
             processData: false,
             success: function (data) {
                alert("Image added successfully")
