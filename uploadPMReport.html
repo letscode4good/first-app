@@ -231,9 +231,9 @@
         $.ajax({
             type: 'POST',
             data: {files,
-                   maintenanceID: document.getElementById("myform").elements.maintenanceID.value,},
+                   maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
             url: "/upload",
-            contentType: false,
+            contentType: "application/x-www-form-urlencoded",
             processData: false,
             success: function (data) {
                alert("Image added successfully")
