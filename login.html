@@ -80,14 +80,18 @@
                   </div>
                   <div class="form-group mt-3">
                     <label for="userType">User Type</label>
-                    <input
-                      name="userType"
-                      type="text"
+                    
+                    <select
                       class="form-control validate"
                       id="userType"
-                      value=""
+                      name="userType"
                       required
-                    />
+                    >
+                      <option value="admin">admin</option>
+                      <option value="engineer">engineer</option>
+                      <option value="finance">finance</option>
+                    </select>
+
                   </div>
                   <div class="form-group mt-4">
                     <button
