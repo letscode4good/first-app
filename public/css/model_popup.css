@@ -197,3 +197,8 @@ a:link {
   color: hsla(0, 0%, 0%, .6);
   font-size: 1.6rem;
 }
+
+.dataTables_wrapper {
+  width: 900px;
+  margin: 0 auto;
+}
