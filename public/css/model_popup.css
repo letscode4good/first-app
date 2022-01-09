@@ -202,3 +202,8 @@ a:link {
   width: 1200px;
   margin: 0 auto;
 }
+
+.dataTables_scrollHead{
+  height: 100px;
+  margin: 0 auto;
+}
