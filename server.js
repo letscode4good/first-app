@@ -68,14 +68,24 @@ var customerDetailsSchema = new mongoose.Schema({
 
 var customerInventorySchema = new mongoose.Schema({
     customerName : String,
+    customerType : String,
     custId : String,
     installDate : String,
     upsName : String,
     upsCapacity : String,
+    numOfUps: String,
     batteryName : String,
     batteryCapacity : String,
     numOfBattery : String,
-    stabilizer : String
+    stabilizerName : String,
+    numOfStabilizer : String,
+    solarPanelName : String,
+    numOfSolarPanel : String,
+    inverterName : String,
+    numOfInverter : String,
+    inverterCapacity: String,
+    solarRetrofitName: String,
+    numOfSolarRetrofit: String
 });
 
 var preventiveMaintenanceHistorySchema = new mongoose.Schema({
@@ -264,7 +274,8 @@ app.post('/addCustomerDetail', function(req, res){
 })
 
 app.post('/addCustomerInventory', function(req, res){
-    var newDBEntry = new customerInventorySchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'installDate':req.body.installDate, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity, 'batteryName':req.body.batteryName , 'batteryCapacity':req.body.batteryCapacity, 'numOfBattery':req.body.numOfBattery , 'stabilizer':req.body.stabilizer }) 
+    var newDBEntry = new customerInventorySchemaObject({'customerName': req.body.customerName , 'customerType':req.body.customerType , 'custId': req.body.custId , 'installDate':req.body.installDate, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity,'numOfUps': req.body.numOfUps, 'batteryName':req.body.batteryName , 'batteryCapacity':req.body.batteryCapacity, 'numOfBattery':req.body.numOfBattery , 'stabilizerName' : req.body.stabilizerName ,'numOfStabilizer':req.body.numOfStabilizer , 'solarPanelName':req.body.solarPanelName , 'numOfSolarPanel':req.body.numOfSolarPanel  , 'inverterName':req.body.inverterName  , 'numOfInverter':req.body.numOfInverter  , 'inverterCapacity':req.body.inverterCapacity  , 'solarRetrofitName':req.body.solarRetrofitName , 'numOfSolarRetrofit':req.body.numOfSolarRetrofit }) 
+
     newDBEntry.save(function(err, savedUser){
         if(err)
         {
