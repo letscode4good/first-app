@@ -56,6 +56,7 @@ var userLoginSchema = new mongoose.Schema({
 
 var customerDetailsSchema = new mongoose.Schema({
     customerName : String,
+    customerType : String,
     custId : String,
     address : String,
     email : String,
@@ -248,7 +249,7 @@ app.post('/addPMImages', function(req, res){
 
 
 app.post('/addCustomerDetail', function(req, res){
-    var newDBEntry = new customerDetailsSchemaObject({'customerName': req.body.custName , 'custId' : req.body.custId, 'address': req.body.custAddress , 'email':req.body.custEmail, 'officialphone':req.body.custOfficialPhone, 'contactperson':req.body.contactPersonName, 'contactpersonphone':req.body.contactPersonPhone     }) 
+    var newDBEntry = new customerDetailsSchemaObject({'customerName': req.body.custName , 'customerType' :req.body.customerType , 'custId' : req.body.custId, 'address': req.body.custAddress , 'email':req.body.custEmail, 'officialphone':req.body.custOfficialPhone, 'contactperson':req.body.contactPersonName, 'contactpersonphone':req.body.contactPersonPhone     }) 
     
     newDBEntry.save(function(err, savedUser){
         if(err)

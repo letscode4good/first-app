@@ -151,6 +151,26 @@
                           />
                         </div>
 
+
+
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                              for="customerType"
+                              >Customer Type
+                            </label>
+
+                            <select
+                            class="custom-select tm-select-accounts"
+                            id="customerType"
+                            name="customerType"
+                            required
+                            >
+                            <option value="Rental">Rental</option>
+                            <option value="AMC">AMC</option>
+                            <option value="Warranty">Warranty</option>
+                          </select>
+                          </div>
+
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                             <label
                               for="custAddress"
@@ -276,6 +296,7 @@
             type: 'POST',
             data: { custId: document.getElementById("myform").elements.custId.value,
                     custName: document.getElementById("myform").elements.custName.value, 
+                    customerType : document.getElementById("myform").elements.customerType.value,
                     custAddress: document.getElementById("myform").elements.custAddress.value, 
                     custEmail: document.getElementById("myform").elements.custEmail.value, 
                     custOfficialPhone: document.getElementById("myform").elements.custOfficialPhone.value, 
