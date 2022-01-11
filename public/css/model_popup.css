@@ -83,12 +83,14 @@ a:link {
   left: 100%;
   transform: translate(-50%, -50%);
 
+  /*
   width: 18rem;
   height: 18rem;
   border: 1px solid hsla(0, 0%, 100%, .2);
   border-radius: 100rem;
 
   pointer-events: none;
+  */
 }
 
 .modal__btn {
