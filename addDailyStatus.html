@@ -179,7 +179,7 @@
       function myfun()
       {
         var selectedDate = new Date(document.getElementById("myform").elements.statusDate.value); 
-        var dd = inputDate.getDate();
+        var dd = selectedDate.getDate();
         var mm = selectedDate.getMonth()+1; 
         var yyyy = selectedDate.getFullYear();
         if(dd<10) 
