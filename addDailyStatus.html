@@ -178,9 +178,24 @@
     <script>
       function myfun()
       {
+        var selectedDate = new Date(document.getElementById("myform").elements.statusDate.value); 
+        var dd = inputDate.getDate();
+        var mm = selectedDate.getMonth()+1; 
+        var yyyy = selectedDate.getFullYear();
+        if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+  
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        } 
+        var today = dd+'-'+mm+'-'+yyyy;
+
         $.ajax({
             type: 'POST',
-            data: { statusDate: document.getElementById("myform").elements.statusDate.value,
+            data: { statusDate: today,
                     status: document.getElementById("myform").elements.status.value},
             url: "/addStatusDetail",
             contentType: "application/x-www-form-urlencoded",
