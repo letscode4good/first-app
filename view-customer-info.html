@@ -245,7 +245,7 @@
       function showInventory(cutomerID) 
       {
         location.href = "#inventoryDiv";
-        $("#custInventory").DataTable().clear();
+        $("#custInventory").DataTable().clear().draw();
         loadInventoryData(cutomerID);
         
         document.getElementById("inventoryDiv").style.opacity = "1";
@@ -274,7 +274,7 @@
         function populateInventoryTable(data) {
           console.log("populating data table...");
           // clear the table before populating it with more data
-          $("#custInventory").DataTable().clear();
+          //$("#custInventory").DataTable().clear();
             // You could also use an ajax property on the data table initialization
             $('#custInventory').dataTable().fnAddData( [
               data.customerName,
