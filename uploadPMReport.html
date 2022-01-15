@@ -304,8 +304,8 @@
 
         function calculateDues()
         {
-          var totalExpense = document.getElementById("myform1").elements.transportExpense.value + document.getElementById("myform1").elements.travelExpense.value +document.getElementById("myform1").elements.MiscellaneousExpense.value;
-          var advanceAmount = document.getElementById("myform1").elements.advanceAmount.value;
+          var totalExpense = parseInt(document.getElementById("myform1").elements.transportExpense.value)+ parseInt(document.getElementById("myform1").elements.travelExpense.value) + parseInt(document.getElementById("myform1").elements.MiscellaneousExpense.value);
+          var advanceAmount = parseInt(document.getElementById("myform1").elements.advanceAmount.value);
 
           var  dueAmount = 0;
           var  returnAmount = 0;
