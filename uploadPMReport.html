@@ -303,6 +303,7 @@
           var mID = sessionStorage.getItem("maintenanceID");
           console.log(mID);
           document.getElementById("myform").elements.maintenanceID.value = mID;
+          document.getElementById("myform1").reset();
         });
 
 
@@ -332,9 +333,7 @@
 
           document.getElementById("myform1").elements.dueAmount.value = dueAmount;
           document.getElementById("myform1").elements.returnAmount.value = returnAmount;
-
         }
-
 
       function myfun()
       {
@@ -377,6 +376,7 @@
 
       function completeTask()
       {
+        calculateDues()
         $.ajax({
             type: 'GET',
             data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
@@ -404,7 +404,13 @@
                     maintenanceType: resposeJson.maintenanceType, 
                     dateWhenDone: todaysDate, 
                     engineer: resposeJson.engineer, 
-                    maintenanceID: resposeJson.maintenanceID},
+                    maintenanceID: resposeJson.maintenanceID,
+                    advanceAmount : document.getElementById("myform1").elements.advanceAmount.value,
+                    transportExpense : document.getElementById("myform1").elements.transportExpense.value,
+                    travelExpense : document.getElementById("myform1").elements.travelExpense.value,
+                    MiscellaneousExpense : document.getElementById("myform1").elements.MiscellaneousExpense.value,
+                    dueAmount : document.getElementById("myform1").elements.dueAmount.value,
+                    returnAmount : document.getElementById("myform1").elements.returnAmount.value},
             url: "/addPMHistory",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {

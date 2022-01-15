@@ -94,7 +94,13 @@ var preventiveMaintenanceHistorySchema = new mongoose.Schema({
     maintenanceType : String,
     dateWhenDone : String,
     engineer : String,
-    maintenanceID : String
+    maintenanceID : String,
+    advanceAmount : Number,
+    transportExpense : Number,
+    travelExpense : Number,
+    MiscellaneousExpense : Number,
+    dueAmount : Number,
+    returnAmount : Number
 });
 
 
@@ -288,7 +294,8 @@ app.post('/addCustomerInventory', function(req, res){
 
 
 app.post('/addPMHistory', function(req, res){
-    var newDBEntry = new preventiveMaintenanceHistorySchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'dateWhenDone': req.body.dateWhenDone, 'engineer':req.body.engineer, 'maintenanceID':req.body.maintenanceID}) 
+    var newDBEntry = new preventiveMaintenanceHistorySchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'dateWhenDone': req.body.dateWhenDone, 'engineer':req.body.engineer, 'maintenanceID':req.body.maintenanceID, 'advanceAmount':req.body.advanceAmount, 'transportExpense':req.body.transportExpense, 'travelExpense':req.body.travelExpense, 'MiscellaneousExpense':req.body.MiscellaneousExpense, 'dueAmount':req.body.dueAmount, 'returnAmount':req.body.returnAmount }) 
+
     newDBEntry.save(function(err, savedUser){
         if(err)
         {
