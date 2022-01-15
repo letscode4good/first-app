@@ -123,6 +123,15 @@
               <div class="col-xl-6 col-lg-6 col-md-12">
                 <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="myfun()" class="tm-edit-product-form" >
                     <div class="row">
+
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                        <label
+                          for="maintenanceID"
+                          >Maintenace ID
+                        </label>
+                        <input class="form-control validate"  type="input" id="maintenanceID" name="maintenanceID" STYLE="background-color: #54657d;" readonly>
+                      </div>
+
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
                             for="imageData"
@@ -130,16 +139,7 @@
                           </label>
                           <input class="form-control validate" id="imageData" name="imageData" type="file"  />
                         </div>
-                        <div class="form-group mb-3 col-xs-12 col-sm-6">
-                          <label
-                            for="maintenanceID"
-                            >Enter Maintenace ID
-                          </label>
-                          <input class="form-control validate"  type="input" id="maintenanceID" name="maintenanceID" STYLE="background-color: #54657d;" readonly>
-                        </div>
-                  </div>
 
-                  <div class="row">
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
                             for="serviceReport"
@@ -155,10 +155,13 @@
                         </select>
                         </div>
 
-                        <div class="form-group mb-3 col-xs-12 col-sm-6">
-                          <button type="submit" class="btn btn-primary btn-block text-uppercase">Upload Image</button>
-                      </div>
+                        
+                  </div>
 
+                  <div class="row">
+                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                        <button type="submit" class="btn btn-primary btn-block text-uppercase">Upload Image</button>
+                    </div>
                   </div>
     
                 </form>
