@@ -121,7 +121,7 @@
             </div>
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
-                <form  id = "myform1" action="javascript:;" enctype=”multipart/form-data” onsubmit="myfun()" class="tm-edit-product-form" >
+                <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="myfun()" class="tm-edit-product-form" >
                     <div class="row">
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
@@ -166,35 +166,36 @@
                 </form>
 
 
-                <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="myfun()" class="tm-edit-product-form" >
-                  <div class="row">
+                
+
+              </div>
+              <form  id = "myform1" action="javascript:;" enctype=”multipart/form-data” onsubmit="myfun()" class="tm-edit-product-form" >
+                <div class="row">
+                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                      <label
+                        for="maintenanceID"
+                        >Advance amount
+                      </label>
+                      <input class="form-control validate"  type="input" id="maintenanceID" name="maintenanceID" STYLE="background-color: #54657d;" >
+                    </div>
+              </div>
+
+              <div class="row">
+                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                      
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
                         <label
                           for="maintenanceID"
-                          >Advance amount
+                          > Transport expense
                         </label>
                         <input class="form-control validate"  type="input" id="maintenanceID" name="maintenanceID" STYLE="background-color: #54657d;" >
                       </div>
-                </div>
 
-                <div class="row">
-                      <div class="form-group mb-3 col-xs-12 col-sm-6">
-                        
-                        <div class="form-group mb-3 col-xs-12 col-sm-6">
-                          <label
-                            for="maintenanceID"
-                            > Transport expense
-                          </label>
-                          <input class="form-control validate"  type="input" id="maintenanceID" name="maintenanceID" STYLE="background-color: #54657d;" >
-                        </div>
-
-                      </div>
-                </div>
-
-  
-              </form>
-
+                    </div>
               </div>
+
+
+            </form>
              </div>
               <div class="col-12">
                 <button type="submit" onclick="completeTask();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Complete Task</button>
