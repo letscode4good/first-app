@@ -170,7 +170,7 @@
 
 
                 <div class="col-xl-6 col-lg-6 col-md-12">
-                  <form  id = "myform1" action="javascript:;" enctype=”multipart/form-data” onsubmit="myfun()" class="tm-edit-product-form" >
+                  <form  id = "myform1" action="javascript:;" enctype=”multipart/form-data” onsubmit="calculateDues()" class="tm-edit-product-form" >
                       
                     <div class="row">
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -178,7 +178,7 @@
                           for="advanceAmount"
                           >Advance amount
                         </label>
-                        <input class="form-control validate"  type="input" id="advanceAmount" name="advanceAmount" STYLE="background-color: #54657d;">
+                        <input class="form-control validate"  type="number" id="advanceAmount" name="advanceAmount" STYLE="background-color: #54657d;">
                       </div>
 
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -186,7 +186,7 @@
                           for="transportExpense"
                           >Transport
                         </label>
-                        <input class="form-control validate"  type="input" id="transportExpense" name="transportExpense" STYLE="background-color: #54657d;">
+                        <input class="form-control validate"  type="number" id="transportExpense" name="transportExpense" STYLE="background-color: #54657d;">
                       </div>
 
                     </div>
@@ -198,7 +198,7 @@
                           for="travelExpense"
                           >Travel
                         </label>
-                        <input class="form-control validate"  type="input" id="travelExpense" name="travelExpense" STYLE="background-color: #54657d;">
+                        <input class="form-control validate"  type="number" id="travelExpense" name="travelExpense" STYLE="background-color: #54657d;">
                       </div>
 
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -206,7 +206,7 @@
                           for="MiscellaneousExpense"
                           >Miscellaneous
                         </label>
-                        <input class="form-control validate"  type="input" id="MiscellaneousExpense" name="MiscellaneousExpense" STYLE="background-color: #54657d;">
+                        <input class="form-control validate"  type="number" id="MiscellaneousExpense" name="MiscellaneousExpense" STYLE="background-color: #54657d;">
                       </div>
 
                     </div>
@@ -218,7 +218,7 @@
                           for="dueAmount"
                           >Due Amount
                         </label>
-                        <input class="form-control validate"  type="input" id="dueAmount" name="dueAmount" STYLE="background-color: #54657d;" readonly>
+                        <input class="form-control validate"  type="number" id="dueAmount" name="dueAmount" STYLE="background-color: #54657d;" readonly>
                       </div>
 
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -226,9 +226,15 @@
                           for="returnAmount"
                           >Return Amount
                         </label>
-                        <input class="form-control validate"  type="input" id="returnAmount" name="returnAmount" STYLE="background-color: #54657d;" readonly>
+                        <input class="form-control validate"  type="number" id="returnAmount" name="returnAmount" STYLE="background-color: #54657d;" readonly>
                       </div>
 
+                    </div>
+
+                    <div class="row">
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <button type="submit" class="btn btn-primary btn-block text-uppercase">Calculate</button>
+                      </div>
                     </div>
       
                   </form>
@@ -294,6 +300,36 @@
           console.log(mID);
           document.getElementById("myform").elements.maintenanceID.value = mID;
         });
+
+
+        function calculateDues()
+        {
+          var totalExpense = document.getElementById("myform1").elements.transportExpense.value + document.getElementById("myform1").elements.travelExpense.value +document.getElementById("myform1").elements.MiscellaneousExpense.value;
+          var advanceAmount = document.getElementById("myform1").elements.advanceAmount.value;
+
+          var  dueAmount = 0;
+          var  returnAmount = 0;
+
+          if (advanceAmount > totalExpense)
+          {
+            returnAmount = advanceAmount - totalExpense;
+            dueAmount = 0;
+          }
+          else if(advanceAmount < totalExpense)
+          {
+            dueAmount = totalExpense - advanceAmount;
+            returnAmount = 0;
+          }
+          else
+          {
+            dueAmount = 0;
+            returnAmount = 0;
+          }
+
+          document.getElementById("myform").elements.dueAmount.value = dueAmount;
+          document.getElementById("myform").elements.returnAmount.value = returnAmount;
+
+        }
 
 
       function myfun()
