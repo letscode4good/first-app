@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Add Product - Dashboard HTML Template</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+    />
+    <!-- https://fonts.google.com/specimen/Roboto -->
+    <link rel="stylesheet" href="css/fontawesome.min.css" />
+    <!-- https://fontawesome.com/ -->
+    <link rel="stylesheet" href="jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
+    <!-- http://api.jqueryui.com/datepicker/ -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="css/templatemo-style.css">
+    <!--
+	Product Admin CSS Template
+	https://templatemo.com/tm-524-product-admin
+	-->
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-xl">
+      <div class="container h-100">
+        <a class="navbar-brand" href="index.html">
+          <h1 class="tm-site-title mb-0">Product Admin</h1>
+        </a>
+        <button
+          class="navbar-toggler ml-auto mr-0"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="fas fa-bars tm-nav-icon"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto h-100">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="far fa-file-alt"></i>
+                <span> Reports <i class="fas fa-angle-down"></i> </span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="allupcomingPM.html">All Upcoming Maintenance</a>
+                <a class="dropdown-item" href="completedPlannedPM.html">Completed Maintenance</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="products.html">
+                <i class="fas fa-shopping-cart"></i> Products
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="accounts.html">
+                <i class="far fa-user"></i> Accounts
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="fas fa-cog"></i>
+                <span> Menu <i class="fas fa-angle-down"></i> </span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="add-product.html">Add Stock</a>
+                <a class="dropdown-item" href="products.html">View Stock</a>
+                <a class="dropdown-item" href="add-customer-info.html">Add Customer</a>
+                <a class="dropdown-item" href="view-customer-info.html">View Customers</a>
+                <a class="dropdown-item" href="addCustomerRequestPM.html">Add Customer Request Maintenace</a>
+            </div>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link d-block" href="login.html">
+                <b>Logout</b>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container tm-mt-big tm-mb-big">
+      <div class="row">
+        <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+          <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+            <div class="row">
+              <div class="col-12">
+                <h2 class="tm-block-title d-inline-block">Maintenance Report</h2>
+              </div>
+            </div>
+            <div class="row tm-edit-product-row">
+                <div class="col-xl-6 col-lg-6 col-md-12">
+                  <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="myfun()" class="tm-edit-product-form" >
+                      
+                    <div class="row">
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                        <label
+                          for="maintenanceID"
+                          >Maintenace ID
+                        </label>
+                        <input class="form-control validate"  type="input" id="maintenanceID" name="maintenanceID" STYLE="background-color: #54657d;" readonly>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                        <label
+                          for="advanceAmount"
+                          >Advance amount
+                        </label>
+                        <input class="form-control validate"  type="number" min="0" required id="advanceAmount" name="advanceAmount" STYLE="background-color: #54657d;">
+                      </div>
+
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                        <label
+                          for="transportExpense"
+                          >Transport
+                        </label>
+                        <input class="form-control validate"  type="number" min="0" required id="transportExpense" name="transportExpense" STYLE="background-color: #54657d;">
+                      </div>
+
+                    </div>
+                    
+
+                    <div class="row">
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                        <label
+                          for="travelExpense"
+                          >Travel
+                        </label>
+                        <input class="form-control validate"  type="number" min="0" required id="travelExpense" name="travelExpense" STYLE="background-color: #54657d;">
+                      </div>
+
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                        <label
+                          for="MiscellaneousExpense"
+                          >Miscellaneous
+                        </label>
+                        <input class="form-control validate"  type="number" min="0" required id="MiscellaneousExpense" name="MiscellaneousExpense" STYLE="background-color: #54657d;">
+                      </div>
+
+                    </div>
+
+
+                    <div class="row">
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                        <label
+                          for="dueAmount"
+                          >Due Amount
+                        </label>
+                        <input class="form-control validate"  type="number" id="dueAmount" name="dueAmount" STYLE="background-color: #54657d;" readonly>
+                      </div>
+
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                        <label
+                          for="returnAmount"
+                          >Return Amount
+                        </label>
+                        <input class="form-control validate"  type="number" id="returnAmount" name="returnAmount" STYLE="background-color: #54657d;" readonly>
+                      </div>
+
+                    </div>
+      
+                  </form>
+                </div>
+
+
+
+            </div>
+
+
+              <div class="col-12">
+                <button type="submit" onclick="completeTask();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Complete Task</button>
+              </div>
+
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <footer class="tm-footer row tm-mt-small">
+        <div class="col-12 font-weight-light">
+          <p class="text-center text-white mb-0 px-4 small">
+            Copyright &copy; <b>2018</b> All rights reserved. 
+            
+            Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
+        </p>
+        </div>
+    </footer> 
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- https://jquery.com/download/ -->
+    <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+    <!-- https://jqueryui.com/download/ -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- https://getbootstrap.com/ -->
+    <script>
+        
+        function getDate(inputDate, flag)
+        {
+          //var today = new Date();
+          if (flag == 1)
+          {
+            inputDate.setDate(inputDate.getDate() + 90);
+          }
+          var dd = inputDate.getDate();
+          var mm = inputDate.getMonth()+1; 
+          var yyyy = inputDate.getFullYear();
+          if(dd<10) 
+          {
+              dd='0'+dd;
+          } 
+
+          if(mm<10) 
+          {
+              mm='0'+mm;
+          } 
+          var today = dd+'-'+mm+'-'+yyyy;
+          return today;
+      }
+
+        $(function() {
+          var mID = sessionStorage.getItem("maintenanceID");
+          console.log(mID);
+          document.getElementById("myform").elements.maintenanceID.value = mID;
+          document.getElementById("myform1").reset();
+        });
+
+
+        function calculateDues()
+        {
+          var totalExpense = parseInt(document.getElementById("myform1").elements.transportExpense.value)+ parseInt(document.getElementById("myform1").elements.travelExpense.value) + parseInt(document.getElementById("myform1").elements.MiscellaneousExpense.value);
+          var advanceAmount = parseInt(document.getElementById("myform1").elements.advanceAmount.value);
+
+          var  dueAmount = 0;
+          var  returnAmount = 0;
+
+          if (advanceAmount > totalExpense)
+          {
+            returnAmount = advanceAmount - totalExpense;
+            dueAmount = 0;
+          }
+          else if(advanceAmount < totalExpense)
+          {
+            dueAmount = totalExpense - advanceAmount;
+            returnAmount = 0;
+          }
+          else
+          {
+            dueAmount = 0;
+            returnAmount = 0;
+          }
+
+          document.getElementById("myform1").elements.dueAmount.value = dueAmount;
+          document.getElementById("myform1").elements.returnAmount.value = returnAmount;
+        }
+
+      function myfun()
+      {
+        let files = new FormData();
+        files.append('file', $('#imageData')[0].files[0]); 
+        $.ajax({
+            type: 'POST',
+            data: files,
+            url: "/upload",
+            contentType: false,
+            processData: false,
+            success: function (data) {
+               alert("Image added successfully")
+               addImageInfoInDB(data);   
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+      }
+
+      function addImageInfoInDB(imageUrl)
+      {
+        $.ajax({
+            type: 'POST',
+            data: { maintenanceID: document.getElementById("myform").elements.maintenanceID.value,
+                    serviceReport: document.getElementById("myform").elements.serviceReport.value,
+                    imageLink: imageUrl},
+            url: "/addPMImages",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+               console.log("Image info added in DB");
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+        
+      }
+
+      function completeTask()
+      {
+        if(
+            (document.getElementById("myform1").elements.transportExpense.value) == ""
+          ||
+            (document.getElementById("myform1").elements.travelExpense.value) == ""
+          ||
+            (document.getElementById("myform1").elements.MiscellaneousExpense.value) == ""
+          ||
+            (document.getElementById("myform1").elements.advanceAmount.value) == ""
+        )
+        {
+          alert("Please add expense data before submitting.")
+          return;
+        }
+        
+        calculateDues();
+
+        $.ajax({
+            type: 'GET',
+            data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
+            url: "/getUpcomingPMForMid",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (resposeJson) {
+               addCompletedRecordToDB(resposeJson);
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+
+      }
+
+      function addCompletedRecordToDB(resposeJson)
+      {
+        var todaysDate = getDate(new Date(), 0);
+        var mType = resposeJson.maintenanceType;
+        $.ajax({
+            type: 'POST',
+            data: { custId: resposeJson.custId,
+                    customerName: resposeJson.customerName, 
+                    maintenanceType: resposeJson.maintenanceType, 
+                    dateWhenDone: todaysDate, 
+                    engineer: resposeJson.engineer, 
+                    maintenanceID: resposeJson.maintenanceID,
+                    advanceAmount : document.getElementById("myform1").elements.advanceAmount.value,
+                    transportExpense : document.getElementById("myform1").elements.transportExpense.value,
+                    travelExpense : document.getElementById("myform1").elements.travelExpense.value,
+                    MiscellaneousExpense : document.getElementById("myform1").elements.MiscellaneousExpense.value,
+                    dueAmount : document.getElementById("myform1").elements.dueAmount.value,
+                    returnAmount : document.getElementById("myform1").elements.returnAmount.value},
+            url: "/addPMHistory",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+               if(mType == "Planned")
+               {
+                  addFutureMaintenanceRecord(resposeJson)
+               }
+               removeOlderRecord()
+               alert("Successfully saved details.")
+               sessionStorage.removeItem('maintenanceID');
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+      }
+
+      function addFutureMaintenanceRecord(resposeJson)
+      {
+        var futureDate = getDate(new Date(), 1);
+        var futureMid;
+        $.ajax({
+            type: 'GET',
+            url: "/getCounters",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (responseData) {
+               futureMid = "M_" + responseData.maintenanceCount;
+
+               $.ajax({
+                type: 'POST',
+                data: { custId: resposeJson.custId,
+                        customerName: resposeJson.customerName, 
+                        maintenanceType: resposeJson.maintenanceType, 
+                        dateWhenScheduled: futureDate, 
+                        engineer: resposeJson.engineer, 
+                        maintenanceID: futureMid},
+                url: "/addupcomingPM",
+                contentType: "application/x-www-form-urlencoded",
+                success: function (data) {
+                  console.log("Future Maintenance Record Successfully added.");
+                  sessionStorage.removeItem('maintenanceID');
+                },
+                error: function (e) {
+                  alert("Error while adding data: " + JSON.stringify(e))
+                }
+              });
+
+              $.ajax({
+              type: 'POST',
+              url: "/incrementMaintenanceCounter",
+              contentType: "application/x-www-form-urlencoded",
+              success: function (data) {
+                console.log("Maintenance counter incremented");
+              },
+              error: function (e) {
+                alert("Error while adding data: " + JSON.stringify(e))
+              }
+            });
+
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+
+      }
+
+      function removeOlderRecord()
+      {
+        $.ajax({
+            type: 'GET',
+            data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
+            url: "/deleteFromUpcomingPM",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (resposeJson) {
+               console.log("Old record deleted");
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+      }
+
+    </script>
+  </body>
+</html>
