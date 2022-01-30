@@ -112,8 +112,9 @@
 
               console.log(oldDate);
               console.log(dbDate);
-              if((dbDate - oldDate) < 31)
+              if((dbDate > oldDate))
               {
+                  console.log(dbDate + " lies within a month");
                   // You could also use an ajax property on the data table initialization
                   $('#stockTable').dataTable().fnAddData( [
                   data[i].date,
