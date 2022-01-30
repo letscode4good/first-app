@@ -230,13 +230,18 @@
     
 
 
+
+
       function showInventory(cutomerID) 
       {
-        location.href = "#inventoryDiv";
+        var mID = cutomerID;
+        sessionStorage.setItem("completedMaintenanceID", mID);
+        location.replace("/detailedPMReport.html")
+        //location.href = "#inventoryDiv";
         //$("#custInventory").DataTable().clear();
-        loadImages(cutomerID);
+        //loadInventoryData(cutomerID);
         
-        document.getElementById("inventoryDiv").style.opacity = "1";
+        //document.getElementById("inventoryDiv").style.opacity = "1";
 
       }
 

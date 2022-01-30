@@ -410,6 +410,19 @@ app.get("/getCustomerDetails",function(req, res) {
     }
 })
 
+
+
+app.get("/getPMHistoryForMid",function(req, res) {
+        preventiveMaintenanceHistorySchemaObject.findOne({maintenanceID: req.query.maintenanceID}, function (err, docs) {
+            if(err) return next(err);
+            if (docs == null) {
+                res.send('Preventive maintenance history not found for given M_id.');
+            }
+            res.send(docs);
+          });
+})
+
+
 app.get("/getUpcomingPMForCust",function(req, res) {
     upcomingMaintenanceSchemaObject.findOne({ custId: req.query.custId}, function (err, docs) {
       if (err){
