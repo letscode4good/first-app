@@ -193,6 +193,31 @@
                     </div>
       
                   </form>
+
+
+                  <div id="inventoryDiv" class="modal-container" style = "font-size: 62.5%;">
+              
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <ul id="imageIndicator" class="carousel-indicators">
+                          
+                        </ul>
+                        <div id="imageList" class="carousel-inner">
+                          
+                          
+                          
+                        </div>
+                        <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+                          <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#myCarousel" data-slide="next">
+                          <span class="carousel-control-next-icon"></span>
+                        </a>
+                      </div>
+    
+                  <!--<a href="#custInfo" class="link-2"></a>-->
+                </div>
+
+
                 </div>
 
 
@@ -200,7 +225,7 @@
 
 
               <div class="col-12">
-                <button type="submit" onclick="completeTask();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">View reports</button>
+                <button type="submit" onclick="loadImages();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">View reports</button>
               </div>
 
 
@@ -229,6 +254,7 @@
     <script>
         
         $(function() {
+          document.getElementById("inventoryDiv").style.opacity = "0";
           var mID = sessionStorage.getItem("completedMaintenanceID");
           console.log(mID);
           document.getElementById("myform").elements.maintenanceID.value = mID;
@@ -257,6 +283,44 @@
         });
 
 
+        function loadImages() {
+          $.ajax({
+            type: 'GET',
+            data: { maintenanceID: document.getElementById("myform").elements.maintenanceID.value },
+            url: "/getPMImages",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (data) {
+              myJsonData = data;
+              console.log("error: " + JSON.stringify(myJsonData));
+              populateInventoryTable(myJsonData);
+            },
+            error: function (e) {
+              console.log("There was an error with your request...");
+              console.log("error: " + JSON.stringify(e));
+            }
+          });
+        }
+
+        // populate the data table with JSON data
+        function populateInventoryTable(data) {
+          console.log("populating data table...");
+          
+          document.getElementById("imageList").innerHTML = "";
+          
+          var response = '',
+            indicator = '';
+            for (var i = 0; i < data.length; i++) {
+                response += '<div class="carousel-item"><img src="' + data[i].imageLink + '" width="500" height="500"><div class="carousel-caption"><h3 style="color:Green;">' + data[i].maintenanceID + '</div></div>';
+                indicator += '<li data-target="#myCarousel" data-slide-to="'+i+'"></li>';
+            }
+            $('#imageList').append(response);
+            $('#imageIndicator').append(indicator);
+            $('.carousel-item').first().addClass('active');
+            $('.carousel-indicators > li').first().addClass('active');
+            $("#myCarousel").carousel();
+
+            }
 
 
       function myfun()
