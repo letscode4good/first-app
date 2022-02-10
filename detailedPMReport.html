@@ -300,6 +300,11 @@
               console.log("error: " + JSON.stringify(e));
             }
           });
+          location.href = "#inventoryDiv";
+        //$("#custInventory").DataTable().clear();
+        //loadInventoryData(cutomerID);
+        
+          document.getElementById("inventoryDiv").style.opacity = "1";
         }
 
         // populate the data table with JSON data
