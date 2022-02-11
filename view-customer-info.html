@@ -324,9 +324,9 @@
         document.getElementById("custInfo").style.opacity = "1";
       }
 
-      var table = $("#custInfo").DataTable();
+      //var table = $("#custInfo").DataTable();
       $('#custInfo tbody').on('click', 'tr', function () {
-        var data = table.row( this ).data();
+        var data = $("#custInfo").DataTable().row( this ).data();
         //alert( 'You clicked on '+data[0]+'\'s row' );
         showInventory(data[0])
     })
