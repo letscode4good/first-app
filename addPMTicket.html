@@ -390,7 +390,7 @@ document.getElementById("myform").elements.upsCapacity.value = sessionStorage.ge
         $.ajax({
             type: 'POST',
             data: { custId: document.getElementById("myform").elements.custId.value,
-                    customerName: $( "#customerName option:selected" ).text(), 
+                    customerName: document.getElementById("myform").elements.customerName.value, 
                     maintenanceType: document.getElementById("myform").elements.maintenanceType.value, 
                     dateWhenScheduled: scheduleDate, 
                     engineer: document.getElementById("myform").elements.engineer.value, 
