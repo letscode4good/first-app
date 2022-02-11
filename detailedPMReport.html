@@ -194,15 +194,6 @@
                       </div>
 
 
-                      <div class="form-group mb-3 col-xs-12 col-sm-6">
-                        <label
-                          for="description"
-                          >Summary
-                        </label>
-                        <input class="form-control validate"  type="text" id="description" name="description" STYLE="background-color: #54657d;" readonly>
-                      </div>
-
-      
                   </form>
 
                 </div>
@@ -234,6 +225,14 @@
           </div>
 
               <div class="col-12">
+
+                <label class = "tm-block-title d-inline-block"
+                for="description"
+                >Summary
+              </label>
+
+               <input id="description" class="form-control validate"  type="text" required name="description" STYLE="background-color: #54657d;">
+
                 <button type="submit" onclick="loadImages();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">View reports</button>
               </div>
 
@@ -282,7 +281,7 @@
               document.getElementById("myform").elements.MiscellaneousExpense.value = resposeJson.MiscellaneousExpense;
               document.getElementById("myform").elements.dueAmount.value = resposeJson.dueAmount;
               document.getElementById("myform").elements.returnAmount.value = resposeJson.returnAmount;
-              document.getElementById("myform").elements.description.value = resposeJson.description;
+              document.getElementById("description").value = resposeJson.description;
             
             },
             error: function (e) {
@@ -415,7 +414,7 @@
                     address:  resposeJson.address,
                     upsName:  resposeJson.upsName,
                     upsCapacity:  resposeJson.upsCapacity,
-                    description : document.getElementById("myform1").elements.description.value,
+                    description : document.getElementById("description").value,
                   },
             url: "/addPMHistory",
             contentType: "application/x-www-form-urlencoded",
