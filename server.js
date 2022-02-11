@@ -411,7 +411,7 @@ app.get("/getCustomerDetails",function(req, res) {
   })
 
   app.get("/getPMHistory",function(req, res) {
-    if(session.userId && (session.userType == 'admin')){
+    if(session.userId && (session.userType == 'admin' || session.userType == 'supervisor' )){
         preventiveMaintenanceHistorySchemaObject.find({}, function (err, docs) {
             if(err) return next(err);
             if (docs == null) {
