@@ -264,6 +264,17 @@ app.post('/addStatusDetail', function(req, res){
     });
 })
 
+app.post('/addEmployeeStatusDetail', function(req, res){
+    session = req.session;
+    var newDBEntry = new statusDetailsSchemaObject({'date': req.body.statusDate , 'name': req.body.userName , 'status':req.body.status}) 
+    newDBEntry.save(function(err, savedUser){
+        if(err)
+            res.json({message : 'failures'})
+        else
+            res.json({message : 'successs'})
+    });
+})
+
 app.post('/addPMImages', function(req, res){
     session = req.session;
     var newDBEntry = new pmImagesSchemaObject({'maintenanceID': req.body.maintenanceID , 'serviceReport': req.body.serviceReport , 'imageLink':req.body.imageLink}) 
@@ -574,6 +585,9 @@ app.get('/',(req,res) => {
     else if(session.userId && (session.userType == 'engineer')){
         res.sendFile(__dirname+'/addDailyStatus.html')
     }
+    else if(session.userId && (session.userType == 'supervisor')){
+        res.sendFile(__dirname+'/addEmployeeStatus.html')
+    }
     else
         res.sendFile(__dirname+'/login.html')
 })
@@ -615,6 +629,8 @@ app.get('/completedPlannedPM.html', (req, res) => res.sendfile(__dirname+'/compl
 app.get('/addDailyStatus.html', (req, res) => res.sendfile(__dirname+'/addDailyStatus.html'))
 app.get('/uploadPMReport.html', (req, res) => res.sendfile(__dirname+'/uploadPMReport.html'))
 app.get('/detailedPMReport.html', (req, res) => res.sendfile(__dirname+'/detailedPMReport.html'))
+
+app.get('/addEmployeeStatus.html', (req, res) => res.sendfile(__dirname+'/addEmployeeStatus.html'))
 
 
 

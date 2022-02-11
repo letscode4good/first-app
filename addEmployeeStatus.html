@@ -136,6 +136,21 @@
                         </div>
                   </div>
 
+
+                  <div class="form-group mb-3 col-xs-12 col-sm-6">
+                    <label
+                      for="userName"
+                      >Employee name
+                    </label>
+                    <select
+                    class="custom-select tm-select-accounts"
+                    id="userName"
+                    name="userName"
+                   >
+                   <option value="">Select Employee</option>
+                   </select>
+                  </div>
+
                   <div class="row">
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
@@ -151,6 +166,7 @@
                           />
                         </div>
                   </div>
+
 
               </div>
               </div>
@@ -180,6 +196,27 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
     <script>
+
+
+
+        $(function() {
+
+          $.ajax({
+                type: "GET",
+                url: "/getAllEngineers",
+                dataType: "json",
+                success: function (result, status, xhr) {
+                $.each(result,function(key, value)
+                {
+                    $("#userName").append('<option value="' + value.userName + '">' + value.userName + '</option>');
+                });
+                },
+                error: function (xhr, status, error) {
+                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                }
+            });
+          });
+
       function myfun()
       {
         var selectedDate = new Date(document.getElementById("myform").elements.statusDate.value); 
@@ -200,8 +237,9 @@
         $.ajax({
             type: 'POST',
             data: { statusDate: today,
+                    name: document.getElementById("myform").elements.userName.value,
                     status: document.getElementById("myform").elements.status.value},
-            url: "/addStatusDetail",
+            url: "/addEmployeeStatusDetail",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
                alert("Daily status detail added successfully")
