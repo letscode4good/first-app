@@ -52,7 +52,7 @@
             {
                 mm='0'+mm;
             } 
-            var today = dd+'-'+mm+'-'+yyyy;
+            var today = dd+'/'+mm+'/'+yyyy;
             return today;
         }
 
@@ -103,11 +103,11 @@
             for(var i = 0; i < length; i++) {
 
 
-                var dateParts = previousDate.split("-");
+                var dateParts = previousDate.split("/");
                 // month is 0-based, that's why we need dataParts[1] - 1
                 var oldDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
 
-                dateParts = data[i].date.split("-")
+                dateParts = data[i].date.split("/")
                 var dbDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
 
               console.log(oldDate);
