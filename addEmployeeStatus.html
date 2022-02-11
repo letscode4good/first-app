@@ -238,7 +238,7 @@
         $.ajax({
             type: 'POST',
             data: { statusDate: today,
-                    name: document.getElementById("myform").elements.userName.value,
+                    userName: document.getElementById("myform").elements.userName.value,
                     status: document.getElementById("myform").elements.status.value},
             url: "/addEmployeeStatusDetail",
             contentType: "application/x-www-form-urlencoded",

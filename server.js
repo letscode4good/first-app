@@ -265,7 +265,6 @@ app.post('/addStatusDetail', function(req, res){
 })
 
 app.post('/addEmployeeStatusDetail', function(req, res){
-    session = req.session;
     var newDBEntry = new statusDetailsSchemaObject({'date': req.body.statusDate , 'name': req.body.userName , 'status':req.body.status}) 
     newDBEntry.save(function(err, savedUser){
         if(err)
