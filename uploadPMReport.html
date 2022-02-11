@@ -248,6 +248,12 @@
 
 
               <div class="col-12">
+                <label
+                          for="description"
+                          >Add detailed description
+                        </label>
+                <input id="description" class="form-control validate"  type="text" required name="description" STYLE="background-color: #54657d;">
+
                 <button type="submit" onclick="completeTask();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Complete Task</button>
               </div>
 
@@ -425,7 +431,13 @@
                     travelExpense : document.getElementById("myform1").elements.travelExpense.value,
                     MiscellaneousExpense : document.getElementById("myform1").elements.MiscellaneousExpense.value,
                     dueAmount : document.getElementById("myform1").elements.dueAmount.value,
-                    returnAmount : document.getElementById("myform1").elements.returnAmount.value},
+                    returnAmount : document.getElementById("myform1").elements.returnAmount.value,
+                    customerType: resposeJson.customerType, 
+                    address:  resposeJson.address,
+                    upsName:  resposeJson.upsName,
+                    upsCapacity:  resposeJson.upsCapacity,
+                    description : document.getElementById("description").value
+                  },
             url: "/addPMHistory",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
@@ -462,7 +474,13 @@
                         maintenanceType: resposeJson.maintenanceType, 
                         dateWhenScheduled: futureDate, 
                         engineer: resposeJson.engineer, 
-                        maintenanceID: futureMid},
+                        maintenanceID: futureMid,
+                        customerType: resposeJson.customerType, 
+                        address:  resposeJson.address,
+                        upsName:  resposeJson.upsName,
+                        upsCapacity:  resposeJson.upsCapacity,
+                        description : "NA"
+                      },
                 url: "/addupcomingPM",
                 contentType: "application/x-www-form-urlencoded",
                 success: function (data) {

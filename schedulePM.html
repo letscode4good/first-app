@@ -117,8 +117,10 @@
                   <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Customer Name</th>
-                    <th scope="col">Type</th>
                     <th scope="col">Address</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">UPS</th>
+                    <th scope="col">Capacity</th>
                     <th scope="col">Email</th>
                     <th scope="col">Official Contact</th>
                     <th scope="col">Contact Person</th>
@@ -229,8 +231,10 @@
             $('#custInfo').dataTable().fnAddData( [
               data[i].custId,
               data[i].customerName,
-              data[i].customerType,
               data[i].address,
+              data[i].customerType,
+              data[i].upsName,
+              data[i].upsCapacity,
               data[i].email,
               data[i].officialphone,
               data[i].contactperson,

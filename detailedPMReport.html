@@ -191,7 +191,15 @@
                         <input class="form-control validate"  type="number" id="returnAmount" name="returnAmount" STYLE="background-color: #54657d;" readonly>
                       </div>
 
-                    </div>
+
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                        <label
+                          for="description"
+                          >Summary
+                        </label>
+                        <input class="form-control validate"  type="text" id="description" name="description" STYLE="background-color: #54657d;" readonly>
+                      </div>
+
       
                   </form>
 
@@ -272,6 +280,7 @@
               document.getElementById("myform").elements.MiscellaneousExpense.value = resposeJson.MiscellaneousExpense;
               document.getElementById("myform").elements.dueAmount.value = resposeJson.dueAmount;
               document.getElementById("myform").elements.returnAmount.value = resposeJson.returnAmount;
+              document.getElementById("myform").elements.description.value = resposeJson.description;
             
             },
             error: function (e) {
@@ -399,7 +408,13 @@
                     travelExpense : document.getElementById("myform1").elements.travelExpense.value,
                     MiscellaneousExpense : document.getElementById("myform1").elements.MiscellaneousExpense.value,
                     dueAmount : document.getElementById("myform1").elements.dueAmount.value,
-                    returnAmount : document.getElementById("myform1").elements.returnAmount.value},
+                    returnAmount : document.getElementById("myform1").elements.returnAmount.value,
+                    customerType: resposeJson.customerType, 
+                    address:  resposeJson.address,
+                    upsName:  resposeJson.upsName,
+                    upsCapacity:  resposeJson.upsCapacity,
+                    description : document.getElementById("myform1").elements.description.value,
+                  },
             url: "/addPMHistory",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
@@ -436,7 +451,13 @@
                         maintenanceType: resposeJson.maintenanceType, 
                         dateWhenScheduled: futureDate, 
                         engineer: resposeJson.engineer, 
-                        maintenanceID: futureMid},
+                        maintenanceID: futureMid,
+                        customerType: resposeJson.customerType, 
+                        address:  resposeJson.address,
+                        upsName:  resposeJson.upsName,
+                        upsCapacity:  resposeJson.upsCapacity,
+                        description : "NA"
+                      },
                 url: "/addupcomingPM",
                 contentType: "application/x-www-form-urlencoded",
                 success: function (data) {
