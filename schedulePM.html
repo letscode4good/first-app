@@ -204,7 +204,13 @@
         
         document.getElementById("inventoryDiv").style.opacity = "0";
 
-        $("#custInfo").DataTable();
+        $("#custInfo").DataTable(
+          {
+                "language": {
+                  "emptyTable": "Loading Customer Data...."
+                }
+          }
+        );
         $("#custInventory").DataTable({searching: false, paging: false, info: false, scrollX: true });
         
 
