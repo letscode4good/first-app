@@ -246,13 +246,32 @@
     
 
 
-      function showInventory(cutomerID) 
+      function showInventory(data) 
       {
-        location.href = "#inventoryDiv";
-        $("#custInventory").DataTable().clear().draw();
-        loadInventoryData(cutomerID);
+
+
         
-        document.getElementById("inventoryDiv").style.opacity = "1";
+
+        var custName= data[1];
+        var custID= data[0];
+        var custType= data[3];
+        var custAddress= data[2];
+        var upsName= data[4];
+        var upsCapacity= data[5];
+
+        sessionStorage.setItem("custName", custName);
+        sessionStorage.setItem("custID", custID);
+        sessionStorage.setItem("custType", custType);
+        sessionStorage.setItem("custAddress", custAddress);
+        sessionStorage.setItem("upsName", upsName);
+        sessionStorage.setItem("upsCapacity", upsCapacity);
+
+        location.replace("/addPMTicket.html")
+
+        //location.href = "#inventoryDiv";
+        //$("#custInventory").DataTable().clear().draw();
+        //loadInventoryData(cutomerID);
+        //document.getElementById("inventoryDiv").style.opacity = "1";
 
       }
 
@@ -311,7 +330,7 @@
       $('#custInfo tbody').on('click', 'tr', function () {
         var data = table.row( this ).data();
         //alert( 'You clicked on '+data[0]+'\'s row' );
-        showInventory(data[0])
+        showInventory(data)
     })
 
     
