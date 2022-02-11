@@ -223,8 +223,9 @@
               data[i].dateWhenScheduled,
               data[i].engineer,
               data[i].maintenanceID
-            ]);
+            ], false);
           }
+          $("#custInfo").DataTable().draw();
         }
       });
     

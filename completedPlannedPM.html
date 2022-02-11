@@ -232,8 +232,9 @@
               data[i].dateWhenDone,
               data[i].engineer,
               data[i].maintenanceID
-            ]);
+            ], false);
           }
+          $("#custInfo").DataTable().draw();
         }
       });
     
