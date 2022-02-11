@@ -498,7 +498,7 @@ app.get("/deleteFromUpcomingPM",function(req, res) {
 
 
 app.get("/getAllUpcomingPM",function(req, res) {
-    if(session.userId && (session.userType == 'admin')){
+    if(session.userId && (session.userType == 'admin' || session.userType == 'supervisor')){
         upcomingMaintenanceSchemaObject.find({}, function (err, docs) {
             if(err) return next(err);
             if (docs == null) {
