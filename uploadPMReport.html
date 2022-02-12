@@ -150,7 +150,7 @@
                               for="imageData"
                               >Upload Image
                             </label>
-                            <input class="form-control validate" id="imageData" name="imageData" type="file"  />
+                            <input class="form-control validate" id="imageData" name="imageData" type="file" multiple />
                           </div>
                     </div>
 
@@ -351,22 +351,30 @@
 
       function myfun()
       {
-        let files = new FormData();
-        files.append('file', $('#imageData')[0].files[0]); 
-        $.ajax({
+        
+        //files.append('file', $('#imageData')[0].files[0]); 
+
+        $.each($("imageData[type='file']")[0].files, function(i, file) {
+          let files = new FormData();
+          files.append('file', file);
+          $.ajax({
             type: 'POST',
             data: files,
             url: "/upload",
             contentType: false,
             processData: false,
             success: function (data) {
-               alert("Image added successfully")
                addImageInfoInDB(data);   
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
             }
           });
+        });
+
+
+        alert("Images added successfully")
+
       }
 
       function addImageInfoInDB(imageUrl)
