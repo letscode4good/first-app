@@ -150,7 +150,7 @@
                               for="imageData"
                               >Upload Image
                             </label>
-                            <input class="form-control validate" id="imageData" name="imageData" type="file" multiple />
+                            <input class="form-control validate" id="imageData" name="imageData" onclick="clearImage()" type="file" multiple />
                           </div>
                     </div>
 
@@ -556,8 +556,14 @@
           var total_file=document.getElementById("imageData").files.length;
           for(var i=0;i<total_file;i++)
           {
-            $('#image_preview').append("<img src='"+URL.createObjectURL($('#imageData')[0].files[i])+"'><br>");
+            $('#image_preview').append("<img class=\"thumbnail\" height=\"100\" width=\"100\" src='"+URL.createObjectURL($('#imageData')[0].files[i])+"'><br>");
           }
+      }
+
+      function clearImage()
+      {
+        document.getElementById("imageData").value = "";
+        $('#image_preview').empty();
       }
 
 
