@@ -354,7 +354,7 @@
         
         //files.append('file', $('#imageData')[0].files[0]); 
 
-        $.each($("imageData[type='file']")[0].files, function(i, file) {
+        $.each($('#imageData')[0].files, function(i, file) {
           let files = new FormData();
           files.append('file', file);
           $.ajax({
