@@ -553,17 +553,18 @@
 
       function preview_image() 
       {
-          var total_file=document.getElementById("imageData").files.length;
-          for(var i=0;i<total_file;i++)
-          {
-            $('#image_preview').append("<img class=\"thumbnail\" height=\"70\" width=\"70\"  style=\"float: left; padding-right: 25px;\" src='"+URL.createObjectURL($('#imageData')[0].files[i])+"'>");
-          }
-
+          
           var x = document.getElementById("image_preview");
           if (x.style.display === "none") {
+            var total_file=document.getElementById("imageData").files.length;
+            for(var i=0;i<total_file;i++)
+            {
+              $('#image_preview').append("<img class=\"thumbnail\" height=\"70\" width=\"70\"  style=\"float: left; padding-right: 25px;\" src='"+URL.createObjectURL($('#imageData')[0].files[i])+"'>");
+            }
             x.style.display = "block";
           } else {
             x.style.display = "none";
+            clearImage()
           }
 
 
