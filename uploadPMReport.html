@@ -254,9 +254,10 @@
             </div>
 
              <br>
+             <div id="image_preview"  class="tm-block-title d-inline-block" style = "display: none;"></div>
               <div class="col-12">
 
-                <div id="image_preview"  class="tm-block-title d-inline-block" style = "display: none;"></div>
+                
 
 
                 <label class = "tm-block-title d-inline-block"
@@ -564,7 +565,7 @@
             x.style.display = "block";
           } else {
             x.style.display = "none";
-            clearImage()
+            $('#image_preview').empty();
           }
 
 
