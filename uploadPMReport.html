@@ -132,7 +132,7 @@
             </div>
             <div class="row tm-edit-product-row">
                 <div class="col-xl-6 col-lg-6 col-md-12">
-                  <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="myfun()" class="tm-edit-product-form" >
+                  <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="preview_image()" class="tm-edit-product-form" >
                       
                     <div class="row">
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -255,6 +255,10 @@
 
              <br>
               <div class="col-12">
+
+                <div id="image_preview"></div>
+
+
                 <label class = "tm-block-title d-inline-block"
                           for="description"
                           >Detailed Description
@@ -544,6 +548,18 @@
             }
           });
       }
+
+
+
+      function preview_image() 
+      {
+          var total_file=document.getElementById("imageDate").files.length;
+          for(var i=0;i<total_file;i++)
+          {
+            $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"'><br>");
+          }
+      }
+
 
     </script>
   </body>
