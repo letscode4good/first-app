@@ -716,4 +716,6 @@ input[type="checkbox"]:focus {
   height:auto;
   display:block;
   z-index:999;
+  padding-left: 25em; 
+  padding-right: 25em; 
 }
