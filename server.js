@@ -430,7 +430,7 @@ app.get("/getCustomerDetails",function(req, res) {
           });
     }
     else{
-        res.send('Preventive maintenance history not found.');
+        res.send('Please login to view data');
     }
 })
 
@@ -515,6 +515,10 @@ app.get("/getAllUpcomingPM",function(req, res) {
             }
             res.send(docs);
           });
+    }
+    else
+    {
+        res.send('Please login to view data');
     }
 })
 
