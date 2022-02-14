@@ -29,7 +29,7 @@ const Multer = require('multer');
   const multer = Multer({
     storage: Multer.MemoryStorage,
     limits: {
-      fileSize: 5 * 1024 * 1024, // Maximum file size is 10MB
+      fileSize: 20 * 1024 * 1024, // Maximum file size is 10MB
     },
   });
 
@@ -623,7 +623,7 @@ app.get('/upcomingPlannedPM.html', (req, res) => res.sendfile(__dirname+'/upcomi
 app.get('/allupcomingPM.html', (req, res) => res.sendfile(__dirname+'/allupcomingPM.html'))
 app.get('/addPMTicket.html', (req, res) => res.sendfile(__dirname+'/addPMTicket.html'))
 
-app.get('/completedPlannedPM.html', (req, res) => res.sendfile(__dirname+'/completedPlannedPM.html'))
+app.get('/completedPM.html', (req, res) => res.sendfile(__dirname+'/completedPM.html'))
 
 app.get('/addDailyStatus.html', (req, res) => res.sendfile(__dirname+'/addDailyStatus.html'))
 app.get('/uploadPMReport.html', (req, res) => res.sendfile(__dirname+'/uploadPMReport.html'))
