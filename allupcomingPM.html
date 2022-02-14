@@ -120,11 +120,16 @@
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
+                    <th scope="col">Maintenance ID</th>
                     <th scope="col">Customer Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Type</th>
                     <th scope="col">Maintenance Type</th>
                     <th scope="col">Schedule Date</th>
                     <th scope="col">Enginner Assigned</th>
-                    <th scope="col">Maintenance ID</th>
+                    <th scope="col">UPS</th>
+                    <th scope="col">Capacity</th>
+                    <th scope="col">Description</th> 
                   </tr>
                 </thead>
                 <tbody>
@@ -218,11 +223,16 @@
             // You could also use an ajax property on the data table initialization
             $('#custInfo').dataTable().fnAddData( [
               data[i].custId,
+              data[i].maintenanceID,
               data[i].customerName,
+              data[i].address,
+              data[i].customerType,
               data[i].maintenanceType,
               data[i].dateWhenScheduled,
               data[i].engineer,
-              data[i].maintenanceID
+              data[i].upsName,
+              data[i].upsCapacity,
+              data[i].description
             ], false);
           }
           $("#custInfo").DataTable().draw();
@@ -290,7 +300,7 @@
       $('#custInfo tbody').on('click', 'tr', function () {
         var data = table.row( this ).data();
         //alert( 'You clicked on '+data[0]+'\'s row' );
-        showInventory(data[5])
+        showInventory(data[1])
     })
 
     
