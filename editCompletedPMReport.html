@@ -519,7 +519,7 @@
                sessionStorage.removeItem('maintenanceID');
                document.getElementById("myform").reset();
                document.getElementById("myform1").reset();
-               location.replace("/")
+               //location.replace("/")
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
@@ -527,7 +527,7 @@
           });
       }
       // remove session variable when page is changed
-      window.onunload = function(){sessionStorage.removeItem('maintenanceID');};
+      window.onunload = function(){sessionStorage.removeItem('editCompletedMid');};
 
 
       function preview_image() 
