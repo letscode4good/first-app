@@ -234,15 +234,27 @@
           return;
         }
 
+        if(document.getElementById("myform").elements.newpassword1.value == "")
+        {
+          alert("New Password textbox cannot be empty");
+          return;
+        }
+
+        if(document.getElementById("myform").elements.newpassword2.value == "")
+        {
+          alert("Confirm Password textbox cannot be empty");
+          return;
+        }
+
         $.ajax({
             type: 'POST',
-            data: { password: document.getElementById("myform").elements.oldpassword.value
+            data: { password: document.getElementById("myform").elements.newpassword1.value
                   },
             url: "/changepassword",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
                console.log(data);
-               alert(date)
+               alert(data)
             },
             error: function (e) {
               alert("Error while changing password: " + JSON.stringify(e))
