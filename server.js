@@ -691,7 +691,7 @@ app.post('/changepassword', function(req, res){
 
 app.get('/logout',(req,res) => {
     req.session.destroy()
-    res.redirect('/login.html')
+    res.send('Old session removed');
 });
 
 
