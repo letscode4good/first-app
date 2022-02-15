@@ -430,7 +430,8 @@
                addCompletedRecordToDB(resposeJson);
             },
             error: function (e) {
-              alert("Error while adding data: " + JSON.stringify(e))
+              console.log("Error while adding record:  " + JSON.stringify(e) );
+              alert("Data already submitted" )
             }
           });
 
@@ -470,6 +471,9 @@
                removeOlderRecord()
                alert("Successfully saved details.")
                sessionStorage.removeItem('maintenanceID');
+               document.getElementById("myform").reset();
+               document.getElementById("myform1").reset();
+               location.replace("/")
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
