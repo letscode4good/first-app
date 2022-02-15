@@ -325,6 +325,7 @@
                   }
                 });
               }
+              removeImageInfoFromDB()
             },
             error: function (e) {
               console.log("There was an error with your request...");
@@ -451,7 +452,7 @@
 
         calculateDues();
         removeOlderImages()
-        removeImageInfoFromDB()
+       
 
         $.ajax({
             type: 'GET',
