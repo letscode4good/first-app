@@ -140,7 +140,7 @@
                           for="maintenanceID"
                           >Maintenace ID
                         </label>
-                        <input class="form-control validate"  type="input" id="maintenanceID" name="maintenanceID" STYLE="background-color: #54657d;" readonly>
+                        <input class="form-control validate"  type="input" id="maintenanceID" required name="maintenanceID" STYLE="background-color: #54657d;" readonly>
                       </div>
                     </div>
                     
@@ -480,6 +480,11 @@
             }
           });
       }
+
+      //when browser closed - psedocode
+      $(window).unload(function(){
+        sessionStorage.removeItem('maintenanceID');
+      });
 
       function addFutureMaintenanceRecord(resposeJson)
       {
