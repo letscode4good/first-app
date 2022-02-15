@@ -632,7 +632,7 @@ app.get('/completedPM.html', (req, res) => res.sendfile(__dirname+'/completedPM.
 app.get('/addDailyStatus.html', (req, res) => res.sendfile(__dirname+'/addDailyStatus.html'))
 app.get('/uploadPMReport.html', (req, res) => res.sendfile(__dirname+'/uploadPMReport.html'))
 
-app.get('/editCompletedPMReport.html', (req, res) => res.sendfile(__dirname+'/editCompletedPMReport'))
+app.get('/editCompletedPMReport.html', (req, res) => res.sendfile(__dirname+'/editCompletedPMReport.html'))
 
 app.get('/detailedPMReport.html', (req, res) => res.sendfile(__dirname+'/detailedPMReport.html'))
 
