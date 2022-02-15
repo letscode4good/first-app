@@ -666,6 +666,29 @@ app.post('/login', function(req, res){
     });
 })
 
+
+app.post('/changepassword', function(req, res){
+    session=req.session;
+    userLoginSchemaObject.findOneAndUpdate({ userId: session.userId,userName: session.userName, password: req.body.password, userType: session.userType}, function (err, docs) {
+        if (err){
+            //console.log(err)
+            res.send(err);
+        }
+        else{
+            //console.log("Result : ", docs);
+            if (docs == null) {
+                res.send('Login not found');
+            }
+            else
+            {
+                res.send('Password updated');
+                //res.sendFile(__dirname+'/index.html')
+            }
+            //res.send(docs);
+        }
+    });
+})
+
 app.get('/logout',(req,res) => {
     req.session.destroy()
     res.redirect('/')
