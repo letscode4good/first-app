@@ -55,7 +55,7 @@
             </div>
             <div class="row mt-2">
               <div class="col-12">
-                <form action="/login" method="post" class="tm-login-form">
+                <form id ="myform"   action="javascript:;" onsubmit="myfun()" class="tm-login-form">
                   <div class="form-group">
                     <label for="username">Username</label>
                     <input
@@ -137,6 +137,30 @@
             }
           });
       });
+
+      function myfun()
+      {
+
+        $.ajax({
+            type: 'POST',
+            data: { userId: document.getElementById("myform").elements.userId.value,
+                    password: document.getElementById("myform").elements.password.value, 
+                    userType : document.getElementById("myform").elements.userType.value,
+                  },
+            url: "/login",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+               alert(data)
+               document.getElementById('myform').reset();
+            },
+            error: function (e) {
+              alert("Error occured during login- " + JSON.stringify(e))
+            }
+          });
+
+      }
+
+
      </script>
   </body>
 </html>

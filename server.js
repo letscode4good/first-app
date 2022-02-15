@@ -650,7 +650,7 @@ app.post('/login', function(req, res){
         else{
             //console.log("Result : ", docs);
             if (docs == null) {
-                res.send('Login not found');
+                res.send('Login not found, please try again with valid credentials');
             }
             else
             {
