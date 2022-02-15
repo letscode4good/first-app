@@ -650,7 +650,7 @@ app.post('/login', function(req, res){
         else{
             //console.log("Result : ", docs);
             if (docs == null) {
-                res.send('Login not found, please try again with valid credentials');
+                res.json({message : 'Login not found, please try again with valid credentials'})
             }
             else
             {
@@ -659,7 +659,7 @@ app.post('/login', function(req, res){
                 session.userType=req.body.userType;
                 session.userName = docs.userName;
                 //res.sendFile(__dirname+'/index.html')
-                res.redirect('/')
+                res.json({message : 'loginsuccess'})
             }
             //res.send(docs);
         }
