@@ -669,7 +669,7 @@ app.post('/login', function(req, res){
 
 app.post('/changepassword', function(req, res){
     session=req.session;
-    userLoginSchemaObject.findOneAndUpdate({ userId: session.userId,userName: session.userName, password: req.body.password, userType: session.userType}, function (err, docs) {
+    userLoginSchemaObject.findOneAndUpdate({ userId: session.userId,userName: session.userName, userType: session.userType},{password: req.body.password}, function (err, docs) {
         if (err){
             //console.log(err)
             res.send(err);
