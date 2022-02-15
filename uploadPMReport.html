@@ -480,11 +480,9 @@
             }
           });
       }
+      // remove session variable when page is changed
+      window.onunload = function(){sessionStorage.removeItem('maintenanceID');};
 
-      //when browser closed - psedocode
-      $(window).unload(function(){
-        sessionStorage.removeItem('maintenanceID');
-      });
 
       function addFutureMaintenanceRecord(resposeJson)
       {
