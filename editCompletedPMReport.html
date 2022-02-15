@@ -293,31 +293,9 @@
     <!-- https://getbootstrap.com/ -->
     <script>
         
-        function getDate(inputDate, flag)
-        {
-          //var today = new Date();
-          if (flag == 1)
-          {
-            inputDate.setDate(inputDate.getDate() + 90);
-          }
-          var dd = inputDate.getDate();
-          var mm = inputDate.getMonth()+1; 
-          var yyyy = inputDate.getFullYear();
-          if(dd<10) 
-          {
-              dd='0'+dd;
-          } 
-
-          if(mm<10) 
-          {
-              mm='0'+mm;
-          } 
-          var today = dd+'/'+mm+'/'+yyyy;
-          return today;
-      }
 
         $(function() {
-          var mID = sessionStorage.getItem("maintenanceID");
+          var mID = sessionStorage.getItem("editCompletedMid");
           console.log(mID);
           document.getElementById("myform").elements.maintenanceID.value = mID;
           document.getElementById("myform1").reset();
