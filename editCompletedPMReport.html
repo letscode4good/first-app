@@ -305,13 +305,12 @@
         {
           $.ajax({
             type: 'GET',
-            data: { maintenanceID: document.getElementById("myform").elements.maintenanceID.value },
+            data: { maintenanceID: mID },
             url: "/getPMImages",
             contentType: "text/plain",
             dataType: 'json',
             success: function (data) {
               for (var i = 0; i < data.length; i++) {
-
                 var indexOfSlash = data[i].imageLink.lastIndexOf("/");
                 var fileNameOfImage = data[i].imageLink.substring(indexOfSlash + 1);
                 $.ajax({
@@ -342,7 +341,7 @@
        {
            $.ajax({
             type: 'POST',
-            data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
+            data: {maintenanceID: mID},
             url: "/delPMImages",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
@@ -414,7 +413,7 @@
       {
         $.ajax({
             type: 'POST',
-            data: { maintenanceID: document.getElementById("myform").elements.maintenanceID.value,
+            data: { maintenanceID: mID,
                     serviceReport: "0",
                     imageLink: imageUrl},
             url: "/addPMImages",
@@ -459,7 +458,7 @@
 
         $.ajax({
             type: 'GET',
-            data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
+            data: {maintenanceID: mID},
             url: "/getPMHistoryForMid",
             contentType: "text/plain",
             dataType: 'json',
@@ -479,7 +478,7 @@
       {
         $.ajax({
             type: 'GET',
-            data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
+            data: {maintenanceID: mID},
             url: "/deleteFromCompletedPM",
             contentType: "text/plain",
             dataType: 'json',
@@ -520,7 +519,7 @@
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
                alert("Successfully saved details.")
-               sessionStorage.removeItem('maintenanceID');
+               sessionStorage.removeItem('editCompletedMid');
                document.getElementById("myform").reset();
                document.getElementById("myform1").reset();
                //location.replace("/")
