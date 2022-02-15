@@ -189,6 +189,22 @@ const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);
 
 
 // Process the file upload and upload to Google Cloud Storage.
+app.post('/delfilefromgcloud', function(req, res){
+    const file = bucket.file(req.body.filename);
+    file.delete(function(err, apiResponse) {
+        if(err)
+        {
+            res.send(err)
+        }
+        else
+        {
+            res.send(apiResponse)
+        }
+    });
+})
+
+
+// Process the file upload and upload to Google Cloud Storage.
 app.post('/upload', multer.single('file'), (req, res, next) => {
     if (!req.file) {
       res.status(400).send('No file uploaded.');
@@ -285,6 +301,19 @@ app.post('/addPMImages', function(req, res){
     });
 })
 
+
+app.post('/delPMImages', function(req, res){
+    pmImagesSchemaObject.deleteMany({maintenanceID: req.body.maintenanceID}, function (err, docs) {
+        if(err) 
+        {
+            res.json({message : 'failures'})
+        }
+        else
+        {
+            res.json({message : 'success'})
+        }
+      });
+})
 
 
 app.post('/addCustomerDetail', function(req, res){
@@ -496,6 +525,19 @@ app.get("/deleteFromUpcomingPM",function(req, res) {
       });
 })
 
+app.get("/deleteFromCompletedPM",function(req, res) {
+    preventiveMaintenanceHistorySchemaObject.findOneAndRemove({maintenanceID: req.query.maintenanceID}, function (err, docs) {
+        if(err) 
+        {
+            return next(err);
+        }
+        else
+        {
+           res.send(docs);
+        }
+      });
+})
+
 
 app.get("/getAllUpcomingPM",function(req, res) {
     if(session.userId && (session.userType == 'admin' || session.userType == 'supervisor')){
@@ -566,6 +608,9 @@ app.get("/getPMImages",function(req, res) {
         res.send(docs);
       });
 })
+
+
+
 
 app.post('/addNewStock', function(req, res){
     var newDBEntry = new stockDetailsSchemaObject({'itemName' : req.body.itemName, 'quantity': req.body.quantity, 'itemCode': req.body.itemCode}) 

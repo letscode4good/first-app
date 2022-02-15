@@ -323,6 +323,56 @@
           document.getElementById("myform1").reset();
         });
 
+        function removeOlderImages()
+        {
+          $.ajax({
+            type: 'GET',
+            data: { maintenanceID: document.getElementById("myform").elements.maintenanceID.value },
+            url: "/getPMImages",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (data) {
+              for (var i = 0; i < data.length; i++) {
+                $.ajax({
+                  type: 'POST',
+                  data: { filename:  data[i].imageLink,
+                        },
+                  url: "/delfilefromgcloud",
+                  contentType: "application/x-www-form-urlencoded",
+                  success: function (data) {
+                    console.log("Image deleted from gcloud - "+ data[i].imageLink);
+                  },
+                  error: function (e) {
+                    alert("Error while deleting file from gcloud: " + JSON.stringify(e))
+                  }
+                });
+              }
+            },
+            error: function (e) {
+              console.log("There was an error with your request...");
+              console.log("error: " + JSON.stringify(e));
+            }
+          });
+        }
+
+
+ 
+       function removeImageInfoFromDB()
+       {
+           $.ajax({
+            type: 'POST',
+            data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
+            url: "/delPMImages",
+            contentType: false,
+            processData: false,
+            success: function (data) {
+              console.log("Deleted older images -" + data);
+            },
+            error: function (e) {
+              alert("Error while deleting older images from DB data: " + JSON.stringify(e))
+            }
+          });
+       }
 
         function calculateDues()
         {
@@ -385,7 +435,7 @@
         $.ajax({
             type: 'POST',
             data: { maintenanceID: document.getElementById("myform").elements.maintenanceID.value,
-                    serviceReport: document.getElementById("myform").elements.serviceReport.value,
+                    serviceReport: "0",
                     imageLink: imageUrl},
             url: "/addPMImages",
             contentType: "application/x-www-form-urlencoded",
@@ -424,20 +474,41 @@
         }
 
         calculateDues();
-        
+        removeOlderImages()
+        removeImageInfoFromDB()
+
         $.ajax({
             type: 'GET',
             data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
-            url: "/getUpcomingPMForMid",
+            url: "/getPMHistoryForMid",
             contentType: "text/plain",
             dataType: 'json',
             success: function (resposeJson) {
-               myfun();
-               addCompletedRecordToDB(resposeJson);
+              myfun();
+              removeOldCompletedPMRecord(resposeJson)
             },
             error: function (e) {
-              console.log("Error while adding record:  " + JSON.stringify(e) );
-              alert("Data already submitted for this MID" )
+              alert("Error while fetching data: " + JSON.stringify(e))
+              return
+            }
+          });
+
+      }
+
+      function removeOldCompletedPMRecord(data)
+      {
+        $.ajax({
+            type: 'GET',
+            data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
+            url: "/deleteFromCompletedPM",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (resposeJson) {
+               console.log("Old record deleted");
+               addCompletedRecordToDB(data);
+            },
+            error: function (e) {
+              alert("Error while removing older data: " + JSON.stringify(e))
             }
           });
 
@@ -445,14 +516,12 @@
 
       function addCompletedRecordToDB(resposeJson)
       {
-        var todaysDate = getDate(new Date(), 0);
-        var mType = resposeJson.maintenanceType;
         $.ajax({
             type: 'POST',
             data: { custId: resposeJson.custId,
                     customerName: resposeJson.customerName, 
                     maintenanceType: resposeJson.maintenanceType, 
-                    dateWhenDone: todaysDate, 
+                    dateWhenDone: responseJson.dateWhenDone, 
                     engineer: resposeJson.engineer, 
                     maintenanceID: resposeJson.maintenanceID,
                     advanceAmount : document.getElementById("myform1").elements.advanceAmount.value,
@@ -470,11 +539,6 @@
             url: "/addPMHistory",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
-               if(mType == "Planned")
-               {
-                  addFutureMaintenanceRecord(resposeJson)
-               }
-               removeOlderRecord()
                alert("Successfully saved details.")
                sessionStorage.removeItem('maintenanceID');
                document.getElementById("myform").reset();
@@ -488,82 +552,6 @@
       }
       // remove session variable when page is changed
       window.onunload = function(){sessionStorage.removeItem('maintenanceID');};
-
-
-      function addFutureMaintenanceRecord(resposeJson)
-      {
-        var futureDate = getDate(new Date(), 1);
-        var futureMid;
-        $.ajax({
-            type: 'GET',
-            url: "/getCounters",
-            contentType: "text/plain",
-            dataType: 'json',
-            success: function (responseData) {
-               futureMid = "M_" + responseData.maintenanceCount;
-
-               $.ajax({
-                type: 'POST',
-                data: { custId: resposeJson.custId,
-                        customerName: resposeJson.customerName, 
-                        maintenanceType: resposeJson.maintenanceType, 
-                        dateWhenScheduled: futureDate, 
-                        engineer: resposeJson.engineer, 
-                        maintenanceID: futureMid,
-                        customerType: resposeJson.customerType, 
-                        address:  resposeJson.address,
-                        upsName:  resposeJson.upsName,
-                        upsCapacity:  resposeJson.upsCapacity,
-                        description : "NA"
-                      },
-                url: "/addupcomingPM",
-                contentType: "application/x-www-form-urlencoded",
-                success: function (data) {
-                  console.log("Future Maintenance Record Successfully added.");
-                  sessionStorage.removeItem('maintenanceID');
-                },
-                error: function (e) {
-                  alert("Error while adding data: " + JSON.stringify(e))
-                }
-              });
-
-              $.ajax({
-              type: 'POST',
-              url: "/incrementMaintenanceCounter",
-              contentType: "application/x-www-form-urlencoded",
-              success: function (data) {
-                console.log("Maintenance counter incremented");
-              },
-              error: function (e) {
-                alert("Error while adding data: " + JSON.stringify(e))
-              }
-            });
-
-            },
-            error: function (e) {
-              alert("Error while adding data: " + JSON.stringify(e))
-            }
-          });
-
-      }
-
-      function removeOlderRecord()
-      {
-        $.ajax({
-            type: 'GET',
-            data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
-            url: "/deleteFromUpcomingPM",
-            contentType: "text/plain",
-            dataType: 'json',
-            success: function (resposeJson) {
-               console.log("Old record deleted");
-            },
-            error: function (e) {
-              alert("Error while adding data: " + JSON.stringify(e))
-            }
-          });
-      }
-
 
 
       function preview_image() 
