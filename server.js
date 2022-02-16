@@ -50,7 +50,9 @@ var userLoginSchema = new mongoose.Schema({
     userId : String,
     password : String,
     userType : String,
-    userName : String
+    userName : String,
+    phone : String,
+    email : String
 });
 
 
@@ -246,7 +248,7 @@ app.post('/addUserDetail', function(req, res){
 })
 
 app.post('/addUserLogin', function(req, res){
-    var newDBEntry = new userLoginSchemaObject({'userId': req.body.userId , 'password': req.body.password , 'userType':req.body.userType, 'userName':req.body.userName}) 
+    var newDBEntry = new userLoginSchemaObject({'userId': req.body.userId , 'password': req.body.password , 'userType':req.body.userType, 'userName':req.body.userName, 'phone':req.body.phone, 'email':req.body.email}) 
     
     newDBEntry.save(function(err, savedUser){
         if(err)
@@ -440,7 +442,7 @@ app.get("/getCustomerDetails",function(req, res) {
   })
 
   app.get("/getPMHistory",function(req, res) {
-    if(session.userId && (session.userType == 'admin' || session.userType == 'supervisor' )){
+    if(session.userId && (session.userType == 'admin' || session.userType == 'coordinator' )){
         preventiveMaintenanceHistorySchemaObject.find({}, function (err, docs) {
             if(err) return next(err);
             if (docs == null) {
@@ -540,7 +542,7 @@ app.get("/deleteFromCompletedPM",function(req, res) {
 
 
 app.get("/getAllUpcomingPM",function(req, res) {
-    if(session.userId && (session.userType == 'admin' || session.userType == 'supervisor')){
+    if(session.userId && (session.userType == 'admin' || session.userType == 'coordinator')){
         upcomingMaintenanceSchemaObject.find({}, function (err, docs) {
             if(err) return next(err);
             if (docs == null) {
@@ -633,7 +635,7 @@ app.get('/',(req,res) => {
     else if(session.userId && (session.userType == 'engineer')){
         res.sendFile(__dirname+'/addDailyStatus.html')
     }
-    else if(session.userId && (session.userType == 'supervisor')){
+    else if(session.userId && (session.userType == 'coordinator')){
         res.sendFile(__dirname+'/addEmployeeStatus.html')
     }
     else
