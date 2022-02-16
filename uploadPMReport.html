@@ -494,6 +494,7 @@
 
       function sendmail(resposeJson)
       {
+        var todaysDate = getDate(new Date(), 0);
         $.ajax({
             type: 'POST',
             data: { custId: resposeJson.custId,
