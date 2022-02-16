@@ -787,13 +787,50 @@ var transporter = nodemailer.createTransport({
 
 
   // Process the file upload and upload to Google Cloud Storage.
-app.post('/sendmail', function(req, res){
-    
+app.post('/sendmail', function(req, res){ 
+
+    var customerName = req.body.customerName
+    var custId = req.body.custId
+    var maintenanceType = req.body.maintenanceType
+    var dateWhenDone  = req.body.dateWhenDone
+    var engineer = req.body.engineer
+    var maintenanceID  = req.body.maintenanceID
+    var advanceAmount = req.body.advanceAmount
+    var transportExpense = req.body.transportExpense
+    var travelExpense = req.body.travelExpense
+    var MiscellaneousExpense = req.body.MiscellaneousExpense
+    var dueAmount = req.body.dueAmount
+    var returnAmount = req.body.returnAmount
+    var customerType = req.body.customerType
+    var address = req.body.address
+    var upsName = req.body.upsName
+    var upsCapacity = req.body.upsCapacity
+    var description = req.body.description
+
+
     var mailOptions = {
         from: 'letscode4good@gmail.com',
         to: 'rajat.karandikar@gmail.com',
-        subject: 'Reports for MID-',
-        text: 'That was easy!'
+        subject: 'Reports for MID - '+ maintenanceID,
+        text: 'Please find the attached report- \n \
+        custId : ${custId} \
+        customerName :  + ${customerName} \
+        address : ${address}\
+        customerType : ${customerType}\
+        maintenanceType : ${maintenanceType} \
+        maintenanceID : ${maintenanceID}\
+        dateWhenDone : ${dateWhenDone}\
+        engineer : ${engineer}\
+        advanceAmount : ${advanceAmount}\
+        transportExpense : ${transportExpense}\
+        travelExpense : ${travelExpense}\
+        MiscellaneousExpense : ${MiscellaneousExpense}\
+        dueAmount : ${dueAmount}\
+        returnAmount : ${returnAmount}\
+        upsName: ${upsName}\
+        upsCapacity: ${upsCapacity}\
+        description: ${description}\
+        '
       };
 
       transporter.sendMail(mailOptions, function(error, info){
