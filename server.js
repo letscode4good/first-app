@@ -781,13 +781,7 @@ let transporter = nodemailer.createTransport({
     port: 465,
     secure: true,
     auth: {
-        type: 'OAuth2',
-        user: 'letscode4good@gmail.com',
-        clientId: '157725426494-el9sq2eth87f86a4ghc3oa2vuistbi1a.apps.googleusercontent.com',
-        clientSecret: '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',
-        refreshToken: '1//04wwTD9kexXM3CgYIARAAGAQSNgF-L9IrKLFkiESPKp5Z6spoWAYcEX63H_lmmLgWmjjJS1FSSupsM8bDBuXBeYXKox5D_8IsEA',
-        accessToken: 'ya29.A0ARrdaM-4Oo_0G4FCm-fAcaZox9z9__r04PkpRD3o2DXETORHuE0Q2C4Q8cFAn4vcS4tC0BzApQt4K7Q_a1MdV_GYcGxsWiAqUOFddpp761_dKzHgjNoP7BWMHZpkI0ya1X8n_hEk3uIl7JnNPdCdr5N8hTu0',
-        expires: 1484314697598
+       
     }
 });
 
@@ -815,25 +809,25 @@ app.post('/sendmail', function(req, res){
     var mailOptions = {
         from: 'letscode4good@gmail.com',
         to: 'rajat.karandikar@gmail.com',
-        subject: `Reports for MID - ${maintenanceID}`,
-        text: `Please find the attached report- \n \
-        custId : ${custId} \
-        customerName :  + ${customerName} \
-        address : ${address}\
-        customerType : ${customerType}\
-        maintenanceType : ${maintenanceType} \
-        maintenanceID : ${maintenanceID}\
-        dateWhenDone : ${dateWhenDone}\
-        engineer : ${engineer}\
-        advanceAmount : ${advanceAmount}\
-        transportExpense : ${transportExpense}\
-        travelExpense : ${travelExpense}\
-        MiscellaneousExpense : ${MiscellaneousExpense}\
-        dueAmount : ${dueAmount}\
-        returnAmount : ${returnAmount}\
-        upsName: ${upsName}\
-        upsCapacity: ${upsCapacity}\
-        description: ${description}\
+        subject: `Reports for ${customerName}  ${address} MID - ${maintenanceID}`,
+        text: `Please find the attached report- \n \n \
+        Customer Id : ${custId} \n\
+        Customer Name : ${customerName} \n \
+        Address : ${address}\n\
+        Customer Type : ${customerType}\n\
+        Maintenance Type : ${maintenanceType}\n \
+        Maintenance Id : ${maintenanceID}\n\
+        Date of completion : ${dateWhenDone}\n\
+        Engineer : ${engineer}\n\
+        Advance Amount : ${advanceAmount}\n\
+        Transport Expense : ${transportExpense}\n\
+        Travel Expense : ${travelExpense}\n\
+        Miscellaneous Expense : ${MiscellaneousExpense}\n\
+        Due Amount : ${dueAmount}\n\
+        Return Amount : ${returnAmount}\n\
+        Ups Name: ${upsName}\n\
+        Ups Capacity: ${upsCapacity}\n\
+        Summary: ${description}\n\
         `
       };
 
