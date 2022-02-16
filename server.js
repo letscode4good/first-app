@@ -645,16 +645,16 @@ app.get('/',(req,res) => {
 app.get('/whoami',(req,res) => {
     session=req.session;
     if(session.userId && (session.userType == 'admin')){
-        res.send("admin")
+        res.json({message : 'admin'})
     }
     else if(session.userId && (session.userType == 'engineer')){
-        res.send("engineer")
+        res.json({message : 'engineer'})
     }
     else if(session.userId && (session.userType == 'coordinator')){
-        res.send("coordinator")
+        res.json({message : 'coordinator'})
     }
     else
-       res.send("invalid")
+       res.json({message : 'invalid'})
 })
 
 
