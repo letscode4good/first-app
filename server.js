@@ -835,7 +835,7 @@ app.post('/sendmail', function(req, res){
       transporter.sendMail(mailOptions, function(error, info){
 
         if (error) {
-          res.json({message : 'fail'})
+          res.json({message : error})
         } else {
           res.json({message : 'emailsent'})
         }
