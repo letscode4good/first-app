@@ -681,13 +681,14 @@ app.get('/uploadPMReport.html', (req, res) => res.sendfile(__dirname+'/uploadPMR
 
 app.get('/editCompletedPMReport.html', (req, res) =>
 {
-    if(session.userId && (session.userType == 'admin')){
-        res.sendfile(__dirname+'/editCompletedPMReport.html'))
+    if(session.userId && (session.userType == 'admin'))
+    {
+        res.sendfile(__dirname+'/editCompletedPMReport.html')
     }
     {
-        res.sendfile(__dirname+'/'))
+        res.sendfile(__dirname+'/')
     }
-}
+})
 
 app.get('/detailedPMReport.html', (req, res) => res.sendfile(__dirname+'/detailedPMReport.html'))
 
