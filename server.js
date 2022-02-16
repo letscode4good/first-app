@@ -7,6 +7,7 @@ app.use(express.urlencoded({
     extended: true
   }))
 
+
 var bodyParser = require('body-parser')
         app.use(bodyParser.urlencoded({ extended: true }))
         app.use(bodyParser.json())
@@ -762,6 +763,53 @@ app.get('/logout',(req,res) => {
     req.session.destroy()
     res.json({message : 'Old session removed'})
 });
+
+
+
+
+
+
+/*
+trying email feature
+*/
+
+
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'letscode4good@gmail.com',
+    pass: 'hike ka 5% dena padega'
+  }
+});
+
+
+
+  // Process the file upload and upload to Google Cloud Storage.
+app.post('/sendmail', function(req, res){
+    
+    var mailOptions = {
+        from: 'letscode4good@gmail.com',
+        to: 'rajat.karandikar@gmail.com',
+        subject: 'Reports for MID- ',
+        text: 'That was easy!'
+      };
+    transporter.sendMail(mailOptions, function(error, info){
+
+        if (error) {
+          res.json({message : 'fail'})
+        } else {
+          res.json({message : 'emailsent'})
+        }
+      });
+
+    });
+
+
+/*
+email feture code block end
+*/
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
