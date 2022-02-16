@@ -792,10 +792,11 @@ app.post('/sendmail', function(req, res){
     var mailOptions = {
         from: 'letscode4good@gmail.com',
         to: 'rajat.karandikar@gmail.com',
-        subject: 'Reports for MID- ',
+        subject: 'Reports for MID-',
         text: 'That was easy!'
       };
-    transporter.sendMail(mailOptions, function(error, info){
+
+      transporter.sendMail(mailOptions, function(error, info){
 
         if (error) {
           res.json({message : 'fail'})
