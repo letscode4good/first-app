@@ -815,8 +815,8 @@ app.post('/sendmail', function(req, res){
     var mailOptions = {
         from: 'letscode4good@gmail.com',
         to: 'rajat.karandikar@gmail.com',
-        subject: 'Reports for MID - ${maintenanceID}',
-        text: 'Please find the attached report- \n \
+        subject: `Reports for MID - ${maintenanceID}`,
+        text: `Please find the attached report- \n \
         custId : ${custId} \
         customerName :  + ${customerName} \
         address : ${address}\
@@ -834,7 +834,7 @@ app.post('/sendmail', function(req, res){
         upsName: ${upsName}\
         upsCapacity: ${upsCapacity}\
         description: ${description}\
-        '
+        `
       };
 
       transporter.sendMail(mailOptions, function(error, info){
