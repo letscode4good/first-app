@@ -807,7 +807,6 @@ app.post('/sendmail', function(req, res){
     var upsCapacity = req.body.upsCapacity
     var description = req.body.description
 
-
     var mailOptions = {
         from: 'letscode4good@gmail.com',
         to: 'rajat.karandikar@gmail.com',

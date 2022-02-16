@@ -492,7 +492,7 @@
       window.onunload = function(){sessionStorage.removeItem('maintenanceID');};
 
 
-      function sendmail()
+      function sendmail(resposeJson)
       {
         $.ajax({
             type: 'POST',
