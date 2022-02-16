@@ -642,6 +642,21 @@ app.get('/',(req,res) => {
         res.sendFile(__dirname+'/login.html')
 })
 
+app.get('/whoami',(req,res) => {
+    session=req.session;
+    if(session.userId && (session.userType == 'admin')){
+        res.send("admin")
+    }
+    else if(session.userId && (session.userType == 'engineer')){
+        res.send("engineer")
+    }
+    else if(session.userId && (session.userType == 'coordinator')){
+        res.send("coordinator")
+    }
+    else
+       res.send("invalid")
+})
+
 
 app.get('/index.html',(req,res) => {
     session=req.session;
