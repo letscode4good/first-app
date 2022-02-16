@@ -686,7 +686,7 @@ app.get('/editCompletedPMReport.html', (req, res) =>
         res.sendfile(__dirname+'/editCompletedPMReport.html')
     }
     {
-        res.sendfile(__dirname+'/')
+        res.sendfile(__dirname+'/addEmployeeStatus.html')
     }
 })
 
