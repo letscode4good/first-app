@@ -475,8 +475,10 @@
                   addFutureMaintenanceRecord(resposeJson)
                }
                removeOlderRecord()
-               sendmail(resposeJson)
+               
                alert("Successfully saved details.")
+               setTimeout(sendmail(resposeJson), 5000)
+               alert("Successfully sent email.")
                sessionStorage.removeItem('maintenanceID');
                document.getElementById("myform").reset();
                document.getElementById("myform1").reset();
