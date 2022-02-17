@@ -801,8 +801,8 @@ app.post('/sendmail', function(req, res){
 
                 for (var i = 0; i < docs.length; i++) {
                     const options = {
-                        url: `data[i].imageLink`,
-                        dest: `/public/img/sendmail/i.jpg`                // will be saved to /path/to/dest/image.jpg
+                        url: `${data[i].imageLink}`,
+                        dest: `/public/img/sendmail/${i}.jpg`                // will be saved to /path/to/dest/image.jpg
                         }
         
                         download.image(options)
