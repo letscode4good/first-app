@@ -809,8 +809,8 @@ app.post('/sendmail', function(req, res){
     var description = req.body.description
 
     var mailOptions = {
-        from: 'letscode4good@gmail.com',
-        to: 'rajat.karandikar@gmail.com',
+        from: 'rspower1pmreport@gmail.com',
+        to: 'rspower1pmdatastore@gmail.com',
         subject: `Reports for ${customerName}  ${address} MID - ${maintenanceID}`,
         text: `Please find the attached report- \n \n \
         Customer Id : ${custId} \n\
