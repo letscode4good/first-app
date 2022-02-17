@@ -808,14 +808,14 @@ app.post('/sendmail', function(req, res){
                         download.image(options)
                         .then(({ filename }) => {
                             console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
-                            attachmentArray.push(`{path: filename}`);
+                            attachmentArray.push(`{ path: ${filename} }`);
                         })
                         .catch((err) => console.error(err))
                 }
 
       });
 
-
+    console.log(attachmentArray)
     var customerName = req.body.customerName
     var custId = req.body.custId
     var maintenanceType = req.body.maintenanceType
