@@ -790,12 +790,14 @@ let transporter = nodemailer.createTransport({
   // Process the file upload and upload to Google Cloud Storage.
 app.post('/sendmail', function(req, res){ 
 
+    var attachmentArray = []
+
     pmImagesSchemaObject.find({maintenanceID: req.body.maintenanceID}, function (err, docs) {
         if(err) 
         {
             console.log('Error while fetching images link from DB')
         }
-        var attachmentArray = []
+        
 
                 for (var i = 0; i < docs.length; i++) {
                     const options = {
