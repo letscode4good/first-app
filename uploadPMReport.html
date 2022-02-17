@@ -477,7 +477,11 @@
                removeOlderRecord()
                
                alert("Successfully saved details.")
-               setTimeout(sendmail(resposeJson), 12000)
+
+               setTimeout(function() {
+                         sendmail(resposeJson)
+                }, 7000);
+                
                alert("Successfully sent email.")
                sessionStorage.removeItem('maintenanceID');
                document.getElementById("myform").reset();
