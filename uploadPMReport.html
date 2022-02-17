@@ -491,7 +491,6 @@
       // remove session variable when page is changed
       window.onunload = function(){sessionStorage.removeItem('maintenanceID');};
 
-
       function sendmail(resposeJson)
       {
         var todaysDate = getDate(new Date(), 0);
@@ -520,15 +519,14 @@
             success: function (data) {
               if(data.message == "emailsent")
               {
-               alert("email is sent")
+                 console.log("Email is sent")
               }
               else{
-                alert("not sent")
-              
+                console.log("Email not sent")
               }
             },
             error: function (e) {
-              alert("Error occured during login- " + JSON.stringify(e))
+              alert("Error occured while sending email" + JSON.stringify(e))
             }
           });
       }

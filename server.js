@@ -24,6 +24,8 @@ app.use(sessions({
     resave: false 
 }));
 
+//for downloading images from google cloud to send emails
+const download = require('image-downloader')
 
 const Multer = require('multer');
   
@@ -613,8 +615,6 @@ app.get("/getPMImages",function(req, res) {
 })
 
 
-
-
 app.post('/addNewStock', function(req, res){
     var newDBEntry = new stockDetailsSchemaObject({'itemName' : req.body.itemName, 'quantity': req.body.quantity, 'itemCode': req.body.itemCode}) 
     newDBEntry.save(function(err, savedUser){
@@ -790,6 +790,30 @@ let transporter = nodemailer.createTransport({
   // Process the file upload and upload to Google Cloud Storage.
 app.post('/sendmail', function(req, res){ 
 
+    pmImagesSchemaObject.find({maintenanceID: req.body.maintenanceID}, function (err, docs) {
+        if(err) 
+        {
+            console.log('Error while fetching images link from DB')
+        }
+        var attachmentArray = []
+
+                for (var i = 0; i < docs.length; i++) {
+                    const options = {
+                        url: `data[i].imageLink`,
+                        dest: `/public/img/sendmail/i.jpg`                // will be saved to /path/to/dest/image.jpg
+                        }
+        
+                        download.image(options)
+                        .then(({ filename }) => {
+                            console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
+                            attachmentArray.push(`{path: filename}`);
+                        })
+                        .catch((err) => console.error(err))
+                }
+
+      });
+
+
     var customerName = req.body.customerName
     var custId = req.body.custId
     var maintenanceType = req.body.maintenanceType
@@ -812,7 +836,8 @@ app.post('/sendmail', function(req, res){
         from: 'rspower1pmreport@gmail.com',
         to: 'rspower1pmdatastore@gmail.com',
         subject: `Reports for ${customerName}  ${address} MID - ${maintenanceID}`,
-        text: `Please find the attached report- \n \n \
+        attachments: attachmentArray,
+        text: `Please find the attached report- \n \n\
         Customer Id : ${custId} \n\
         Customer Name : ${customerName} \n \
         Address : ${address}\n\
