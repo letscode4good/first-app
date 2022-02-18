@@ -921,6 +921,10 @@ app.post('/sendmail', function(req, res){
                                 var upsName = req.body.upsName
                                 var upsCapacity = req.body.upsCapacity
                                 var description = req.body.description
+
+                                test3.replace(/"/g, '');
+
+                                
                 
                                 var mailOptions = {
                                     from: 'rspower1pmreport@gmail.com',
