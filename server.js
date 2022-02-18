@@ -807,70 +807,71 @@ app.post('/sendmail', function(req, res){
                         }
         
                         download.image(options)
-                        .then(({ filename }) => {
+                        .then(({ filename}) => {
                             console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
                             attachmentArray.push(`{ path: ${filename} }`);
+
+                            if (docs.length == attachmentArray.length())
+                            {
+                                console.log(attachmentArray)
+                                var customerName = req.body.customerName
+                                var custId = req.body.custId
+                                var maintenanceType = req.body.maintenanceType
+                                var dateWhenDone  = req.body.dateWhenDone
+                                var engineer = req.body.engineer
+                                var maintenanceID  = req.body.maintenanceID
+                                var advanceAmount = req.body.advanceAmount
+                                var transportExpense = req.body.transportExpense
+                                var travelExpense = req.body.travelExpense
+                                var MiscellaneousExpense = req.body.MiscellaneousExpense
+                                var dueAmount = req.body.dueAmount
+                                var returnAmount = req.body.returnAmount
+                                var customerType = req.body.customerType
+                                var address = req.body.address
+                                var upsName = req.body.upsName
+                                var upsCapacity = req.body.upsCapacity
+                                var description = req.body.description
+                
+                                var mailOptions = {
+                                    from: 'rspower1pmreport@gmail.com',
+                                    to: 'rspower1pmdatastore@gmail.com',
+                                    subject: `Reports for ${customerName}  ${address} MID - ${maintenanceID}`,
+                                    attachments: attachmentArray,
+                                    text: `Please find the attached report- \n \n\
+                                    Customer Id : ${custId} \n\
+                                    Customer Name : ${customerName} \n \
+                                    Address : ${address}\n\
+                                    Customer Type : ${customerType}\n\
+                                    Maintenance Type : ${maintenanceType}\n \
+                                    Maintenance Id : ${maintenanceID}\n\
+                                    Date of completion : ${dateWhenDone}\n\
+                                    Engineer : ${engineer}\n\
+                                    Advance Amount : ${advanceAmount}\n\
+                                    Transport Expense : ${transportExpense}\n\
+                                    Travel Expense : ${travelExpense}\n\
+                                    Miscellaneous Expense : ${MiscellaneousExpense}\n\
+                                    Due Amount : ${dueAmount}\n\
+                                    Return Amount : ${returnAmount}\n\
+                                    Ups Name: ${upsName}\n\
+                                    Ups Capacity: ${upsCapacity}\n\
+                                    Summary: ${description}\n\
+                                    `
+                                };
+                
+                                transporter.sendMail(mailOptions, function(error, info){
+                
+                                    if (error) {
+                                    res.json({message : error})
+                                    } else {
+                                    res.json({message : 'emailsent'})
+                                    }
+                                });
+                
+                            }
                         })
                         .catch((err) => console.error(err))
                 }
-
-
-
-
-                console.log(attachmentArray)
-                var customerName = req.body.customerName
-                var custId = req.body.custId
-                var maintenanceType = req.body.maintenanceType
-                var dateWhenDone  = req.body.dateWhenDone
-                var engineer = req.body.engineer
-                var maintenanceID  = req.body.maintenanceID
-                var advanceAmount = req.body.advanceAmount
-                var transportExpense = req.body.transportExpense
-                var travelExpense = req.body.travelExpense
-                var MiscellaneousExpense = req.body.MiscellaneousExpense
-                var dueAmount = req.body.dueAmount
-                var returnAmount = req.body.returnAmount
-                var customerType = req.body.customerType
-                var address = req.body.address
-                var upsName = req.body.upsName
-                var upsCapacity = req.body.upsCapacity
-                var description = req.body.description
-
-                var mailOptions = {
-                    from: 'rspower1pmreport@gmail.com',
-                    to: 'rspower1pmdatastore@gmail.com',
-                    subject: `Reports for ${customerName}  ${address} MID - ${maintenanceID}`,
-                    attachments: attachmentArray,
-                    text: `Please find the attached report- \n \n\
-                    Customer Id : ${custId} \n\
-                    Customer Name : ${customerName} \n \
-                    Address : ${address}\n\
-                    Customer Type : ${customerType}\n\
-                    Maintenance Type : ${maintenanceType}\n \
-                    Maintenance Id : ${maintenanceID}\n\
-                    Date of completion : ${dateWhenDone}\n\
-                    Engineer : ${engineer}\n\
-                    Advance Amount : ${advanceAmount}\n\
-                    Transport Expense : ${transportExpense}\n\
-                    Travel Expense : ${travelExpense}\n\
-                    Miscellaneous Expense : ${MiscellaneousExpense}\n\
-                    Due Amount : ${dueAmount}\n\
-                    Return Amount : ${returnAmount}\n\
-                    Ups Name: ${upsName}\n\
-                    Ups Capacity: ${upsCapacity}\n\
-                    Summary: ${description}\n\
-                    `
-                };
-
-                transporter.sendMail(mailOptions, function(error, info){
-
-                    if (error) {
-                    res.json({message : error})
-                    } else {
-                    res.json({message : 'emailsent'})
-                    }
-                });
-
+                
       });
 
     
