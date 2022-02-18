@@ -894,6 +894,13 @@ app.post('/sendmail', function(req, res){
                 }
 
                 console.log([attachmentArray.toString()])
+                var test= attachmentArray.toString()
+                var test1 =[attachmentArray.toString()]
+
+                console.log(test)
+                console.log(test1)
+                console.log(attachmentArray)
+
                                 var customerName = req.body.customerName
                                 var custId = req.body.custId
                                 var maintenanceType = req.body.maintenanceType
@@ -916,7 +923,7 @@ app.post('/sendmail', function(req, res){
                                     from: 'rspower1pmreport@gmail.com',
                                     to: 'rspower1pmdatastore@gmail.com',
                                     subject: `Reports for ${customerName}  ${address} MID - ${maintenanceID}`,
-                                    attachments: [{  path: 'https://storage.googleapis.com/rspowerimages/9086198_busticket2.jpeg'  },{  path: 'https://storage.googleapis.com/rspowerimages/7919184_food_bill1.jpeg'  }],
+                                    attachments: [],
                                     text: `Please find the attached report- \n \n\
                                     Customer Id : ${custId} \n\
                                     Customer Name : ${customerName} \n \
