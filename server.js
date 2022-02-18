@@ -877,7 +877,7 @@ app.post('/sendmail', function(req, res){
                 */
                 for (var i = 0; i < docs.length; i++) {
 
-                    attachmentArray.push(`{  filename: '${i}', path: '${docs[i].imageLink}' , contentTransferEncoding: 'base64'}`);
+                    attachmentArray.push(`{  filename: '${i}', path: '${docs[i].imageLink}' , contentType: 'image/xyz', contentTransferEncoding: 'base64'}`);
                 }
                 console.log(attachmentArray)
                                 var customerName = req.body.customerName
