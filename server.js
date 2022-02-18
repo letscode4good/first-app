@@ -791,7 +791,7 @@ let transporter = nodemailer.createTransport({
   // Process the file upload and upload to Google Cloud Storage.
 app.post('/sendmail', function(req, res){ 
 
-    var attachmentArray = []
+    var attachmentArray;
     
 
     pmImagesSchemaObject.find({maintenanceID: req.body.maintenanceID}, function (err, docs) {
@@ -877,7 +877,8 @@ app.post('/sendmail', function(req, res){
                 */
                 for (var i = 0; i < docs.length; i++) {
 
-                    attachmentArray.push(`{  path: '${docs[i].imageLink}'}`);
+                    var input = `{  path: '${docs[i].imageLink}'},`;
+                    attachmentArray = attachmentArray.concat(input);
                 }
                 console.log(attachmentArray)
                                 var customerName = req.body.customerName
@@ -902,7 +903,7 @@ app.post('/sendmail', function(req, res){
                                     from: 'rspower1pmreport@gmail.com',
                                     to: 'rspower1pmdatastore@gmail.com',
                                     subject: `Reports for ${customerName}  ${address} MID - ${maintenanceID}`,
-                                    attachments: {  path: 'https://storage.googleapis.com/rspowerimages/2299580_servicereport1_rajat.jpg'},
+                                    attachments: [attachmentArray],
                                     text: `Please find the attached report- \n \n\
                                     Customer Id : ${custId} \n\
                                     Customer Name : ${customerName} \n \
