@@ -922,7 +922,7 @@ app.post('/sendmail', function(req, res){
                                 var upsCapacity = req.body.upsCapacity
                                 var description = req.body.description
 
-                                test3.replace(/"/g, '');
+                                //test3.replace(/"/g, '');
 
                                 
                 
@@ -952,6 +952,9 @@ app.post('/sendmail', function(req, res){
                                     `
                                     
                                 };
+
+                                mailOptions.replaceAll(/"/g, '');
+                                
 
                                 var mailOptions1 = {
                                     from: 'rspower1pmreport@gmail.com',
