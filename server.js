@@ -948,6 +948,64 @@ app.post('/sendmail', function(req, res){
                                     `
                                     
                                 };
+
+                                var mailOptions1 = {
+                                    from: 'rspower1pmreport@gmail.com',
+                                    to: 'rspower1pmdatastore@gmail.com',
+                                    subject: `Reports for ${customerName}  ${address} MID - ${maintenanceID}`,
+                                    attachments: '${test3}',
+                                    text: `Please find the attached report- \n \n\
+                                    Customer Id : ${custId} \n\
+                                    Customer Name : ${customerName} \n \
+                                    Address : ${address}\n\
+                                    Customer Type : ${customerType}\n\
+                                    Maintenance Type : ${maintenanceType}\n \
+                                    Maintenance Id : ${maintenanceID}\n\
+                                    Date of completion : ${dateWhenDone}\n\
+                                    Engineer : ${engineer}\n\
+                                    Advance Amount : ${advanceAmount}\n\
+                                    Transport Expense : ${transportExpense}\n\
+                                    Travel Expense : ${travelExpense}\n\
+                                    Miscellaneous Expense : ${MiscellaneousExpense}\n\
+                                    Due Amount : ${dueAmount}\n\
+                                    Return Amount : ${returnAmount}\n\
+                                    Ups Name: ${upsName}\n\
+                                    Ups Capacity: ${upsCapacity}\n\
+                                    Summary: ${description}\n\
+                                    `
+                                    
+                                };
+
+                                var mailOptions2 = {
+                                    from: 'rspower1pmreport@gmail.com',
+                                    to: 'rspower1pmdatastore@gmail.com',
+                                    subject: `Reports for ${customerName}  ${address} MID - ${maintenanceID}`,
+                                    attachments: [`${test3}`],
+                                    text: `Please find the attached report- \n \n\
+                                    Customer Id : ${custId} \n\
+                                    Customer Name : ${customerName} \n \
+                                    Address : ${address}\n\
+                                    Customer Type : ${customerType}\n\
+                                    Maintenance Type : ${maintenanceType}\n \
+                                    Maintenance Id : ${maintenanceID}\n\
+                                    Date of completion : ${dateWhenDone}\n\
+                                    Engineer : ${engineer}\n\
+                                    Advance Amount : ${advanceAmount}\n\
+                                    Transport Expense : ${transportExpense}\n\
+                                    Travel Expense : ${travelExpense}\n\
+                                    Miscellaneous Expense : ${MiscellaneousExpense}\n\
+                                    Due Amount : ${dueAmount}\n\
+                                    Return Amount : ${returnAmount}\n\
+                                    Ups Name: ${upsName}\n\
+                                    Ups Capacity: ${upsCapacity}\n\
+                                    Summary: ${description}\n\
+                                    `
+                                    
+                                };
+
+                                console.log(mailOptions)
+                                console.log(mailOptions1)
+                                console.log(mailOptions2)
                 
                                 transporter.sendMail(mailOptions, function(error, info){
                 
