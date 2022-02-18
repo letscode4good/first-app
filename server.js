@@ -902,7 +902,7 @@ app.post('/sendmail', function(req, res){
                                     from: 'rspower1pmreport@gmail.com',
                                     to: 'rspower1pmdatastore@gmail.com',
                                     subject: `Reports for ${customerName}  ${address} MID - ${maintenanceID}`,
-                                    attachments: attachmentArray,
+                                    attachments: {  path: 'https://storage.googleapis.com/rspowerimages/2299580_servicereport1_rajat.jpg'},
                                     text: `Please find the attached report- \n \n\
                                     Customer Id : ${custId} \n\
                                     Customer Name : ${customerName} \n \
