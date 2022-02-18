@@ -800,7 +800,9 @@ app.post('/sendmail', function(req, res){
             console.log('Error while fetching images link from DB')
         }
         
+        /*
                 for (var i = 0; i < docs.length; i++) {
+              
                     const options = {
                         url: `${docs[i].imageLink}`,
                         dest: `/app/public/img/sendmail/${i}.jpg`             // will be saved to /path/to/dest/image.jpg
@@ -809,7 +811,7 @@ app.post('/sendmail', function(req, res){
                         download.image(options)
                         .then(({ filename}) => {
                             console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
-                            attachmentArray.push(`{ path: '${filename}' }`);
+                            attachmentArray.push(`{  filename: '${i}', path: '${docs[i].imageLink}' }`);
 
                             if (docs.length == attachmentArray.length)
                             {
@@ -836,7 +838,7 @@ app.post('/sendmail', function(req, res){
                                     from: 'rspower1pmreport@gmail.com',
                                     to: 'rspower1pmdatastore@gmail.com',
                                     subject: `Reports for ${customerName}  ${address} MID - ${maintenanceID}`,
-                                    attachments: [attachmentArray[0]],
+                                    attachments: attachmentArray,
                                     text: `Please find the attached report- \n \n\
                                     Customer Id : ${custId} \n\
                                     Customer Name : ${customerName} \n \
@@ -871,7 +873,65 @@ app.post('/sendmail', function(req, res){
                         })
                         .catch((err) => console.error(err))
                 }
+
+                */
+                for (var i = 0; i < docs.length; i++) {
+
+                    attachmentArray.push(`{  filename: '${i}', path: '${docs[i].imageLink}' }`);
+                }
+                console.log(attachmentArray)
+                                var customerName = req.body.customerName
+                                var custId = req.body.custId
+                                var maintenanceType = req.body.maintenanceType
+                                var dateWhenDone  = req.body.dateWhenDone
+                                var engineer = req.body.engineer
+                                var maintenanceID  = req.body.maintenanceID
+                                var advanceAmount = req.body.advanceAmount
+                                var transportExpense = req.body.transportExpense
+                                var travelExpense = req.body.travelExpense
+                                var MiscellaneousExpense = req.body.MiscellaneousExpense
+                                var dueAmount = req.body.dueAmount
+                                var returnAmount = req.body.returnAmount
+                                var customerType = req.body.customerType
+                                var address = req.body.address
+                                var upsName = req.body.upsName
+                                var upsCapacity = req.body.upsCapacity
+                                var description = req.body.description
                 
+                                var mailOptions = {
+                                    from: 'rspower1pmreport@gmail.com',
+                                    to: 'rspower1pmdatastore@gmail.com',
+                                    subject: `Reports for ${customerName}  ${address} MID - ${maintenanceID}`,
+                                    attachments: attachmentArray,
+                                    text: `Please find the attached report- \n \n\
+                                    Customer Id : ${custId} \n\
+                                    Customer Name : ${customerName} \n \
+                                    Address : ${address}\n\
+                                    Customer Type : ${customerType}\n\
+                                    Maintenance Type : ${maintenanceType}\n \
+                                    Maintenance Id : ${maintenanceID}\n\
+                                    Date of completion : ${dateWhenDone}\n\
+                                    Engineer : ${engineer}\n\
+                                    Advance Amount : ${advanceAmount}\n\
+                                    Transport Expense : ${transportExpense}\n\
+                                    Travel Expense : ${travelExpense}\n\
+                                    Miscellaneous Expense : ${MiscellaneousExpense}\n\
+                                    Due Amount : ${dueAmount}\n\
+                                    Return Amount : ${returnAmount}\n\
+                                    Ups Name: ${upsName}\n\
+                                    Ups Capacity: ${upsCapacity}\n\
+                                    Summary: ${description}\n\
+                                    `
+                                };
+                
+                                transporter.sendMail(mailOptions, function(error, info){
+                
+                                    if (error) {
+                                    res.json({message : error})
+                                    } else {
+                                    res.json({message : 'emailsent'})
+                                    }
+                                });
       });
 
     
