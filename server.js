@@ -889,11 +889,11 @@ app.post('/sendmail', function(req, res){
                         attachmentArray = attachmentArray.concat(input);
                     }
                     */
-                    attachmentArray.push( `{  path: ${docs[i].imageLink}  }` )
+                    attachmentArray.push( `{  path: '${docs[i].imageLink}'  }` )
                     
                 }
 
-                console.log(attachmentArray)
+                console.log([attachmentArray.toString()])
                                 var customerName = req.body.customerName
                                 var custId = req.body.custId
                                 var maintenanceType = req.body.maintenanceType
@@ -916,7 +916,7 @@ app.post('/sendmail', function(req, res){
                                     from: 'rspower1pmreport@gmail.com',
                                     to: 'rspower1pmdatastore@gmail.com',
                                     subject: `Reports for ${customerName}  ${address} MID - ${maintenanceID}`,
-                                    attachments: attachmentArray.toString(),
+                                    attachments: [attachmentArray.toString()],
                                     text: `Please find the attached report- \n \n\
                                     Customer Id : ${custId} \n\
                                     Customer Name : ${customerName} \n \
