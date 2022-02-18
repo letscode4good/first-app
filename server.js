@@ -798,10 +798,9 @@ app.post('/sendmail', function(req, res){
             console.log('Error while fetching images link from DB')
         }
         
-
                 for (var i = 0; i < docs.length; i++) {
                     const options = {
-                        url: `${data[i].imageLink}`,
+                        url: `${docs[i].imageLink}`,
                         dest: `/public/img/sendmail/${i}.jpg`                // will be saved to /path/to/dest/image.jpg
                         }
         

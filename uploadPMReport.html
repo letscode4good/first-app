@@ -522,13 +522,14 @@
               if(data.message == "emailsent")
               {
                  console.log("Email is sent")
+                 alert("Successfully sent email.")
                  sessionStorage.removeItem('maintenanceID');
                  document.getElementById("myform").reset();
                  document.getElementById("myform1").reset();
               }
               else{
-                //console.log("Email not sent")
-                alert("Successfully sent email.")
+                console.log("Email not sent")
+                
               }
             },
             error: function (e) {
