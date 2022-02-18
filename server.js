@@ -809,7 +809,7 @@ app.post('/sendmail', function(req, res){
                         download.image(options)
                         .then(({ filename}) => {
                             console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
-                            attachmentArray.push(`{ path: ${filename} }`);
+                            attachmentArray.push(`{ path: '${filename}' }`);
 
                             if (docs.length == attachmentArray.length)
                             {
