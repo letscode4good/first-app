@@ -712,6 +712,7 @@ app.get('/addEmployeeStatus.html', (req, res) => res.sendfile(__dirname+'/addEmp
 
 
 app.post('/login', function(req, res){
+    console.log(process.cwd())
     userLoginSchemaObject.findOne({ userId: req.body.userId , password: req.body.password, userType: req.body.userType}, function (err, docs) {
         if (err){
             //console.log(err)
@@ -791,6 +792,7 @@ let transporter = nodemailer.createTransport({
 app.post('/sendmail', function(req, res){ 
 
     var attachmentArray = []
+    
 
     pmImagesSchemaObject.find({maintenanceID: req.body.maintenanceID}, function (err, docs) {
         if(err) 
