@@ -811,7 +811,7 @@ app.post('/sendmail', function(req, res){
                             console.log('Saved to', filename)  // saved to /path/to/dest/image.jpg
                             attachmentArray.push(`{ path: ${filename} }`);
 
-                            if (docs.length == attachmentArray.length())
+                            if (docs.length == attachmentArray.length)
                             {
                                 console.log(attachmentArray)
                                 var customerName = req.body.customerName
