@@ -913,7 +913,7 @@ app.post('/sendmail', function(req, res){
                                     from: 'rspower1pmreport@gmail.com',
                                     to: 'rspower1pmdatastore@gmail.com',
                                     subject: `Reports for ${customerName}  ${address} MID - ${maintenanceID}`,
-                                    attachments: `{$attachmentArray}`,
+                                    attachments: `${attachmentArray}`,
                                     text: `Please find the attached report- \n \n\
                                     Customer Id : ${custId} \n\
                                     Customer Name : ${customerName} \n \
