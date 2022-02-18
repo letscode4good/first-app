@@ -791,7 +791,7 @@ let transporter = nodemailer.createTransport({
   // Process the file upload and upload to Google Cloud Storage.
 app.post('/sendmail', function(req, res){ 
 
-    var attachmentArray="";
+    var attachmentArray;
     
 
     pmImagesSchemaObject.find({maintenanceID: req.body.maintenanceID}, function (err, docs) {
@@ -877,9 +877,10 @@ app.post('/sendmail', function(req, res){
                 */
                 for (var i = 0; i < docs.length; i++) {
 
+                    /*
                     if(i == docs.length - 1)
                     {
-                        var input = `{  path: '${docs[i].imageLink}'}`;
+                        var input = `{path: '${docs[i].imageLink}' }`;
                         attachmentArray = attachmentArray.concat(input);
                     }
                     else
@@ -887,6 +888,8 @@ app.post('/sendmail', function(req, res){
                         var input = `{  path: '${docs[i].imageLink}'},`;
                         attachmentArray = attachmentArray.concat(input);
                     }
+                    */
+                    attachmentArray.push({  path: '${docs[i].imageLink}'})
                     
                 }
 
@@ -913,7 +916,7 @@ app.post('/sendmail', function(req, res){
                                     from: 'rspower1pmreport@gmail.com',
                                     to: 'rspower1pmdatastore@gmail.com',
                                     subject: `Reports for ${customerName}  ${address} MID - ${maintenanceID}`,
-                                    attachments: [attachmentArray],
+                                    attachments: attachmentArray,
                                     text: `Please find the attached report- \n \n\
                                     Customer Id : ${custId} \n\
                                     Customer Name : ${customerName} \n \
