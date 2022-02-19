@@ -493,7 +493,34 @@
 
       }
      
+      function sendEmail(mID)
+      {
+        $.ajax({
+            type: 'POST',
+            data: { maintenanceID: mID
+                  },
+            url: "/addNewMail",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+              if(data.message == "successs")
+              {
+                 console.log("Email request is added in db")
+                 sessionStorage.removeItem('maintenanceID');
+                 document.getElementById("myform").reset();
+                 document.getElementById("myform1").reset();
+              }
+              else{
+                console.log("Could not add email request in DB")
+              }
+            },
+            error: function (e) {
+              alert("Error occured while sending email" + JSON.stringify(e))
+            }
+          });
 
+      }
+
+      
        // remove session variable when page is changed
        window.onunload = function(){sessionStorage.removeItem('maintenanceID');};
       
