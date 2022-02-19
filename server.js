@@ -833,10 +833,7 @@ function sendCompletionEmails()
 
             for (var i = 0; i < data.length; i++) {
 
-                var mid1 = data[i].maintenanceID
-                console.log(mid1)
-                
-                pmImagesSchemaObject.find({maintenanceID: mid1}, function (err, docs) {
+                pmImagesSchemaObject.find({maintenanceID: data[i].maintenanceID}, function (err, docs) {
 
                     console.log('Inside pmImagesSchemaObject find')
                     var mid = docs[0].maintenanceID
