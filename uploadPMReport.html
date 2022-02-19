@@ -506,8 +506,6 @@
               {
                  console.log("Email request is added in db")
                  sessionStorage.removeItem('maintenanceID');
-                 document.getElementById("myform").reset();
-                 document.getElementById("myform1").reset();
               }
               else{
                 console.log("Could not add email request in DB")
@@ -555,8 +553,7 @@
                  console.log("Email is sent")
                  alert("Successfully sent email.")
                  sessionStorage.removeItem('maintenanceID');
-                 document.getElementById("myform").reset();
-                 document.getElementById("myform1").reset();
+
               }
               else{
                 console.log("Email not sent")
