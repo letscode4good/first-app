@@ -478,7 +478,7 @@
                
                alert("Successfully saved details.")
                //sendmail(resposeJson)
-               sendEmail(resposeJson.maintenanceType)
+               sendEmail(resposeJson.maintenanceID)
                /*
                setTimeout(function() {
                          sendmail(resposeJson)
@@ -520,7 +520,7 @@
 
       }
 
-      
+
        // remove session variable when page is changed
        window.onunload = function(){sessionStorage.removeItem('maintenanceID');};
       
