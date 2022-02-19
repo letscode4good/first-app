@@ -845,8 +845,9 @@ function sendCompletionEmails()
                             attachmentArray.push(input )
                             
                         }
+                        var mid = docs[0].maintenanceID
             
-                        preventiveMaintenanceHistorySchemaObject.findOne({maintenanceID: docs.maintenanceID}, function (err, docs) {
+                        preventiveMaintenanceHistorySchemaObject.findOne({maintenanceID: mid}, function (err, docs) {
                             if(err) return next(err);
                             if (docs == null) {
                                 //res.send('Preventive maintenance history not found for given M_id.');
