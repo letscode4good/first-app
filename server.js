@@ -833,6 +833,8 @@ function sendCompletionEmails()
             for (var i = 0; i < docs.length; i++) {
                 var mid = docs.maintenanceID
 
+                console.log(mid)
+
                 pmImagesSchemaObject.find({maintenanceID: docs.maintenanceID}, function (err, docs) {
                     if(err) 
                     {
@@ -851,6 +853,7 @@ function sendCompletionEmails()
                             if(err) return next(err);
                             if (docs == null) {
                                 //res.send('Preventive maintenance history not found for given M_id.');
+                                console.log("pm history not found")
                             }
             
                             var customerName = docs.customerName
