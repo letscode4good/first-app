@@ -836,14 +836,16 @@ function sendCompletionEmails()
                 pmImagesSchemaObject.find({maintenanceID: data[i].maintenanceID}, function (err, docs) {
 
                     console.log('Inside pmImagesSchemaObject find')
-                    var mid = docs[0].maintenanceID
-                    console.log(mid)
+                    
                     if(err) 
                     {
                         console.log('Error while fetching images link from DB')
                     }
                     else
-                    {       
+                    {   
+                        var mid = docs[0].maintenanceID
+                        console.log(mid)
+
                         var attachmentArray = [];
                         for (var i = 0; i < docs.length; i++) {
                             var input = { path: `${docs[i].imageLink}`}
