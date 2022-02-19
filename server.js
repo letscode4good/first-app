@@ -831,6 +831,7 @@ function sendCompletionEmails()
         if(err) return next(err);
 
             for (var i = 0; i < docs.length; i++) {
+                var mid = docs.maintenanceID
 
                 pmImagesSchemaObject.find({maintenanceID: docs.maintenanceID}, function (err, docs) {
                     if(err) 
@@ -845,7 +846,6 @@ function sendCompletionEmails()
                             attachmentArray.push(input )
                             
                         }
-                        var mid = docs[0].maintenanceID
             
                         preventiveMaintenanceHistorySchemaObject.findOne({maintenanceID: mid}, function (err, docs) {
                             if(err) return next(err);
