@@ -889,7 +889,8 @@ app.post('/sendmail', function(req, res){
                         attachmentArray = attachmentArray.concat(input);
                     }
                     */
-                    attachmentArray.push( `{  path: '${docs[i].imageLink}'  }` )
+                     var input = { path: '${docs[i].imageLink}'}
+                    attachmentArray.push(input )
                     
                 }
 
