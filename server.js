@@ -833,7 +833,7 @@ function sendCompletionEmails()
         console.log(data);
 
             for (var i = 0; i < data.length; i++) {
-                var mid = data.maintenanceID
+                var mid = data[0].maintenanceID
 
                 console.log(mid)
 
