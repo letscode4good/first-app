@@ -832,8 +832,13 @@ function sendCompletionEmails()
 
 
             for (var i = 0; i < data.length; i++) {
+
+                var mid1 = data[i].maintenanceID
+                console.log(mid1)
                 
-                pmImagesSchemaObject.find({maintenanceID: data[i].maintenanceID}, function (err, docs) {
+                pmImagesSchemaObject.find({maintenanceID: mid1}, function (err, docs) {
+
+                    console.log('Inside pmImagesSchemaObject find')
                     var mid = docs[0].maintenanceID
                     console.log(mid)
                     if(err) 
@@ -912,6 +917,12 @@ function sendCompletionEmails()
                                 } else {
                                     //res.json({message : 'emailsent'})
                                     console.log("emailsent")
+
+                                    sendMailSchemaObject.findOneAndRemove({maintenanceID: mid}, function (err, data) {
+                                        if(err) return next(err);
+                                        else
+                                            console.log("Sent mail and deleted older record");
+                                      });
                                 }
                             });
             
@@ -929,11 +940,7 @@ function sendCompletionEmails()
 
       });
     
-      sendMailSchemaObject.remove({}, function (err, data) {
-        if(err) return next(err);
-        else
-            console.log("Sent mail and deleted older record");
-      });
+      
       
 }
 
