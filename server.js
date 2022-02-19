@@ -1,6 +1,13 @@
 
 const express = require('express')
 const app = express()
+const cron = require("node-cron");
+
+cron.schedule("*/5 * * * *", function() {
+    sendCompletionEmails();
+    });
+
+
 const port = process.env.PORT || 80
 app.use(express.static('public'))
 app.use(express.urlencoded({
@@ -623,6 +630,14 @@ app.get("/getPMImages",function(req, res) {
 })
 
 
+app.get("/getPendingMails",function(req, res) {
+    sendMailSchemaObject.find({}, function (err, docs) {
+        if(err) return next(err);
+        res.send(docs);
+      });
+})
+
+
 app.post('/addNewStock', function(req, res){
     var newDBEntry = new stockDetailsSchemaObject({'itemName' : req.body.itemName, 'quantity': req.body.quantity, 'itemCode': req.body.itemCode}) 
     newDBEntry.save(function(err, savedUser){
@@ -806,6 +821,114 @@ let transporter = nodemailer.createTransport({
         expires: 1484314697598
     }
 });
+
+
+
+function sendCompletionEmails()
+{
+    
+    sendMailSchemaObject.find({}, function (err, docs) {
+        if(err) return next(err);
+
+            for (var i = 0; i < docs.length; i++) {
+
+                pmImagesSchemaObject.find({maintenanceID: docs.maintenanceID}, function (err, docs) {
+                    if(err) 
+                    {
+                        console.log('Error while fetching images link from DB')
+                    }
+                    else
+                    {       
+                        var attachmentArray = [];
+                        for (var i = 0; i < docs.length; i++) {
+                            var input = { path: `${docs[i].imageLink}`}
+                            attachmentArray.push(input )
+                            
+                        }
+            
+                        preventiveMaintenanceHistorySchemaObject.findOne({maintenanceID: docs.maintenanceID}, function (err, docs) {
+                            if(err) return next(err);
+                            if (docs == null) {
+                                //res.send('Preventive maintenance history not found for given M_id.');
+                            }
+            
+                            var customerName = docs.customerName
+                            var custId = docs.custId
+                            var maintenanceType = docs.maintenanceType
+                            var dateWhenDone  = docs.dateWhenDone
+                            var engineer = docs.engineer
+                            var maintenanceID  = docs.maintenanceID
+                            var advanceAmount = docs.advanceAmount
+                            var transportExpense = docs.transportExpense
+                            var travelExpense = docs.travelExpense
+                            var MiscellaneousExpense = docs.MiscellaneousExpense
+                            var dueAmount = docs.dueAmount
+                            var returnAmount = docs.returnAmount
+                            var customerType = docs.customerType
+                            var address = docs.address
+                            var upsName = docs.upsName
+                            var upsCapacity = docs.upsCapacity
+                            var description = docs.description
+            
+                            
+                            var mailOptions = {
+                                from: 'rspower1pmreport@gmail.com',
+                                to: 'rspower1pmdatastore@gmail.com',
+                                subject: `Reports for ${customerName}  ${address} MID - ${maintenanceID}`,
+                                text: `Please find the attached report- \n \n\
+                                Customer Id : ${custId} \n\
+                                Customer Name : ${customerName} \n \
+                                Address : ${address}\n\
+                                Customer Type : ${customerType}\n\
+                                Maintenance Type : ${maintenanceType}\n \
+                                Maintenance Id : ${maintenanceID}\n\
+                                Date of completion : ${dateWhenDone}\n\
+                                Engineer : ${engineer}\n\
+                                Advance Amount : ${advanceAmount}\n\
+                                Transport Expense : ${transportExpense}\n\
+                                Travel Expense : ${travelExpense}\n\
+                                Miscellaneous Expense : ${MiscellaneousExpense}\n\
+                                Due Amount : ${dueAmount}\n\
+                                Return Amount : ${returnAmount}\n\
+                                Ups Name: ${upsName}\n\
+                                Ups Capacity: ${upsCapacity}\n\
+                                Summary: ${description}\n\
+                                `
+                                
+                            };
+                        
+                            mailOptions["attachments"] = attachmentArray;
+                            
+                            console.log(mailOptions)
+            
+                            transporter.sendMail(mailOptions, function(error, info){
+                                if (error) {
+                                //res.json({message : error})
+                                    console.log("could not send email")
+                                } else {
+                                    //res.json({message : 'emailsent'})
+                                    console.log("emailsent")
+                                }
+                            });
+            
+            
+            
+                          });
+            
+                                        
+                    }
+                    
+                            
+                  });
+
+            }
+
+      });
+    
+      
+
+
+}
 
   // Process the file upload and upload to Google Cloud Storage.
 app.post('/sendmail', function(req, res){ 
