@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 const cron = require("node-cron");
 
-cron.schedule("*/5 * * * *", function() {
+cron.schedule("*/1 * * * *", function() {
     sendCompletionEmails();
     });
 
@@ -148,7 +148,7 @@ var stockDetailsSchema = new mongoose.Schema({
 
 
 var sendMailSchema = new mongoose.Schema({
-    maintenanceID : String,
+    maintenanceID : String
 });
 
 var statusDetailsSchema = new mongoose.Schema({
@@ -827,15 +827,17 @@ let transporter = nodemailer.createTransport({
 function sendCompletionEmails()
 {
     
-    sendMailSchemaObject.find({}, function (err, docs) {
+    sendMailSchemaObject.find({}, function (err, data) {
         if(err) return next(err);
 
-            for (var i = 0; i < docs.length; i++) {
-                var mid = docs.maintenanceID
+        console.log(data);
+
+            for (var i = 0; i < data.length; i++) {
+                var mid = data.maintenanceID
 
                 console.log(mid)
 
-                pmImagesSchemaObject.find({maintenanceID: docs.maintenanceID}, function (err, docs) {
+                pmImagesSchemaObject.find({maintenanceID: mid}, function (err, docs) {
                     if(err) 
                     {
                         console.log('Error while fetching images link from DB')
