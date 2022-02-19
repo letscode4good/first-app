@@ -953,7 +953,7 @@ app.post('/sendmail', function(req, res){
                                     
                                 };
                                 
-                                mailOptions["attachments"] = test3;
+                                mailOptions["attachments"] = attachmentArray;
 
                      
                                 
@@ -962,7 +962,7 @@ app.post('/sendmail', function(req, res){
                                     from: 'rspower1pmreport@gmail.com',
                                     to: 'rspower1pmdatastore@gmail.com',
                                     subject: `Reports for ${customerName}  ${address} MID - ${maintenanceID}`,
-                                    attachments: '${test3}',
+                                    attachments: attachmentArray,
                                     text: `Please find the attached report- \n \n\
                                     Customer Id : ${custId} \n\
                                     Customer Name : ${customerName} \n \
