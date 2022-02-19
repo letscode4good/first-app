@@ -4,7 +4,7 @@ const app = express()
 const cron = require("node-cron");
 
 cron.schedule("*/1 * * * *", function() {
-    sendCompletionEmails();
+   // sendCompletionEmails();
     });
 
 
