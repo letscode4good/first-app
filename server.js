@@ -830,14 +830,12 @@ function sendCompletionEmails()
     sendMailSchemaObject.find({}, function (err, data) {
         if(err) return next(err);
 
-        console.log(data);
 
             for (var i = 0; i < data.length; i++) {
-                var mid = data[i].maintenanceID
-
-                console.log(mid)
-
-                pmImagesSchemaObject.find({maintenanceID: mid}, function (err, docs) {
+                
+                pmImagesSchemaObject.find({maintenanceID: data[i].maintenanceID}, function (err, docs) {
+                    var mid = data[i].maintenanceID
+                    console.log(mid)
                     if(err) 
                     {
                         console.log('Error while fetching images link from DB')
