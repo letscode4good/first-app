@@ -832,10 +832,8 @@ function sendCompletionEmails()
 
             for (var i = 0; i < data.length; i++) {
                 
-                var mid = data[i].maintenanceID
-                console.log(mid)
 
-                pmImagesSchemaObject.find({maintenanceID: mid}, function (err, docs) {
+                pmImagesSchemaObject.find({maintenanceID: data[i].maintenanceID}, function (err, docs) {
 
                     console.log('Inside pmImagesSchemaObject find')
                     
@@ -845,7 +843,10 @@ function sendCompletionEmails()
                     }
                     else
                     {   
-                        
+
+                        var mid = docs[0].maintenanceID
+                        console.log(mid)
+
                         var attachmentArray = [];
                         for (var i = 0; i < docs.length; i++) {
                             var input = { path: `${docs[i].imageLink}`}
