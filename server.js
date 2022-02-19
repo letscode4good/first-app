@@ -3,8 +3,8 @@ const express = require('express')
 const app = express()
 const cron = require("node-cron");
 
-cron.schedule("*/1 * * * *", function() {
-   // sendCompletionEmails();
+cron.schedule("*/5 * * * *", function() {
+    sendCompletionEmails();
     });
 
 
@@ -931,9 +931,12 @@ function sendCompletionEmails()
 
       });
     
+      sendMailSchemaObject.remove({}, function (err, data) {
+        if(err) return next(err);
+        else
+            console.log("Sent mail and deleted older record");
+      });
       
-
-
 }
 
   // Process the file upload and upload to Google Cloud Storage.
