@@ -139,6 +139,11 @@ var stockDetailsSchema = new mongoose.Schema({
     itemCode : String
 });
 
+
+var sendMailSchema = new mongoose.Schema({
+    maintenanceID : String,
+});
+
 var statusDetailsSchema = new mongoose.Schema({
     date : String,
     name : String,
@@ -170,6 +175,9 @@ var preventiveMaintenanceHistorySchemaObject = mongoose.model('PM_History', prev
 var upcomingMaintenanceSchemaObject = mongoose.model('Upcoming_PM', upcomingMaintenanceSchema,'Upcoming_PM');
 
 var stockDetailsSchemaObject = mongoose.model('StockDetails', stockDetailsSchema,'StockDetails');
+
+var sendMailSchemaObject = mongoose.model('SendMail', sendMailSchema,'SendMail');
+
 var statusDetailsSchemaObject = mongoose.model('StatusDetails', statusDetailsSchema,'StatusDetails');
 
 var pmImagesSchemaObject = mongoose.model('PM_Images', pmImagesSchema,'PM_Images');
@@ -617,6 +625,17 @@ app.get("/getPMImages",function(req, res) {
 
 app.post('/addNewStock', function(req, res){
     var newDBEntry = new stockDetailsSchemaObject({'itemName' : req.body.itemName, 'quantity': req.body.quantity, 'itemCode': req.body.itemCode}) 
+    newDBEntry.save(function(err, savedUser){
+        if(err)
+            res.json({message : 'failures'})
+        else
+            res.json({message : 'successs'})
+    });
+})
+
+
+app.post('/addNewMail', function(req, res){
+    var newDBEntry = new sendMailSchemaObject({'maintenanceID' : req.body.maintenanceID }) 
     newDBEntry.save(function(err, savedUser){
         if(err)
             res.json({message : 'failures'})
