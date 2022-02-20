@@ -258,7 +258,7 @@
             $.ajax({
             type: 'GET',
             url: "/getCounters",
-            async: false,
+            /*async: false,*/
             contentType: "text/plain",
             dataType: 'json',
             success: function (responseData) {
@@ -297,7 +297,7 @@
                     status: document.getElementById("myform").elements.status.value,
                     statusID: document.getElementById("myform").elements.statusID.value},
             url: "/addEmployeeStatusDetail",
-            async: false,
+            /*async: false,*/
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
               uploadImage()
@@ -305,7 +305,7 @@
                   $.ajax({
                   type: 'POST',
                   url: "/incrementStatusCounter",
-                  async: false,
+                  /*async: false,*/
                   contentType: "application/x-www-form-urlencoded",
                   success: function (data) {
                     console.log("Status counter incremented");
@@ -339,7 +339,7 @@
             type: 'POST',
             data: files,
             url: "/upload",
-            async: false,
+            /*async: false,*/
             contentType: false,
             processData: false,
             success: function (data) {
@@ -362,7 +362,7 @@
             data: { statusID: document.getElementById("myform").elements.statusID.value,
                     imageLink: imageUrl},
             url: "/addStatusImages",
-            async: false,
+            /*async: false,*/
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
                console.log("Image info added in DB");
@@ -400,6 +400,12 @@
 
 
       }
+
+
+
+      $( document ).ajaxStop(function() {
+         console.log("all ajx calls are done")
+        });
 
 
     </script>
