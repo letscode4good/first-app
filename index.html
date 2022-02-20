@@ -22,6 +22,7 @@
 <body id="reportsPage">
 
     <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <!-- https://jquery.com/download/ -->
     <script src="js/moment.min.js"></script>
     <!-- https://momentjs.com/ -->
@@ -150,9 +151,6 @@
           }
 
         $(function() {
-          $(".tm-product-name").on("click", function() {
-            window.location.href = "edit-product.html";
-          });
           $("#stockTable").DataTable();
           loadData("1");
           document.getElementById("inventoryDiv").style.opacity = "0";
@@ -204,9 +202,9 @@
         }
 
 
-      //var table = $("#stockTable").DataTable();
+      var table = $("#stockTable").DataTable();
       $('#stockTable tbody').on('click', 'tr', function () {
-        var data = $("#stockTable").DataTable().row( this ).data();
+        var data = table.row( this ).data();
         //alert( 'You clicked on '+data[0]+'\'s row' );
         loadImages(data[0])
     })
