@@ -291,7 +291,7 @@
               </div>
               </div>
               <div class="col-12">
-                <button id ="submit" type="submit" class="btn btn-primary btn-block text-uppercase">Add Customer PM</button>
+                <button id ="submit" id ="submitbutton" type="submit" class="btn btn-primary btn-block text-uppercase">Add Maintenance</button>
               </div>
             </form>
             </div>
@@ -375,6 +375,7 @@ document.getElementById("myform").elements.upsCapacity.value = sessionStorage.ge
 
       function myfun()
       {
+        document.getElementById("submitbutton").disabled = true;
         var inputDate = new Date(document.getElementById("myform").elements.dateWhenScheduled.value);
         var dd = inputDate.getDate();
         var mm = inputDate.getMonth()+1; 
