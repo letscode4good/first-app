@@ -204,14 +204,12 @@
         }
 
 
-      var table = $("#stockTable").DataTable();
+      //var table = $("#stockTable").DataTable();
       $('#stockTable tbody').on('click', 'tr', function () {
-        var data = table.row( this ).data();
+        var data = $("#stockTable").DataTable().row( this ).data();
         //alert( 'You clicked on '+data[0]+'\'s row' );
         loadImages(data[0])
     })
-
-
 
   
     </script>
