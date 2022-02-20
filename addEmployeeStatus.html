@@ -244,6 +244,7 @@
                 type: "GET",
                 url: "/getAllEngineers",
                 dataType: "json",
+                global: false,
                 success: function (result, status, xhr) {
                 $.each(result,function(key, value)
                 {
@@ -260,6 +261,7 @@
             url: "/getCounters",
             /*async: false,*/
             contentType: "text/plain",
+            global: false,
             dataType: 'json',
             success: function (responseData) {
                futureSid = "S_" + responseData.statusCount;
@@ -315,9 +317,6 @@
                   }
                   });
 
-                  alert("Daily status detail added successfully")
-
-                  location.replace("/addEmployeeStatus.html")
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
@@ -405,6 +404,9 @@
 
       $( document ).ajaxStop(function() {
          console.log("all ajx calls are done")
+         alert("Daily status detail added successfully")
+         location.replace("/addEmployeeStatus.html")
+         
         });
 
 
