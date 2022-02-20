@@ -129,6 +129,19 @@
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
                 <form  id = "myform" action="javascript:;" onsubmit="myfun()" class="tm-edit-product-form" >
+
+
+
+                  <div class="row">
+                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                      <label
+                        for="statusID"
+                        >Status ID
+                      </label>
+                      <input class="form-control validate"  type="input" id="statusID" required name="statusID" STYLE="background-color: #54657d;" readonly>
+                    </div>
+                  </div>
+
                     <div class="row">
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
@@ -236,6 +249,23 @@
                     alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
                 }
             });
+
+            $.ajax({
+            type: 'GET',
+            url: "/getCounters",
+            async: false,
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (responseData) {
+               futureSid = "S_" + responseData.statusCount;
+               document.getElementById("myform").elements.statusID.value = futureSid;
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          }); 
+
+
           });
 
       function myfun()
