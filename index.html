@@ -87,6 +87,7 @@
             for(var i = 0; i < length; i++) {
               // You could also use an ajax property on the data table initialization
               $('#stockTable').dataTable().fnAddData( [
+                data[i].statusID,
                 data[i].date,
                 data[i].name,
                 data[i].status,
@@ -117,6 +118,7 @@
                   console.log(dbDate + " lies within a month");
                   // You could also use an ajax property on the data table initialization
                   $('#stockTable').dataTable().fnAddData( [
+                  data[i].statusID,
                   data[i].date,
                   data[i].name,
                   data[i].status,
@@ -138,6 +140,7 @@
                 {
                       // You could also use an ajax property on the data table initialization
                       $('#stockTable').dataTable().fnAddData( [
+                      data[i].statusID,
                       data[i].date,
                       data[i].name,
                       data[i].status,
@@ -152,8 +155,64 @@
           });
           $("#stockTable").DataTable();
           loadData("1");
-
+          document.getElementById("inventoryDiv").style.opacity = "0";
         });
+
+
+        function loadImages(statusid) {
+          $.ajax({
+            type: 'GET',
+            data: { statusID: statusid },
+            url: "/getStatusImages",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (data) {
+              myJsonData = data;
+              console.log("error: " + JSON.stringify(myJsonData));
+              populateInventoryTable(myJsonData);
+            },
+            error: function (e) {
+              console.log("There was an error with your request...");
+              console.log("error: " + JSON.stringify(e));
+            }
+          });
+          location.href = "#inventoryDiv";
+        //$("#custInventory").DataTable().clear();
+        //loadInventoryData(cutomerID);
+        
+          document.getElementById("inventoryDiv").style.opacity = "1";
+        }
+
+        // populate the data table with JSON data
+        function populateInventoryTable(data) {
+          console.log("populating data table...");
+          
+          document.getElementById("imageList").innerHTML = "";
+          
+          var response = '',
+            indicator = '';
+            for (var i = 0; i < data.length; i++) {
+                response += '<div class="carousel-item"><img src="' + data[i].imageLink + '" width="500" height="500"><div class="carousel-caption"><h3 style="color:Green;">' + data[i].statusID + '</div></div>';
+                indicator += '<li data-target="#myCarousel" data-slide-to="'+i+'"></li>';
+            }
+            $('#imageList').append(response);
+            $('#imageIndicator').append(indicator);
+            $('.carousel-item').first().addClass('active');
+            $('.carousel-indicators > li').first().addClass('active');
+            $("#myCarousel").carousel();
+
+        }
+
+
+      var table = $("#stockTable").DataTable();
+      $('#stockTable tbody').on('click', 'tr', function () {
+        var data = table.row( this ).data();
+        //alert( 'You clicked on '+data[0]+'\'s row' );
+        loadImages(data[0])
+    })
+
+
+
   
     </script>
 
@@ -262,6 +321,7 @@
                         <table id= "stockTable" class="table table-hover tm-table-small tm-product-table">
                           <thead>
                             <tr>
+                              <th scope="col">Status ID</th>
                               <th scope="col">Date</th>
                               <th scope="col">Name</th>
                               <th scope="col">Status</th>
@@ -269,17 +329,35 @@
                           </thead>
                           <tbody>
                             
-                            
                           </tbody>
                         </table>
                       </div>
           
-
-
-
-
                 </div>
             </div>
+
+
+            <div id="inventoryDiv" class="modal-container" style = "font-size: 62.5%;">
+              
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <ul id="imageIndicator" class="carousel-indicators">
+                      
+                    </ul>
+                    <div id="imageList" class="carousel-inner">
+                      
+                    </div>
+                    <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+                      <span class="carousel-control-prev-icon"  style="background-color:#D1CCFF;"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#myCarousel" data-slide="next">
+                      <span class="carousel-control-next-icon"  style="background-color:#D1CCFF;" ></span>
+                    </a>
+                  </div>
+  
+               <a href="#stockTable" class="link-2"></a>
+            </div>
+
+
         </div>
         <footer class="tm-footer row tm-mt-small">
             <div class="col-12 font-weight-light">
