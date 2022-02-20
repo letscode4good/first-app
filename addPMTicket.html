@@ -266,6 +266,7 @@
                             class="custom-select tm-select-accounts"
                             id="engineer"
                             name="engineer"
+                            required
                            >
                            <option value="">Select Engineer</option>
                            </select>
@@ -406,10 +407,11 @@ document.getElementById("myform").elements.upsCapacity.value = sessionStorage.ge
             url: "/addupcomingPM",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
-               alert("Data added Successfully")
+              
                $.ajax({
                 type: 'POST',
                 url: "/incrementMaintenanceCounter",
+                async: false,
                 contentType: "application/x-www-form-urlencoded",
                 success: function (data) {
                   console.log("Maintenance counter incremented");
@@ -418,8 +420,10 @@ document.getElementById("myform").elements.upsCapacity.value = sessionStorage.ge
                   alert("Error while adding data: " + JSON.stringify(e))
                 }
               });
-
-               document.getElementById('myform').reset();
+               alert("Data added Successfully")
+               //schedulePM.html
+               window.location.href = "/schedulePM.html";
+               //document.getElementById('myform').reset();
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
