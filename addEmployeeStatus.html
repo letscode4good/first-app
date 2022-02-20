@@ -128,7 +128,7 @@
             </div>
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
-                <form  id = "myform" action="javascript:;" onsubmit="myfun()" class="tm-edit-product-form" >
+                <form  id = "myform" class="tm-edit-product-form" >
 
 
 
@@ -195,21 +195,26 @@
                     </div>
                  </div>
 
-                 <div class="row">
-                  <div class="form-group mb-3 col-xs-12 col-sm-6">
-                      <button type="submit" action="javascript:;" onclick="preview_image()" class="btn btn-primary btn-block text-uppercase">Preview Image</button>
-                  </div>
-                </div>
+                 
 
                  <div id="image_preview"  class="tm-block-title d-inline-block" style = "display: none;"></div>
 
 
               </div>
               </div>
-              <div class="col-12">
-                <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Status</button>
-              </div>
+             
             </form>
+
+            <div class="row">
+              <div class="form-group mb-3 col-xs-12 col-sm-6">
+                  <button type="submit" action="javascript:;" onclick="preview_image()" class="btn btn-primary btn-block text-uppercase">Preview Image</button>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <button type="submit" action="javascript:;" onsubmit="myfun()" class="btn btn-primary btn-block text-uppercase">Add Status</button>
+            </div>
+
             </div>
           </div>
         </div>
@@ -292,6 +297,7 @@
                     status: document.getElementById("myform").elements.status.value,
                     statusID: document.getElementById("myform").elements.statusID.value},
             url: "/addEmployeeStatusDetail",
+            async: false,
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
               uploadImage()
