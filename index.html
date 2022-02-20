@@ -309,7 +309,14 @@
           }
 
         $(function() {
-          $("#stockTable").DataTable();
+          //$("#stockTable").DataTable();
+
+          $('#stockTable').dataTable( {
+            "columnDefs": [
+                { "width": "40%", "targets": 0 }
+            ]
+            } );
+
           loadData("1");
           document.getElementById("inventoryDiv").style.opacity = "0";
         });
