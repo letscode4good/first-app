@@ -154,7 +154,8 @@ var sendMailSchema = new mongoose.Schema({
 var statusDetailsSchema = new mongoose.Schema({
     date : String,
     name : String,
-    status : String
+    status : String,
+    statusID: String,
 });
 
 var pmImagesSchema = new mongoose.Schema({
@@ -163,9 +164,15 @@ var pmImagesSchema = new mongoose.Schema({
     imageLink : String
 });
 
+var statusImagesSchema = new mongoose.Schema({
+    statusID : String,
+    imageLink : String
+});
+
 var countersSchema = new mongoose.Schema({
     customerCount : Number,
     maintenanceCount : Number,
+    statusCount: Number,
     searchId : String
 });
 
@@ -188,6 +195,8 @@ var sendMailSchemaObject = mongoose.model('SendMail', sendMailSchema,'SendMail')
 var statusDetailsSchemaObject = mongoose.model('StatusDetails', statusDetailsSchema,'StatusDetails');
 
 var pmImagesSchemaObject = mongoose.model('PM_Images', pmImagesSchema,'PM_Images');
+
+var statusImagesSchemaObject = mongoose.model('Status_Images', statusImagesSchema,'Status_Images');
 
 var countersSchemaObject = mongoose.model('Counters', countersSchema,'Counters');
 
@@ -291,7 +300,7 @@ app.post('/addStockDetail', function(req, res){
 
 app.post('/addStatusDetail', function(req, res){
     session = req.session;
-    var newDBEntry = new statusDetailsSchemaObject({'date': req.body.statusDate , 'name': session.userName , 'status':req.body.status}) 
+    var newDBEntry = new statusDetailsSchemaObject({'date': req.body.statusDate , 'name': session.userName , 'status':req.body.status, 'statusID': req.body.statusID}) 
     newDBEntry.save(function(err, savedUser){
         if(err)
             res.json({message : 'failures'})
@@ -301,7 +310,7 @@ app.post('/addStatusDetail', function(req, res){
 })
 
 app.post('/addEmployeeStatusDetail', function(req, res){
-    var newDBEntry = new statusDetailsSchemaObject({'date': req.body.statusDate , 'name': req.body.userName , 'status':req.body.status}) 
+    var newDBEntry = new statusDetailsSchemaObject({'date': req.body.statusDate , 'name': req.body.userName , 'status':req.body.status, 'statusID': req.body.statusID}) 
     newDBEntry.save(function(err, savedUser){
         if(err)
             res.json({message : 'failures'})
@@ -319,6 +328,30 @@ app.post('/addPMImages', function(req, res){
         else
             res.json({message : 'successs'})
     });
+})
+
+app.post('/addStatusImages', function(req, res){
+    session = req.session;
+    var newDBEntry = new statusImagesSchemaObject({'statusID': req.body.statusID , 'imageLink':req.body.imageLink}) 
+    newDBEntry.save(function(err, savedUser){
+        if(err)
+            res.json({message : 'failures'})
+        else
+            res.json({message : 'successs'})
+    });
+})
+
+app.post('/delStatusImages', function(req, res){
+    statusImagesSchemaObject.deleteMany({'statusID': req.body.statusID }, function (err, docs) {
+        if(err) 
+        {
+            res.json({message : 'failures'})
+        }
+        else
+        {
+            res.json({message : 'success'})
+        }
+      });
 })
 
 
@@ -424,6 +457,20 @@ app.post('/incrementMaintenanceCounter', function(req, res){
         }
     });
 })
+
+app.post('/incrementStatusCounter', function(req, res){
+    countersSchemaObject.findOneAndUpdate({searchId: "keywordforsearch"},{$inc:{ statusCount: 1}}, function (err, docs) {
+        if (err){
+            //console.log(err)
+            res.send('failure');
+        }
+        else{
+            //console.log("Result : ", docs);
+            res.send(docs);   
+        }
+    });
+})
+
 
 
 
@@ -624,6 +671,13 @@ app.get("/getStatusDetail",function(req, res) {
 
 app.get("/getPMImages",function(req, res) {
     pmImagesSchemaObject.find({maintenanceID: req.query.maintenanceID}, function (err, docs) {
+        if(err) return next(err);
+        res.send(docs);
+      });
+})
+
+app.get("/getStatusImages",function(req, res) {
+    statusImagesSchemaObject.find({statusID: req.query.statusID}, function (err, docs) {
         if(err) return next(err);
         res.send(docs);
       });

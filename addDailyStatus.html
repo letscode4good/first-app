@@ -128,6 +128,18 @@
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
                 <form  id = "myform" action="javascript:;" onsubmit="myfun()" class="tm-edit-product-form" >
+
+
+                  <div class="row">
+                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                      <label
+                        for="statusID"
+                        >Status ID
+                      </label>
+                      <input class="form-control validate"  type="input" id="statusID" required name="statusID" STYLE="background-color: #54657d;" readonly>
+                    </div>
+                  </div>
+
                     <div class="row">
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
@@ -153,6 +165,24 @@
                           />
                         </div>
                   </div>
+
+                  <div class="row">
+                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                      <label
+                        for="imageData"
+                        >Upload Status Image
+                      </label>
+                      <input class="form-control validate" id="imageData" name="imageData" onclick="clearImage()" type="file" multiple />
+                    </div>
+                 </div>
+
+                 <div class="row">
+                  <div class="form-group mb-3 col-xs-12 col-sm-6">
+                      <button type="submit" action="javascript:;" onclick="preview_image()" class="btn btn-primary btn-block text-uppercase">Preview Image</button>
+                  </div>
+                </div>
+
+                 <div id="image_preview"  class="tm-block-title d-inline-block" style = "display: none;"></div>
 
               </div>
               </div>
@@ -180,6 +210,25 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
     <script>
+
+        $(function() {
+
+          $.ajax({
+            type: 'GET',
+            url: "/getCounters",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (responseData) {
+               futureSid = "S_" + responseData.statusCount;
+               document.getElementById("myform").elements.statusID.value = futureSid;
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          }); 
+
+        });
+
       function myfun()
       {
         var selectedDate = new Date(document.getElementById("myform").elements.statusDate.value); 
@@ -200,18 +249,93 @@
         $.ajax({
             type: 'POST',
             data: { statusDate: today,
-                    status: document.getElementById("myform").elements.status.value},
+                    status: document.getElementById("myform").elements.status.value,
+                    statusID: document.getElementById("myform").elements.statusID.value},
             url: "/addStatusDetail",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
-               alert("Daily status detail added successfully")
-               document.getElementById('myform').reset();
+               
+               uploadImage()
+
+               $.ajax({
+                type: 'POST',
+                url: "/incrementStatusCounter",
+                async: false,
+                contentType: "application/x-www-form-urlencoded",
+                success: function (data) {
+                  console.log("Status counter incremented");
+                },
+                error: function (e) {
+                  alert("Error while adding data: " + JSON.stringify(e))
+                }
+              });
+
+              alert("Daily status detail added successfully")
+              
+              location.replace("/addDailyStatus.html")
+
+               //document.getElementById('myform').reset();
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
             }
           });
       }
+
+      function uploadImage()
+      {
+        
+        //files.append('file', $('#imageData')[0].files[0]); 
+
+        $.each($('#imageData')[0].files, function(i, file) {
+          let files = new FormData();
+          files.append('file', file);
+          $.ajax({
+            type: 'POST',
+            data: files,
+            url: "/upload",
+            async: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+               addImageInfoInDB(data);   
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+        });
+
+        //alert("Images added successfully")
+
+      }
+
+      function addImageInfoInDB(imageUrl)
+      {
+        $.ajax({
+            type: 'POST',
+            data: { statusID: document.getElementById("myform").elements.statusID.value,
+                    imageLink: imageUrl},
+            url: "/addStatusImages",
+            async: false,
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+               console.log("Image info added in DB");
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+        
+      }
+
+
+      function clearImage()
+      {
+        document.getElementById("imageData").value = "";
+        $('#image_preview').empty();
+      }
+
     </script>
   </body>
 </html>
