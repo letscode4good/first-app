@@ -191,7 +191,7 @@
             </form>
 
             <div class="col-12">
-              <button type="submit" action="javascript:;" onclick="myfun()" class="btn btn-primary btn-block text-uppercase">Add Status</button>
+              <button type="submit" id="submitbutton" action="javascript:;" onclick="myfun()" class="btn btn-primary btn-block text-uppercase">Add Status</button>
             </div>
 
 
@@ -236,6 +236,7 @@
 
       function myfun()
       {
+        document.getElementById("submitbutton").disabled = true;
         var selectedDate = new Date(document.getElementById("myform").elements.statusDate.value); 
         var dd = selectedDate.getDate();
         var mm = selectedDate.getMonth()+1; 
