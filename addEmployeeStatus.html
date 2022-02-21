@@ -275,6 +275,17 @@
 
       function myfun()
       {
+
+        if(
+          document.getElementById("myform").elements.statusDate.value == ""
+          ||
+            (document.getElementById("myform").elements.status.value) == ""
+        )
+        {
+          alert("Status and date fields are mandatory")
+          return;
+        }
+
         
         var selectedDate = new Date(document.getElementById("myform").elements.statusDate.value); 
         var dd = selectedDate.getDate();
