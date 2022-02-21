@@ -21,6 +21,37 @@
 	Product Admin CSS Template
 	https://templatemo.com/tm-524-product-admin
 	-->
+
+
+  <style>
+    
+    #pageloader
+{
+  background: rgba( 255, 255, 255, 0.8 );
+  display: none;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+}
+
+#pageloader img
+{
+  left: 50%;
+  margin-left: -32px;
+  margin-top: -32px;
+  position: absolute;
+  top: 50%;
+}
+
+</style>
+  
+
+
+
+
+
+
   </head>
 
   <body>
@@ -208,7 +239,19 @@
              
             </form>
 
+
+
+
             
+
+            <div id="pageloader">
+              <img src="img/uploading.gif" alt="processing..." />
+            </div>
+
+
+
+
+                
             <div class="col-12">
               <button type="submit"  id = "submitbutton" action="javascript:;" onclick="myfun()" class="btn btn-primary btn-block text-uppercase">Add Status</button>
             </div>
@@ -275,6 +318,11 @@
 
       function myfun()
       {
+
+  
+ 
+         $("#pageloader").fadeIn();
+
 
         if(
           document.getElementById("myform").elements.statusDate.value == ""
@@ -419,6 +467,7 @@
 
       $( document ).ajaxStop(function() {
          console.log("all ajx calls are done")
+         $("#pageloader").fadeOut();
          alert("Daily status detail added successfully")
          window.location.href = "/addEmployeeStatus.html";
          
