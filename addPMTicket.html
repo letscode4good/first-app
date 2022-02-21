@@ -345,6 +345,7 @@ document.getElementById("myform").elements.upsCapacity.value = sessionStorage.ge
                 type: "GET",
                 url: "/getAllEngineers",
                 dataType: "json",
+                global : false,
                 success: function (result, status, xhr) {
                 $.each(result,function(key, value)
                 {
@@ -361,6 +362,7 @@ document.getElementById("myform").elements.upsCapacity.value = sessionStorage.ge
             url: "/getCounters",
             contentType: "text/plain",
             dataType: 'json',
+            global : false,
             success: function (responseData) {
                futureMid = "M_" + responseData.maintenanceCount;
                document.getElementById("myform").elements.maintenanceID.value = futureMid;
@@ -421,7 +423,6 @@ document.getElementById("myform").elements.upsCapacity.value = sessionStorage.ge
                   alert("Error while adding data: " + JSON.stringify(e))
                 }
               });
-               alert("Data added Successfully")
                //schedulePM.html
                window.location.href = "/schedulePM.html";
                //document.getElementById('myform').reset();
@@ -432,6 +433,11 @@ document.getElementById("myform").elements.upsCapacity.value = sessionStorage.ge
           });
       }
 
+      $( document ).ajaxStop(function() {
+         console.log("all ajx calls are done")
+         alert("Data added Successfully")
+         location.replace("/schedulePM.html")
+        });
 
     </script>
   </body>
