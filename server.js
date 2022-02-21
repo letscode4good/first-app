@@ -234,7 +234,7 @@ app.post('/delfilefromgcloud', function(req, res){
 
 
 
-async function uploadToGoogleCloud(req)
+function uploadToGoogleCloud(req)
 {
 
     // Create a new blob in the bucket and upload the file data.
@@ -278,8 +278,9 @@ app.post('/upload', multer.single('file'), async function (req, res, next) {
 
     }
 
-    uploadToGoogleCloud(req)
     res.status(200).send("success");
+    uploadToGoogleCloud(req)
+    //res.status(200).send("success");
   
     /*
     // Create a new blob in the bucket and upload the file data.
