@@ -23,35 +23,6 @@
 	-->
 
 
-  <style>
-    
-    #pageloader
-{
-  background: rgba( 255, 255, 255, 0.8 );
-  display: none;
-  height: 100%;
-  position: fixed;
-  width: 100%;
-  z-index: 9999;
-}
-
-#pageloader img
-{
-  left: 50%;
-  margin-left: -32px;
-  margin-top: -32px;
-  position: absolute;
-  top: 50%;
-}
-
-</style>
-  
-
-
-
-
-
-
   </head>
 
   <body>
@@ -235,7 +206,7 @@
 
                  <div id="image_preview"  class="tm-block-title d-inline-block" style = "display: none;"></div>
 
-                 <div class="tm-block-title d-inline-block" id="pageloader">
+                 <div class="tm-block-title d-inline-block"id="pageloader" style = "display: none;">
                   <img src="img/uploading.gif" alt="processing..." />
                 </div>
 
@@ -323,9 +294,8 @@
 
   
  
-         //$("#pageloader").fadeIn();
 
-         document.getElementById("pageloader").style.opacity = "1";
+         document.getElementById("pageloader").style.display = "block";
 
 
         if(
@@ -472,7 +442,7 @@
       $( document ).ajaxStop(function() {
          console.log("all ajx calls are done")
          //$("#pageloader").fadeOut();
-         document.getElementById("pageloader").style.opacity = "0";
+         document.getElementById("pageloader").style.display = "none";
          alert("Daily status detail added successfully")
          window.location.href = "/addEmployeeStatus.html";
          
