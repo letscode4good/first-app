@@ -280,9 +280,11 @@
           document.getElementById("myform").elements.statusDate.value == ""
           ||
             (document.getElementById("myform").elements.status.value) == ""
+            ||
+            (document.getElementById("myform").elements.userName.value) == "" 
         )
         {
-          alert("Status and date fields are mandatory")
+          alert("Please fill all mandatory fields")
           return;
         }
 
