@@ -264,7 +264,7 @@
    
                 <input id="description" class="form-control validate"  type="text" required name="description" STYLE="background-color: #54657d;">
 
-                <button type="submit" onclick="completeTask();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Complete Task</button>
+                <button type="submit" id= "completetaskbutton" onclick="completeTask();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Complete Task</button>
               </div>
 
 
@@ -399,6 +399,8 @@
 
       function completeTask()
       {
+
+        document.getElementById("completetaskbutton").disabled = true;
         if(
             (document.getElementById("myform1").elements.transportExpense.value) == ""
           ||
