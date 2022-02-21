@@ -259,7 +259,7 @@ function uploadToGoogleCloud(req)
             if(err)
                 console.log("Failed to upload file to gcp")
             else
-                console.log("Uploaded image to gcp")
+                console.log("Uploaded image added in db")
         });
 
       //res.status(200).send(publicUrl);
@@ -278,8 +278,15 @@ app.post('/upload', multer.single('file'), async function (req, res, next) {
 
     }
 
-    res.status(200).send("success");
-    uploadToGoogleCloud(req)
+    
+
+    setTimeout(function  uploadToGoogleCloud(req) {
+        console.log("Upload to gcp done")
+      }, 2000);
+
+      res.status(200).send("success");
+
+   
     //res.status(200).send("success");
   
     /*
