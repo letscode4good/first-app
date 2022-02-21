@@ -373,7 +373,7 @@ document.getElementById("myform").elements.upsCapacity.value = sessionStorage.ge
 
       function myfun()
       {
-        document.getElementById("submitbutton").disabled = true;
+        
         var inputDate = new Date(document.getElementById("myform").elements.dateWhenScheduled.value);
         var dd = inputDate.getDate();
         var mm = inputDate.getMonth()+1; 
@@ -388,6 +388,8 @@ document.getElementById("myform").elements.upsCapacity.value = sessionStorage.ge
             mm='0'+mm;
         } 
         var scheduleDate = dd+'/'+mm+'/'+yyyy;
+
+        document.getElementById("submitbutton").disabled = true;
 
         $.ajax({
             type: 'POST',

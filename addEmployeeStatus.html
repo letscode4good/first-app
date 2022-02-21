@@ -275,7 +275,7 @@
 
       function myfun()
       {
-        document.getElementById("submitbutton").disabled = true;
+        
         var selectedDate = new Date(document.getElementById("myform").elements.statusDate.value); 
         var dd = selectedDate.getDate();
         var mm = selectedDate.getMonth()+1; 
@@ -290,6 +290,9 @@
             mm='0'+mm;
         } 
         var today = dd+'/'+mm+'/'+yyyy;
+
+
+        document.getElementById("submitbutton").disabled = true;
 
         $.ajax({
             type: 'POST',
