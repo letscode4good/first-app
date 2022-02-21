@@ -234,7 +234,7 @@ app.post('/delfilefromgcloud', function(req, res){
 
 
 
-function uploadToGoogleCloud(req)
+async function uploadToGoogleCloud(req)
 {
 
     // Create a new blob in the bucket and upload the file data.
