@@ -321,7 +321,9 @@
 
   
  
-         $("#pageloader").fadeIn();
+         //$("#pageloader").fadeIn();
+
+         document.getElementById("pageloader").style.opacity = "1";
 
 
         if(
@@ -467,7 +469,8 @@
 
       $( document ).ajaxStop(function() {
          console.log("all ajx calls are done")
-         $("#pageloader").fadeOut();
+         //$("#pageloader").fadeOut();
+         document.getElementById("pageloader").style.opacity = "0";
          alert("Daily status detail added successfully")
          window.location.href = "/addEmployeeStatus.html";
          
