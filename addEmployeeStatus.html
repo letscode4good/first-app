@@ -407,7 +407,7 @@
       $( document ).ajaxStop(function() {
          console.log("all ajx calls are done")
          alert("Daily status detail added successfully")
-         location.replace("/addEmployeeStatus.html")
+         window.location.href = "/addEmployeeStatus.html";
          
         });
 
