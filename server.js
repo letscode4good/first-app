@@ -279,7 +279,7 @@ app.post('/upload', multer.single('file'), async function (req, res, next) {
     }
 
     res.status(200).send("success");
-    setTimeout(uploadToGoogleCloud, 1000,req);
+    setTimeout(uploadToGoogleCloud, 0,req);
 
     
     //res.status(200).send("success");
