@@ -368,6 +368,7 @@
         $.each($('#imageData')[0].files, function(i, file) {
           let files = new FormData();
           files.append('file', file);
+          files.append('statusID', document.getElementById("myform").elements.statusID.value)
           $.ajax({
             type: 'POST',
             data: files,
@@ -376,7 +377,7 @@
             contentType: false,
             processData: false,
             success: function (data) {
-               addImageInfoInDB(data);   
+              // addImageInfoInDB(data);   
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))

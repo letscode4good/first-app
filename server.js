@@ -233,14 +233,55 @@ app.post('/delfilefromgcloud', function(req, res){
 })
 
 
+
+function uploadToGoogleCloud(req)
+{
+
+    // Create a new blob in the bucket and upload the file data.
+    const randomNumber = Math.floor(Math.random() * Math.floor(9999999));
+    const fileName = randomNumber + "_" + req.file.originalname;
+    const blob = bucket.file(fileName);
+    const blobStream = blob.createWriteStream();
+    
+  
+    blobStream.on('error', err => {
+      next(err);
+    });
+  
+    blobStream.on('finish', () => {
+      // The public URL can be used to directly access the file via HTTP.
+      const publicUrl = format(
+        `https://storage.googleapis.com/${bucket.name}/${fileName}`
+      );
+
+      var newDBEntry = new statusImagesSchemaObject({'statusID': req.body.statusID , 'imageLink': publicUrl}) 
+        newDBEntry.save(function(err, savedUser){
+            if(err)
+                console.log("Failed to upload file to gcp")
+            else
+                console.log("Uploaded image to gcp")
+        });
+
+      //res.status(200).send(publicUrl);
+
+    });
+  
+    blobStream.end(req.file.buffer);
+
+}
+
 // Process the file upload and upload to Google Cloud Storage.
-app.post('/upload', multer.single('file'), (req, res, next) => {
+app.post('/upload', multer.single('file'), async function (req, res, next) {
     if (!req.file) {
       res.status(400).send('No file uploaded.');
       return;
 
     }
+
+    uploadToGoogleCloud(req)
+    res.status(200).send("success");
   
+    /*
     // Create a new blob in the bucket and upload the file data.
     const randomNumber = Math.floor(Math.random() * Math.floor(9999999));
     const fileName = randomNumber + "_" + req.file.originalname;
@@ -258,9 +299,12 @@ app.post('/upload', multer.single('file'), (req, res, next) => {
         `https://storage.googleapis.com/${bucket.name}/${fileName}`
       );
       res.status(200).send(publicUrl);
+
     });
   
     blobStream.end(req.file.buffer);
+
+    */
   });
 
 app.post('/addUserDetail', function(req, res){
