@@ -962,12 +962,9 @@ function sendCompletionEmails()
                     else
                     {   
 
-                        if(docs == null)
+                        if(docs != null)
                         {
-                            return;
-                        }
-
-                        var mid = docs[0].maintenanceID
+                            var mid = docs[0].maintenanceID
                         console.log(mid)
 
                         var attachmentArray = [];
@@ -1052,8 +1049,9 @@ function sendCompletionEmails()
             
             
                           });
-            
-                                        
+                        }
+
+                                       
                     }
                     
                             
