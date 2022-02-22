@@ -847,7 +847,7 @@ app.get('/completedPM.html', (req, res) => res.sendfile(__dirname+'/completedPM.
 app.get('/addDailyStatus.html', (req, res) => res.sendfile(__dirname+'/addDailyStatus.html'))
 app.get('/uploadPMReport.html', (req, res) => res.sendfile(__dirname+'/uploadPMReport.html'))
 
-app.get('/editCompletedPMReport.html', (req, res) =>
+app.get('/editCompletedPMReport.html',function(req, res)
 {
     if(session.userId && (session.userType == 'admin'))
     {
