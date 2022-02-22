@@ -19,13 +19,6 @@
     <link rel="stylesheet" href="css/templatemo-style.css">
     <link rel="stylesheet" href="css/model_popup.css">
 
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <!-- https://jquery.com/download/ -->
-    <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
-    <!-- https://jqueryui.com/download/ -->
-    <script src="js/bootstrap.min.js"></script>
-
-
 
 
 
@@ -281,7 +274,7 @@
                 <input id="description" class="form-control validate"  type="text" required name="description" STYLE="background-color: #54657d;">
 
                 
-                  <img id="pageloader" src="img/uploading3.gif" alt="processing..." class="modal-container" style="display: none; width:40%;height:30% ; position: fixed;top: 50%;left: 50%; transform: translate(-50%, -50%);">
+                 
                 
 
                 <button type="submit" id= "completetaskbutton" onclick="completeTask();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Complete Task</button>
@@ -302,6 +295,12 @@
         </p>
         </div>
     </footer> 
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- https://jquery.com/download/ -->
+    <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+    <!-- https://jqueryui.com/download/ -->
+    <script src="js/bootstrap.min.js"></script>
 
 
     <script> 
@@ -473,7 +472,7 @@
       }
 
       document.getElementById("completetaskbutton").disabled = true;
-      document.getElementById("pageloader").style.display = "block";
+      //document.getElementById("pageloader").style.display = "block";
 
       calculateDues();
       removeOlderImages()
@@ -582,7 +581,7 @@
 
     $( document ).ajaxStop(function() {
        console.log("all ajx calls are done")
-       document.getElementById("pageloader").style.display = "none";
+      // document.getElementById("pageloader").style.display = "none";
        alert("Successfully saved details.")
        window.location.href = "/completedPM.html";
        
