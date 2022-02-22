@@ -321,9 +321,9 @@
 
         function editRecord()
         {
-          var mid = document.getElementById("myform").elements.maintenanceID.value;
+          var mID = sessionStorage.getItem("completedMaintenanceID");
           sessionStorage.setItem("editCompletedMid", mid);
-          alert("set editCompletedMid")
+          alert("set editCompletedMid "+ mid)
           location.replace("/editCompletedPMReport.html")
           //window.location.href = "/editCompletedPMReport.html";
         }
