@@ -778,7 +778,7 @@ app.post('/addNewMail', function(req, res){
 })
 
 
-//app.get('/', (req, res) => res.sendfile(__dirname+'/index.html'))
+//app.get('/', (req, res) => res.sendFile(__dirname+'/index.html'))
 
 app.get('/',(req,res) => {
     session=req.session;
@@ -824,43 +824,43 @@ app.get('/index.html',(req,res) => {
 })
 
 
-app.get('/accounts.html', (req, res) => res.sendfile(__dirname+'/accounts.html'))
-app.get('/add-product.html', (req, res) => res.sendfile(__dirname+'/add-product.html'))
-app.get('/edit-product.html', (req, res) => res.sendfile(__dirname+'/edit-product.html'))
+app.get('/accounts.html', (req, res) => res.sendFile(__dirname+'/accounts.html'))
+app.get('/add-product.html', (req, res) => res.sendFile(__dirname+'/add-product.html'))
+app.get('/edit-product.html', (req, res) => res.sendFile(__dirname+'/edit-product.html'))
 
-app.get('/add-customer-info.html', (req, res) => res.sendfile(__dirname+'/add-customer-info.html'))
-app.get('/view-customer-info.html', (req, res) => res.sendfile(__dirname+'/view-customer-info.html'))
-app.get('/schedulePM.html', (req, res) => res.sendfile(__dirname+'/schedulePM.html'))
-
-
-app.get('/login.html', (req, res) => res.sendfile(__dirname+'/login.html'))
-app.get('/products.html', (req, res) => res.sendfile(__dirname+'/products.html'))
+app.get('/add-customer-info.html', (req, res) => res.sendFile(__dirname+'/add-customer-info.html'))
+app.get('/view-customer-info.html', (req, res) => res.sendFile(__dirname+'/view-customer-info.html'))
+app.get('/schedulePM.html', (req, res) => res.sendFile(__dirname+'/schedulePM.html'))
 
 
-app.get('/upcomingCustomerPM.html', (req, res) => res.sendfile(__dirname+'/upcomingCustomerPM.html'))
-app.get('/upcomingPlannedPM.html', (req, res) => res.sendfile(__dirname+'/upcomingPlannedPM.html'))
-app.get('/allupcomingPM.html', (req, res) => res.sendfile(__dirname+'/allupcomingPM.html'))
-app.get('/addPMTicket.html', (req, res) => res.sendfile(__dirname+'/addPMTicket.html'))
+app.get('/login.html', (req, res) => res.sendFile(__dirname+'/login.html'))
+app.get('/products.html', (req, res) => res.sendFile(__dirname+'/products.html'))
 
-app.get('/completedPM.html', (req, res) => res.sendfile(__dirname+'/completedPM.html'))
 
-app.get('/addDailyStatus.html', (req, res) => res.sendfile(__dirname+'/addDailyStatus.html'))
-app.get('/uploadPMReport.html', (req, res) => res.sendfile(__dirname+'/uploadPMReport.html'))
+app.get('/upcomingCustomerPM.html', (req, res) => res.sendFile(__dirname+'/upcomingCustomerPM.html'))
+app.get('/upcomingPlannedPM.html', (req, res) => res.sendFile(__dirname+'/upcomingPlannedPM.html'))
+app.get('/allupcomingPM.html', (req, res) => res.sendFile(__dirname+'/allupcomingPM.html'))
+app.get('/addPMTicket.html', (req, res) => res.sendFile(__dirname+'/addPMTicket.html'))
+
+app.get('/completedPM.html', (req, res) => res.sendFile(__dirname+'/completedPM.html'))
+
+app.get('/addDailyStatus.html', (req, res) => res.sendFile(__dirname+'/addDailyStatus.html'))
+app.get('/uploadPMReport.html', (req, res) => res.sendFile(__dirname+'/uploadPMReport.html'))
 
 app.get('/editCompletedPMReport.html',function(req, res)
 {
     if(session.userId && (session.userType == 'admin'))
     {
-        res.sendfile(__dirname+'/editCompletedPMReport.html')
+        res.sendFile(__dirname+'/editCompletedPMReport.html')
     }
     {
-        res.sendfile(__dirname+'/addEmployeeStatus.html')
+        res.sendFile(__dirname+'/addEmployeeStatus.html')
     }
 })
 
-app.get('/detailedPMReport.html', (req, res) => res.sendfile(__dirname+'/detailedPMReport.html'))
+app.get('/detailedPMReport.html', (req, res) => res.sendFile(__dirname+'/detailedPMReport.html'))
 
-app.get('/addEmployeeStatus.html', (req, res) => res.sendfile(__dirname+'/addEmployeeStatus.html'))
+app.get('/addEmployeeStatus.html', (req, res) => res.sendFile(__dirname+'/addEmployeeStatus.html'))
 
 
 app.post('/login', function(req, res){
