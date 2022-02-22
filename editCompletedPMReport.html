@@ -403,7 +403,7 @@
         let files = new FormData();
         files.append('file', file);
         files.append('maintenanceID', document.getElementById("myform").elements.maintenanceID.value);
-        files.append('serviceReport', document.getElementById("myform").elements.serviceReport.value);
+        files.append('serviceReport', "0");
         files.append('type', "maintenance");
         $.ajax({
           type: 'POST',
