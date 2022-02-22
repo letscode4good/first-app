@@ -295,7 +295,7 @@
         
 
         $(function() {
-          var mID = sessionStorage.getItem("editCompletedMID");
+          var mID = sessionStorage.getItem("editCompletedMid");
           console.log(mID);
           document.getElementById("myform").elements.maintenanceID.value = mID;
           document.getElementById("myform1").reset();
@@ -303,32 +303,28 @@
 
         function removeOlderImages()
         {
-          var mID = sessionStorage.getItem("editCompletedMID");
           $.ajax({
             type: 'GET',
-            data: { maintenanceID: mID },
+            data: { maintenanceID: document.getElementById("myform").elements.maintenanceID.value },
             url: "/getPMImages",
             contentType: "text/plain",
             dataType: 'json',
             success: function (data) {
               for (var i = 0; i < data.length; i++) {
-                var indexOfSlash = data[i].imageLink.lastIndexOf("/");
-                var fileNameOfImage = data[i].imageLink.substring(indexOfSlash + 1);
                 $.ajax({
                   type: 'POST',
-                  data: { filename: fileNameOfImage ,
+                  data: { filename:  data[i].imageLink,
                         },
                   url: "/delfilefromgcloud",
                   contentType: "application/x-www-form-urlencoded",
                   success: function (data) {
-                    console.log("Image deleted from gcloud - "+ data);
+                    console.log("Image deleted from gcloud - "+ data[i].imageLink);
                   },
                   error: function (e) {
                     alert("Error while deleting file from gcloud: " + JSON.stringify(e))
                   }
                 });
               }
-              removeImageInfoFromDB()
             },
             error: function (e) {
               console.log("There was an error with your request...");
@@ -337,15 +333,16 @@
           });
         }
 
+
  
        function removeImageInfoFromDB()
        {
-           var mID = sessionStorage.getItem("editCompletedMID");
            $.ajax({
             type: 'POST',
-            data: {maintenanceID: mID},
+            data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
             url: "/delPMImages",
-            contentType: "application/x-www-form-urlencoded",
+            contentType: false,
+            processData: false,
             success: function (data) {
               console.log("Deleted older images -" + data);
             },
@@ -413,10 +410,9 @@
 
       function addImageInfoInDB(imageUrl)
       {
-        var mID = sessionStorage.getItem("editCompletedMID");
         $.ajax({
             type: 'POST',
-            data: { maintenanceID: mID,
+            data: { maintenanceID: document.getElementById("myform").elements.maintenanceID.value,
                     serviceReport: "0",
                     imageLink: imageUrl},
             url: "/addPMImages",
@@ -433,7 +429,6 @@
 
       function completeTask()
       {
-        var mID = sessionStorage.getItem("editCompletedMID");
         if(
             (document.getElementById("myform1").elements.transportExpense.value) == ""
           ||
@@ -458,11 +453,11 @@
 
         calculateDues();
         removeOlderImages()
-       
+        removeImageInfoFromDB()
 
         $.ajax({
             type: 'GET',
-            data: {maintenanceID: mID},
+            data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
             url: "/getPMHistoryForMid",
             contentType: "text/plain",
             dataType: 'json',
@@ -480,10 +475,9 @@
 
       function removeOldCompletedPMRecord(data)
       {
-        var mID = sessionStorage.getItem("editCompletedMID");
         $.ajax({
             type: 'GET',
-            data: {maintenanceID: mID},
+            data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
             url: "/deleteFromCompletedPM",
             contentType: "text/plain",
             dataType: 'json',
@@ -505,7 +499,7 @@
             data: { custId: resposeJson.custId,
                     customerName: resposeJson.customerName, 
                     maintenanceType: resposeJson.maintenanceType, 
-                    dateWhenDone: resposeJson.dateWhenDone, 
+                    dateWhenDone: responseJson.dateWhenDone, 
                     engineer: resposeJson.engineer, 
                     maintenanceID: resposeJson.maintenanceID,
                     advanceAmount : document.getElementById("myform1").elements.advanceAmount.value,
@@ -524,7 +518,7 @@
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
                alert("Successfully saved details.")
-               sessionStorage.removeItem('editCompletedMID');
+               sessionStorage.removeItem('maintenanceID');
                document.getElementById("myform").reset();
                document.getElementById("myform1").reset();
                location.replace("/")
@@ -535,7 +529,7 @@
           });
       }
       // remove session variable when page is changed
-      window.onunload = function(){sessionStorage.removeItem('editCompletedMID');};
+      window.onunload = function(){sessionStorage.removeItem('maintenanceID');};
 
 
       function preview_image() 
