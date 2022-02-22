@@ -849,6 +849,7 @@ app.get('/uploadPMReport.html', (req, res) => res.sendFile(__dirname+'/uploadPMR
 
 app.get('/editCompletedPMReport.html',function(req, res)
 {
+    session=req.session;
     if(session.userId && (session.userType == 'admin'))
     {
         res.sendFile(__dirname+'/editCompletedPMReport.html')
