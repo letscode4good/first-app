@@ -323,7 +323,8 @@
         {
           var mid = document.getElementById("myform").elements.maintenanceID.value;
           sessionStorage.setItem("editCompletedMid", mid);
-          location.replace("/editCompletedPMReport.html")
+          //location.replace("/editCompletedPMReport.html")
+          window.location.href = "/editCompletedPMReport.html";
         }
 
         function loadImages() {
