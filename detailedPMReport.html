@@ -322,7 +322,7 @@
         function editRecord()
         {
           var mID = sessionStorage.getItem("completedMaintenanceID");
-          localStorage.setItem("editCompletedMid", mID);
+          sessionStorage.setItem("editCompletedMid", mID);
           location.replace("/editCompletedPMReport.html")
           //window.location.href = "/editCompletedPMReport.html";
         }
