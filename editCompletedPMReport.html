@@ -320,7 +320,7 @@
       }
 
         $(function() {
-          var mID = sessionStorage.getItem("editCompletedMid");
+          var mID = sessionStorage.getItem("completedMaintenanceID");
           console.log(mID);
           document.getElementById("myform").elements.maintenanceID.value = mID;
           document.getElementById("myform1").reset();
@@ -516,7 +516,7 @@
               if(data.message == "successs")
               {
                  console.log("Email request is added in db")
-                 sessionStorage.removeItem('editCompletedMid');
+                 sessionStorage.removeItem('completedMaintenanceID');
               }
               else{
                 console.log("Could not add email request in DB")
@@ -531,7 +531,7 @@
 
 
        // remove session variable when page is changed
-       window.onunload = function(){sessionStorage.removeItem('editCompletedMid');};
+       window.onunload = function(){sessionStorage.removeItem('completedMaintenanceID');};
       
       function sendmail(resposeJson)
       {
@@ -563,7 +563,7 @@
               {
                  console.log("Email is sent")
                  alert("Successfully sent email.")
-                 sessionStorage.removeItem('editCompletedMid');
+                 sessionStorage.removeItem('completedMaintenanceID');
 
               }
               else{
@@ -609,7 +609,7 @@
                 contentType: "application/x-www-form-urlencoded",
                 success: function (data) {
                   console.log("Future Maintenance Record Successfully added.");
-                  sessionStorage.removeItem('editCompletedMid');
+                  sessionStorage.removeItem('completedMaintenanceID');
                 },
                 error: function (e) {
                   alert("Error while adding data: " + JSON.stringify(e))
