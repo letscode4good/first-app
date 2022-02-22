@@ -298,7 +298,7 @@
         
 
         $(function() {
-          var mID = sessionStorage.getItem("editCompletedMid");
+          var mID = localStorage.getItem("editCompletedMid");
           console.log(mID);
           document.getElementById("myform").elements.maintenanceID.value = mID;
           document.getElementById("myform1").reset();
@@ -306,7 +306,7 @@
 
         function removeOlderImages()
         {
-          var mID = sessionStorage.getItem("editCompletedMid");
+          var mID = localStorage.getItem("editCompletedMid");
           $.ajax({
             type: 'GET',
             data: { maintenanceID: mID },
@@ -343,7 +343,7 @@
  
        function removeImageInfoFromDB()
        {
-           var mID = sessionStorage.getItem("editCompletedMid");
+           var mID = localStorage.getItem("editCompletedMid");
            $.ajax({
             type: 'POST',
             data: {maintenanceID: mID},
@@ -419,7 +419,7 @@
 
       function addImageInfoInDB(imageUrl)
       {
-        var mID = sessionStorage.getItem("editCompletedMid");
+        var mID = localStorage.getItem("editCompletedMid");
         $.ajax({
             type: 'POST',
             data: { maintenanceID: mID,
@@ -439,7 +439,7 @@
 
       function completeTask()
       {
-        var mID = sessionStorage.getItem("editCompletedMid");
+        var mID = localStorage.getItem("editCompletedMid");
         if(
             (document.getElementById("myform1").elements.transportExpense.value) == ""
           ||
@@ -489,7 +489,7 @@
 
       function removeOldCompletedPMRecord(data)
       {
-        var mID = sessionStorage.getItem("editCompletedMid");
+        var mID = localStorage.getItem("editCompletedMid");
         $.ajax({
             type: 'GET',
             data: {maintenanceID: mID},
