@@ -854,6 +854,7 @@ app.get('/editCompletedPMReport.html',function(req, res)
     {
         res.sendFile(__dirname+'/editCompletedPMReport.html')
     }
+    else
     {
         res.sendFile(__dirname+'/addEmployeeStatus.html')
     }
