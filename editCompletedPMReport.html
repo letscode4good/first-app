@@ -304,6 +304,25 @@
           document.getElementById("myform1").reset();
         });
 
+
+
+        function removeImageInfoFromDB()
+       {
+           var mID = sessionStorage.getItem("editCompletedMid");
+           $.ajax({
+            type: 'POST',
+            data: {maintenanceID: mID},
+            url: "/delPMImages",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+              console.log("Deleted older images -" + data);
+            },
+            error: function (e) {
+              alert("Error while deleting older images from DB data: " + JSON.stringify(e))
+            }
+          });
+       }
+
         function removeOlderImages()
         {
           var mID = sessionStorage.getItem("editCompletedMid");
@@ -341,22 +360,7 @@
         }
 
  
-       function removeImageInfoFromDB()
-       {
-           var mID = sessionStorage.getItem("editCompletedMid");
-           $.ajax({
-            type: 'POST',
-            data: {maintenanceID: mID},
-            url: "/delPMImages",
-            contentType: "application/x-www-form-urlencoded",
-            success: function (data) {
-              console.log("Deleted older images -" + data);
-            },
-            error: function (e) {
-              alert("Error while deleting older images from DB data: " + JSON.stringify(e))
-            }
-          });
-       }
+
 
         function calculateDues()
         {
@@ -385,6 +389,28 @@
           document.getElementById("myform1").elements.dueAmount.value = dueAmount;
           document.getElementById("myform1").elements.returnAmount.value = returnAmount;
         }
+
+
+
+        function addImageInfoInDB(imageUrl)
+      {
+        var mID = sessionStorage.getItem("editCompletedMid");
+        $.ajax({
+            type: 'POST',
+            data: { maintenanceID: mID,
+                    serviceReport: "0",
+                    imageLink: imageUrl},
+            url: "/addPMImages",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+               console.log("Image info added in DB");
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+        
+      }
 
       function myfun()
       {
@@ -417,25 +443,69 @@
 
       }
 
-      function addImageInfoInDB(imageUrl)
+
+      function addCompletedRecordToDB(resposeJson)
       {
-        var mID = sessionStorage.getItem("editCompletedMid");
         $.ajax({
             type: 'POST',
-            data: { maintenanceID: mID,
-                    serviceReport: "0",
-                    imageLink: imageUrl},
-            url: "/addPMImages",
+            data: { custId: resposeJson.custId,
+                    customerName: resposeJson.customerName, 
+                    maintenanceType: resposeJson.maintenanceType, 
+                    dateWhenDone: resposeJson.dateWhenDone, 
+                    engineer: resposeJson.engineer, 
+                    maintenanceID: resposeJson.maintenanceID,
+                    advanceAmount : document.getElementById("myform1").elements.advanceAmount.value,
+                    transportExpense : document.getElementById("myform1").elements.transportExpense.value,
+                    travelExpense : document.getElementById("myform1").elements.travelExpense.value,
+                    MiscellaneousExpense : document.getElementById("myform1").elements.MiscellaneousExpense.value,
+                    dueAmount : document.getElementById("myform1").elements.dueAmount.value,
+                    returnAmount : document.getElementById("myform1").elements.returnAmount.value,
+                    customerType: resposeJson.customerType, 
+                    address:  resposeJson.address,
+                    upsName:  resposeJson.upsName,
+                    upsCapacity:  resposeJson.upsCapacity,
+                    description : document.getElementById("description").value
+                  },
+            url: "/addPMHistory",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
-               console.log("Image info added in DB");
+               //alert("Successfully saved details.")
+               
+               //location.replace("/")
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
             }
           });
-        
       }
+      
+      
+
+
+
+
+      function removeOldCompletedPMRecord(data)
+      {
+        var mID = sessionStorage.getItem("editCompletedMid");
+        $.ajax({
+            type: 'GET',
+            data: {maintenanceID: mID},
+            url: "/deleteFromCompletedPM",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (resposeJson) {
+               console.log("Old record deleted");
+               addCompletedRecordToDB(data);
+            },
+            error: function (e) {
+              alert("Error while removing older data: " + JSON.stringify(e))
+            }
+          });
+
+      }
+
+
+      
 
       function completeTask()
       {
@@ -487,60 +557,9 @@
 
       }
 
-      function removeOldCompletedPMRecord(data)
-      {
-        var mID = sessionStorage.getItem("editCompletedMid");
-        $.ajax({
-            type: 'GET',
-            data: {maintenanceID: mID},
-            url: "/deleteFromCompletedPM",
-            contentType: "text/plain",
-            dataType: 'json',
-            success: function (resposeJson) {
-               console.log("Old record deleted");
-               addCompletedRecordToDB(data);
-            },
-            error: function (e) {
-              alert("Error while removing older data: " + JSON.stringify(e))
-            }
-          });
 
-      }
 
-      function addCompletedRecordToDB(resposeJson)
-      {
-        $.ajax({
-            type: 'POST',
-            data: { custId: resposeJson.custId,
-                    customerName: resposeJson.customerName, 
-                    maintenanceType: resposeJson.maintenanceType, 
-                    dateWhenDone: resposeJson.dateWhenDone, 
-                    engineer: resposeJson.engineer, 
-                    maintenanceID: resposeJson.maintenanceID,
-                    advanceAmount : document.getElementById("myform1").elements.advanceAmount.value,
-                    transportExpense : document.getElementById("myform1").elements.transportExpense.value,
-                    travelExpense : document.getElementById("myform1").elements.travelExpense.value,
-                    MiscellaneousExpense : document.getElementById("myform1").elements.MiscellaneousExpense.value,
-                    dueAmount : document.getElementById("myform1").elements.dueAmount.value,
-                    returnAmount : document.getElementById("myform1").elements.returnAmount.value,
-                    customerType: resposeJson.customerType, 
-                    address:  resposeJson.address,
-                    upsName:  resposeJson.upsName,
-                    upsCapacity:  resposeJson.upsCapacity,
-                    description : document.getElementById("description").value
-                  },
-            url: "/addPMHistory",
-            contentType: "application/x-www-form-urlencoded",
-            success: function (data) {
-               //alert("Successfully saved details.")
-               
-               //location.replace("/")
-            },
-            error: function (e) {
-              alert("Error while adding data: " + JSON.stringify(e))
-            }
-          });
-      }
+      
       // remove session variable when page is changed
       window.onunload = function(){sessionStorage.removeItem('editCompletedMid');};
 
