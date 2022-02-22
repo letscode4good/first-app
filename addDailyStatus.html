@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="css/templatemo-style.css">
+    <link rel="stylesheet" href="css/model_popup.css">
     <!--
 	Product Admin CSS Template
 	https://templatemo.com/tm-524-product-admin
@@ -183,6 +184,10 @@
 
                  <div id="image_preview"  class="tm-block-title d-inline-block" style = "display: none;"></div>
 
+                 <div class="tm-block-title d-inline-block" >
+                  <img id="pageloader" src="img/uploading3.gif" alt="processing..." class="modal-container" style="display: none; width:40%;height:30% ; position: fixed;top: 50%;left: 50%; transform: translate(-50%, -50%);">
+                </div>
+
               </div>
               </div>
              
@@ -251,6 +256,7 @@
         var today = dd+'/'+mm+'/'+yyyy;
 
         document.getElementById("submitbutton").disabled = true;
+        document.getElementById("pageloader").style.display = "block";
 
         $.ajax({
             type: 'POST',
@@ -277,9 +283,9 @@
                 }
               });
 
-              alert("Daily status detail added successfully")
+              //alert("Daily status detail added successfully")
               
-              location.replace("/addDailyStatus.html")
+              //location.replace("/addDailyStatus.html")
 
                //document.getElementById('myform').reset();
             },
@@ -297,6 +303,9 @@
         $.each($('#imageData')[0].files, function(i, file) {
           let files = new FormData();
           files.append('file', file);
+          files.append('file', file);
+          files.append('statusID', document.getElementById("myform").elements.statusID.value)
+          files.append('type', "status")
           $.ajax({
             type: 'POST',
             data: files,
@@ -305,7 +314,7 @@
             contentType: false,
             processData: false,
             success: function (data) {
-               addImageInfoInDB(data);   
+               //addImageInfoInDB(data);   
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
@@ -359,8 +368,18 @@
             $('#image_preview').empty();
           }
 
-
       }
+
+
+
+      $( document ).ajaxStop(function() {
+         console.log("all ajx calls are done")
+         //$("#pageloader").fadeOut();
+         document.getElementById("pageloader").style.display = "none";
+         alert("Daily status detail added successfully")
+         window.location.href = "/addDailyStatus.html";
+         
+        });
 
     </script>
   </body>

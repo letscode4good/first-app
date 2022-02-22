@@ -254,13 +254,30 @@ function uploadToGoogleCloud(req)
         `https://storage.googleapis.com/${bucket.name}/${fileName}`
       );
 
-      var newDBEntry = new statusImagesSchemaObject({'statusID': req.body.statusID , 'imageLink': publicUrl}) 
+      if(req.body.type == "status")
+      {
+
+        var newDBEntry = new statusImagesSchemaObject({'statusID': req.body.statusID , 'imageLink': publicUrl}) 
         newDBEntry.save(function(err, savedUser){
             if(err)
-                console.log("Failed to upload file to gcp")
+                console.log("Failed to upload status image  to gcp")
             else
-                console.log("Uploaded image added in db")
+                console.log("Uploaded status image added in db")
         });
+
+      }
+      else{
+
+        var newDBEntry = new pmImagesSchemaObject({'maintenanceID': req.body.maintenanceID , 'serviceReport': req.body.serviceReport , 'imageLink':publicUrl}) 
+        newDBEntry.save(function(err, savedUser){
+            if(err)
+                console.log("Failed to upload maintenancnce image to gcp")
+            else
+                console.log("Uploaded maintenance image added in db")
+        });
+
+      }
+
 
       //res.status(200).send(publicUrl);
 

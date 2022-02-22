@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="css/templatemo-style.css">
+    <link rel="stylesheet" href="css/model_popup.css">
     <!--
 	Product Admin CSS Template
 	https://templatemo.com/tm-524-product-admin
@@ -264,6 +265,10 @@
    
                 <input id="description" class="form-control validate"  type="text" required name="description" STYLE="background-color: #54657d;">
 
+                <div class="tm-block-title d-inline-block" >
+                  <img id="pageloader" src="img/uploading3.gif" alt="processing..." class="modal-container" style="display: none; width:40%;height:30% ; position: fixed;top: 50%;left: 50%; transform: translate(-50%, -50%);">
+                </div>
+
                 <button type="submit" id= "completetaskbutton" onclick="completeTask();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Complete Task</button>
               </div>
 
@@ -358,6 +363,10 @@
         $.each($('#imageData')[0].files, function(i, file) {
           let files = new FormData();
           files.append('file', file);
+          files.append('statusID', document.getElementById("myform").elements.statusID.value)
+          files.append('maintenanceID', document.getElementById("myform").elements.maintenanceID.value)
+          files.append('serviceReport', document.getElementById("myform").elements.serviceReport.value)
+          files.append('type', "maintenance")
           $.ajax({
             type: 'POST',
             data: files,
@@ -365,7 +374,7 @@
             contentType: false,
             processData: false,
             success: function (data) {
-               addImageInfoInDB(data);   
+               //addImageInfoInDB(data);   
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
@@ -400,7 +409,7 @@
       function completeTask()
       {
 
-        document.getElementById("completetaskbutton").disabled = true;
+       
         if(
             (document.getElementById("myform1").elements.transportExpense.value) == ""
           ||
@@ -422,6 +431,9 @@
           alert("Maintenance ID is empty")
           return;
         }
+
+        document.getElementById("completetaskbutton").disabled = true;
+        document.getElementById("pageloader").style.display = "block";
 
         calculateDues();
         
@@ -672,10 +684,10 @@
 
       $( document ).ajaxStop(function() {
          console.log("all ajx calls are done")
+         document.getElementById("pageloader").style.display = "none";
          alert("Successfully saved details.")
          window.location.href = "/allupcomingPM.html";
         
-         
         });
 
 

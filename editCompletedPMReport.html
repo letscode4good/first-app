@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="css/templatemo-style.css">
+    <link rel="stylesheet" href="css/model_popup.css">
     <!--
 	Product Admin CSS Template
 	https://templatemo.com/tm-524-product-admin
@@ -264,7 +265,11 @@
    
                 <input id="description" class="form-control validate"  type="text" required name="description" STYLE="background-color: #54657d;">
 
-                <button type="submit" onclick="completeTask();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Complete Task</button>
+                <div class="tm-block-title d-inline-block" >
+                  <img id="pageloader" src="img/uploading3.gif" alt="processing..." class="modal-container" style="display: none; width:40%;height:30% ; position: fixed;top: 50%;left: 50%; transform: translate(-50%, -50%);">
+                </div>
+
+                <button type="submit" id= "completetaskbutton" onclick="completeTask();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Complete Task</button>
               </div>
 
 
@@ -389,6 +394,9 @@
         $.each($('#imageData')[0].files, function(i, file) {
           let files = new FormData();
           files.append('file', file);
+          files.append('maintenanceID', document.getElementById("myform").elements.maintenanceID.value)
+          files.append('serviceReport', document.getElementById("myform").elements.serviceReport.value)
+          files.append('type', "maintenance")
           $.ajax({
             type: 'POST',
             data: files,
@@ -396,7 +404,7 @@
             contentType: false,
             processData: false,
             success: function (data) {
-               addImageInfoInDB(data);   
+               //addImageInfoInDB(data);   
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
@@ -453,6 +461,9 @@
           alert("mMintenance ID is empty")
           return;
         }
+
+        document.getElementById("completetaskbutton").disabled = true;
+        document.getElementById("pageloader").style.display = "block";
 
         calculateDues();
         removeOlderImages()
@@ -521,11 +532,9 @@
             url: "/addPMHistory",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
-               alert("Successfully saved details.")
-               sessionStorage.removeItem('editCompletedMid');
-               document.getElementById("myform").reset();
-               document.getElementById("myform1").reset();
-               location.replace("/")
+               //alert("Successfully saved details.")
+               
+               //location.replace("/")
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
@@ -560,6 +569,15 @@
         document.getElementById("imageData").value = "";
         $('#image_preview').empty();
       }
+
+      $( document ).ajaxStop(function() {
+         console.log("all ajx calls are done")
+         document.getElementById("pageloader").style.display = "none";
+         alert("Successfully saved details.")
+         sessionStorage.removeItem('editCompletedMid');
+         window.location.href = "/completedPM.html";
+         
+        });
 
 
     </script>
