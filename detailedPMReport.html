@@ -322,7 +322,7 @@
         function editRecord()
         {
           var mid = document.getElementById("myform").elements.maintenanceID.value;
-          sessionStorage.setItem("editCompletedMid", mid);
+          sessionStorage.setItem("editCompletedMid", document.getElementById("myform").elements.maintenanceID.value);
           //location.replace("/editCompletedPMReport.html")
           window.location.href = "/editCompletedPMReport.html";
         }
