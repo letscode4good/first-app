@@ -138,7 +138,7 @@
                           for="maintenanceID"
                           >Maintenace ID
                         </label>
-                        <input class="form-control validate"  type="input" id="maintenanceID" required name="maintenanceID" STYLE="background-color: #54657d;" readonly>
+                        <input class="form-control validate"  type="input" id="maintenanceID"  name="maintenanceID" STYLE="background-color: #54657d;" readonly>
                       </div>
                     </div>
                     
@@ -398,7 +398,7 @@
         $.ajax({
             type: 'POST',
             data: { maintenanceID: mID,
-                    serviceReport: "0",
+                    serviceReport: document.getElementById("myform").elements.serviceReport.value,
                     imageLink: imageUrl},
             url: "/addPMImages",
             contentType: "application/x-www-form-urlencoded",
