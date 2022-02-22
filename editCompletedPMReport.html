@@ -130,7 +130,7 @@
             </div>
             <div class="row tm-edit-product-row">
                 <div class="col-xl-6 col-lg-6 col-md-12">
-                  <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” class="tm-edit-product-form" >
+                  <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="preview_image()" class="tm-edit-product-form" >
                       
                     <div class="row">
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -179,7 +179,7 @@
 
 
                 <div class="col-xl-6 col-lg-6 col-md-12">
-                  <form  id = "myform1" action="javascript:;" enctype=”multipart/form-data” class="tm-edit-product-form" >
+                  <form  id = "myform1" action="javascript:;" enctype=”multipart/form-data” onsubmit="calculateDues()" class="tm-edit-product-form" >
                       
                     <div class="row">
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -297,14 +297,287 @@
     <script>
         
 
-
         $(function() {
-          var mID = sessionStorage.getItem("completedMaintenanceID");
+          var mID = sessionStorage.getItem("editCompletedMid");
           console.log(mID);
           document.getElementById("myform").elements.maintenanceID.value = mID;
           document.getElementById("myform1").reset();
         });
 
+        function removeOlderImages()
+        {
+          var mID = sessionStorage.getItem("editCompletedMid");
+          $.ajax({
+            type: 'GET',
+            data: { maintenanceID: mID },
+            url: "/getPMImages",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (data) {
+              for (var i = 0; i < data.length; i++) {
+                var indexOfSlash = data[i].imageLink.lastIndexOf("/");
+                var fileNameOfImage = data[i].imageLink.substring(indexOfSlash + 1);
+                $.ajax({
+                  type: 'POST',
+                  data: { filename: fileNameOfImage ,
+                        },
+                  url: "/delfilefromgcloud",
+                  contentType: "application/x-www-form-urlencoded",
+                  success: function (data) {
+                    console.log("Image deleted from gcloud - "+ data);
+                  },
+                  error: function (e) {
+                    alert("Error while deleting file from gcloud: " + JSON.stringify(e))
+                  }
+                });
+              }
+              removeImageInfoFromDB()
+            },
+            error: function (e) {
+              console.log("There was an error with your request...");
+              console.log("error: " + JSON.stringify(e));
+            }
+          });
+        }
+
+ 
+       function removeImageInfoFromDB()
+       {
+           var mID = sessionStorage.getItem("editCompletedMid");
+           $.ajax({
+            type: 'POST',
+            data: {maintenanceID: mID},
+            url: "/delPMImages",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+              console.log("Deleted older images -" + data);
+            },
+            error: function (e) {
+              alert("Error while deleting older images from DB data: " + JSON.stringify(e))
+            }
+          });
+       }
+
+        function calculateDues()
+        {
+          var totalExpense = parseInt(document.getElementById("myform1").elements.transportExpense.value)+ parseInt(document.getElementById("myform1").elements.travelExpense.value) + parseInt(document.getElementById("myform1").elements.MiscellaneousExpense.value);
+          var advanceAmount = parseInt(document.getElementById("myform1").elements.advanceAmount.value);
+
+          var  dueAmount = 0;
+          var  returnAmount = 0;
+
+          if (advanceAmount > totalExpense)
+          {
+            returnAmount = advanceAmount - totalExpense;
+            dueAmount = 0;
+          }
+          else if(advanceAmount < totalExpense)
+          {
+            dueAmount = totalExpense - advanceAmount;
+            returnAmount = 0;
+          }
+          else
+          {
+            dueAmount = 0;
+            returnAmount = 0;
+          }
+
+          document.getElementById("myform1").elements.dueAmount.value = dueAmount;
+          document.getElementById("myform1").elements.returnAmount.value = returnAmount;
+        }
+
+      function myfun()
+      {
+        
+        //files.append('file', $('#imageData')[0].files[0]); 
+
+        $.each($('#imageData')[0].files, function(i, file) {
+          let files = new FormData();
+          files.append('file', file);
+          files.append('maintenanceID', document.getElementById("myform").elements.maintenanceID.value)
+          files.append('serviceReport', document.getElementById("myform").elements.serviceReport.value)
+          files.append('type', "maintenance")
+          $.ajax({
+            type: 'POST',
+            data: files,
+            url: "/upload",
+            contentType: false,
+            processData: false,
+            success: function (data) {
+               //addImageInfoInDB(data);   
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+        });
+
+
+        //alert("Images added successfully")
+
+      }
+
+      function addImageInfoInDB(imageUrl)
+      {
+        var mID = sessionStorage.getItem("editCompletedMid");
+        $.ajax({
+            type: 'POST',
+            data: { maintenanceID: mID,
+                    serviceReport: "0",
+                    imageLink: imageUrl},
+            url: "/addPMImages",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+               console.log("Image info added in DB");
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+        
+      }
+
+      function completeTask()
+      {
+        var mID = sessionStorage.getItem("editCompletedMid");
+        if(
+            (document.getElementById("myform1").elements.transportExpense.value) == ""
+          ||
+            (document.getElementById("myform1").elements.travelExpense.value) == ""
+          ||
+            (document.getElementById("myform1").elements.MiscellaneousExpense.value) == ""
+          ||
+            (document.getElementById("myform1").elements.advanceAmount.value) == ""
+        )
+        {
+          alert("Please add expense data before submitting.")
+          return;
+        }
+
+        if(
+            (document.getElementById("myform").elements.maintenanceID.value) == "" 
+        )
+        {
+          alert("mMintenance ID is empty")
+          return;
+        }
+
+        document.getElementById("completetaskbutton").disabled = true;
+        document.getElementById("pageloader").style.display = "block";
+
+        calculateDues();
+        removeOlderImages()
+       
+
+        $.ajax({
+            type: 'GET',
+            data: {maintenanceID: mID},
+            url: "/getPMHistoryForMid",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (resposeJson) {
+              myfun();
+              removeOldCompletedPMRecord(resposeJson)
+            },
+            error: function (e) {
+              alert("Error while fetching data: " + JSON.stringify(e))
+              return
+            }
+          });
+
+      }
+
+      function removeOldCompletedPMRecord(data)
+      {
+        var mID = sessionStorage.getItem("editCompletedMid");
+        $.ajax({
+            type: 'GET',
+            data: {maintenanceID: mID},
+            url: "/deleteFromCompletedPM",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (resposeJson) {
+               console.log("Old record deleted");
+               addCompletedRecordToDB(data);
+            },
+            error: function (e) {
+              alert("Error while removing older data: " + JSON.stringify(e))
+            }
+          });
+
+      }
+
+      function addCompletedRecordToDB(resposeJson)
+      {
+        $.ajax({
+            type: 'POST',
+            data: { custId: resposeJson.custId,
+                    customerName: resposeJson.customerName, 
+                    maintenanceType: resposeJson.maintenanceType, 
+                    dateWhenDone: resposeJson.dateWhenDone, 
+                    engineer: resposeJson.engineer, 
+                    maintenanceID: resposeJson.maintenanceID,
+                    advanceAmount : document.getElementById("myform1").elements.advanceAmount.value,
+                    transportExpense : document.getElementById("myform1").elements.transportExpense.value,
+                    travelExpense : document.getElementById("myform1").elements.travelExpense.value,
+                    MiscellaneousExpense : document.getElementById("myform1").elements.MiscellaneousExpense.value,
+                    dueAmount : document.getElementById("myform1").elements.dueAmount.value,
+                    returnAmount : document.getElementById("myform1").elements.returnAmount.value,
+                    customerType: resposeJson.customerType, 
+                    address:  resposeJson.address,
+                    upsName:  resposeJson.upsName,
+                    upsCapacity:  resposeJson.upsCapacity,
+                    description : document.getElementById("description").value
+                  },
+            url: "/addPMHistory",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+               //alert("Successfully saved details.")
+               
+               //location.replace("/")
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+      }
+      // remove session variable when page is changed
+      window.onunload = function(){sessionStorage.removeItem('editCompletedMid');};
+
+
+      function preview_image() 
+      {
+          
+          var x = document.getElementById("image_preview");
+          if (x.style.display === "none") {
+            var total_file=document.getElementById("imageData").files.length;
+            for(var i=0;i<total_file;i++)
+            {
+              $('#image_preview').append("<img class=\"thumbnail\" height=\"100\" width=\"100\"  style=\"float: left; padding-left: 20px; \" src='"+URL.createObjectURL($('#imageData')[0].files[i])+"'>");
+            }
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+            $('#image_preview').empty();
+          }
+
+
+      }
+
+      function clearImage()
+      {
+        document.getElementById("imageData").value = "";
+        $('#image_preview').empty();
+      }
+
+      $( document ).ajaxStop(function() {
+         console.log("all ajx calls are done")
+         document.getElementById("pageloader").style.display = "none";
+         alert("Successfully saved details.")
+         sessionStorage.removeItem('editCompletedMid');
+         window.location.href = "/completedPM.html";
+         
+        });
 
 
     </script>
