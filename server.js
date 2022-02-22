@@ -962,6 +962,11 @@ function sendCompletionEmails()
                     else
                     {   
 
+                        if(docs == null)
+                        {
+                            return;
+                        }
+
                         var mid = docs[0].maintenanceID
                         console.log(mid)
 
