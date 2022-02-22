@@ -402,9 +402,9 @@
       $.each($('#imageData')[0].files, function(i, file) {
         let files = new FormData();
         files.append('file', file);
-        files.append('maintenanceID', document.getElementById("myform").elements.maintenanceID.value)
-        files.append('serviceReport', document.getElementById("myform").elements.serviceReport.value)
-        files.append('type', "maintenance")
+        files.append('maintenanceID', document.getElementById("myform").elements.maintenanceID.value);
+        files.append('serviceReport', document.getElementById("myform").elements.serviceReport.value);
+        files.append('type', "maintenance");
         $.ajax({
           type: 'POST',
           data: files,
