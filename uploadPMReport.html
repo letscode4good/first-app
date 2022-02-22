@@ -363,7 +363,6 @@
         $.each($('#imageData')[0].files, function(i, file) {
           let files = new FormData();
           files.append('file', file);
-          files.append('statusID', document.getElementById("myform").elements.statusID.value)
           files.append('maintenanceID', document.getElementById("myform").elements.maintenanceID.value)
           files.append('serviceReport', document.getElementById("myform").elements.serviceReport.value)
           files.append('type', "maintenance")
