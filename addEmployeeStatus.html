@@ -338,6 +338,11 @@
             /*async: false,*/
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
+
+              if (data.hasOwnProperty('error'))
+              {
+                alert(data.error);
+              }
               uploadImage()
 
                   $.ajax({

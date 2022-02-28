@@ -364,23 +364,47 @@ app.post('/addStockDetail', function(req, res){
 
 app.post('/addStatusDetail', function(req, res){
     session = req.session;
-    var newDBEntry = new statusDetailsSchemaObject({'date': req.body.statusDate , 'name': session.userName , 'status':req.body.status, 'statusID': req.body.statusID}) 
-    newDBEntry.save(function(err, savedUser){
-        if(err)
-            res.json({message : 'failures'})
+
+    statusDetailsSchemaObject.find({ date: req.body.statusDate, 'name': session.userName }, function (err, docs) {
+        if(err) return next(err);
+        if (docs == null) {
+            var newDBEntry = new statusDetailsSchemaObject({'date': req.body.statusDate , 'name': session.userName , 'status':req.body.status, 'statusID': req.body.statusID}) 
+            newDBEntry.save(function(err, savedUser){
+                if(err)
+                    res.json({message : 'failures'})
+                else
+                    res.json({message : 'successs'})
+            });
+        }
         else
-            res.json({message : 'successs'})
-    });
+        {
+            res.send('A status entry is already present for -' + session.userName);
+        }
+        
+      });
+    
 })
 
 app.post('/addEmployeeStatusDetail', function(req, res){
-    var newDBEntry = new statusDetailsSchemaObject({'date': req.body.statusDate , 'name': req.body.userName , 'status':req.body.status, 'statusID': req.body.statusID}) 
-    newDBEntry.save(function(err, savedUser){
-        if(err)
-            res.json({message : 'failures'})
+    statusDetailsSchemaObject.find({ date: req.body.statusDate, 'name': req.body.userName }, function (err, docs) {
+        if(err) return next(err);
+        if (docs == null) {
+            var newDBEntry = new statusDetailsSchemaObject({'date': req.body.statusDate , 'name': req.body.userName , 'status':req.body.status, 'statusID': req.body.statusID}) 
+            newDBEntry.save(function(err, savedUser){
+                if(err)
+                    res.json({message : 'failures'})
+                else
+                    res.json({message : 'successs'})
+            });
+        }
         else
-            res.json({message : 'successs'})
-    });
+        {
+            res.json({error : 'A status entry is already present for -' + req.body.userName })
+        }
+        
+      });
+
+
 })
 
 app.post('/addPMImages', function(req, res){
