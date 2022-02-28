@@ -262,13 +262,8 @@
  
         });
 
-        function getDate(inputDate, flag)
+        function getDate(inputDate)
           {
-            //var today = new Date();
-            if (flag == 1)
-            {
-              inputDate.setDate(inputDate.getDate() - 30);
-            }
             var dd = inputDate.getDate();
             var mm = inputDate.getMonth()+1; 
             var yyyy = inputDate.getFullYear();
@@ -286,9 +281,13 @@
         }
 
         function loadData(flag) {
+
+            sDate = getDate(new Date(document.getElementById("myform").elements.startDate.value))
+            eDate = getDate(new Date(document.getElementById("myform").elements.endDate.value))
+
             $.ajax({
               type: 'GET',
-              data: { name : document.getElementById("myform").elements.userName.value , startDate : document.getElementById("myform").elements.startDate.value, endDate : document.getElementById("myform").elements.endDate.value},
+              data: { name : document.getElementById("myform").elements.userName.value , startDate : sDate, endDate : eDate},
               url: "/generateStatusReport",
               contentType: "text/plain",
               dataType: 'json',
