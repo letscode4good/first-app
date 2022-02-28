@@ -282,12 +282,9 @@
 
         function loadData(flag) {
 
-            sDate = getDate(new Date(document.getElementById("myform").elements.startDate.value))
-            eDate = getDate(new Date(document.getElementById("myform").elements.endDate.value))
-
             $.ajax({
               type: 'GET',
-              data: { name : document.getElementById("myform").elements.userName.value , startDate : sDate, endDate : eDate},
+              data: { name : document.getElementById("myform").elements.userName.value },
               url: "/generateStatusReport",
               contentType: "text/plain",
               dataType: 'json',
@@ -305,17 +302,28 @@
         // populate the data table with JSON data
         function populateDataTable(data) {
             console.log("populating data table for all data");
+
+            sDate = getDate(new Date(document.getElementById("myform").elements.startDate.value))
+            eDate = getDate(new Date(document.getElementById("myform").elements.endDate.value))
+
             // clear the table before populating it with more data
             $("#stockTable").DataTable().clear().draw();
             var length = Object.keys(data).length;
             for(var i = 0; i < length; i++) {
-              // You could also use an ajax property on the data table initialization
-              $('#stockTable').dataTable().fnAddData( [
-                data[i].statusID,
-                data[i].date,
-                data[i].name,
-                data[i].status,
-              ]);
+
+                var dateParts = data[i].date.split("/")
+                var dbDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
+
+                if(  (dbDate > sDate)  &&  (dbDate < eDate) )
+                {
+                        // You could also use an ajax property on the data table initialization
+                        $('#stockTable').dataTable().fnAddData( [
+                            data[i].statusID,
+                            data[i].date,
+                            data[i].name,
+                            data[i].status,
+                        ]);
+                }
             }
           }
 
@@ -380,6 +388,10 @@
             "columnDefs": [
                 { "width": "10%", "targets": [0,1] },
                 { "width": "15%", "targets": [2,3] }
+            ],
+            dom: 'Bfrtip',
+            buttons: [
+                 'excel', 'pdf', 'copy'
             ]
             } );
 
