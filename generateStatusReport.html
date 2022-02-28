@@ -122,11 +122,12 @@
             </div>
             <div class="row">
                 <div class="btn-group">
+                    <!---
                     <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('1')">Today</button>
                     <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('2')">This Month</button>
                     <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('0')">Show All</button>
                 
-                
+                     -->
                     
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
@@ -147,6 +148,25 @@
                 
                 </div>
             </div>
+
+
+            <div class="row">
+                <div class="form-group mb-3 col-xs-12 col-sm-6">
+                  <label
+                    for="userName"
+                    >Employee name
+                  </label>
+                  <select
+                  class="custom-select tm-select-accounts"
+                  id="userName"
+                  name="userName"
+                >
+                <option value="">Select Employee</option>
+                </select>
+                </div>
+            </div>
+
+
             <br>
             <br>
             <!-- row -->
@@ -209,6 +229,28 @@
 
 
     <script>
+
+
+
+        $(function() {
+
+        $.ajax({
+            type: "GET",
+            url: "/getAllEngineers",
+            dataType: "json",
+            global: false,
+            success: function (result, status, xhr) {
+            $.each(result,function(key, value)
+            {
+                $("#userName").append('<option value="' + value.userName + '">' + value.userName + '</option>');
+            });
+            },
+            error: function (xhr, status, error) {
+                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
+ 
+        });
 
         function getDate(inputDate, flag)
           {
