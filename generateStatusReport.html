@@ -280,7 +280,7 @@
             return today;
         }
 
-        function loadData(flag) {
+        function loadData() {
 
             $.ajax({
               type: 'GET',
@@ -397,7 +397,7 @@
                 { "width": "10%", "targets": [0,1] },
                 { "width": "15%", "targets": [2,3] }
             ],
-            dom: 'Bfrtip',
+            dom: 'Blfrtip',
             buttons: [
                  'excel', 'pdf', 'copy'
             ]
