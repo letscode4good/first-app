@@ -343,8 +343,9 @@
               {
                 alert(data.error);
               }
-              uploadImage()
-
+              else
+              {
+                uploadImage()
                   $.ajax({
                   type: 'POST',
                   url: "/incrementStatusCounter",
@@ -357,7 +358,8 @@
                     alert("Error while adding data: " + JSON.stringify(e))
                   }
                   });
-
+              }
+             
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
