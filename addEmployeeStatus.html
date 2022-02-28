@@ -296,8 +296,7 @@
       {
 
         $('#image_preview').empty();
-         document.getElementById("pageloader").style.display = "block";
-
+         
         if(
           document.getElementById("myform").elements.statusDate.value == ""
           ||
@@ -309,6 +308,8 @@
           alert("Please fill all mandatory fields")
           return;
         }
+
+        document.getElementById("pageloader").style.display = "block";
 
         
         var selectedDate = new Date(document.getElementById("myform").elements.statusDate.value); 
