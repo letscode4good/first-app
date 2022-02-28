@@ -135,69 +135,71 @@
             </div>
 
 
+            <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                <div class="row tm-edit-product-row">
+                    <div class="col-xl-6 col-lg-6 col-md-12">
 
-           <div class="row tm-edit-product-row">
-              <div class="col-xl-6 col-lg-6 col-md-12">
-
-                <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="loadData()" class="tm-edit-product-form" >
+                        <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="loadData()" class="tm-edit-product-form" >
 
 
-                <div class="row">
-                        <!---
-                        <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('1')">Today</button>
-                        <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('2')">This Month</button>
-                        <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('0')">Show All</button>
-                    
-                        -->
-                        
+                        <div class="row">
+                                <!---
+                                <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('1')">Today</button>
+                                <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('2')">This Month</button>
+                                <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('0')">Show All</button>
+                            
+                                -->
+                                
+                                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                    <label
+                                        for="startDate"
+                                        >Start Date
+                                    </label>
+                                    <input class="form-control validate"  type="date" id="startDate" name="statusDate">
+                                    </div>
+
+                                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                        <label
+                                        for="endDate"
+                                        >End Date
+                                        </label>
+                                        <input class="form-control validate"  type="date" id="endDate" name="statusDate">
+                                    </div>
+                            
+                            
+                            
+                        </div>
+
+
+                        <div class="row">
                             <div class="form-group mb-3 col-xs-12 col-sm-6">
                             <label
-                                for="startDate"
-                                >Start Date
+                                for="userName"
+                                >Employee name
                             </label>
-                            <input class="form-control validate"  type="date" id="startDate" name="statusDate">
+                            <select
+                            class="custom-select tm-select-accounts"
+                            id="userName"
+                            name="userName"
+                            >
+                            <option value="">Select Employee</option>
+                            </select>
                             </div>
+                        </div>
 
+
+                        <div class="row">
                             <div class="form-group mb-3 col-xs-12 col-sm-6">
-                                <label
-                                for="endDate"
-                                >End Date
-                                </label>
-                                <input class="form-control validate"  type="date" id="endDate" name="statusDate">
+                            <button type="submit"  id = "submitbutton" class="btn btn-primary btn-block text-uppercase">Generate Report</button>
                             </div>
-                    
-                    
-                    
-                </div>
+                        </div>
 
+                        </form>
 
-                <div class="row">
-                    <div class="form-group mb-3 col-xs-12 col-sm-6">
-                    <label
-                        for="userName"
-                        >Employee name
-                    </label>
-                    <select
-                    class="custom-select tm-select-accounts"
-                    id="userName"
-                    name="userName"
-                    >
-                    <option value="">Select Employee</option>
-                    </select>
                     </div>
                 </div>
+            </div>
 
-
-                <div class="row">
-                    <div class="form-group mb-3 col-xs-12 col-sm-6">
-                    <button type="submit"  id = "submitbutton" class="btn btn-primary btn-block text-uppercase">Generate Report</button>
-                    </div>
-                </div>
-
-                </form>
-
-              </div>
-           </div>
 
             <br>
             <br>
@@ -419,7 +421,7 @@
                 { "width": "10%", "targets": [0,1] },
                 { "width": "15%", "targets": [2,3] }
             ],
-            dom: 'Blfrtip',
+            dom: 'Bfrtip',
             buttons: [
                  'excel', 'pdf'
             ],
