@@ -120,6 +120,10 @@
                     <p class="text-white mt-5 mb-5"style="font-size:160%;" > <b>Status Report </b></p>
                 </div>                  
             </div>
+           
+            <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="loadData()" class="tm-edit-product-form" >
+
+
             <div class="row">
                 <div class="btn-group">
                     <!---
@@ -166,6 +170,12 @@
                 </div>
             </div>
 
+
+            <div class="col-12">
+                <button type="submit"  id = "submitbutton" class="btn btn-primary btn-block text-uppercase">Generate Report</button>
+              </div>
+
+            </form>
 
             <br>
             <br>
@@ -278,17 +288,13 @@
         function loadData(flag) {
             $.ajax({
               type: 'GET',
-              url: "/getStatusDetail",
+              data: { name : document.getElementById("myform").elements.userName.value , startDate : document.getElementById("myform").elements.startDate.value, endDate : document.getElementById("myform").elements.endDate.value},
+              url: "/generateStatusReport",
               contentType: "text/plain",
               dataType: 'json',
               success: function (data) {
                 myJsonData = data;
-                if(flag == "0")
                   populateDataTable(myJsonData);
-                else if(flag == "1")
-                  populateDataTableToday(myJsonData);
-                else if(flag == "2")
-                  populateDataTableMonth(myJsonData);
               },
               error: function (e) {
                 console.log("There was an error with your request...");

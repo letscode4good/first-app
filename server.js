@@ -733,6 +733,15 @@ app.get("/getStatusDetail",function(req, res) {
       });
 })
 
+
+
+app.get("/generateStatusReport",function(req, res) {
+    statusDetailsSchemaObject.find({ name: req.name, date:{ $gte: req.startDate, $lt: req.endDate}}, function (err, docs) {
+        if(err) return next(err);
+        res.send(docs);
+      });
+})
+
 app.get("/getPMImages",function(req, res) {
     pmImagesSchemaObject.find({maintenanceID: req.query.maintenanceID}, function (err, docs) {
         if(err) return next(err);
