@@ -314,6 +314,13 @@
                 var dateParts = data[i].date.split("/")
                 var dbDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
 
+                console.log("s date- "+sDate);
+                console.log("e date- "+eDate);
+                console.log("db date- "+dbDate);
+
+                console.log("------------ ");
+
+
                 if(  (dbDate > sDate)  &&  (dbDate < eDate) )
                 {
                         // You could also use an ajax property on the data table initialization
