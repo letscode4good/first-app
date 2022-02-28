@@ -252,6 +252,7 @@
     <!-- https://getbootstrap.com/ -->
     <script>
 
+      var showSuccessAlert = true;
 
 
         $(function() {
@@ -342,6 +343,7 @@
               if (data.hasOwnProperty('error'))
               {
                 alert(data.error);
+                showSuccessAlert = false;
               }
               else
               {
@@ -450,10 +452,12 @@
       $( document ).ajaxStop(function() {
          console.log("all ajx calls are done")
          //$("#pageloader").fadeOut();
-         document.getElementById("pageloader").style.display = "none";
-         alert("Daily status detail added successfully")
+         if(showSuccessAlert == true)
+         {
+          document.getElementById("pageloader").style.display = "none";
+           alert("Daily status detail added successfully")
+         }
          window.location.href = "/addEmployeeStatus.html";
-         
         });
 
 
