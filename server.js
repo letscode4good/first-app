@@ -846,6 +846,7 @@ app.get('/completedPM.html', (req, res) => res.sendFile(__dirname+'/completedPM.
 
 app.get('/addDailyStatus.html', (req, res) => res.sendFile(__dirname+'/addDailyStatus.html'))
 app.get('/uploadPMReport.html', (req, res) => res.sendFile(__dirname+'/uploadPMReport.html'))
+app.get('/generateStatusReport.html', (req, res) => res.sendFile(__dirname+'/generateStatusReport.html'))
 
 app.get('/editCompletedPMReport.html',function(req, res)
 {
