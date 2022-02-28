@@ -302,12 +302,11 @@
         // populate the data table with JSON data
         function populateDataTable(data) {
             console.log("populating data table for all data");
-            var sDateParts = document.getElementById("myform").elements.startDate.value.split("/")
-            var eDateParts = document.getElementById("myform").elements.endDate.value.split("/")
 
-            sDate = new Date(+sdateParts[2], sdateParts[1] - 1, +sdateParts[0])
-            eDate = new Date(+edateParts[2], edateParts[1] - 1, +edateParts[0])
+            sDate = new Date(document.getElementById("myform").elements.startDate.value)
+            eDate = new Date(document.getElementById("myform").elements.endDate.value)
 
+            console.log("rajat");
             // clear the table before populating it with more data
             $("#stockTable").DataTable().clear().draw();
             var length = Object.keys(data).length;
