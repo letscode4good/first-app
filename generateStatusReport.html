@@ -339,11 +339,7 @@
                 var dateParts = data[i].date.split("/")
                 var dbDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
 
-                if(sDate == eDate)
-                {
-                    sDate.setHours(0,0,0,0)
-                    eDate.setHours(0,0,0,0)
-                }
+                
 
                 console.log("s date- "+sDate);
                 console.log("e date- "+eDate);
@@ -351,7 +347,19 @@
 
                 console.log("------------ ");
 
-                if(  (dbDate >= sDate)  &&  (dbDate <= eDate) )
+               
+
+                if((sDate.toDateString() == eDate.toDateString() ) && (sDate.toDateString() == dbDate.toDateString()))
+                {
+                    // You could also use an ajax property on the data table initialization
+                    $('#stockTable').dataTable().fnAddData( [
+                            data[i].statusID,
+                            data[i].date,
+                            data[i].name,
+                            data[i].status,
+                        ]);
+                }
+                else if(  (dbDate >= sDate)  &&  (dbDate <= eDate) )
                 {
                         // You could also use an ajax property on the data table initialization
                         $('#stockTable').dataTable().fnAddData( [
