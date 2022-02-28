@@ -322,7 +322,7 @@
                 console.log("------------ ");
 
 
-                if(  (dbDate > sDate)  &&  (dbDate < eDate) )
+                if(  (dbDate >= sDate)  &&  (dbDate <= eDate) )
                 {
                         // You could also use an ajax property on the data table initialization
                         $('#stockTable').dataTable().fnAddData( [
@@ -402,8 +402,6 @@
                  'excel', 'pdf', 'copy'
             ]
             } );
-
-          loadData("1");
           document.getElementById("inventoryDiv").style.opacity = "0";
         });
 
