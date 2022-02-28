@@ -736,7 +736,7 @@ app.get("/getStatusDetail",function(req, res) {
 
 
 app.get("/generateStatusReport",function(req, res) {
-    statusDetailsSchemaObject.find({ name: req.name}, function (err, docs) {
+    statusDetailsSchemaObject.find({ name: req.query.name}, function (err, docs) {
         if(err) return next(err);
         res.send(docs);
       });
