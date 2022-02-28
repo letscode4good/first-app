@@ -388,7 +388,7 @@ app.post('/addStatusDetail', function(req, res){
 app.post('/addEmployeeStatusDetail', function(req, res){
     statusDetailsSchemaObject.find({ 'date': req.body.statusDate, 'name': req.body.userName }, function (err, docs) {
         if(err) return next(err);
-        if (docs == null) {
+        if (docs.length == 0) {
             var newDBEntry = new statusDetailsSchemaObject({'date': req.body.statusDate , 'name': req.body.userName , 'status':req.body.status, 'statusID': req.body.statusID}) 
             newDBEntry.save(function(err, savedUser){
                 if(err)
@@ -398,9 +398,8 @@ app.post('/addEmployeeStatusDetail', function(req, res){
             });
         }
         else
-        {
-            res.json(docs)
-            //res.json({error : 'A status entry is already present for -' + req.body.userName })
+        { 
+            res.json({error : 'A status entry is already present for -' + req.body.userName })
         }
         
       });
