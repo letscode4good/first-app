@@ -339,12 +339,17 @@
                 var dateParts = data[i].date.split("/")
                 var dbDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
 
+                if(sDate == eDate)
+                {
+                    sDate.setHours(0,0,0,0)
+                    eDate.setHours(0,0,0,0)
+                }
+
                 console.log("s date- "+sDate);
                 console.log("e date- "+eDate);
                 console.log("db date- "+dbDate);
 
                 console.log("------------ ");
-
 
                 if(  (dbDate >= sDate)  &&  (dbDate <= eDate) )
                 {
@@ -421,7 +426,7 @@
                 { "width": "10%", "targets": [0,1] },
                 { "width": "15%", "targets": [2,3] }
             ],
-            dom: 'Bfrtip',
+            dom: 'Blfrtip',
             buttons: [
                  'excel', 'pdf'
             ],
