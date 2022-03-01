@@ -224,7 +224,7 @@
               issuetype = data[i].issueType
             }
 
-            var dateWhenScheduled =new date(data[i].dateWhenScheduled).toLocaleDateString();
+            var dateWhenScheduled =new Date(data[i].dateWhenScheduled).toLocaleDateString();
 
             $('#custInfo').dataTable().fnAddData( [
               data[i].custId,
