@@ -229,7 +229,7 @@
           for(var i = 0; i < length; i++) {
             // You could also use an ajax property on the data table initialization
             var issuetype = "NA"
-            if(thisSession.hasOwnProperty('issueType')){
+            if(data[i].hasOwnProperty('issueType')){
               issuetype = data[i].issueType
             }
             $('#custInfo').dataTable().fnAddData( [
