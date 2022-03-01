@@ -456,7 +456,7 @@
 
       function addCompletedRecordToDB(resposeJson)
       {
-        var todaysDate = getDate(new Date(), 0);
+        var todaysDate = new Date();
         var mType = resposeJson.maintenanceType;
         var iType = resposeJson.issueType
         $.ajax({
@@ -583,7 +583,9 @@
 
       function addFutureMaintenanceRecord(resposeJson)
       {
-        var futureDate = getDate(new Date(), 1);
+
+        var futureDate = new Date();
+        futureDate.setDate(futureDate.getDate() + 90);
         var futureMid;
         $.ajax({
             type: 'GET',

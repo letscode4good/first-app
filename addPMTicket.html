@@ -393,6 +393,8 @@ document.getElementById("myform").elements.upsCapacity.value = sessionStorage.ge
       {
         
         var inputDate = new Date(document.getElementById("myform").elements.dateWhenScheduled.value);
+        
+        /*
         var dd = inputDate.getDate();
         var mm = inputDate.getMonth()+1; 
         var yyyy = inputDate.getFullYear();
@@ -408,14 +410,14 @@ document.getElementById("myform").elements.upsCapacity.value = sessionStorage.ge
         var scheduleDate = dd+'/'+mm+'/'+yyyy;
 
         
-
+      */
         $.ajax({
             type: 'POST',
             data: { custId: document.getElementById("myform").elements.custId.value,
                     customerName: document.getElementById("myform").elements.customerName.value, 
                     maintenanceType: document.getElementById("myform").elements.maintenanceType.value, 
                     issueType:  document.getElementById("myform").elements.issueType.value,
-                    dateWhenScheduled: scheduleDate, 
+                    dateWhenScheduled: inputDate, 
                     engineer: document.getElementById("myform").elements.engineer.value, 
                     maintenanceID: document.getElementById("myform").elements.maintenanceID.value,
                     customerType: document.getElementById("myform").elements.customerType.value,
