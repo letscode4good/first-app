@@ -224,6 +224,8 @@
               issuetype = data[i].issueType
             }
 
+            var dateWhenScheduled =new date(data[i].dateWhenScheduled).toLocaleDateString();
+
             $('#custInfo').dataTable().fnAddData( [
               data[i].custId,
               data[i].maintenanceID,
@@ -232,7 +234,7 @@
               data[i].customerType,
               data[i].maintenanceType,
               issuetype,
-              data[i].dateWhenScheduled.toLocaleDateString(),
+              dateWhenScheduled,
               data[i].engineer,
               data[i].upsName,
               data[i].upsCapacity,
