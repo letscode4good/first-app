@@ -304,8 +304,8 @@
       });
     
       function loadData() {
-          var sdate = document.getElementById("myform").elements.startDate.value;
-          var edate = document.getElementById("myform").elements.endDate.value;
+          var sdate = new Date(document.getElementById("myform").elements.startDate.value);
+          var edate = new Date(document.getElementById("myform").elements.endDate.value);
 
           sdate.setHours(23, 59, 59);
           edate.setHours(00, 00, 00);
