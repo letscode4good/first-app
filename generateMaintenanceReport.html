@@ -299,7 +299,11 @@
         $("#custInfo").DataTable();
         //$("#custInventory").DataTable({searching: false, paging: false, info: false});
 
-        function loadData() {
+        
+       
+      });
+    
+      function loadData() {
           $.ajax({
             type: 'GET',
             data: { name : document.getElementById("myform").elements.userName.value },
@@ -317,8 +321,8 @@
           });
         }
 
-        // populate the data table with JSON data
-        function populateDataTable(data) {
+         // populate the data table with JSON data
+         function populateDataTable(data) {
           console.log("populating data table...");
           // clear the table before populating it with more data
           $("#custInfo").DataTable().clear();
@@ -346,9 +350,6 @@
           }
           $("#custInfo").DataTable().draw();
         }
-      });
-    
-
 
 
 
