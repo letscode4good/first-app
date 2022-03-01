@@ -216,20 +216,7 @@
                                   />
                                 </div>
 
-                                <div class="form-group mb-3 col-xs-12 col-sm-6">
-                                  <label
-                                      for="description"
-                                      >Issue Description
-                                    </label>
-                                    <input
-                                      id="description"
-                                      name="description"
-                                      type="text"
-                                      class="form-control validate"
-                                      required 
-                                      style="background-color: #54657d;"
-                                    />
-                                  </div>
+                                
 
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                             <label
@@ -241,6 +228,35 @@
                                 <option value="Planned">Planned</option>
                               </select>
                           </div>
+
+                          <div class="form-group mb-3 col-xs-12 col-sm-6">
+                            <label
+                              for="issueType"
+                              >Issue Type
+                            </label>
+                            <select id="issueType" name="issueType" class="custom-select tm-select-accounts">
+                                <option value="Call">Call</option>
+                                <option value="Maintenance">Maintenance</option>
+                                <option value="Installation">Installation</option>
+                              </select>
+                          </div>
+
+
+                          <div class="form-group mb-3 col-xs-12 col-sm-6">
+                            <label
+                                for="description"
+                                >Issue Description
+                              </label>
+                              <input
+                                id="description"
+                                name="description"
+                                type="text"
+                                class="form-control validate"
+                                required 
+                                style="background-color: #54657d;"
+                              />
+                            </div>
+
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                             <label
                               for="dateWhenScheduled"
@@ -398,6 +414,7 @@ document.getElementById("myform").elements.upsCapacity.value = sessionStorage.ge
             data: { custId: document.getElementById("myform").elements.custId.value,
                     customerName: document.getElementById("myform").elements.customerName.value, 
                     maintenanceType: document.getElementById("myform").elements.maintenanceType.value, 
+                    issueType:  document.getElementById("myform").elements.issueType.value,
                     dateWhenScheduled: scheduleDate, 
                     engineer: document.getElementById("myform").elements.engineer.value, 
                     maintenanceID: document.getElementById("myform").elements.maintenanceID.value,

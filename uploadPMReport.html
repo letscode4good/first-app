@@ -458,11 +458,13 @@
       {
         var todaysDate = getDate(new Date(), 0);
         var mType = resposeJson.maintenanceType;
+        var iType = resposeJson.issueType
         $.ajax({
             type: 'POST',
             data: { custId: resposeJson.custId,
                     customerName: resposeJson.customerName, 
                     maintenanceType: resposeJson.maintenanceType, 
+                    issueType:resposeJson.issueType,
                     dateWhenDone: todaysDate, 
                     engineer: resposeJson.engineer, 
                     maintenanceID: resposeJson.maintenanceID,
@@ -481,12 +483,11 @@
             url: "/addPMHistory",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
-               if(mType == "Planned")
+               if((mType == "Planned") && (iType == "Maintenance"))
                {
                   addFutureMaintenanceRecord(resposeJson)
                }
                removeOlderRecord()
-               
                
                //sendmail(resposeJson)
                sendEmail(resposeJson.maintenanceID)
@@ -541,6 +542,7 @@
             data: { custId: resposeJson.custId,
                     customerName: resposeJson.customerName, 
                     maintenanceType: resposeJson.maintenanceType, 
+                    issueType: resposeJson.issueType, 
                     dateWhenDone: todaysDate, 
                     engineer: resposeJson.engineer, 
                     maintenanceID: resposeJson.maintenanceID,
@@ -596,6 +598,7 @@
                 data: { custId: resposeJson.custId,
                         customerName: resposeJson.customerName, 
                         maintenanceType: resposeJson.maintenanceType, 
+                        issueType: resposeJson.issueType, 
                         dateWhenScheduled: futureDate, 
                         engineer: resposeJson.engineer, 
                         maintenanceID: futureMid,
