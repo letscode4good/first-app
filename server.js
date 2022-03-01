@@ -45,7 +45,7 @@ const Multer = require('multer');
 
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://dbadmin:dbpassword@cluster0-v6hog.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://dbadmin:dbpassword@cluster0-v6hog.mongodb.net/devProdDB?retryWrites=true', {useNewUrlParser: true});
 
 var userDetailsSchema = new mongoose.Schema({
     fName: String,
@@ -107,6 +107,7 @@ var preventiveMaintenanceHistorySchema = new mongoose.Schema({
     customerName : String,
     custId : String,
     maintenanceType : String,
+    issueType: String,
     dateWhenDone : String,
     engineer : String,
     maintenanceID : String,
@@ -129,6 +130,7 @@ var upcomingMaintenanceSchema = new mongoose.Schema({
     customerName : String,
     custId : String,
     maintenanceType : String,
+    issueType: String,
     dateWhenScheduled : String,
     engineer : String,
     maintenanceID : String,
@@ -487,7 +489,7 @@ app.post('/addCustomerInventory', function(req, res){
 
 
 app.post('/addPMHistory', function(req, res){
-    var newDBEntry = new preventiveMaintenanceHistorySchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'dateWhenDone': req.body.dateWhenDone, 'engineer':req.body.engineer, 'maintenanceID':req.body.maintenanceID, 'advanceAmount':req.body.advanceAmount, 'transportExpense':req.body.transportExpense, 'travelExpense':req.body.travelExpense, 'MiscellaneousExpense':req.body.MiscellaneousExpense, 'dueAmount':req.body.dueAmount, 'returnAmount':req.body.returnAmount,'customerType':req.body.customerType, 'address':req.body.address, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity, 'description': req.body.description }) 
+    var newDBEntry = new preventiveMaintenanceHistorySchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'issueType':req.body.issueType,'dateWhenDone': req.body.dateWhenDone, 'engineer':req.body.engineer, 'maintenanceID':req.body.maintenanceID, 'advanceAmount':req.body.advanceAmount, 'transportExpense':req.body.transportExpense, 'travelExpense':req.body.travelExpense, 'MiscellaneousExpense':req.body.MiscellaneousExpense, 'dueAmount':req.body.dueAmount, 'returnAmount':req.body.returnAmount,'customerType':req.body.customerType, 'address':req.body.address, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity, 'description': req.body.description }) 
 
     newDBEntry.save(function(err, savedUser){
         if(err)
@@ -500,7 +502,7 @@ app.post('/addPMHistory', function(req, res){
 })
 
 app.post('/addupcomingPM', function(req, res){
-    var newDBEntry = new upcomingMaintenanceSchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'dateWhenScheduled': req.body.dateWhenScheduled, 'engineer':req.body.engineer, 'maintenanceID':req.body.maintenanceID ,'customerType':req.body.customerType, 'address':req.body.address, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity, 'description': req.body.description }) 
+    var newDBEntry = new upcomingMaintenanceSchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'issueType':req.body.issueType , 'dateWhenScheduled': req.body.dateWhenScheduled, 'engineer':req.body.engineer, 'maintenanceID':req.body.maintenanceID ,'customerType':req.body.customerType, 'address':req.body.address, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity, 'description': req.body.description }) 
     
     newDBEntry.save(function(err, savedUser){
         if(err)
@@ -1021,6 +1023,7 @@ function sendCompletionEmails()
                             var customerName = docs.customerName
                             var custId = docs.custId
                             var maintenanceType = docs.maintenanceType
+                            var issueType = docs.issueType
                             var dateWhenDone  = docs.dateWhenDone
                             var engineer = docs.engineer
                             var maintenanceID  = docs.maintenanceID
@@ -1047,6 +1050,7 @@ function sendCompletionEmails()
                                 Address : ${address}\n\
                                 Customer Type : ${customerType}\n\
                                 Maintenance Type : ${maintenanceType}\n \
+                                Issue Type : ${issueType}\n \
                                 Maintenance Id : ${maintenanceID}\n\
                                 Date of completion : ${dateWhenDone}\n\
                                 Engineer : ${engineer}\n\
@@ -1223,6 +1227,7 @@ app.post('/sendmail', function(req, res){
                                 var customerName = req.body.customerName
                                 var custId = req.body.custId
                                 var maintenanceType = req.body.maintenanceType
+                                var issueType = req.body.issueType
                                 var dateWhenDone  = req.body.dateWhenDone
                                 var engineer = req.body.engineer
                                 var maintenanceID  = req.body.maintenanceID
@@ -1252,6 +1257,7 @@ app.post('/sendmail', function(req, res){
                                     Address : ${address}\n\
                                     Customer Type : ${customerType}\n\
                                     Maintenance Type : ${maintenanceType}\n \
+                                    Issue Type : ${issueType}\n \
                                     Maintenance Id : ${maintenanceID}\n\
                                     Date of completion : ${dateWhenDone}\n\
                                     Engineer : ${engineer}\n\
@@ -1284,6 +1290,7 @@ app.post('/sendmail', function(req, res){
                                     Address : ${address}\n\
                                     Customer Type : ${customerType}\n\
                                     Maintenance Type : ${maintenanceType}\n \
+                                    Issue Type : ${issueType}\n \
                                     Maintenance Id : ${maintenanceID}\n\
                                     Date of completion : ${dateWhenDone}\n\
                                     Engineer : ${engineer}\n\
@@ -1311,6 +1318,7 @@ app.post('/sendmail', function(req, res){
                                     Address : ${address}\n\
                                     Customer Type : ${customerType}\n\
                                     Maintenance Type : ${maintenanceType}\n \
+                                    Issue Type : ${issueType}\n \
                                     Maintenance Id : ${maintenanceID}\n\
                                     Date of completion : ${dateWhenDone}\n\
                                     Engineer : ${engineer}\n\

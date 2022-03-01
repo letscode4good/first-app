@@ -123,6 +123,7 @@
                     <th scope="col">Address</th>
                     <th scope="col">Type</th>
                     <th scope="col">Maintenance Type</th>
+                    <th scope="col">Issue Type</th>
                     <th scope="col">Schedule Date</th>
                     <th scope="col">Enginner Assigned</th>
                     <th scope="col">UPS</th>
@@ -217,6 +218,12 @@
           var length = Object.keys(data).length;
           for(var i = 0; i < length; i++) {
             // You could also use an ajax property on the data table initialization
+
+            var issuetype = "NA"
+            if(data[i].hasOwnProperty('issueType')){
+              issuetype = data[i].issueType
+            }
+
             $('#custInfo').dataTable().fnAddData( [
               data[i].custId,
               data[i].maintenanceID,
@@ -224,6 +231,7 @@
               data[i].address,
               data[i].customerType,
               data[i].maintenanceType,
+              issuetype,
               data[i].dateWhenScheduled,
               data[i].engineer,
               data[i].upsName,
