@@ -131,7 +131,7 @@ var upcomingMaintenanceSchema = new mongoose.Schema({
     custId : String,
     maintenanceType : String,
     issueType: String,
-    dateWhenScheduled : String,
+    dateWhenScheduled : Date,
     engineer : String,
     maintenanceID : String,
     customerType : String,
