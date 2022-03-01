@@ -304,11 +304,16 @@
       });
     
       function loadData() {
+          var sdate = document.getElementById("myform").elements.startDate.value;
+          var edate = document.getElementById("myform").elements.endDate.value;
+
+          sdate.setHours(23, 59, 59);
+          edate.setHours(00, 00, 00);
           $.ajax({
             type: 'GET',
             data: { name : document.getElementById("myform").elements.userName.value ,
-                    startDate:document.getElementById("myform").elements.startDate.value,
-                    endDate: document.getElementById("myform").elements.endDate.value},
+                    startDate:sdate,
+                    endDate: edate},
             url: "/generatePMHistoryReport",
             contentType: "text/plain",
             dataType: 'json',
