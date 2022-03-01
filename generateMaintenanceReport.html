@@ -306,15 +306,12 @@
       function loadData() {
           var sdate = new Date(document.getElementById("myform").elements.startDate.value);
           var edate = new Date(document.getElementById("myform").elements.endDate.value);
-
-          sdate.setHours(00, 00, 00);
-          edate.setHours(23, 59, 59);
           
           $.ajax({
             type: 'GET',
             data: { name : document.getElementById("myform").elements.userName.value ,
-                    startDate:sdate,
-                    endDate: edate},
+                    startDate:sdate.toDateString(),
+                    endDate: edate.toDateString()},
             url: "/generatePMHistoryReport",
             contentType: "text/plain",
             dataType: 'json',
