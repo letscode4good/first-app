@@ -306,7 +306,9 @@
       function loadData() {
           $.ajax({
             type: 'GET',
-            data: { name : document.getElementById("myform").elements.userName.value },
+            data: { name : document.getElementById("myform").elements.userName.value ,
+                    startDate:document.getElementById("myform").elements.startDate.value,
+                    endDate: document.getElementById("myform").elements.endDate.value},
             url: "/generatePMHistoryReport",
             contentType: "text/plain",
             dataType: 'json',
