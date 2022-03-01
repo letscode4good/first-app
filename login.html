@@ -137,7 +137,7 @@
             success: function (data) {
               if(data.message == "loginsuccess")
               {
-                location.replace("/")
+                window.location.href = "/"
               }
               else{
                 alert(data.message)

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Product Page - Admin HTML Template</title>
+    <title>Maintenance_Report</title>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto:400,700"
@@ -133,7 +133,7 @@
       </div>
     </nav>
 
-    <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+    <div class="tm-bg-primary-dark tm-block tm-block-h-auto container mt-5">
         <div class="row tm-edit-product-row">
             <div class="col-xl-6 col-lg-6 col-md-12">
 
@@ -304,9 +304,17 @@
       });
     
       function loadData() {
+          var sdate = new Date(document.getElementById("myform").elements.startDate.value);
+          var edate = new Date(document.getElementById("myform").elements.endDate.value);
+
+          sdate.setUTCHours(0,0,0,0);
+          edate.setUTCHours(23,59,59,999);
+          
           $.ajax({
             type: 'GET',
-            data: { name : document.getElementById("myform").elements.userName.value },
+            data: { name : document.getElementById("myform").elements.userName.value ,
+                    startDate:sdate,
+                    endDate: edate},
             url: "/generatePMHistoryReport",
             contentType: "text/plain",
             dataType: 'json',
@@ -357,7 +365,7 @@
       {
         var mID = cutomerID;
         sessionStorage.setItem("completedMaintenanceID", mID);
-        location.replace("/detailedPMReport.html")
+        window.location.href = "/detailedPMReport.html"
         //location.href = "#inventoryDiv";
         //$("#custInventory").DataTable().clear();
         //loadInventoryData(cutomerID);
@@ -410,7 +418,14 @@
         document.getElementById("custInfo").style.opacity = "1";
       }
 
-      var table = $("#custInfo").DataTable();
+      var table = $("#custInfo").DataTable(
+          {
+        dom: 'Blfrtip',
+            buttons: [
+                 'excel', 'pdf'
+            ],
+          }
+      );
       $('#custInfo tbody').on('click', 'tr', function () {
         var data = table.row( this ).data();
         //alert( 'You clicked on '+data[0]+'\'s row' );

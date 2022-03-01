@@ -623,8 +623,9 @@ app.get("/getCustomerDetails",function(req, res) {
 
 
 app.get("/generatePMHistoryReport",function(req, res) {
+
     if(session.userId && (session.userType == 'admin' || session.userType == 'coordinator' )){
-        preventiveMaintenanceHistorySchemaObject.find({ engineer: req.query.name}, function (err, docs) {
+        preventiveMaintenanceHistorySchemaObject.find({ engineer: req.query.name, dateWhenDone: {$gte: req.query.startDate, $lte: req.query.endDate}}, function (err, docs) {
             if(err) return next(err);
             if (docs == null) {
                 res.send('Preventive maintenance history not found.');
