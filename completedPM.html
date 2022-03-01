@@ -232,6 +232,9 @@
             if(data[i].hasOwnProperty('issueType')){
               issuetype = data[i].issueType
             }
+
+            var dateWhenDone =new Date(data[i].dateWhenDone).toLocaleDateString();
+
             $('#custInfo').dataTable().fnAddData( [
               data[i].custId,
               data[i].maintenanceID,
@@ -240,7 +243,7 @@
               data[i].customerType,
               data[i].maintenanceType,
               issuetype,
-              data[i].dateWhenDone,
+              dateWhenDone,
               data[i].engineer,
               data[i].upsName,
               data[i].upsCapacity,
