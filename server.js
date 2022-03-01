@@ -622,6 +622,23 @@ app.get("/getCustomerDetails",function(req, res) {
 
 
 
+app.get("/generatePMHistoryReport",function(req, res) {
+    if(session.userId && (session.userType == 'admin' || session.userType == 'coordinator' )){
+        preventiveMaintenanceHistorySchemaObject.find({ name: req.query.name}, function (err, docs) {
+            if(err) return next(err);
+            if (docs == null) {
+                res.send('Preventive maintenance history not found.');
+            }
+            res.send(docs);
+          });
+    }
+    else{
+        res.send('Please login to view data');
+    }
+})
+
+
+
 app.get("/getPMHistoryForMid",function(req, res) {
         preventiveMaintenanceHistorySchemaObject.findOne({maintenanceID: req.query.maintenanceID}, function (err, docs) {
             if(err) return next(err);
@@ -882,6 +899,8 @@ app.get('/completedPM.html', (req, res) => res.sendFile(__dirname+'/completedPM.
 app.get('/addDailyStatus.html', (req, res) => res.sendFile(__dirname+'/addDailyStatus.html'))
 app.get('/uploadPMReport.html', (req, res) => res.sendFile(__dirname+'/uploadPMReport.html'))
 app.get('/generateStatusReport.html', (req, res) => res.sendFile(__dirname+'/generateStatusReport.html'))
+
+app.get('/generateMaintenanceReport.html', (req, res) => res.sendFile(__dirname+'/generateMaintenanceReport.html'))
 
 app.get('/editCompletedPMReport.html',function(req, res)
 {
