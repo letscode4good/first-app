@@ -626,23 +626,28 @@ app.get("/generatePMHistoryReport",function(req, res) {
 
     var params={};
 
-    params.assign(`dateWhenDone: {$gte: '${req.query.startDate}', $lte: '${req.query.endDate}'}`);
+    params[dateWhenDone] = `{$gte: '${req.query.startDate}', $lte: '${req.query.endDate}'}`;
+
+   // params.assign(`dateWhenDone: {$gte: '${req.query.startDate}', $lte: '${req.query.endDate}'}`);
 
     if(req.query.custType != "")
     {
-        params.assign(`customerType: ${req.query.custType}`);
+        //params.assign(`customerType: ${req.query.custType}`);
+        params[customerType] = `${req.query.custType}`;
        //params = params.concat(" customerType:", req.query.custType, ",");
 
     }
     if(req.query.issueType != "")
     {
        // params = params.concat(" issueType:", req.query.issueType, ",");
-        params.assign(`issueType: ${req.query.issueType}`);
+       params[issueType]= `${req.query.issueType}`;
+       // params.assign(`issueType: ${req.query.issueType}`);
     }
     if(req.query.name != "")
     {
         //params = params.concat(" engineer:", req.query.name, ",");
-        params.assign(`engineer: ${req.query.name}`);
+        //params.assign(`engineer: ${req.query.name}`);
+        params[engineer] = `${req.query.name}`;
         
     }
     //params = params.concat(`dateWhenDone: {$gte: '${req.query.startDate}', $lte: '${req.query.endDate}'}`);
