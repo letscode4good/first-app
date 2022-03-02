@@ -255,7 +255,7 @@
                                 for="advanceAmount"
                                 >Advance Amount
                             </label>
-                            <input class="form-control validate"  type="input" id="advanceAmount" name="advanceAmount" disabled>
+                            <input class="form-control validate"  type="input" id="advanceAmount" name="advanceAmount" STYLE="background-color: #54657d;" readonly>
                             </div>
 
                             <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -263,7 +263,7 @@
                                 for="transportExpense"
                                 >Transport Expense
                                 </label>
-                                <input class="form-control validate"  type="input" id="transportExpense" name="transportExpense" disable>
+                                <input class="form-control validate"  type="input" id="transportExpense" name="transportExpense" STYLE="background-color: #54657d;" readonly>
                             </div>
                     
                 </div>
@@ -277,7 +277,7 @@
                             for="travelExpense"
                             >Travel Expense
                         </label>
-                        <input class="form-control validate"  type="input" id="travelExpense" name="travelExpense" disabled>
+                        <input class="form-control validate"  type="input" id="travelExpense" name="travelExpense" STYLE="background-color: #54657d;" readonly>
                         </div>
 
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -285,7 +285,7 @@
                             for="miscellaneousExpense"
                             >Miscellaneous Expense
                             </label>
-                            <input class="form-control validate"  type="input" id="miscellaneousExpense" name="miscellaneousExpense" disable>
+                            <input class="form-control validate"  type="input" id="miscellaneousExpense" name="miscellaneousExpense" STYLE="background-color: #54657d;" readonly>
                         </div>
 
 
@@ -299,7 +299,7 @@
                             for="dueAmount"
                             >Due Amount
                         </label>
-                        <input class="form-control validate"  type="input" id="dueAmount" name="dueAmount" disabled>
+                        <input class="form-control validate"  type="input" id="dueAmount" name="dueAmount" STYLE="background-color: #54657d;" readonly>
                         </div>
 
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -307,7 +307,7 @@
                             for="returnAmount"
                             >Return Amount
                             </label>
-                            <input class="form-control validate"  type="input" id="returnAmount" name="returnAmount" disable>
+                            <input class="form-control validate"  type="input" id="returnAmount" name="returnAmount" STYLE="background-color: #54657d;" readonly>
                         </div>
 
                 </div>
@@ -650,8 +650,23 @@
           document.getElementById("myform1").elements.travelExpense.value= total_travel
           document.getElementById("myform1").elements.transportExpense.value= total_transport
           document.getElementById("myform1").elements.miscellaneousExpense.value= total_miscellaneous
-          document.getElementById("myform1").elements.returnAmount.value= total_return
-          document.getElementById("myform1").elements.dueAmount.value= total_due
+
+          if(total_due > total_return)
+          {
+            document.getElementById("myform1").elements.dueAmount.value = total_due - total_return
+            document.getElementById("myform1").elements.returnAmount.value= 0
+          }
+          else if (total_return > total_due)
+          {
+            document.getElementById("myform1").elements.returnAmount.value = total_return - total_due
+            document.getElementById("myform1").elements.dueAmount.value = 0
+          }
+          else if (total_due == total_return)
+          {
+            document.getElementById("myform1").elements.returnAmount.value = 0
+            document.getElementById("myform1").elements.dueAmount.value = 0
+          }
+
 
         }
 
