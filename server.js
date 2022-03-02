@@ -639,7 +639,7 @@ app.get("/generatePMHistoryReport",function(req, res) {
     {
         params = params.concat(" engineer:", req.query.name, ",");
     }
-    params = params.concat(`dateWhenDone: {$gte: ${req.query.startDate}, $lte: ${req.query.endDate}}`);
+    params = params.concat(`dateWhenDone: {$gte: '${req.query.startDate}', $lte: '${req.query.endDate}'}`);
 
     console.log("rajat -"+ params);
     if(session.userId && (session.userType == 'admin' || session.userType == 'coordinator' )){
