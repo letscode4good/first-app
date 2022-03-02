@@ -624,22 +624,28 @@ app.get("/getCustomerDetails",function(req, res) {
 
 app.get("/generatePMHistoryReport",function(req, res) {
 
-    var params="";
+    var params={};
+
+    params.push(`dateWhenDone: {$gte: '${req.query.startDate}', $lte: '${req.query.endDate}'}`);
 
     if(req.query.custType != "")
     {
-        params = params.concat(" customerType:", req.query.custType, ",");
+        params.push(`customerType: ${req.query.custType}`);
+       //params = params.concat(" customerType:", req.query.custType, ",");
 
     }
     if(req.query.issueType != "")
     {
-        params = params.concat(" issueType:", req.query.issueType, ",");
+       // params = params.concat(" issueType:", req.query.issueType, ",");
+        params.push(`issueType: ${req.query.issueType}`);
     }
     if(req.query.name != "")
     {
-        params = params.concat(" engineer:", req.query.name, ",");
+        //params = params.concat(" engineer:", req.query.name, ",");
+        params.push(`engineer: ${req.query.name}`);
+        
     }
-    params = params.concat(`dateWhenDone: {$gte: '${req.query.startDate}', $lte: '${req.query.endDate}'}`);
+    //params = params.concat(`dateWhenDone: {$gte: '${req.query.startDate}', $lte: '${req.query.endDate}'}`);
 
     console.log("rajat -"+ params);
     if(session.userId && (session.userType == 'admin' || session.userType == 'coordinator' )){
