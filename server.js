@@ -642,7 +642,7 @@ app.get("/generatePMHistoryReport",function(req, res) {
 
     console.log("rajat -"+ params);
     if(session.userId && (session.userType == 'admin' || session.userType == 'coordinator' )){
-        preventiveMaintenanceHistorySchemaObject.find({ dateWhenDone: {$gte: req.query.startDate, $lte: req.query.endDate}, params}, function (err, docs) {
+        preventiveMaintenanceHistorySchemaObject.find({  dateWhenDone: {$gte: req.query.startDate, $lte: req.query.endDate}, engineer: "" }, function (err, docs) {
             if(err) return next(err);
             if (docs == null) {
                 res.send('Preventive maintenance history not found.');
