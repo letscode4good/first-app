@@ -859,6 +859,31 @@ app.get("/getAllUpcomingPM",function(req, res) {
     }
 })
 
+app.get("/getAllUpcomingPMBetweenDates",function(req, res) {
+    if(session.userId && (session.userType == 'admin' || session.userType == 'coordinator')){
+        upcomingMaintenanceSchemaObject.find({  dateWhenScheduled: {$gte: req.query.startDate, $lte: req.query.endDate} }, function (err, docs) {
+            if(err) return next(err);
+            if (docs == null) {
+                res.send('Upcoming maintenance record not found.');
+            }
+            res.send(docs);
+          });
+    }
+    else if(session.userId && (session.userType == 'engineer')){
+        upcomingMaintenanceSchemaObject.find({engineer: session.userName}, function (err, docs) {
+            if(err) return next(err);
+            if (docs == null) {
+                res.send('Upcoming maintenance record not found.');
+            }
+            res.send(docs);
+          });
+    }
+    else
+    {
+        res.send('Please login to view data');
+    }
+})
+
 
 app.get("/getAllUpcomingPlannedPM",function(req, res) {
     upcomingMaintenanceSchemaObject.find({ maintenanceType: 'Planned'}, function (err, docs) {
