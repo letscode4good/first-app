@@ -153,7 +153,7 @@
                                 for="startDate"
                                 >Start Date
                             </label>
-                            <input class="form-control validate"  type="date" id="startDate" name="statusDate">
+                            <input class="form-control validate"  type="date" id="startDate" name="statusDate" required>
                             </div>
 
                             <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -161,7 +161,7 @@
                                 for="endDate"
                                 >End Date
                                 </label>
-                                <input class="form-control validate"  type="date" id="endDate" name="statusDate">
+                                <input class="form-control validate"  type="date" id="endDate" name="statusDate" required>
                             </div>
                     
                     
@@ -181,6 +181,47 @@
                     name="userName"
                     >
                     <option value="">Select Employee</option>
+                    </select>
+                    </div>
+
+
+                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                        <label
+                            for="custType"
+                            >Customer Type
+                        </label>
+                        <select
+                        class="custom-select tm-select-accounts"
+                        id="custType"
+                        name="custType"
+                        >
+                        <option value="">Select Customer Type</option>
+                        <option value="AMC">AMC</option>
+                        <option value="RENTAL">RENTAL</option>
+                        <option value="SOLAR RENTAL">SOLAR RENTAL</option>
+                        
+                        </select>
+                        </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                    <label
+                        for="issueType"
+                        >Issue Type
+                    </label>
+                    <select
+                    class="custom-select tm-select-accounts"
+                    id="issueType"
+                    name="issueType"
+                    >
+                    <option value="">Select Issue Type</option>
+                    <option value="CALL">CALL</option>
+                    <option value="MAINTENANCE">MAINTENANCE</option>
+                    <option value="INSTALLATION">INSTALLATION</option>
+                    
                     </select>
                     </div>
                 </div>
@@ -309,24 +350,174 @@
 
           sdate.setUTCHours(0,0,0,0);
           edate.setUTCHours(23,59,59,999);
-          
-          $.ajax({
-            type: 'GET',
-            data: { name : document.getElementById("myform").elements.userName.value ,
-                    startDate:sdate,
-                    endDate: edate},
-            url: "/generatePMHistoryReport",
-            contentType: "text/plain",
-            dataType: 'json',
-            success: function (data) {
-              myJsonData = data;
-              populateDataTable(myJsonData);
-            },
-            error: function (e) {
-              console.log("There was an error with your request...");
-              console.log("error: " + JSON.stringify(e));
+
+            if((document.getElementById("myform").elements.userName.value == "")  && (document.getElementById("myform").elements.issueType.value == "") && (document.getElementById("myform").elements.custType.value ==""))
+            {
+                    $.ajax({
+                    type: 'GET',
+                    data: { startDate:sdate,
+                            endDate: edate},
+                    url: "/generatePMHistoryReport",
+                    contentType: "text/plain",
+                    dataType: 'json',
+                    success: function (data) {
+                    myJsonData = data;
+                    populateDataTable(myJsonData);
+                    },
+                    error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                    }
+                });
+
             }
-          });
+            else if((document.getElementById("myform").elements.userName.value != "")  && (document.getElementById("myform").elements.issueType.value != "") && (document.getElementById("myform").elements.custType.value != ""))
+            {
+                    $.ajax({
+                    type: 'GET',
+                    data: { name : document.getElementById("myform").elements.userName.value ,
+                            issueType : document.getElementById("myform").elements.issueType.value ,
+                            custType : document.getElementById("myform").elements.custType.value ,
+                            startDate: sdate,
+                            endDate: edate},
+                    url: "/generatePMHistoryReport_E_C_I",
+                    contentType: "text/plain",
+                    dataType: 'json',
+                    success: function (data) {
+                    myJsonData = data;
+                    populateDataTable(myJsonData);
+                    },
+                    error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                    }
+                });
+            }
+            else if((document.getElementById("myform").elements.userName.value != "")  && (document.getElementById("myform").elements.issueType.value == "") && (document.getElementById("myform").elements.custType.value == ""))
+            {
+                    $.ajax({
+                    type: 'GET',
+                    data: { name : document.getElementById("myform").elements.userName.value ,
+                            startDate: sdate,
+                            endDate: edate},
+                    url: "/generatePMHistoryReport_E",
+                    contentType: "text/plain",
+                    dataType: 'json',
+                    success: function (data) {
+                    myJsonData = data;
+                    populateDataTable(myJsonData);
+                    },
+                    error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                    }
+                });
+            }
+            else if((document.getElementById("myform").elements.userName.value == "")  && (document.getElementById("myform").elements.issueType.value != "") && (document.getElementById("myform").elements.custType.value == ""))
+            {
+                    $.ajax({
+                    type: 'GET',
+                    data: { issueType : document.getElementById("myform").elements.issueType.value,
+                            startDate: sdate,
+                            endDate: edate},
+                    url: "/generatePMHistoryReport_I",
+                    contentType: "text/plain",
+                    dataType: 'json',
+                    success: function (data) {
+                    myJsonData = data;
+                    populateDataTable(myJsonData);
+                    },
+                    error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                    }
+                });
+            }
+            else if((document.getElementById("myform").elements.userName.value == "")  && (document.getElementById("myform").elements.issueType.value == "") && (document.getElementById("myform").elements.custType.value != ""))
+            {
+                    $.ajax({
+                    type: 'GET',
+                    data: { custType : document.getElementById("myform").elements.custType.value,
+                            startDate: sdate,
+                            endDate: edate},
+                    url: "/generatePMHistoryReport_C",
+                    contentType: "text/plain",
+                    dataType: 'json',
+                    success: function (data) {
+                    myJsonData = data;
+                    populateDataTable(myJsonData);
+                    },
+                    error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                    }
+                });
+            }
+            else if((document.getElementById("myform").elements.userName.value != "")  && (document.getElementById("myform").elements.issueType.value != "") && (document.getElementById("myform").elements.custType.value == ""))
+            {
+                    $.ajax({
+                    type: 'GET',
+                    data: { name : document.getElementById("myform").elements.userName.value ,
+                            issueType : document.getElementById("myform").elements.issueType.value ,
+                            startDate: sdate,
+                            endDate: edate},
+                    url: "/generatePMHistoryReport_E_I",
+                    contentType: "text/plain",
+                    dataType: 'json',
+                    success: function (data) {
+                    myJsonData = data;
+                    populateDataTable(myJsonData);
+                    },
+                    error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                    }
+                });
+            }
+            else if((document.getElementById("myform").elements.userName.value != "")  && (document.getElementById("myform").elements.issueType.value == "") && (document.getElementById("myform").elements.custType.value != ""))
+            {
+                    $.ajax({
+                    type: 'GET',
+                    data: { name : document.getElementById("myform").elements.userName.value ,
+                            custType : document.getElementById("myform").elements.custType.value ,
+                            startDate: sdate,
+                            endDate: edate},
+                    url: "/generatePMHistoryReport_E_C",
+                    contentType: "text/plain",
+                    dataType: 'json',
+                    success: function (data) {
+                    myJsonData = data;
+                    populateDataTable(myJsonData);
+                    },
+                    error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                    }
+                });
+            }
+            else if((document.getElementById("myform").elements.userName.value == "")  && (document.getElementById("myform").elements.issueType.value != "") && (document.getElementById("myform").elements.custType.value != ""))
+            {
+                    $.ajax({
+                    type: 'GET',
+                    data: { issueType : document.getElementById("myform").elements.issueType.value ,
+                            custType : document.getElementById("myform").elements.custType.value ,
+                            startDate: sdate,
+                            endDate: edate},
+                    url: "/generatePMHistoryReport_C_I",
+                    contentType: "text/plain",
+                    dataType: 'json',
+                    success: function (data) {
+                    myJsonData = data;
+                    populateDataTable(myJsonData);
+                    },
+                    error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                    }
+                });
+            }
+
+        
         }
 
          // populate the data table with JSON data
