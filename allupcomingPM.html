@@ -109,6 +109,50 @@
         </div>
       </div>
     </nav>
+
+
+    <div class="tm-bg-primary-dark tm-block tm-block-h-auto container mt-5">
+      <div class="row tm-edit-product-row">
+          <div class="col-xl-6 col-lg-6 col-md-12">
+
+              <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="loadDataDates()" class="tm-edit-product-form" >
+
+
+              <div class="row">
+
+                      
+                          <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                              for="startDate"
+                              >Start Date
+                          </label>
+                          <input class="form-control validate"  type="date" id="startDate" name="statusDate" required>
+                          </div>
+
+                          <div class="form-group mb-3 col-xs-12 col-sm-6">
+                              <label
+                              for="endDate"
+                              >End Date
+                              </label>
+                              <input class="form-control validate"  type="date" id="endDate" name="statusDate" required>
+                          </div>
+                
+              </div>
+
+              <div class="row">
+                  <div class="form-group mb-3 col-xs-12 col-sm-6">
+                  <button type="submit"  id = "submitbutton" class="btn btn-primary btn-block text-uppercase">Filter</button>
+                  </div>
+              </div>
+
+              </form>
+
+          </div>
+
+      </div>
+  </div>
+
+
     <div class="container mt-5">
       <div class="row tm-content-row">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
@@ -181,6 +225,7 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
     <script>
+
       $(function() {
         $(".tm-product-name").on("click", function() {
           window.location.href = "edit-product.html";
@@ -193,25 +238,13 @@
         $("#custInventory").DataTable({searching: false, paging: false, info: false});
 
         loadData();
-        function loadData() {
-          $.ajax({
-            type: 'GET',
-            url: "/getAllUpcomingPM",
-            contentType: "text/plain",
-            dataType: 'json',
-            success: function (data) {
-              myJsonData = data;
-              populateDataTable(myJsonData);
-            },
-            error: function (e) {
-              console.log("There was an error with your request...");
-              console.log("error: " + JSON.stringify(e));
-            }
-          });
-        }
 
-        // populate the data table with JSON data
-        function populateDataTable(data) {
+      
+      });
+    
+
+       // populate the data table with JSON data
+       function populateDataTable(data) {
           console.log("populating data table...");
           // clear the table before populating it with more data
           $("#custInfo").DataTable().clear();
@@ -243,9 +276,50 @@
           }
           $("#custInfo").DataTable().draw();
         }
-      });
-    
 
+
+      function loadData() {
+          $.ajax({
+            type: 'GET',
+            url: "/getAllUpcomingPM",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (data) {
+              myJsonData = data;
+              populateDataTable(myJsonData);
+            },
+            error: function (e) {
+              console.log("There was an error with your request...");
+              console.log("error: " + JSON.stringify(e));
+            }
+          });
+        }
+
+        function loadDataDates() {
+
+          var sdate = new Date(document.getElementById("myform").elements.startDate.value);
+          var edate = new Date(document.getElementById("myform").elements.endDate.value);
+
+          sdate.setUTCHours(0,0,0,0);
+          edate.setUTCHours(23,59,59,999);
+
+          $.ajax({
+            type: 'GET',
+            data: { startDate:sdate,
+                    endDate: edate},
+            url: "/getAllUpcomingPMBetweenDates",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (data) {
+              myJsonData = data;
+              populateDataTable(myJsonData);
+            },
+            error: function (e) {
+              console.log("There was an error with your request...");
+              console.log("error: " + JSON.stringify(e));
+            }
+          });
+        }
 
       function showInventory(cutomerID) 
       {
