@@ -624,8 +624,25 @@ app.get("/getCustomerDetails",function(req, res) {
 
 app.get("/generatePMHistoryReport",function(req, res) {
 
+    var params="";
+
+    if(req.query.custType != "")
+    {
+        params = params.concat(", customerType: ", req.query.custType);
+
+    }
+    if(req.query.issueType != "")
+    {
+        params = params.concat(", issueType: ", req.query.issueType);
+    }
+    if(req.query.name != "")
+    {
+        params = params.concat(", engineer: ", req.query.name);
+    }
+
+    console.log("rajat -"+ params);
     if(session.userId && (session.userType == 'admin' || session.userType == 'coordinator' )){
-        preventiveMaintenanceHistorySchemaObject.find({ engineer: req.query.name, dateWhenDone: {$gte: req.query.startDate, $lte: req.query.endDate}}, function (err, docs) {
+        preventiveMaintenanceHistorySchemaObject.find({ dateWhenDone: {$gte: req.query.startDate, $lte: req.query.endDate}, params}, function (err, docs) {
             if(err) return next(err);
             if (docs == null) {
                 res.send('Preventive maintenance history not found.');

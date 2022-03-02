@@ -153,7 +153,7 @@
                                 for="startDate"
                                 >Start Date
                             </label>
-                            <input class="form-control validate"  type="date" id="startDate" name="statusDate">
+                            <input class="form-control validate"  type="date" id="startDate" name="statusDate" required>
                             </div>
 
                             <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -161,7 +161,7 @@
                                 for="endDate"
                                 >End Date
                                 </label>
-                                <input class="form-control validate"  type="date" id="endDate" name="statusDate">
+                                <input class="form-control validate"  type="date" id="endDate" name="statusDate" required>
                             </div>
                     
                     
@@ -183,26 +183,26 @@
                     <option value="">Select Employee</option>
                     </select>
                     </div>
-                </div>
 
-                <div class="row">
+
                     <div class="form-group mb-3 col-xs-12 col-sm-6">
-                    <label
-                        for="custType"
-                        >Customer Type
-                    </label>
-                    <select
-                    class="custom-select tm-select-accounts"
-                    id="custType"
-                    name="custType"
-                    >
-                    <option value="">Select Customer Type</option>
-                    <option value="AMC">AMC</option>
-                    <option value="RENTAL">RENTAL</option>
-                    <option value="SOLAR RENTAL">SOLAR RENTAL</option>
-                    
-                    </select>
-                    </div>
+                        <label
+                            for="custType"
+                            >Customer Type
+                        </label>
+                        <select
+                        class="custom-select tm-select-accounts"
+                        id="custType"
+                        name="custType"
+                        >
+                        <option value="">Select Customer Type</option>
+                        <option value="AMC">AMC</option>
+                        <option value="RENTAL">RENTAL</option>
+                        <option value="SOLAR RENTAL">SOLAR RENTAL</option>
+                        
+                        </select>
+                        </div>
+
                 </div>
 
 
@@ -354,6 +354,8 @@
           $.ajax({
             type: 'GET',
             data: { name : document.getElementById("myform").elements.userName.value ,
+                     issueType : document.getElementById("myform").elements.issueType.value ,
+                     custType : document.getElementById("myform").elements.custType.value ,
                     startDate:sdate,
                     endDate: edate},
             url: "/generatePMHistoryReport",
@@ -368,6 +370,10 @@
               console.log("error: " + JSON.stringify(e));
             }
           });
+        
+        
+        
+        
         }
 
          // populate the data table with JSON data
