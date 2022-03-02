@@ -154,7 +154,7 @@ var sendMailSchema = new mongoose.Schema({
 });
 
 var statusDetailsSchema = new mongoose.Schema({
-    date : String,
+    date : Date,
     name : String,
     status : String,
     statusID: String,
@@ -917,6 +917,14 @@ app.get("/getStockItems",function(req, res) {
 
 app.get("/getStatusDetail",function(req, res) {
     statusDetailsSchemaObject.find({}, function (err, docs) {
+        if(err) return next(err);
+        res.send(docs);
+      });
+})
+
+
+app.get("/getStatusDetailDates",function(req, res) {
+    statusDetailsSchemaObject.find({ date: {$gte: req.query.startDate, $lte: req.query.endDate} }, function (err, docs) {
         if(err) return next(err);
         res.send(docs);
       });

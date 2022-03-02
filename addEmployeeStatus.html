@@ -313,26 +313,12 @@
 
         
         var selectedDate = new Date(document.getElementById("myform").elements.statusDate.value); 
-        var dd = selectedDate.getDate();
-        var mm = selectedDate.getMonth()+1; 
-        var yyyy = selectedDate.getFullYear();
-        if(dd<10) 
-        {
-            dd='0'+dd;
-        } 
-  
-        if(mm<10) 
-        {
-            mm='0'+mm;
-        } 
-        var today = dd+'/'+mm+'/'+yyyy;
-
 
         document.getElementById("submitbutton").disabled = true;
 
         $.ajax({
             type: 'POST',
-            data: { statusDate: today,
+            data: { statusDate: selectedDate,
                     userName: document.getElementById("myform").elements.userName.value,
                     status: document.getElementById("myform").elements.status.value,
                     statusID: document.getElementById("myform").elements.statusID.value},
