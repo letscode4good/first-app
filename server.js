@@ -622,39 +622,130 @@ app.get("/getCustomerDetails",function(req, res) {
 
 
 
+
 app.get("/generatePMHistoryReport",function(req, res) {
 
-    var params={};
-
-    params['dateWhenDone'] = `{$gte: '${req.query.startDate}', $lte: '${req.query.endDate}'}`;
-
-   // params.assign(`dateWhenDone: {$gte: '${req.query.startDate}', $lte: '${req.query.endDate}'}`);
-
-    if(req.query.custType != "")
-    {
-        //params.assign(`customerType: ${req.query.custType}`);
-        params['customerType'] = `${req.query.custType}`;
-       //params = params.concat(" customerType:", req.query.custType, ",");
-
-    }
-    if(req.query.issueType != "")
-    {
-       // params = params.concat(" issueType:", req.query.issueType, ",");
-       params['issueType']= `${req.query.issueType}`;
-       // params.assign(`issueType: ${req.query.issueType}`);
-    }
-    if(req.query.name != "")
-    {
-        //params = params.concat(" engineer:", req.query.name, ",");
-        //params.assign(`engineer: ${req.query.name}`);
-        params['engineer'] = `${req.query.name}`;
-        
-    }
-    //params = params.concat(`dateWhenDone: {$gte: '${req.query.startDate}', $lte: '${req.query.endDate}'}`);
-
-    console.log("rajat -"+ params);
     if(session.userId && (session.userType == 'admin' || session.userType == 'coordinator' )){
-        preventiveMaintenanceHistorySchemaObject.find({ params }, function (err, docs) {
+        preventiveMaintenanceHistorySchemaObject.find({ dateWhenDone: {$gte: req.query.startDate, $lte: req.query.endDate}}, function (err, docs) {
+            if(err) return next(err);
+            if (docs == null) {
+                res.send('Preventive maintenance history not found.');
+            }
+            res.send(docs);
+          });
+    }
+    else{
+        res.send('Please login to view data');
+    }
+})
+
+app.get("/generatePMHistoryReport_E",function(req, res) {
+
+    if(session.userId && (session.userType == 'admin' || session.userType == 'coordinator' )){
+        preventiveMaintenanceHistorySchemaObject.find({ engineer: req.query.name, dateWhenDone: {$gte: req.query.startDate, $lte: req.query.endDate}}, function (err, docs) {
+            if(err) return next(err);
+            if (docs == null) {
+                res.send('Preventive maintenance history not found.');
+            }
+            res.send(docs);
+          });
+    }
+    else{
+        res.send('Please login to view data');
+    }
+})
+
+
+app.get("/generatePMHistoryReport_C",function(req, res) {
+
+    if(session.userId && (session.userType == 'admin' || session.userType == 'coordinator' )){
+        preventiveMaintenanceHistorySchemaObject.find({ customerType: req.query.custType, dateWhenDone: {$gte: req.query.startDate, $lte: req.query.endDate}}, function (err, docs) {
+            if(err) return next(err);
+            if (docs == null) {
+                res.send('Preventive maintenance history not found.');
+            }
+            res.send(docs);
+          });
+    }
+    else{
+        res.send('Please login to view data');
+    }
+})
+
+app.get("/generatePMHistoryReport_I",function(req, res) {
+
+    if(session.userId && (session.userType == 'admin' || session.userType == 'coordinator' )){
+        preventiveMaintenanceHistorySchemaObject.find({ issueType: req.query.issueType, dateWhenDone: {$gte: req.query.startDate, $lte: req.query.endDate}}, function (err, docs) {
+            if(err) return next(err);
+            if (docs == null) {
+                res.send('Preventive maintenance history not found.');
+            }
+            res.send(docs);
+          });
+    }
+    else{
+        res.send('Please login to view data');
+    }
+})
+
+
+
+
+app.get("/generatePMHistoryReport_E_C",function(req, res) {
+
+    if(session.userId && (session.userType == 'admin' || session.userType == 'coordinator' )){
+        preventiveMaintenanceHistorySchemaObject.find({ engineer: req.query.name, customerType: req.query.custType, dateWhenDone: {$gte: req.query.startDate, $lte: req.query.endDate}}, function (err, docs) {
+            if(err) return next(err);
+            if (docs == null) {
+                res.send('Preventive maintenance history not found.');
+            }
+            res.send(docs);
+          });
+    }
+    else{
+        res.send('Please login to view data');
+    }
+})
+
+
+app.get("/generatePMHistoryReport_E_I",function(req, res) {
+
+    if(session.userId && (session.userType == 'admin' || session.userType == 'coordinator' )){
+        preventiveMaintenanceHistorySchemaObject.find({ engineer: req.query.name, issueType: req.query.issueType, dateWhenDone: {$gte: req.query.startDate, $lte: req.query.endDate}}, function (err, docs) {
+            if(err) return next(err);
+            if (docs == null) {
+                res.send('Preventive maintenance history not found.');
+            }
+            res.send(docs);
+          });
+    }
+    else{
+        res.send('Please login to view data');
+    }
+})
+
+
+app.get("/generatePMHistoryReport_C_I",function(req, res) {
+
+    if(session.userId && (session.userType == 'admin' || session.userType == 'coordinator' )){
+        preventiveMaintenanceHistorySchemaObject.find({ customerType: req.query.custType, issueType: req.query.issueType, dateWhenDone: {$gte: req.query.startDate, $lte: req.query.endDate}}, function (err, docs) {
+            if(err) return next(err);
+            if (docs == null) {
+                res.send('Preventive maintenance history not found.');
+            }
+            res.send(docs);
+          });
+    }
+    else{
+        res.send('Please login to view data');
+    }
+})
+
+
+app.get("/generatePMHistoryReport_E_C_I",function(req, res) {
+
+    if(session.userId && (session.userType == 'admin' || session.userType == 'coordinator' )){
+        preventiveMaintenanceHistorySchemaObject.find({ engineer: req.query.name, customerType: req.query.custType, issueType: req.query.issueType, dateWhenDone: {$gte: req.query.startDate, $lte: req.query.endDate}}, function (err, docs) {
             if(err) return next(err);
             if (docs == null) {
                 res.send('Preventive maintenance history not found.');

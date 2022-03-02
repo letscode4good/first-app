@@ -350,29 +350,173 @@
 
           sdate.setUTCHours(0,0,0,0);
           edate.setUTCHours(23,59,59,999);
-          
-          $.ajax({
-            type: 'GET',
-            data: { name : document.getElementById("myform").elements.userName.value ,
-                     issueType : document.getElementById("myform").elements.issueType.value ,
-                     custType : document.getElementById("myform").elements.custType.value ,
-                    startDate:sdate,
-                    endDate: edate},
-            url: "/generatePMHistoryReport",
-            contentType: "text/plain",
-            dataType: 'json',
-            success: function (data) {
-              myJsonData = data;
-              populateDataTable(myJsonData);
-            },
-            error: function (e) {
-              console.log("There was an error with your request...");
-              console.log("error: " + JSON.stringify(e));
+
+            if((document.getElementById("myform").elements.userName.value == "")  && (document.getElementById("myform").elements.issueType.value == "") && (document.getElementById("myform").elements.custType.value ==""))
+            {
+                    $.ajax({
+                    type: 'GET',
+                    data: { startDate:sdate,
+                            endDate: edate},
+                    url: "/generatePMHistoryReport",
+                    contentType: "text/plain",
+                    dataType: 'json',
+                    success: function (data) {
+                    myJsonData = data;
+                    populateDataTable(myJsonData);
+                    },
+                    error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                    }
+                });
+
             }
-          });
-        
-        
-        
+            else if((document.getElementById("myform").elements.userName.value != "")  && (document.getElementById("myform").elements.issueType.value != "") && (document.getElementById("myform").elements.custType.value != ""))
+            {
+                    $.ajax({
+                    type: 'GET',
+                    data: { name : document.getElementById("myform").elements.userName.value ,
+                            issueType : document.getElementById("myform").elements.issueType.value ,
+                            custType : document.getElementById("myform").elements.custType.value ,
+                            startDate: sdate,
+                            endDate: edate},
+                    url: "/generatePMHistoryReport_E_C_I",
+                    contentType: "text/plain",
+                    dataType: 'json',
+                    success: function (data) {
+                    myJsonData = data;
+                    populateDataTable(myJsonData);
+                    },
+                    error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                    }
+                });
+            }
+            else if((document.getElementById("myform").elements.userName.value != "")  && (document.getElementById("myform").elements.issueType.value == "") && (document.getElementById("myform").elements.custType.value == ""))
+            {
+                    $.ajax({
+                    type: 'GET',
+                    data: { name : document.getElementById("myform").elements.userName.value ,
+                            startDate: sdate,
+                            endDate: edate},
+                    url: "/generatePMHistoryReport_E",
+                    contentType: "text/plain",
+                    dataType: 'json',
+                    success: function (data) {
+                    myJsonData = data;
+                    populateDataTable(myJsonData);
+                    },
+                    error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                    }
+                });
+            }
+            else if((document.getElementById("myform").elements.userName.value == "")  && (document.getElementById("myform").elements.issueType.value != "") && (document.getElementById("myform").elements.custType.value == ""))
+            {
+                    $.ajax({
+                    type: 'GET',
+                    data: { issueType : document.getElementById("myform").elements.issueType.value,
+                            startDate: sdate,
+                            endDate: edate},
+                    url: "/generatePMHistoryReport_I",
+                    contentType: "text/plain",
+                    dataType: 'json',
+                    success: function (data) {
+                    myJsonData = data;
+                    populateDataTable(myJsonData);
+                    },
+                    error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                    }
+                });
+            }
+            else if((document.getElementById("myform").elements.userName.value == "")  && (document.getElementById("myform").elements.issueType.value == "") && (document.getElementById("myform").elements.custType.value != ""))
+            {
+                    $.ajax({
+                    type: 'GET',
+                    data: { custType : document.getElementById("myform").elements.custType.value,
+                            startDate: sdate,
+                            endDate: edate},
+                    url: "/generatePMHistoryReport_C",
+                    contentType: "text/plain",
+                    dataType: 'json',
+                    success: function (data) {
+                    myJsonData = data;
+                    populateDataTable(myJsonData);
+                    },
+                    error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                    }
+                });
+            }
+            else if((document.getElementById("myform").elements.userName.value != "")  && (document.getElementById("myform").elements.issueType.value != "") && (document.getElementById("myform").elements.custType.value == ""))
+            {
+                    $.ajax({
+                    type: 'GET',
+                    data: { name : document.getElementById("myform").elements.userName.value ,
+                            issueType : document.getElementById("myform").elements.issueType.value ,
+                            startDate: sdate,
+                            endDate: edate},
+                    url: "/generatePMHistoryReport_E_I",
+                    contentType: "text/plain",
+                    dataType: 'json',
+                    success: function (data) {
+                    myJsonData = data;
+                    populateDataTable(myJsonData);
+                    },
+                    error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                    }
+                });
+            }
+            else if((document.getElementById("myform").elements.userName.value != "")  && (document.getElementById("myform").elements.issueType.value == "") && (document.getElementById("myform").elements.custType.value != ""))
+            {
+                    $.ajax({
+                    type: 'GET',
+                    data: { name : document.getElementById("myform").elements.userName.value ,
+                            custType : document.getElementById("myform").elements.custType.value ,
+                            startDate: sdate,
+                            endDate: edate},
+                    url: "/generatePMHistoryReport_E_C",
+                    contentType: "text/plain",
+                    dataType: 'json',
+                    success: function (data) {
+                    myJsonData = data;
+                    populateDataTable(myJsonData);
+                    },
+                    error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                    }
+                });
+            }
+            else if((document.getElementById("myform").elements.userName.value == "")  && (document.getElementById("myform").elements.issueType.value != "") && (document.getElementById("myform").elements.custType.value != ""))
+            {
+                    $.ajax({
+                    type: 'GET',
+                    data: { issueType : document.getElementById("myform").elements.issueType.value ,
+                            custType : document.getElementById("myform").elements.custType.value ,
+                            startDate: sdate,
+                            endDate: edate},
+                    url: "/generatePMHistoryReport_C_I",
+                    contentType: "text/plain",
+                    dataType: 'json',
+                    success: function (data) {
+                    myJsonData = data;
+                    populateDataTable(myJsonData);
+                    },
+                    error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                    }
+                });
+            }
+
         
         }
 
