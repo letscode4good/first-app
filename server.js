@@ -628,16 +628,16 @@ app.get("/generatePMHistoryReport",function(req, res) {
 
     if(req.query.custType != "")
     {
-        params = params.concat(" customerType: ", req.query.custType, " ,");
+        params = params.concat(" customerType: ", req.query.custType, ",");
 
     }
     if(req.query.issueType != "")
     {
-        params = params.concat(" issueType: ", req.query.issueType, " ,");
+        params = params.concat(" issueType: ", req.query.issueType, ",");
     }
     if(req.query.name != "")
     {
-        params = params.concat(" engineer: ", req.query.name, " ,");
+        params = params.concat(" engineer: ", req.query.name, ",");
     }
 
     console.log("rajat -"+ params);
