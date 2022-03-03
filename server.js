@@ -932,8 +932,8 @@ app.get("/getStatusDetailDates",function(req, res) {
 
 
 
-app.get("/generateStatusReport",function(req, res) {
-    statusDetailsSchemaObject.find({ name: req.query.name}, function (err, docs) {
+app.get("/generateStatusReport_D_E",function(req, res) {
+    statusDetailsSchemaObject.find({date: {$gte: req.query.startDate, $lte: req.query.endDate}, name: req.query.name}, function (err, docs) {
         if(err) return next(err);
         res.send(docs);
       });
