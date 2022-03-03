@@ -374,8 +374,8 @@
         var sdate = new Date(document.getElementById("myform").elements.startDate.value);
         var edate = new Date(document.getElementById("myform").elements.endDate.value);
 
-        //sdate.setUTCHours(0,0,0,0);
-        //edate.setUTCHours(23,59,59,999);
+        sdate.setUTCHours(0,0,0,0);
+        edate.setUTCHours(23,59,59,999);
 
         $.ajax({
           type: 'GET',
