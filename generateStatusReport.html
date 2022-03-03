@@ -51,7 +51,7 @@
     <div class="" id="home">
         <nav class="navbar navbar-expand-xl">
             <div class="container h-100">
-                <img src="img/logo.png" alt="Trulli" width="90" height="90">
+                <img src="img/logo.png" alt="Rspowerlogo" width="90" height="90">
                 <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-bars tm-nav-icon"></i>
@@ -60,7 +60,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto h-100">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link active" href="/">
                                 <i class="fas fa-tachometer-alt"></i>
                                 Home
                                 <span class="sr-only">(current)</span>
@@ -78,6 +78,8 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="allupcomingPM.html">All Upcoming Maintenance</a>
                                 <a class="dropdown-item" href="completedPM.html">Completed Maintenance</a>
+                                <a class="dropdown-item" href="generateMaintenanceReport.html">Generate Maintenance Report</a>
+                                <a class="dropdown-item" href="generateStatusReport.html">Generate Status Report</a>
                             </div>
                         </li>
 
@@ -127,13 +129,13 @@
             </div>
 
         </nav>
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <p class="text-white mt-5 mb-5"style="font-size:160%;" > <b>Status Report </b></p>
-                </div>                  
-            </div>
+        <div class="row">
+            <div class="col">
+                <p class="text-white mt-4 mb-2"style="font-size:160%; text-align:center" > <b>Generate Status Report </b></p>
+            </div>                  
+        </div>
 
+        <div class="container">
 
             <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
                 <div class="row tm-edit-product-row">
@@ -155,7 +157,7 @@
                                         for="startDate"
                                         >Start Date
                                     </label>
-                                    <input class="form-control validate"  type="date" id="startDate" name="statusDate">
+                                    <input class="form-control validate"  type="date" id="startDate" name="statusDate" required>
                                     </div>
 
                                     <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -163,7 +165,7 @@
                                         for="endDate"
                                         >End Date
                                         </label>
-                                        <input class="form-control validate"  type="date" id="endDate" name="statusDate">
+                                        <input class="form-control validate"  type="date" id="endDate" name="statusDate" required>
                                     </div>
                             
                             
@@ -306,125 +308,77 @@
 
         function loadData() {
 
-            $.ajax({
-              type: 'GET',
-              data: { name : document.getElementById("myform").elements.userName.value },
-              url: "/generateStatusReport",
-              contentType: "text/plain",
-              dataType: 'json',
-              success: function (data) {
-                  console.log("got data -" +data);
-                  populateDataTable(data);
-              },
-              error: function (e) {
-                console.log("There was an error with your request...");
-                console.log("error: " + JSON.stringify(e));
-              }
-            });
+            var sdate = new Date(document.getElementById("myform").elements.startDate.value);
+            var edate = new Date(document.getElementById("myform").elements.endDate.value);
+
+            sdate.setUTCHours(0,0,0,0);
+            edate.setUTCHours(23,59,59,999);
+
+            if(document.getElementById("myform").elements.userName.value == "")
+            {
+                $.ajax({
+                type: 'GET',
+                data: { startDate:sdate,
+                        endDate: edate},
+                url: "/getStatusDetailDates",
+                contentType: "text/plain",
+                dataType: 'json',
+                success: function (data) {
+                    myJsonData = data;
+                    populateDataTable(myJsonData);
+                },
+                error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                }
+                });
+            }
+            else
+            {
+                $.ajax({
+                type: 'GET',
+                data: { name : document.getElementById("myform").elements.userName.value,
+                        startDate:sdate,
+                        endDate: edate},
+                url: "/generateStatusReport_D_E",
+                contentType: "text/plain",
+                dataType: 'json',
+                success: function (data) {
+                    myJsonData = data;
+                    populateDataTable(myJsonData);
+                },
+                error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                }
+                });
+                
+            }
+
           }
         
         // populate the data table with JSON data
         function populateDataTable(data) {
+
             console.log("populating data table for all data");
-
-            sDate = new Date(document.getElementById("myform").elements.startDate.value)
-            eDate = new Date(document.getElementById("myform").elements.endDate.value)
-
-            console.log("rajat");
             // clear the table before populating it with more data
             $("#stockTable").DataTable().clear().draw();
             var length = Object.keys(data).length;
             for(var i = 0; i < length; i++) {
-
-                var dateParts = data[i].date.split("/")
-                var dbDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
-
-                
-
-                console.log("s date- "+sDate);
-                console.log("e date- "+eDate);
-                console.log("db date- "+dbDate);
-
-                console.log("------------ ");
-
-               
-
-                if((sDate.toDateString() == eDate.toDateString() ) && (sDate.toDateString() == dbDate.toDateString()))
-                {
-                    // You could also use an ajax property on the data table initialization
-                    $('#stockTable').dataTable().fnAddData( [
-                            data[i].statusID,
-                            data[i].date,
-                            data[i].name,
-                            data[i].status,
-                        ]);
-                }
-                else if(  (dbDate >= sDate)  &&  (dbDate <= eDate) )
-                {
-                        // You could also use an ajax property on the data table initialization
-                        $('#stockTable').dataTable().fnAddData( [
-                            data[i].statusID,
-                            data[i].date,
-                            data[i].name,
-                            data[i].status,
-                        ]);
-                }
+              //var statusDate =new Date(data[i].date).toLocaleDateString();
+              var statusDate = moment(data[i].date).format('LL');
+              // You could also use an ajax property on the data table initialization
+              $('#stockTable').dataTable().fnAddData( [
+                data[i].statusID,
+                statusDate,
+                data[i].name,
+                data[i].status,
+              ]);
             }
+            
           }
 
-          function populateDataTableMonth(data) {
-            var previousDate = getDate(new Date(), 1);
-            console.log("populating data table for this month");
-            // clear the table before populating it with more data
-            $("#stockTable").DataTable().clear().draw();
-            var length = Object.keys(data).length;
-            for(var i = 0; i < length; i++) {
 
-
-                var dateParts = previousDate.split("/");
-                // month is 0-based, that's why we need dataParts[1] - 1
-                var oldDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
-
-                dateParts = data[i].date.split("/")
-                var dbDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
-
-              console.log(oldDate);
-              console.log(dbDate);
-              if((dbDate > oldDate))
-              {
-                  console.log(dbDate + " lies within a month");
-                  // You could also use an ajax property on the data table initialization
-                  $('#stockTable').dataTable().fnAddData( [
-                  data[i].statusID,
-                  data[i].date,
-                  data[i].name,
-                  data[i].status,
-                  ]);
-              }
-            }
-          }
-
-          function populateDataTableToday(data) {
-            var todaysDate = getDate(new Date(), 0);
-            console.log("populating data table for today");
-            console.log(todaysDate);
-            // clear the table before populating it with more data
-            $("#stockTable").DataTable().clear().draw();
-            var length = Object.keys(data).length;
-            for(var i = 0; i < length; i++) {
-                console.log(data[i].date);
-                if(todaysDate == data[i].date)
-                {
-                      // You could also use an ajax property on the data table initialization
-                      $('#stockTable').dataTable().fnAddData( [
-                      data[i].statusID,
-                      data[i].date,
-                      data[i].name,
-                      data[i].status,
-                      ]);
-                }
-            }
-          }
 
         $(function() {
           //$("#stockTable").DataTable();
