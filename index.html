@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="css/templatemo-style.css">
+    <script type = "text/JavaScript" src = " https://MomentJS.com/downloads/moment.js"></script>
     <!--
 	Product Admin CSS Template
 	https://templatemo.com/tm-524-product-admin
@@ -300,7 +301,8 @@
             $("#stockTable").DataTable().clear().draw();
             var length = Object.keys(data).length;
             for(var i = 0; i < length; i++) {
-              var statusDate =new Date(data[i].date).toLocaleDateString();
+              //var statusDate =new Date(data[i].date).toLocaleDateString();
+              var statusDate = moment(data[i].date).format('LL');
               // You could also use an ajax property on the data table initialization
               $('#stockTable').dataTable().fnAddData( [
                 data[i].statusID,
