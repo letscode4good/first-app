@@ -16,6 +16,7 @@
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="css/templatemo-style.css">
     <link rel="stylesheet" href="css/model_popup.css">
+    <script type = "text/JavaScript" src = " https://MomentJS.com/downloads/moment.js"></script>
     <!--
 	Product Admin CSS Template
 	https://templatemo.com/tm-524-product-admin
@@ -257,7 +258,8 @@
               issuetype = data[i].issueType
             }
 
-            var dateWhenScheduled =new Date(data[i].dateWhenScheduled).toLocaleDateString();
+           // var dateWhenScheduled =new Date(data[i].dateWhenScheduled).toLocaleDateString();
+            var dateWhenScheduled = moment(data[i].dateWhenScheduled).format('LL');
 
             $('#custInfo').dataTable().fnAddData( [
               data[i].custId,
@@ -300,8 +302,8 @@
           var sdate = new Date(document.getElementById("myform").elements.startDate.value);
           var edate = new Date(document.getElementById("myform").elements.endDate.value);
 
-          sdate.setUTCHours(0,0,0,0);
-          edate.setUTCHours(23,59,59,999);
+          //sdate.setUTCHours(0,0,0,0);
+          //edate.setUTCHours(23,59,59,999);
 
           $.ajax({
             type: 'GET',
