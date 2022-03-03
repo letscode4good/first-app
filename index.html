@@ -120,13 +120,49 @@
                     <p class="text-white mt-5 mb-5"style="font-size:160%;" > <b>Status Report </b></p>
                 </div>                  
             </div>
-            <div class="row">
-                <div class="btn-group">
-                    <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('1')">Today</button>
-                    <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('2')">This Month</button>
-                    <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('0')">Show All</button>
-                </div>
-            </div>
+
+            <div class="tm-bg-primary-dark tm-block tm-block-h-auto container mt-5">
+              <div class="row tm-edit-product-row">
+                  <div class="col-xl-6 col-lg-6 col-md-12">
+        
+                      <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="loadDataDates()" class="tm-edit-product-form" >
+        
+        
+                      <div class="row">
+        
+                              
+                                  <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                  <label
+                                      for="startDate"
+                                      >Start Date
+                                  </label>
+                                  <input class="form-control validate"  type="date" id="startDate" name="statusDate" required>
+                                  </div>
+        
+                                  <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                      <label
+                                      for="endDate"
+                                      >End Date
+                                      </label>
+                                      <input class="form-control validate"  type="date" id="endDate" name="statusDate" required>
+                                  </div>
+                        
+                      </div>
+        
+                      <div class="row">
+                          <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <button type="submit"  id = "submitbutton" class="btn btn-primary btn-block text-uppercase">Filter</button>
+                          </div>
+                      </div>
+        
+                      </form>
+        
+                  </div>
+        
+              </div>
+          </div>
+
+
             <br>
             <br>
             <!-- row -->
@@ -221,12 +257,34 @@
               dataType: 'json',
               success: function (data) {
                 myJsonData = data;
-                if(flag == "0")
                   populateDataTable(myJsonData);
-                else if(flag == "1")
-                  populateDataTableToday(myJsonData);
-                else if(flag == "2")
-                  populateDataTableMonth(myJsonData);
+              },
+              error: function (e) {
+                console.log("There was an error with your request...");
+                console.log("error: " + JSON.stringify(e));
+              }
+            });
+          }
+
+
+          function loadDataDates(flag) {
+
+            var sdate = new Date(document.getElementById("myform").elements.startDate.value);
+            var edate = new Date(document.getElementById("myform").elements.endDate.value);
+
+            sdate.setUTCHours(0,0,0,0);
+            edate.setUTCHours(23,59,59,999);
+
+            $.ajax({
+              type: 'GET',
+              data: { startDate:sdate,
+                      endDate: edate},
+              url: "/getStatusDetailDates",
+              contentType: "text/plain",
+              dataType: 'json',
+              success: function (data) {
+                myJsonData = data;
+                populateDataTable(myJsonData);
               },
               error: function (e) {
                 console.log("There was an error with your request...");
@@ -242,67 +300,14 @@
             $("#stockTable").DataTable().clear().draw();
             var length = Object.keys(data).length;
             for(var i = 0; i < length; i++) {
+              var statusDate =new Date(data[i].date).toLocaleDateString();
               // You could also use an ajax property on the data table initialization
               $('#stockTable').dataTable().fnAddData( [
                 data[i].statusID,
-                data[i].date,
+                statusDate,
                 data[i].name,
                 data[i].status,
               ]);
-            }
-          }
-
-          function populateDataTableMonth(data) {
-            var previousDate = getDate(new Date(), 1);
-            console.log("populating data table for this month");
-            // clear the table before populating it with more data
-            $("#stockTable").DataTable().clear().draw();
-            var length = Object.keys(data).length;
-            for(var i = 0; i < length; i++) {
-
-
-                var dateParts = previousDate.split("/");
-                // month is 0-based, that's why we need dataParts[1] - 1
-                var oldDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
-
-                dateParts = data[i].date.split("/")
-                var dbDate = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
-
-              console.log(oldDate);
-              console.log(dbDate);
-              if((dbDate > oldDate))
-              {
-                  console.log(dbDate + " lies within a month");
-                  // You could also use an ajax property on the data table initialization
-                  $('#stockTable').dataTable().fnAddData( [
-                  data[i].statusID,
-                  data[i].date,
-                  data[i].name,
-                  data[i].status,
-                  ]);
-              }
-            }
-          }
-
-          function populateDataTableToday(data) {
-            var todaysDate = getDate(new Date(), 0);
-            console.log("populating data table for today");
-            console.log(todaysDate);
-            // clear the table before populating it with more data
-            $("#stockTable").DataTable().clear().draw();
-            var length = Object.keys(data).length;
-            for(var i = 0; i < length; i++) {
-                console.log(data[i].date);
-                if(todaysDate == data[i].date)
-                {
-                      // You could also use an ajax property on the data table initialization
-                      $('#stockTable').dataTable().fnAddData( [
-                      data[i].statusID,
-                      data[i].date,
-                      data[i].name,
-                      data[i].status,
-                      ]);
-                }
             }
           }
 
@@ -316,7 +321,7 @@
             ]
             } );
 
-          loadData("1");
+          loadData();
           document.getElementById("inventoryDiv").style.opacity = "0";
         });
 
