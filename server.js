@@ -489,8 +489,7 @@ app.post('/addCustomerInventory', function(req, res){
 
 
 app.post('/updateCustomerInventory', function(req, res){
-    var newDBEntry = new customerInventorySchemaObject({'customerName': req.body.customerName , 'customerType':req.body.customerType , 'custId': req.body.custId , 'installDate':req.body.installDate, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity,'numOfUps': req.body.numOfUps, 'batteryName':req.body.batteryName , 'batteryCapacity':req.body.batteryCapacity, 'numOfBattery':req.body.numOfBattery , 'stabilizerName' : req.body.stabilizerName ,'numOfStabilizer':req.body.numOfStabilizer , 'solarPanelName':req.body.solarPanelName , 'numOfSolarPanel':req.body.numOfSolarPanel  , 'inverterName':req.body.inverterName  , 'numOfInverter':req.body.numOfInverter  , 'inverterCapacity':req.body.inverterCapacity  , 'solarRetrofitName':req.body.solarRetrofitName , 'numOfSolarRetrofit':req.body.numOfSolarRetrofit }) 
-
+    
     customerInventorySchemaObject.findOneAndUpdate({custId: req.body.custId}, {$set: {'customerName': req.body.customerName , 'customerType':req.body.customerType , 'custId': req.body.custId , 'installDate':req.body.installDate, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity,'numOfUps': req.body.numOfUps, 'batteryName':req.body.batteryName , 'batteryCapacity':req.body.batteryCapacity, 'numOfBattery':req.body.numOfBattery , 'stabilizerName' : req.body.stabilizerName ,'numOfStabilizer':req.body.numOfStabilizer , 'solarPanelName':req.body.solarPanelName , 'numOfSolarPanel':req.body.numOfSolarPanel  , 'inverterName':req.body.inverterName  , 'numOfInverter':req.body.numOfInverter  , 'inverterCapacity':req.body.inverterCapacity  , 'solarRetrofitName':req.body.solarRetrofitName , 'numOfSolarRetrofit':req.body.numOfSolarRetrofit}}, function (err, docs) {
         if (err){
             //console.log(err)
