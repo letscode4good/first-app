@@ -123,81 +123,32 @@
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
             <div class="row">
               <div class="col-12">
-                <h2 class="tm-block-title d-inline-block">Upload Maintenance Reports</h2>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                 <h2 class="tm-block-title d-inline-block">Expense Report</h2>
+                 <h2 class="tm-block-title d-inline-block">Inventory Details</h2>
               </div>
             </div>
             <div class="row tm-edit-product-row">
-                <div class="col-xl-6 col-lg-6 col-md-12">
-                  <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="preview_image()" class="tm-edit-product-form" >
-                      
-                    <div class="row">
-                      <div class="form-group mb-3 col-xs-12 col-sm-6">
-                        <label
-                          for="maintenanceID"
-                          >Maintenace ID
-                        </label>
-                        <input class="form-control validate"  type="input" id="maintenanceID" required name="maintenanceID" STYLE="background-color: #54657d;" readonly>
-                      </div>
-                    </div>
-                    
-                    <div class="row">
-                          <div class="form-group mb-3 col-xs-12 col-sm-6">
-                            <label
-                              for="imageData"
-                              >Upload Image
-                            </label>
-                            <input class="form-control validate" id="imageData" name="imageData" onclick="clearImage()" type="file" multiple />
-                          </div>
-                    </div>
-
-                    <div class="row">
-                          <div class="form-group mb-3 col-xs-12 col-sm-6">
-                            <label
-                              for="serviceReport"
-                              >Is Service report
-                            </label>
-                            <select
-                            class="custom-select tm-select-accounts"
-                            id="serviceReport"
-                            name="serviceReport"
-                            >
-                            <option value="1">YES</option>
-                            <option value="0">NO</option>
-                          </select>
-                          </div>
-                    </div>
-                    <div class="row">
-                      <div class="form-group mb-3 col-xs-12 col-sm-6">
-                          <button type="submit" class="btn btn-primary btn-block text-uppercase">Preview Image</button>
-                      </div>
-                    </div>
-      
-                  </form>
-                </div>
 
 
                 <div class="col-xl-6 col-lg-6 col-md-12">
                   <form  id = "myform1" action="javascript:;" enctype=”multipart/form-data” onsubmit="calculateDues()" class="tm-edit-product-form" >
                       
+
+
                     <div class="row">
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
                         <label
-                          for="advanceAmount"
-                          >Advance amount
+                          for="customerName"
+                          >Customer Name
                         </label>
-                        <input class="form-control validate"  type="number" min="0" required id="advanceAmount" name="advanceAmount" STYLE="background-color: #54657d;">
+                        <input class="form-control validate"  type="input"  required id="customerName" name="customerName" STYLE="background-color: #54657d;">
                       </div>
 
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
                         <label
-                          for="transportExpense"
-                          >Transport
+                          for="custId"
+                          >Customer ID
                         </label>
-                        <input class="form-control validate"  type="number" min="0" required id="transportExpense" name="transportExpense" STYLE="background-color: #54657d;">
+                        <input class="form-control validate"  type="input" required id="custId" name="custId" STYLE="background-color: #54657d;">
                       </div>
 
                     </div>
@@ -206,41 +157,184 @@
                     <div class="row">
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
                         <label
-                          for="travelExpense"
-                          >Travel
+                          for="customerType"
+                          >Customer Type
                         </label>
-                        <input class="form-control validate"  type="number" min="0" required id="travelExpense" name="travelExpense" STYLE="background-color: #54657d;">
+                        <input class="form-control validate"  type="input"  required id="customerType" name="customerType" STYLE="background-color: #54657d;">
                       </div>
 
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
                         <label
-                          for="MiscellaneousExpense"
-                          >Miscellaneous
+                          for="installDate"
+                          >Install Date
                         </label>
-                        <input class="form-control validate"  type="number" min="0" required id="MiscellaneousExpense" name="MiscellaneousExpense" STYLE="background-color: #54657d;">
+                        <input class="form-control validate"  type="input" required id="installDate" name="installDate" STYLE="background-color: #54657d;">
                       </div>
 
                     </div>
+
 
 
                     <div class="row">
-                      <div class="form-group mb-3 col-xs-12 col-sm-6">
-                        <label
-                          for="dueAmount"
-                          >Due Amount
-                        </label>
-                        <input class="form-control validate"  type="number" id="dueAmount" name="dueAmount" STYLE="background-color: #54657d;" readonly>
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="upsName"
+                            >UPS Name
+                          </label>
+                          <input class="form-control validate"  type="input"  required id="upsName" name="upsName" STYLE="background-color: #54657d;">
+                        </div>
+  
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="upsCapacity"
+                            >UPS Capacity
+                          </label>
+                          <input class="form-control validate"  type="input" required id="upsCapacity" name="upsCapacity" STYLE="background-color: #54657d;">
+                        </div>
+  
                       </div>
 
-                      <div class="form-group mb-3 col-xs-12 col-sm-6">
-                        <label
-                          for="returnAmount"
-                          >Return Amount
-                        </label>
-                        <input class="form-control validate"  type="number" id="returnAmount" name="returnAmount" STYLE="background-color: #54657d;" readonly>
+
+
+                      <div class="row">
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="numOfUps"
+                            >No. of UPS
+                          </label>
+                          <input class="form-control validate"  type="input"  required id="numOfUps" name="numOfUps" STYLE="background-color: #54657d;">
+                        </div>
+  
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="batteryName"
+                            >Battery Name
+                          </label>
+                          <input class="form-control validate"  type="input" required id="batteryName" name="batteryName" STYLE="background-color: #54657d;">
+                        </div>
+  
                       </div>
 
-                    </div>
+
+
+                      <div class="row">
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="batteryCapacity"
+                            >Battery Capacity
+                          </label>
+                          <input class="form-control validate"  type="input"  required id="batteryCapacity" name="batteryCapacity" STYLE="background-color: #54657d;">
+                        </div>
+  
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="numOfBattery"
+                            >No. of Battery
+                          </label>
+                          <input class="form-control validate"  type="input" required id="numOfBattery" name="numOfBattery" STYLE="background-color: #54657d;">
+                        </div>
+  
+                      </div>
+
+
+
+                      <div class="row">
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="stabilizerName"
+                            >Stabilizer Name
+                          </label>
+                          <input class="form-control validate"  type="input"  required id="stabilizerName" name="stabilizerName" STYLE="background-color: #54657d;">
+                        </div>
+  
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="numOfStabilizer"
+                            >No. of Stabilizer
+                          </label>
+                          <input class="form-control validate"  type="input" required id="numOfStabilizer" name="numOfStabilizer" STYLE="background-color: #54657d;">
+                        </div>
+  
+                      </div>
+
+
+
+
+
+                      <div class="row">
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="solarPanelName"
+                            >Solar Panel Name
+                          </label>
+                          <input class="form-control validate"  type="input"  required id="solarPanelName" name="solarPanelName" STYLE="background-color: #54657d;">
+                        </div>
+  
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="numOfSolarPanel"
+                            >No. of Solar panel
+                          </label>
+                          <input class="form-control validate"  type="input" required id="numOfSolarPanel" name="numOfSolarPanel" STYLE="background-color: #54657d;">
+                        </div>
+  
+                      </div>
+
+
+
+                      <div class="row">
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="inverterName"
+                            >Inverter Name
+                          </label>
+                          <input class="form-control validate"  type="input"  required id="inverterName" name="inverterName" STYLE="background-color: #54657d;">
+                        </div>
+  
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="numOfInverter"
+                            >No. of Inverter
+                          </label>
+                          <input class="form-control validate"  type="input" required id="numOfInverter" name="numOfInverter" STYLE="background-color: #54657d;">
+                        </div>
+  
+                      </div>
+
+
+                      <div class="row">
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="inverterCapacity"
+                            >Inverter Capacity
+                          </label>
+                          <input class="form-control validate"  type="input"  required id="inverterCapacity" name="inverterCapacity" STYLE="background-color: #54657d;">
+                        </div>
+  
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="solarRetrofitName"
+                            >Solar Retrofit Name
+                          </label>
+                          <input class="form-control validate"  type="input" required id="solarRetrofitName" name="solarRetrofitName" STYLE="background-color: #54657d;">
+                        </div>
+  
+                      </div>
+
+
+                      <div class="row">
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="numOfSolarRetrofit"
+                            >No. of Solar Retrofit
+                          </label>
+                          <input class="form-control validate"  type="input"  required id="numOfSolarRetrofit" name="numOfSolarRetrofit" STYLE="background-color: #54657d;">
+                        </div>
+  
+
+                      </div>
+
+
 
                     <div class="row">
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -253,19 +347,9 @@
 
             </div>
 
-             <br>
-             <div id="image_preview"  class="tm-block-title d-inline-block" style = "display: none;"></div>
+
               <div class="col-12">
 
-                
-
-
-                <label class = "tm-block-title d-inline-block"
-                          for="description"
-                          >Detailed Description
-                        </label>
-   
-                <input id="description" class="form-control validate"  type="text" required name="description" STYLE="background-color: #54657d;">
 
                 <div class="tm-block-title d-inline-block" >
                   <img id="pageloader" src="img/uploading3.gif" alt="processing..." class="modal-container" style="display: none; width:40%;height:30% ; position: fixed;top: 50%;left: 50%; transform: translate(-50%, -50%);">
@@ -312,7 +396,7 @@
             contentType: "text/plain",
             dataType: 'json',
             success: function (resposeJson) {
-             // myfun();
+              fetchInvenData(resposeJson);
               //removeOldCompletedPMRecord(resposeJson)
             },
             error: function (e) {
@@ -323,6 +407,64 @@
 
 
         });
+
+
+        function fetchInvenData(data)
+        {
+
+            $.ajax({
+            type: 'GET',
+            data: {custId: data.custId},
+            url: "/getCustomerInventory",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (resposeJson) {
+
+
+
+                
+                document.getElementById("myform1").elements.custId.value = resposeJson.custId
+                document.getElementById("myform1").elements.customerName.value = resposeJson.customerName
+
+                document.getElementById("myform1").elements.customerType.value = resposeJson.customerType
+                document.getElementById("myform1").elements.installDate.value = resposeJson.installDate
+                document.getElementById("myform1").elements.upsName.value = resposeJson.upsName
+                document.getElementById("myform1").elements.upsCapacity.value = resposeJson.upsCapacity
+
+                
+                
+                
+                document.getElementById("myform1").elements.numOfUps.value = resposeJson.numOfUps
+                document.getElementById("myform1").elements.batteryName.value = resposeJson.batteryName
+                document.getElementById("myform1").elements.batteryCapacity.value = resposeJson.batteryCapacity
+                document.getElementById("myform1").elements.numOfBattery.value = resposeJson.numOfBattery
+                
+
+                
+                document.getElementById("myform1").elements.stabilizerName.value = resposeJson.stabilizerName
+                document.getElementById("myform1").elements.numOfStabilizer.value = resposeJson.numOfStabilizer
+                document.getElementById("myform1").elements.solarPanelName.value = resposeJson.solarPanelName
+                document.getElementById("myform1").elements.numOfSolarPanel.value = resposeJson.numOfSolarPanel
+
+
+                document.getElementById("myform1").elements.inverterName.value = resposeJson.inverterName
+                document.getElementById("myform1").elements.numOfInverter.value = resposeJson.numOfInverter
+                document.getElementById("myform1").elements.inverterCapacity.value = resposeJson.inverterCapacity
+                document.getElementById("myform1").elements.solarRetrofitName.value = resposeJson.solarRetrofitName
+                document.getElementById("myform1").elements.numOfSolarRetrofit.value = resposeJson.numOfSolarRetrofit
+
+              //fetchInvenData(resposeJson);
+              //removeOldCompletedPMRecord(resposeJson)
+            },
+            error: function (e) {
+              alert("Error while fetching data: " + JSON.stringify(e))
+              return
+            }
+          });
+
+
+
+        }
 
         function removeOlderImages()
         {
