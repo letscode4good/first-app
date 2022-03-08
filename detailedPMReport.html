@@ -238,6 +238,8 @@
 
                 <button type="submit" onclick="loadImages();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">View Reports</button>
 
+                <button type="submit" onclick="editCustInventory();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Edit Customer Inventory</button>
+
                 <br>
                 <br>
                     <div id = "editRecordButton" style ="display:none">
@@ -326,6 +328,15 @@
           var mID = sessionStorage.getItem("completedMaintenanceID");
           sessionStorage.setItem("editCompletedMid", mID);
           window.location.href = "/editCompletedPMReport.html";
+        }
+
+
+        function editCustInventory()
+        {
+
+          var mID = sessionStorage.getItem("completedMaintenanceID");
+          sessionStorage.setItem("editInventoryMid", mID);
+          window.location.href = "/editInventory.html";
         }
 
         function loadImages() {

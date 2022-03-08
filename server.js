@@ -488,6 +488,22 @@ app.post('/addCustomerInventory', function(req, res){
 })
 
 
+app.post('/updateCustomerInventory', function(req, res){
+    
+    customerInventorySchemaObject.findOneAndUpdate({custId: req.body.custId}, {$set: {'customerName': req.body.customerName , 'customerType':req.body.customerType , 'custId': req.body.custId , 'installDate':req.body.installDate, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity,'numOfUps': req.body.numOfUps, 'batteryName':req.body.batteryName , 'batteryCapacity':req.body.batteryCapacity, 'numOfBattery':req.body.numOfBattery , 'stabilizerName' : req.body.stabilizerName ,'numOfStabilizer':req.body.numOfStabilizer , 'solarPanelName':req.body.solarPanelName , 'numOfSolarPanel':req.body.numOfSolarPanel  , 'inverterName':req.body.inverterName  , 'numOfInverter':req.body.numOfInverter  , 'inverterCapacity':req.body.inverterCapacity  , 'solarRetrofitName':req.body.solarRetrofitName , 'numOfSolarRetrofit':req.body.numOfSolarRetrofit}}, function (err, docs) {
+        if (err){
+            //console.log(err)
+            res.send('failure');
+        }
+        else{
+            //console.log("Result : ", docs);
+            res.send(docs);   
+        }
+    });
+
+})
+
+
 app.post('/addPMHistory', function(req, res){
     var newDBEntry = new preventiveMaintenanceHistorySchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'issueType':req.body.issueType,'dateWhenDone': req.body.dateWhenDone, 'engineer':req.body.engineer, 'maintenanceID':req.body.maintenanceID, 'advanceAmount':req.body.advanceAmount, 'transportExpense':req.body.transportExpense, 'travelExpense':req.body.travelExpense, 'MiscellaneousExpense':req.body.MiscellaneousExpense, 'dueAmount':req.body.dueAmount, 'returnAmount':req.body.returnAmount,'customerType':req.body.customerType, 'address':req.body.address, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity, 'description': req.body.description }) 
 
@@ -1055,6 +1071,8 @@ app.get('/uploadPMReport.html', (req, res) => res.sendFile(__dirname+'/uploadPMR
 app.get('/generateStatusReport.html', (req, res) => res.sendFile(__dirname+'/generateStatusReport.html'))
 
 app.get('/generateMaintenanceReport.html', (req, res) => res.sendFile(__dirname+'/generateMaintenanceReport.html'))
+
+app.get('/editInventory.html', (req, res) => res.sendFile(__dirname+'/editInventory.html'))
 
 app.get('/editCompletedPMReport.html',function(req, res)
 {
