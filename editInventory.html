@@ -501,13 +501,27 @@
 
         document.getElementById("completetaskbutton").disabled = true;
         document.getElementById("pageloader").style.display = "block";
-
-
           $.ajax({
             type: 'POST',
-            data: { userId: document.getElementById("myform").elements.userId.value,
-                    password: document.getElementById("myform").elements.password.value, 
-                    userType : document.getElementById("myform").elements.userType.value,
+            data: { custId: document.getElementById("myform1").elements.custId.value,
+                    customerName: document.getElementById("myform1").elements.customerName.value, 
+                    customerType : document.getElementById("myform1").elements.customerType.value,
+                    installDate: document.getElementById("myform1").elements.installDate.value,
+                    upsName: document.getElementById("myform1").elements.upsName.value, 
+                    upsCapacity : document.getElementById("myform1").elements.upsCapacity.value,
+                    numOfUps: document.getElementById("myform1").elements.numOfUps.value,
+                    batteryName: document.getElementById("myform1").elements.batteryName.value, 
+                    batteryCapacity : document.getElementById("myform1").elements.batteryCapacity.value,
+                    numOfBattery: document.getElementById("myform1").elements.numOfBattery.value,
+                    stabilizerName: document.getElementById("myform1").elements.stabilizerName.value, 
+                    numOfStabilizer : document.getElementById("myform1").elements.numOfStabilizer.value,
+                    solarPanelName: document.getElementById("myform1").elements.solarPanelName.value,
+                    numOfSolarPanel: document.getElementById("myform1").elements.numOfSolarPanel.value, 
+                    inverterName : document.getElementById("myform1").elements.inverterName.value,
+                    numOfInverter: document.getElementById("myform1").elements.numOfInverter.value,
+                    inverterCapacity: document.getElementById("myform1").elements.inverterCapacity.value, 
+                    solarRetrofitName : document.getElementById("myform1").elements.solarRetrofitName.value,
+                    numOfSolarRetrofit : document.getElementById("myform1").elements.numOfSolarRetrofit.value,
                   },
             url: "/updateCustomerInventory",
             contentType: "application/x-www-form-urlencoded",
@@ -517,6 +531,7 @@
                 alert("Error while saving data")
               }
               else{
+                document.getElementById("pageloader").style.display = "none";
                 alert("Updated Inventory successfuly.")
                 sessionStorage.removeItem('editInventoryMid');
               }
