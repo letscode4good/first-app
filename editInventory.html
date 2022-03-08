@@ -68,6 +68,7 @@
                 <a class="dropdown-item" href="generateStatusReport.html">Generate Status Report</a>
               </div>
             </li>
+
 <!--
             <li class="nav-item">
               <a class="nav-link active" href="products.html">
@@ -80,6 +81,7 @@
                 <i class="far fa-user"></i> Account
               </a>
             </li>
+
 
             <li class="nav-item dropdown">
               <a
@@ -121,12 +123,16 @@
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
             <div class="row">
               <div class="col-12">
-                <h2 class="tm-block-title d-inline-block">Maintenance Report</h2>
+                <h2 class="tm-block-title d-inline-block">Upload Maintenance Reports</h2>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 <h2 class="tm-block-title d-inline-block">Expense Report</h2>
               </div>
             </div>
             <div class="row tm-edit-product-row">
                 <div class="col-xl-6 col-lg-6 col-md-12">
-                  <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="myfun()" class="tm-edit-product-form" >
+                  <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="preview_image()" class="tm-edit-product-form" >
                       
                     <div class="row">
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -134,17 +140,56 @@
                           for="maintenanceID"
                           >Maintenace ID
                         </label>
-                        <input class="form-control validate"  type="input" id="maintenanceID" name="maintenanceID" STYLE="background-color: #54657d;" readonly>
+                        <input class="form-control validate"  type="input" id="maintenanceID" required name="maintenanceID" STYLE="background-color: #54657d;" readonly>
                       </div>
                     </div>
+                    
+                    <div class="row">
+                          <div class="form-group mb-3 col-xs-12 col-sm-6">
+                            <label
+                              for="imageData"
+                              >Upload Image
+                            </label>
+                            <input class="form-control validate" id="imageData" name="imageData" onclick="clearImage()" type="file" multiple />
+                          </div>
+                    </div>
 
+                    <div class="row">
+                          <div class="form-group mb-3 col-xs-12 col-sm-6">
+                            <label
+                              for="serviceReport"
+                              >Is Service report
+                            </label>
+                            <select
+                            class="custom-select tm-select-accounts"
+                            id="serviceReport"
+                            name="serviceReport"
+                            >
+                            <option value="1">YES</option>
+                            <option value="0">NO</option>
+                          </select>
+                          </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <button type="submit" class="btn btn-primary btn-block text-uppercase">Preview Image</button>
+                      </div>
+                    </div>
+      
+                  </form>
+                </div>
+
+
+                <div class="col-xl-6 col-lg-6 col-md-12">
+                  <form  id = "myform1" action="javascript:;" enctype=”multipart/form-data” onsubmit="calculateDues()" class="tm-edit-product-form" >
+                      
                     <div class="row">
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
                         <label
                           for="advanceAmount"
                           >Advance amount
                         </label>
-                        <input class="form-control validate"  type="number" min="0" required id="advanceAmount" name="advanceAmount" STYLE="background-color: #54657d;" readonly>
+                        <input class="form-control validate"  type="number" min="0" required id="advanceAmount" name="advanceAmount" STYLE="background-color: #54657d;">
                       </div>
 
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -152,7 +197,7 @@
                           for="transportExpense"
                           >Transport
                         </label>
-                        <input class="form-control validate"  type="number" min="0" required id="transportExpense" name="transportExpense" STYLE="background-color: #54657d;"readonly>
+                        <input class="form-control validate"  type="number" min="0" required id="transportExpense" name="transportExpense" STYLE="background-color: #54657d;">
                       </div>
 
                     </div>
@@ -164,7 +209,7 @@
                           for="travelExpense"
                           >Travel
                         </label>
-                        <input class="form-control validate"  type="number" min="0" required id="travelExpense" name="travelExpense" STYLE="background-color: #54657d;" readonly>
+                        <input class="form-control validate"  type="number" min="0" required id="travelExpense" name="travelExpense" STYLE="background-color: #54657d;">
                       </div>
 
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -172,7 +217,7 @@
                           for="MiscellaneousExpense"
                           >Miscellaneous
                         </label>
-                        <input class="form-control validate"  type="number" min="0" required id="MiscellaneousExpense" name="MiscellaneousExpense" STYLE="background-color: #54657d;" readonly>
+                        <input class="form-control validate"  type="number" min="0" required id="MiscellaneousExpense" name="MiscellaneousExpense" STYLE="background-color: #54657d;">
                       </div>
 
                     </div>
@@ -195,56 +240,38 @@
                         <input class="form-control validate"  type="number" id="returnAmount" name="returnAmount" STYLE="background-color: #54657d;" readonly>
                       </div>
 
+                    </div>
 
+                    <div class="row">
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <button type="submit" class="btn btn-primary btn-block text-uppercase">Calculate</button>
+                      </div>
+                    </div>
+      
                   </form>
-
                 </div>
-
 
             </div>
 
-
-            <div id="inventoryDiv" class="modal-container" style = "font-size: 62.5%;">
-              
-              <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                  <ul id="imageIndicator" class="carousel-indicators">
-                    
-                  </ul>
-                  <div id="imageList" class="carousel-inner">
-                    
-                    
-                    
-                  </div>
-                  <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
-                    <span class="carousel-control-prev-icon"  style="background-color:#D1CCFF;"></span>
-                  </a>
-                  <a class="carousel-control-next" href="#myCarousel" data-slide="next">
-                    <span class="carousel-control-next-icon"  style="background-color:#D1CCFF;" ></span>
-                  </a>
-                </div>
-
-             <a href="#myform" class="link-2"></a>
-          </div>
-             
-              <br>
+             <br>
+             <div id="image_preview"  class="tm-block-title d-inline-block" style = "display: none;"></div>
               <div class="col-12">
 
+                
+
+
                 <label class = "tm-block-title d-inline-block"
-                for="description"
-                >Summary
-              </label>
+                          for="description"
+                          >Detailed Description
+                        </label>
+   
+                <input id="description" class="form-control validate"  type="text" required name="description" STYLE="background-color: #54657d;">
 
-               <input id="description" class="form-control validate"  type="text" required name="description" STYLE="background-color: #54657d;"  readonly>
+                <div class="tm-block-title d-inline-block" >
+                  <img id="pageloader" src="img/uploading3.gif" alt="processing..." class="modal-container" style="display: none; width:40%;height:30% ; position: fixed;top: 50%;left: 50%; transform: translate(-50%, -50%);">
+                </div>
 
-                <button type="submit" onclick="loadImages();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">View Reports</button>
-
-                <button type="submit" onclick="editCustInventory();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Edit Customer Inventory</button>
-
-                <br>
-                <br>
-                    <div id = "editRecordButton" style ="display:none">
-                       <button type="submit" onclick="editRecord();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Edit record</button>
-                     </div>
+                <button type="submit" id= "completetaskbutton" onclick="completeTask();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Complete Task</button>
               </div>
 
 
@@ -258,6 +285,7 @@
         <div class="col-12 font-weight-light">
           <p class="text-center text-white mb-0 px-4 small">
             Copyright &copy; <b>RSPower Solutions 2022</b> All rights reserved. 
+            
         </p>
         </div>
     </footer> 
@@ -270,143 +298,168 @@
     <!-- https://getbootstrap.com/ -->
     <script>
         
+
         $(function() {
-          document.getElementById("inventoryDiv").style.opacity = "0";
-          var mID = sessionStorage.getItem("completedMaintenanceID");
+          var mID = sessionStorage.getItem("editInventoryMid");
           console.log(mID);
           document.getElementById("myform").elements.maintenanceID.value = mID;
+          document.getElementById("myform1").reset();
 
           $.ajax({
             type: 'GET',
-            data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
+            data: {maintenanceID: mID},
             url: "/getPMHistoryForMid",
             contentType: "text/plain",
             dataType: 'json',
             success: function (resposeJson) {
-
-              document.getElementById("myform").elements.advanceAmount.value = resposeJson.advanceAmount;
-              document.getElementById("myform").elements.transportExpense.value = resposeJson.transportExpense;
-              document.getElementById("myform").elements.travelExpense.value = resposeJson.travelExpense;
-              document.getElementById("myform").elements.MiscellaneousExpense.value = resposeJson.MiscellaneousExpense;
-              document.getElementById("myform").elements.dueAmount.value = resposeJson.dueAmount;
-              document.getElementById("myform").elements.returnAmount.value = resposeJson.returnAmount;
-              document.getElementById("description").value = resposeJson.description;
-            
+             // myfun();
+              //removeOldCompletedPMRecord(resposeJson)
             },
             error: function (e) {
-              alert("Error while adding data: " + JSON.stringify(e))
+              alert("Error while fetching data: " + JSON.stringify(e))
+              return
             }
           });
 
-
-          $.ajax({
-            type: 'GET',
-            url: "/whoami",
-            contentType: "text/plain",
-            dataType: 'json',
-            success: function (resposeJson) {
-
-              if(resposeJson.message == "admin")
-              {
-                document.getElementById("editRecordButton").style.display = "block";
-              }
-              else
-              {
-                document.getElementById("editRecordButton").style.display = "none";
-              }
-            },
-            error: function (e) {
-              console.log("Error while adding data: " + JSON.stringify(e))
-              document.getElementById("editRecordButton").style.display = "none";
-            }
-          });
 
         });
 
-        function editRecord()
+        function removeOlderImages()
         {
-          var mID = sessionStorage.getItem("completedMaintenanceID");
-          sessionStorage.setItem("editCompletedMid", mID);
-          window.location.href = "/editCompletedPMReport.html";
-        }
-
-
-        function editCustInventory()
-        {
-
-          var mID = sessionStorage.getItem("completedMaintenanceID");
-          sessionStorage.setItem("editInventoryMid", mID);
-          window.location.href = "/editInventory.html";
-        }
-
-        function loadImages() {
+          var mID = sessionStorage.getItem("editCompletedMid");
           $.ajax({
             type: 'GET',
-            data: { maintenanceID: document.getElementById("myform").elements.maintenanceID.value },
+            data: { maintenanceID: mID },
             url: "/getPMImages",
             contentType: "text/plain",
             dataType: 'json',
             success: function (data) {
-              myJsonData = data;
-              console.log("error: " + JSON.stringify(myJsonData));
-              populateInventoryTable(myJsonData);
+              for (var i = 0; i < data.length; i++) {
+                var indexOfSlash = data[i].imageLink.lastIndexOf("/");
+                var fileNameOfImage = data[i].imageLink.substring(indexOfSlash + 1);
+                $.ajax({
+                  type: 'POST',
+                  data: { filename: fileNameOfImage ,
+                        },
+                  url: "/delfilefromgcloud",
+                  contentType: "application/x-www-form-urlencoded",
+                  success: function (data) {
+                    console.log("Image deleted from gcloud - "+ data);
+                  },
+                  error: function (e) {
+                    alert("Error while deleting file from gcloud: " + JSON.stringify(e))
+                  }
+                });
+              }
+              removeImageInfoFromDB()
             },
             error: function (e) {
               console.log("There was an error with your request...");
               console.log("error: " + JSON.stringify(e));
             }
           });
-          location.href = "#inventoryDiv";
-        //$("#custInventory").DataTable().clear();
-        //loadInventoryData(cutomerID);
-        
-          document.getElementById("inventoryDiv").style.opacity = "1";
         }
 
-        // populate the data table with JSON data
-        function populateInventoryTable(data) {
-          console.log("populating data table...");
-          
-          document.getElementById("imageList").innerHTML = "";
-          
-          var response = '',
-            indicator = '';
-            for (var i = 0; i < data.length; i++) {
-                response += '<div class="carousel-item"><img src="' + data[i].imageLink + '" width="500" height="500"><div class="carousel-caption"><h3 style="color:Green;">' + data[i].maintenanceID + '</div></div>';
-                indicator += '<li data-target="#myCarousel" data-slide-to="'+i+'"></li>';
+ 
+       function removeImageInfoFromDB()
+       {
+           var mID = sessionStorage.getItem("editCompletedMid");
+           $.ajax({
+            type: 'POST',
+            data: {maintenanceID: mID},
+            url: "/delPMImages",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+              console.log("Deleted older images -" + data);
+            },
+            error: function (e) {
+              alert("Error while deleting older images from DB data: " + JSON.stringify(e))
             }
-            $('#imageList').append(response);
-            $('#imageIndicator').append(indicator);
-            $('.carousel-item').first().addClass('active');
-            $('.carousel-indicators > li').first().addClass('active');
-            $("#myCarousel").carousel();
+          });
+       }
 
-            }
+        function calculateDues()
+        {
+          var totalExpense = parseInt(document.getElementById("myform1").elements.transportExpense.value)+ parseInt(document.getElementById("myform1").elements.travelExpense.value) + parseInt(document.getElementById("myform1").elements.MiscellaneousExpense.value);
+          var advanceAmount = parseInt(document.getElementById("myform1").elements.advanceAmount.value);
 
+          var  dueAmount = 0;
+          var  returnAmount = 0;
+
+          if (advanceAmount > totalExpense)
+          {
+            returnAmount = advanceAmount - totalExpense;
+            dueAmount = 0;
+          }
+          else if(advanceAmount < totalExpense)
+          {
+            dueAmount = totalExpense - advanceAmount;
+            returnAmount = 0;
+          }
+          else
+          {
+            dueAmount = 0;
+            returnAmount = 0;
+          }
+
+          document.getElementById("myform1").elements.dueAmount.value = dueAmount;
+          document.getElementById("myform1").elements.returnAmount.value = returnAmount;
+        }
 
       function myfun()
       {
-        let files = new FormData();
-        files.append('file', $('#imageData')[0].files[0]); 
-        $.ajax({
+        
+        //files.append('file', $('#imageData')[0].files[0]); 
+
+        $.each($('#imageData')[0].files, function(i, file) {
+          let files = new FormData();
+          files.append('file', file);
+          files.append('maintenanceID', document.getElementById("myform").elements.maintenanceID.value)
+          files.append('serviceReport', document.getElementById("myform").elements.serviceReport.value)
+          files.append('type', "maintenance")
+          $.ajax({
             type: 'POST',
             data: files,
             url: "/upload",
             contentType: false,
             processData: false,
             success: function (data) {
-               alert("Image added successfully")
-               addImageInfoInDB(data);   
+               //addImageInfoInDB(data);   
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
             }
           });
+        });
+
+
+        //alert("Images added successfully")
+
       }
 
+      function addImageInfoInDB(imageUrl)
+      {
+        var mID = sessionStorage.getItem("editCompletedMid");
+        $.ajax({
+            type: 'POST',
+            data: { maintenanceID: mID,
+                    serviceReport: "0",
+                    imageLink: imageUrl},
+            url: "/addPMImages",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+               console.log("Image info added in DB");
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+        
+      }
 
       function completeTask()
       {
+        var mID = sessionStorage.getItem("editCompletedMid");
         if(
             (document.getElementById("myform1").elements.transportExpense.value) == ""
           ||
@@ -420,20 +473,55 @@
           alert("Please add expense data before submitting.")
           return;
         }
-        
+
+        if(
+            (document.getElementById("myform").elements.maintenanceID.value) == "" 
+        )
+        {
+          alert("mMintenance ID is empty")
+          return;
+        }
+
+        document.getElementById("completetaskbutton").disabled = true;
+        document.getElementById("pageloader").style.display = "block";
+
         calculateDues();
+        removeOlderImages()
+       
 
         $.ajax({
             type: 'GET',
-            data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
-            url: "/getUpcomingPMForMid",
+            data: {maintenanceID: mID},
+            url: "/getPMHistoryForMid",
             contentType: "text/plain",
             dataType: 'json',
             success: function (resposeJson) {
-               addCompletedRecordToDB(resposeJson);
+              myfun();
+              removeOldCompletedPMRecord(resposeJson)
             },
             error: function (e) {
-              alert("Error while adding data: " + JSON.stringify(e))
+              alert("Error while fetching data: " + JSON.stringify(e))
+              return
+            }
+          });
+
+      }
+
+      function removeOldCompletedPMRecord(data)
+      {
+        var mID = sessionStorage.getItem("editCompletedMid");
+        $.ajax({
+            type: 'GET',
+            data: {maintenanceID: mID},
+            url: "/deleteFromCompletedPM",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (resposeJson) {
+               console.log("Old record deleted");
+               addCompletedRecordToDB(data);
+            },
+            error: function (e) {
+              alert("Error while removing older data: " + JSON.stringify(e))
             }
           });
 
@@ -441,14 +529,12 @@
 
       function addCompletedRecordToDB(resposeJson)
       {
-        var todaysDate = getDate(new Date(), 0);
-        var mType = resposeJson.maintenanceType;
         $.ajax({
             type: 'POST',
             data: { custId: resposeJson.custId,
                     customerName: resposeJson.customerName, 
                     maintenanceType: resposeJson.maintenanceType, 
-                    dateWhenDone: todaysDate, 
+                    dateWhenDone: resposeJson.dateWhenDone, 
                     engineer: resposeJson.engineer, 
                     maintenanceID: resposeJson.maintenanceID,
                     advanceAmount : document.getElementById("myform1").elements.advanceAmount.value,
@@ -461,98 +547,58 @@
                     address:  resposeJson.address,
                     upsName:  resposeJson.upsName,
                     upsCapacity:  resposeJson.upsCapacity,
-                    description : document.getElementById("description").value,
+                    description : document.getElementById("description").value
                   },
             url: "/addPMHistory",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
-               if(mType == "Planned")
-               {
-                  addFutureMaintenanceRecord(resposeJson)
-               }
-               removeOlderRecord()
-               alert("Successfully saved details.")
-               sessionStorage.removeItem('maintenanceID');
+               //alert("Successfully saved details.")
+               
+               
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
             }
           });
       }
+      // remove session variable when page is changed
+      window.onunload = function(){sessionStorage.removeItem('editCompletedMid');};
 
-      function addFutureMaintenanceRecord(resposeJson)
+
+      function preview_image() 
       {
-        var futureDate = getDate(new Date(), 1);
-        var futureMid;
-        $.ajax({
-            type: 'GET',
-            url: "/getCounters",
-            contentType: "text/plain",
-            dataType: 'json',
-            success: function (responseData) {
-               futureMid = "M_" + responseData.maintenanceCount;
-
-               $.ajax({
-                type: 'POST',
-                data: { custId: resposeJson.custId,
-                        customerName: resposeJson.customerName, 
-                        maintenanceType: resposeJson.maintenanceType, 
-                        dateWhenScheduled: futureDate, 
-                        engineer: resposeJson.engineer, 
-                        maintenanceID: futureMid,
-                        customerType: resposeJson.customerType, 
-                        address:  resposeJson.address,
-                        upsName:  resposeJson.upsName,
-                        upsCapacity:  resposeJson.upsCapacity,
-                        description : "NA"
-                      },
-                url: "/addupcomingPM",
-                contentType: "application/x-www-form-urlencoded",
-                success: function (data) {
-                  console.log("Future Maintenance Record Successfully added.");
-                  sessionStorage.removeItem('maintenanceID');
-                },
-                error: function (e) {
-                  alert("Error while adding data: " + JSON.stringify(e))
-                }
-              });
-
-              $.ajax({
-              type: 'POST',
-              url: "/incrementMaintenanceCounter",
-              contentType: "application/x-www-form-urlencoded",
-              success: function (data) {
-                console.log("Maintenance counter incremented");
-              },
-              error: function (e) {
-                alert("Error while adding data: " + JSON.stringify(e))
-              }
-            });
-
-            },
-            error: function (e) {
-              alert("Error while adding data: " + JSON.stringify(e))
+          
+          var x = document.getElementById("image_preview");
+          if (x.style.display === "none") {
+            var total_file=document.getElementById("imageData").files.length;
+            for(var i=0;i<total_file;i++)
+            {
+              $('#image_preview').append("<img class=\"thumbnail\" height=\"100\" width=\"100\"  style=\"float: left; padding-left: 20px; \" src='"+URL.createObjectURL($('#imageData')[0].files[i])+"'>");
             }
-          });
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+            $('#image_preview').empty();
+          }
+
 
       }
 
-      function removeOlderRecord()
+      function clearImage()
       {
-        $.ajax({
-            type: 'GET',
-            data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
-            url: "/deleteFromUpcomingPM",
-            contentType: "text/plain",
-            dataType: 'json',
-            success: function (resposeJson) {
-               console.log("Old record deleted");
-            },
-            error: function (e) {
-              alert("Error while adding data: " + JSON.stringify(e))
-            }
-          });
+        document.getElementById("imageData").value = "";
+        $('#image_preview').empty();
       }
+
+      $( document ).ajaxStop(function() {
+         console.log("all ajx calls are done")
+         document.getElementById("pageloader").style.display = "none";
+         alert("Successfully saved details.")
+         sessionStorage.removeItem('editCompletedMid');
+         window.location.href = "/completedPM.html";
+         
+        });
+
 
     </script>
   </body>

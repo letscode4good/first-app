@@ -1056,6 +1056,8 @@ app.get('/generateStatusReport.html', (req, res) => res.sendFile(__dirname+'/gen
 
 app.get('/generateMaintenanceReport.html', (req, res) => res.sendFile(__dirname+'/generateMaintenanceReport.html'))
 
+app.get('/editInventory.html', (req, res) => res.sendFile(__dirname+'/editInventory.html'))
+
 app.get('/editCompletedPMReport.html',function(req, res)
 {
     session=req.session;
