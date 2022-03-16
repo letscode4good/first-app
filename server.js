@@ -489,7 +489,7 @@ app.post('/addCustomerInventory', function(req, res){
 
 
 app.post('/updateCustomerInventory', function(req, res){
-    
+
     customerInventorySchemaObject.findOneAndUpdate({custId: req.body.custId}, {$set: {'customerName': req.body.customerName , 'customerType':req.body.customerType , 'custId': req.body.custId , 'installDate':req.body.installDate, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity,'numOfUps': req.body.numOfUps, 'batteryName':req.body.batteryName , 'batteryCapacity':req.body.batteryCapacity, 'numOfBattery':req.body.numOfBattery , 'stabilizerName' : req.body.stabilizerName ,'numOfStabilizer':req.body.numOfStabilizer , 'solarPanelName':req.body.solarPanelName , 'numOfSolarPanel':req.body.numOfSolarPanel  , 'inverterName':req.body.inverterName  , 'numOfInverter':req.body.numOfInverter  , 'inverterCapacity':req.body.inverterCapacity  , 'solarRetrofitName':req.body.solarRetrofitName , 'numOfSolarRetrofit':req.body.numOfSolarRetrofit}}, function (err, docs) {
         if (err){
             //console.log(err)
@@ -527,6 +527,23 @@ app.post('/addupcomingPM', function(req, res){
         }
         else
             res.json({message : 'successs'})
+    });
+})
+
+app.post('/delupcomingPM', function(req, res){
+    upcomingMaintenanceSchemaObject.findOneAndDelete({'maintenanceID':req.body.maintenanceID}, function (err, docs) {
+        if (err){
+            //console.log(err)
+            res.send('failure');
+        }
+        else{
+            if (docs == null) {
+                res.send('notfound');
+            }
+            else{
+                res.send('success'); 
+            }
+        }
     });
 })
 
@@ -1057,6 +1074,8 @@ app.get('/schedulePM.html', (req, res) => res.sendFile(__dirname+'/schedulePM.ht
 
 app.get('/login.html', (req, res) => res.sendFile(__dirname+'/login.html'))
 app.get('/products.html', (req, res) => res.sendFile(__dirname+'/products.html'))
+
+app.get('/deleteUpcomingPM.html', (req, res) => res.sendFile(__dirname+'/deleteUpcomingPM.html'))
 
 
 app.get('/upcomingCustomerPM.html', (req, res) => res.sendFile(__dirname+'/upcomingCustomerPM.html'))
