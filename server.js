@@ -540,7 +540,9 @@ app.post('/delupcomingPM', function(req, res){
             if (docs == null) {
                 res.send('notfound');
             }
-            res.send('success'); 
+            else{
+                res.send('success'); 
+            }
         }
     });
 })
