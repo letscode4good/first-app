@@ -573,7 +573,7 @@ app.post('/incrementCustCounter', function(req, res){
 app.post('/incrementAMCCustCounter', function(req, res){
     countersSchemaObject.findOneAndUpdate({searchId: "keywordforsearch"}, {$inc:{ custAMC: 1}}, function (err, docs) {
         if (err){
-            //console.log(err)
+            console.log(err)
             res.send('failure');
         }
         else{
@@ -586,7 +586,7 @@ app.post('/incrementAMCCustCounter', function(req, res){
 app.post('/incrementRentalCustCounter', function(req, res){
     countersSchemaObject.findOneAndUpdate({searchId: "keywordforsearch"}, {$inc:{ custRental: 1}}, function (err, docs) {
         if (err){
-            //console.log(err)
+            console.log(err)
             res.send('failure');
         }
         else{
