@@ -103,6 +103,7 @@
         -->
                 <a class="dropdown-item" href="view-customer-info.html">View Customers</a>
                 <a class="dropdown-item" href="schedulePM.html">Add Maintenace Request</a>
+                <a class="dropdown-item" href="add-customer-info.html">Add Customer</a>
                 <a class="dropdown-item" href="deleteUpcomingPM.html">Delete Maintenace Request</a>
 
             </div>
@@ -144,21 +145,6 @@
                             required
                           />
                         </div>
-                        <div class="form-group mb-3 col-xs-12 col-sm-6">
-                        <label
-                            for="custId"
-                            >Customer ID
-                          </label>
-                          <input
-                            id="custId"
-                            name="custId"
-                            type="text"
-                            class="form-control validate"
-                            required
-                          />
-                        </div>
-
-
 
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
@@ -171,12 +157,29 @@
                             id="customerType"
                             name="customerType"
                             required
+                            onchange="generateCustID()"
                             >
-                            <option value="Rental">Rental</option>
+                            <option>Select Cust Type</option>
                             <option value="AMC">AMC</option>
-                            <option value="Warranty">Warranty</option>
+                            <option value="RENTAL">RENTAL</option>
+                            <option value="SOLAR RENTAL">SOLAR RENTAL</option>
                           </select>
                           </div>
+
+                          <div class="form-group mb-3 col-xs-12 col-sm-6">
+                            <label
+                                for="custId"
+                                >Customer ID
+                              </label>
+                              <input
+                                id="custId"
+                                name="custId"
+                                type="text"
+                                class="form-control validate"
+                                required
+                                style="background-color: #54657d;" readonly=""
+                              />
+                            </div>
 
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                             <label
@@ -304,24 +307,42 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
     <script>
+
+        let rentalCustCode =""
+        let amcCustCode=""
+        let flag=""
+
       $(function() {
-        $("#expire_date").datepicker();
 
         $.ajax({
-                type: "GET",
-                url: "/getStockItems",
-                dataType: "json",
-                success: function (result, status, xhr) {
-                $.each(result,function(key, value)
-                {
-                    $("#itemName").append('<option value=' + value.itemCode + '>' + value.itemName + '</option>');
-                });
-                },
-                error: function (xhr, status, error) {
-                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-                }
-            });
-      });
+            type: 'GET',
+            url: "/getCounters",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (responseData) {
+               rentalCustCode = "RENTAL" + responseData.custRental;
+               amcCustCode = "AMC"+ responseData.custAMC;
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          }); 
+        });
+
+      function generateCustID() {
+
+          var x = document.getElementById("myform").elements.customerType.value;
+          if(x == "AMC")
+          {
+            document.getElementById("myform").elements.custId.value = amcCustCode
+            flag = "AMC"
+          }
+          else if((x == "RENTAL") || (x == "SOLAR RENTAL"))
+          {
+            document.getElementById("myform").elements.custId.value = rentalCustCode
+            flag = "RENTAL"
+          }
+      }
 
       function myfun()
       {
@@ -341,8 +362,47 @@
             url: "/addCustomerDetail",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
-               alert("Data added Successfully")
-               document.getElementById('myform').reset();
+              
+               if (flag == "AMC")
+               {
+                    $.ajax({
+                    type: 'POST',
+                    url: "/incrementAMCCustCounter",
+                    async: false,
+                    contentType: "application/x-www-form-urlencoded",
+                    success: function (data) {
+                      console.log("Maintenance counter incremented");
+                      alert("New Customer added successfully")
+                     
+                      sessionStorage.setItem("newCustomerID", amcCustCode);
+                      window.location.href = "/addCustomerInventory.html"
+                    },
+                    error: function (e) {
+                      alert("Error while adding data: " + JSON.stringify(e))
+                    }
+                  });
+
+               }
+               else if(flag =="RENTAL")
+               {
+                    $.ajax({
+                    type: 'POST',
+                    url: "/incrementRentalCustCounter",
+                    async: false,
+                    contentType: "application/x-www-form-urlencoded",
+                    success: function (data) {
+                      console.log("Maintenance counter incremented");
+                      alert("New Customer added successfully")
+                      
+                      sessionStorage.setItem("newCustomerID", rentalCustCode);
+                      window.location.href = "/addCustomerInventory.html"
+                    },
+                    error: function (e) {
+                      alert("Error while adding data: " + JSON.stringify(e))
+                    }
+                  });
+               }
+
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))

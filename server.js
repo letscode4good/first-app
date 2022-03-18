@@ -175,7 +175,9 @@ var countersSchema = new mongoose.Schema({
     customerCount : Number,
     maintenanceCount : Number,
     statusCount: Number,
-    searchId : String
+    searchId : String,
+    custAMC: Number,
+    custRental: Number
 });
 
 var userDetailsSchemaObject = mongoose.model('UserDetails', userDetailsSchema,'UserDetails');
@@ -568,6 +570,32 @@ app.post('/incrementCustCounter', function(req, res){
     });
 })
 
+app.post('/incrementAMCCustCounter', function(req, res){
+    countersSchemaObject.findOneAndUpdate({searchId: "keywordforsearch"}, {$inc:{ custAMC: 1}}, function (err, docs) {
+        if (err){
+            console.log(err)
+            res.send('failure');
+        }
+        else{
+            //console.log("Result : ", docs);
+            res.send(docs);   
+        }
+    });
+})
+
+app.post('/incrementRentalCustCounter', function(req, res){
+    countersSchemaObject.findOneAndUpdate({searchId: "keywordforsearch"}, {$inc:{ custRental: 1}}, function (err, docs) {
+        if (err){
+            console.log(err)
+            res.send('failure');
+        }
+        else{
+            //console.log("Result : ", docs);
+            res.send(docs);   
+        }
+    });
+})
+
 app.post('/incrementMaintenanceCounter', function(req, res){
     countersSchemaObject.findOneAndUpdate({searchId: "keywordforsearch"},{$inc:{ maintenanceCount: 1}}, function (err, docs) {
         if (err){
@@ -603,6 +631,26 @@ app.get("/getCustomerDetails",function(req, res) {
         res.send(docs);
       });
   })
+
+
+app.get("/getSingleCustomerDetails",function(req, res) {
+    customerDetailsSchemaObject.findOne({ custId: req.query.custId}, function (err, docs) {
+      if (err){
+          res.send(err);
+      }
+      else{
+          //console.log("Result : ", docs);
+          if (docs == null) {
+              res.send('Customer details not found.');
+          }
+          else
+          {
+              res.send(docs)
+          }
+      }
+  });
+})
+
 
   app.get("/getAllEngineers",function(req, res) {
     userLoginSchemaObject.find({ userType: "engineer" }, function (err, docs) {
@@ -1068,6 +1116,7 @@ app.get('/add-product.html', (req, res) => res.sendFile(__dirname+'/add-product.
 app.get('/edit-product.html', (req, res) => res.sendFile(__dirname+'/edit-product.html'))
 
 app.get('/add-customer-info.html', (req, res) => res.sendFile(__dirname+'/add-customer-info.html'))
+app.get('/addCustomerInventory.html', (req, res) => res.sendFile(__dirname+'/addCustomerInventory.html'))
 app.get('/view-customer-info.html', (req, res) => res.sendFile(__dirname+'/view-customer-info.html'))
 app.get('/schedulePM.html', (req, res) => res.sendFile(__dirname+'/schedulePM.html'))
 

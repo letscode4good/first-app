@@ -125,17 +125,15 @@
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
             <div class="row">
               <div class="col-12">
-                 <h2 class="tm-block-title d-inline-block">Inventory Details</h2>
+                 <h2 class="tm-block-title d-inline-block">Inventory Details for new customer</h2>
               </div>
             </div>
             <div class="row tm-edit-product-row">
 
 
-                <div class="col-xl-6 col-lg-6 col-md-12">
+                <div class="col-xl-7 col-lg-6 col-md-12">
                   <form  id = "myform1" action="javascript:;" enctype=”multipart/form-data” onsubmit="calculateDues()" class="tm-edit-product-form" >
                       
-
-
                     <div class="row">
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
                         <label
@@ -167,35 +165,35 @@
 
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
                         <label
-                          for="installDate"
-                          >Install Date
+                          for="upsName"
+                          >UPS Name
                         </label>
-                        <input class="form-control validate"  type="input" required id="installDate" name="installDate">
+                        <input class="form-control validate"  type="input"  required id="upsName" name="upsName"  readonly  STYLE="background-color: #54659d;" >
                       </div>
 
+                     
                     </div>
 
-
-
                     <div class="row">
-                        <div class="form-group mb-3 col-xs-12 col-sm-6">
-                          <label
-                            for="upsName"
-                            >UPS Name
-                          </label>
-                          <input class="form-control validate"  type="input"  required id="upsName" name="upsName" >
-                        </div>
+
   
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
                             for="upsCapacity"
                             >UPS Capacity
                           </label>
-                          <input class="form-control validate"  type="input" required id="upsCapacity" name="upsCapacity">
+                          <input class="form-control validate"  type="input" required id="upsCapacity" name="upsCapacity" readonly  STYLE="background-color: #54659d;">
                         </div>
+
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                            <label
+                              for="installDate"
+                              >Install Date(DD-MM-YYYY)
+                            </label>
+                            <input class="form-control validate"  type="input" required id="installDate" name="installDate">
+                          </div>
   
                       </div>
-
 
 
                       <div class="row">
@@ -216,7 +214,6 @@
                         </div>
   
                       </div>
-
 
 
                       <div class="row">
@@ -350,7 +347,7 @@
                   <img id="pageloader" src="img/uploading3.gif" alt="processing..." class="modal-container" style="display: none; width:40%;height:30% ; position: fixed;top: 50%;left: 50%; transform: translate(-50%, -50%);">
                 </div>
 
-                <button type="submit" id= "completetaskbutton" onclick="completeTask();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Save New Inventory</button>
+                <button type="submit" id= "completetaskbutton" onclick="completeTask();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Save Inventory</button>
               </div>
 
 
@@ -379,19 +376,26 @@
         
 
         $(function() {
-          var mID = sessionStorage.getItem("editInventoryMid");
-          console.log(mID);
+          var newCustomerID = sessionStorage.getItem("newCustomerID");
+          console.log(newCustomerID);
           document.getElementById("myform1").reset();
 
           $.ajax({
             type: 'GET',
-            data: {maintenanceID: mID},
-            url: "/getPMHistoryForMid",
+            data: {custId: newCustomerID},
+            url: "/getSingleCustomerDetails",
             contentType: "text/plain",
             dataType: 'json',
             success: function (resposeJson) {
-              fetchInvenData(resposeJson);
-              //removeOldCompletedPMRecord(resposeJson)
+
+                document.getElementById("myform1").elements.custId.value = resposeJson.custId
+                document.getElementById("myform1").elements.customerName.value = resposeJson.customerName
+
+                document.getElementById("myform1").elements.customerType.value = resposeJson.customerType
+               
+                document.getElementById("myform1").elements.upsName.value = resposeJson.upsName
+                document.getElementById("myform1").elements.upsCapacity.value = resposeJson.upsCapacity
+
             },
             error: function (e) {
               alert("Error while fetching data: " + JSON.stringify(e))
@@ -401,55 +405,6 @@
 
 
         });
-
-
-        function fetchInvenData(data)
-        {
-
-            $.ajax({
-            type: 'GET',
-            data: {custId: data.custId},
-            url: "/getCustomerInventory",
-            contentType: "text/plain",
-            dataType: 'json',
-            success: function (resposeJson) {
-
-                
-                document.getElementById("myform1").elements.custId.value = resposeJson.custId
-                document.getElementById("myform1").elements.customerName.value = resposeJson.customerName
-
-                document.getElementById("myform1").elements.customerType.value = resposeJson.customerType
-                document.getElementById("myform1").elements.installDate.value = resposeJson.installDate
-                document.getElementById("myform1").elements.upsName.value = resposeJson.upsName
-                document.getElementById("myform1").elements.upsCapacity.value = resposeJson.upsCapacity
-
-                document.getElementById("myform1").elements.numOfUps.value = resposeJson.numOfUps
-                document.getElementById("myform1").elements.batteryName.value = resposeJson.batteryName
-                document.getElementById("myform1").elements.batteryCapacity.value = resposeJson.batteryCapacity
-                document.getElementById("myform1").elements.numOfBattery.value = resposeJson.numOfBattery
-
-                document.getElementById("myform1").elements.stabilizerName.value = resposeJson.stabilizerName
-                document.getElementById("myform1").elements.numOfStabilizer.value = resposeJson.numOfStabilizer
-                document.getElementById("myform1").elements.solarPanelName.value = resposeJson.solarPanelName
-                document.getElementById("myform1").elements.numOfSolarPanel.value = resposeJson.numOfSolarPanel
-                document.getElementById("myform1").elements.inverterName.value = resposeJson.inverterName
-                document.getElementById("myform1").elements.numOfInverter.value = resposeJson.numOfInverter
-                document.getElementById("myform1").elements.inverterCapacity.value = resposeJson.inverterCapacity
-                document.getElementById("myform1").elements.solarRetrofitName.value = resposeJson.solarRetrofitName
-                document.getElementById("myform1").elements.numOfSolarRetrofit.value = resposeJson.numOfSolarRetrofit
-
-              //fetchInvenData(resposeJson);
-              //removeOldCompletedPMRecord(resposeJson)
-            },
-            error: function (e) {
-              alert("Error while fetching data: " + JSON.stringify(e))
-              return
-            }
-          });
-
-
-
-        }
 
   
       function completeTask()
@@ -523,7 +478,7 @@
                     solarRetrofitName : document.getElementById("myform1").elements.solarRetrofitName.value,
                     numOfSolarRetrofit : document.getElementById("myform1").elements.numOfSolarRetrofit.value,
                   },
-            url: "/updateCustomerInventory",
+            url: "/addCustomerInventory",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
               if(data == "failure")
@@ -533,8 +488,8 @@
               else{
                 document.getElementById("pageloader").style.display = "none";
                 alert("Updated Inventory successfuly.")
-                sessionStorage.removeItem('editInventoryMid');
-                window.location.href = "/completedPM.html"
+                sessionStorage.removeItem('newCustomerID');
+                window.location.href = "/view-customer-info.html"
               }
             },
             error: function (e) {
