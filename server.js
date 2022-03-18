@@ -632,6 +632,26 @@ app.get("/getCustomerDetails",function(req, res) {
       });
   })
 
+
+app.get("/getSingleCustomerDetails",function(req, res) {
+    customerDetailsSchemaObject.findOne({ custId: req.query.custId}, function (err, docs) {
+      if (err){
+          res.send(err);
+      }
+      else{
+          //console.log("Result : ", docs);
+          if (docs == null) {
+              res.send('Customer details not found.');
+          }
+          else
+          {
+              res.send(docs)
+          }
+      }
+  });
+})
+
+
   app.get("/getAllEngineers",function(req, res) {
     userLoginSchemaObject.find({ userType: "engineer" }, function (err, docs) {
         if(err) return next(err);
@@ -1096,6 +1116,7 @@ app.get('/add-product.html', (req, res) => res.sendFile(__dirname+'/add-product.
 app.get('/edit-product.html', (req, res) => res.sendFile(__dirname+'/edit-product.html'))
 
 app.get('/add-customer-info.html', (req, res) => res.sendFile(__dirname+'/add-customer-info.html'))
+app.get('/addCustomerInventory.html', (req, res) => res.sendFile(__dirname+'/addCustomerInventory.html'))
 app.get('/view-customer-info.html', (req, res) => res.sendFile(__dirname+'/view-customer-info.html'))
 app.get('/schedulePM.html', (req, res) => res.sendFile(__dirname+'/schedulePM.html'))
 

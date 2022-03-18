@@ -176,6 +176,7 @@
                                 type="text"
                                 class="form-control validate"
                                 required
+                                style="background-color: #54657d;" readonly=""
                               />
                             </div>
 
@@ -371,6 +372,9 @@
                     success: function (data) {
                       console.log("Maintenance counter incremented");
                       alert("New Customer added successfully")
+                     
+                      sessionStorage.setItem("newCustomerID", amcCustCode);
+                      window.location.href = "/addCustomerInventory.html"
                     },
                     error: function (e) {
                       alert("Error while adding data: " + JSON.stringify(e))
@@ -388,6 +392,9 @@
                     success: function (data) {
                       console.log("Maintenance counter incremented");
                       alert("New Customer added successfully")
+                      
+                      sessionStorage.setItem("newCustomerID", rentalCustCode);
+                      window.location.href = "/addCustomerInventory.html"
                     },
                     error: function (e) {
                       alert("Error while adding data: " + JSON.stringify(e))
