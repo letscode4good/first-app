@@ -175,7 +175,9 @@ var countersSchema = new mongoose.Schema({
     customerCount : Number,
     maintenanceCount : Number,
     statusCount: Number,
-    searchId : String
+    searchId : String,
+    custAMC: Number,
+    custRental: Number
 });
 
 var userDetailsSchemaObject = mongoose.model('UserDetails', userDetailsSchema,'UserDetails');
@@ -557,6 +559,32 @@ app.get("/getCounters",function(req, res) {
 
 app.post('/incrementCustCounter', function(req, res){
     countersSchemaObject.findOneAndUpdate({searchId: "keywordforsearch"}, {$inc:{ customerCount: 1}}, function (err, docs) {
+        if (err){
+            //console.log(err)
+            res.send('failure');
+        }
+        else{
+            //console.log("Result : ", docs);
+            res.send(docs);   
+        }
+    });
+})
+
+app.post('/incrementAMCCustCounter', function(req, res){
+    countersSchemaObject.findOneAndUpdate({searchId: "keywordforsearch"}, {$inc:{ custAMC: 1}}, function (err, docs) {
+        if (err){
+            //console.log(err)
+            res.send('failure');
+        }
+        else{
+            //console.log("Result : ", docs);
+            res.send(docs);   
+        }
+    });
+})
+
+app.post('/incrementRentalCustCounter', function(req, res){
+    countersSchemaObject.findOneAndUpdate({searchId: "keywordforsearch"}, {$inc:{ custRental: 1}}, function (err, docs) {
         if (err){
             //console.log(err)
             res.send('failure');
