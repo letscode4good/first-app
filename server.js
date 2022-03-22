@@ -520,16 +520,31 @@ app.post('/addPMHistory', function(req, res){
 })
 
 app.post('/addupcomingPM', function(req, res){
-    var newDBEntry = new upcomingMaintenanceSchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'issueType':req.body.issueType , 'dateWhenScheduled': req.body.dateWhenScheduled, 'engineer':req.body.engineer, 'maintenanceID':req.body.maintenanceID ,'customerType':req.body.customerType, 'address':req.body.address, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity, 'description': req.body.description }) 
+
+    upcomingMaintenanceSchemaObject.findOne({ custId: req.body.custId, dateWhenScheduled: req.body.dateWhenScheduled }, function (err, docs) {
+        if(err) return next(err);
+        else{
+            if (docs == null) {
+               
+                var newDBEntry = new upcomingMaintenanceSchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'issueType':req.body.issueType , 'dateWhenScheduled': req.body.dateWhenScheduled, 'engineer':req.body.engineer, 'maintenanceID':req.body.maintenanceID ,'customerType':req.body.customerType, 'address':req.body.address, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity, 'description': req.body.description }) 
     
-    newDBEntry.save(function(err, savedUser){
-        if(err)
-        {
-            res.json({ error: err.message || err.toString() });
+                newDBEntry.save(function(err, savedUser){
+                    if(err)
+                    {
+                        res.json({ error: err.message || err.toString() });
+                    }
+                    else
+                        res.json({message : 'success'})
+                });
+
+            }
+            else{
+                res.json({message : 'duplicatefound'})
+            }
         }
-        else
-            res.json({message : 'successs'})
-    });
+
+      });
+    
 })
 
 app.post('/delupcomingPM', function(req, res){

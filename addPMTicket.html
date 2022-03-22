@@ -395,26 +395,8 @@ document.getElementById("myform").elements.upsCapacity.value = sessionStorage.ge
 
       function myfun()
       {
-        
         var inputDate = new Date(document.getElementById("myform").elements.dateWhenScheduled.value);
         
-        /*
-        var dd = inputDate.getDate();
-        var mm = inputDate.getMonth()+1; 
-        var yyyy = inputDate.getFullYear();
-        if(dd<10) 
-        {
-             dd='0'+dd;
-        } 
-
-        if(mm<10) 
-        {
-            mm='0'+mm;
-        } 
-        var scheduleDate = dd+'/'+mm+'/'+yyyy;
-
-        
-      */
         $.ajax({
             type: 'POST',
             data: { custId: document.getElementById("myform").elements.custId.value,
@@ -433,22 +415,28 @@ document.getElementById("myform").elements.upsCapacity.value = sessionStorage.ge
             url: "/addupcomingPM",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
+
+              if(data.message == "duplicatefound")
+              {
+                alert("An entry is already present.")
+              }
+              else (data.message == "success")
+              {
+                    $.ajax({
+                    type: 'POST',
+                    url: "/incrementMaintenanceCounter",
+                    async: false,
+                    contentType: "application/x-www-form-urlencoded",
+                    success: function (data) {
+                      console.log("Maintenance counter incremented");
+                      alert("Data added Successfully")
+                    },
+                    error: function (e) {
+                      alert("Error while adding data: " + JSON.stringify(e))
+                    }
+                  });
+              }
               
-               $.ajax({
-                type: 'POST',
-                url: "/incrementMaintenanceCounter",
-                async: false,
-                contentType: "application/x-www-form-urlencoded",
-                success: function (data) {
-                  console.log("Maintenance counter incremented");
-                },
-                error: function (e) {
-                  alert("Error while adding data: " + JSON.stringify(e))
-                }
-              });
-               //schedulePM.html
-               
-               //document.getElementById('myform').reset();
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
@@ -458,9 +446,7 @@ document.getElementById("myform").elements.upsCapacity.value = sessionStorage.ge
 
       $( document ).ajaxStop(function() {
          console.log("all ajx calls are done")
-         alert("Data added Successfully")
          window.location.href = "/schedulePM.html";
-        
         });
 
     </script>
