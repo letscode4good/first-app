@@ -420,7 +420,7 @@ document.getElementById("myform").elements.upsCapacity.value = sessionStorage.ge
               {
                 alert("An entry is already present.")
               }
-              else (data.message == "success")
+              else if (data.message == "success")
               {
                     $.ajax({
                     type: 'POST',
