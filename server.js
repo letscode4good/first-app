@@ -463,7 +463,7 @@ app.post('/delPMImages', function(req, res){
 
 app.post('/addCustomerDetail', function(req, res){
 
-    customerDetailsSchemaObject.find({ 'custId' : req.body.custId }, function (err, docs) {
+    customerDetailsSchemaObject.find({ custId : req.body.custId }, function (err, docs) {
         if(err) return next(err);
         else{
                 if (docs == null) {
