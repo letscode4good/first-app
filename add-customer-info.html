@@ -362,8 +362,13 @@
             url: "/addCustomerDetail",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
-              
-               if (flag == "AMC")
+              if(data.message == "duplicatefound")
+              {
+                alert("A customer with same ID is already present.")
+              }
+              else if (data.message == "success")
+              {
+                if (flag == "AMC")
                {
                     $.ajax({
                     type: 'POST',
@@ -403,6 +408,8 @@
                   });
                }
 
+              }
+              
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
