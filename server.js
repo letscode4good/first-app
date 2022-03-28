@@ -465,24 +465,25 @@ app.post('/addCustomerDetail', function(req, res){
 
     customerDetailsSchemaObject.find({ 'custId' : req.body.custId }, function (err, docs) {
         if(err) return next(err);
-        if (docs == null) {
-            var newDBEntry = new customerDetailsSchemaObject({'customerName': req.body.custName , 'customerType' :req.body.customerType , 'custId' : req.body.custId, 'address': req.body.custAddress , 'email':req.body.custEmail, 'officialphone':req.body.custOfficialPhone, 'contactperson':req.body.contactPersonName, 'contactpersonphone':req.body.contactPersonPhone, 'upsName': req.body.upsName, 'upsCapacity': req.body.upsCapacity }) 
-            newDBEntry.save(function(err, savedUser){
-                if(err)
-                {
-                    //res.json({message : 'failures'})
-                    // find error in api
-                    res.json({ error: err.message || err.toString() });
+        else{
+                if (docs == null) {
+                    var newDBEntry = new customerDetailsSchemaObject({'customerName': req.body.custName , 'customerType' :req.body.customerType , 'custId' : req.body.custId, 'address': req.body.custAddress , 'email':req.body.custEmail, 'officialphone':req.body.custOfficialPhone, 'contactperson':req.body.contactPersonName, 'contactpersonphone':req.body.contactPersonPhone, 'upsName': req.body.upsName, 'upsCapacity': req.body.upsCapacity }) 
+                    newDBEntry.save(function(err, savedUser){
+                        if(err)
+                        {
+                            //res.json({message : 'failures'})
+                            // find error in api
+                            res.json({ error: err.message || err.toString() });
+                        }
+                        else
+                            res.json({message : 'success'})
+                    });
                 }
                 else
-                    res.json({message : 'success'})
-            });
-        }
-        else
-        {
-            res.json({message : 'duplicatefound'})
-        }
-        
+                {
+                    res.json({message : 'duplicatefound'})
+                }
+            }
       });
 })
 
