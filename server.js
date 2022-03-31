@@ -45,7 +45,7 @@ mongoose.connect('mongodb+srv://dbadmin:dbpassword@cluster0-v6hog.mongodb.net/ho
 var dailyExpenseSchema = new mongoose.Schema({
     itemName : String,
     quantity : Number,
-    cost : String
+    cost : String,
     dateOfExpense : Date,
 });
 
