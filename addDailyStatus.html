@@ -230,6 +230,7 @@
               type: 'GET',
               url: "/getCounters",
               contentType: "text/plain",
+              global: false,
               dataType: 'json',
               success: function (responseData) {
                 futureSid = "S_" + responseData.statusCount;
