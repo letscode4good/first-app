@@ -372,7 +372,7 @@
 
         $.each($('#imageData')[0].files, function(i, file) {
           
-                          imageConversion.compress(file,0.4).then(res=>{
+                          imageConversion.compress(file,0.3).then(res=>{
                       //  imageConversion.compressAccurately(file,200).then(res=>{
                         //The res in the promise is a compressed Blob type (which can be treated as a File type) file;
                         console.log(res);
