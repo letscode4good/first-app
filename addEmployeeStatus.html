@@ -372,11 +372,6 @@
 
         $.each($('#imageData')[0].files, function(i, file) {
           
-                const fileSize = Math.round((file.size / 1024));
-                // The size of the file.
-                if (fileSize >= 4096) {
-                   console.log("file size greater than 4mb");
-                    
                           imageConversion.compress(file,0.4).then(res=>{
                       //  imageConversion.compressAccurately(file,200).then(res=>{
                         //The res in the promise is a compressed Blob type (which can be treated as a File type) file;
@@ -403,38 +398,6 @@
                         
                       })
 
-                }
-                else
-                {
-                    console.log("file size less than 1mb");
-
-                     imageConversion.compress(file,0.5).then(res=>{
-                      //  imageConversion.compressAccurately(file,200).then(res=>{
-                        //The res in the promise is a compressed Blob type (which can be treated as a File type) file;
-                        console.log(res);
-
-                        let files = new FormData();
-                        files.append('file', res);
-                        files.append('statusID', document.getElementById("myform").elements.statusID.value)
-                        files.append('type', "status")
-                        $.ajax({
-                          type: 'POST',
-                          data: files,
-                          url: "/upload",
-                          /*async: false,*/
-                          contentType: false,
-                          processData: false,
-                          success: function (data) {
-                            // addImageInfoInDB(data);   
-                          },
-                          error: function (e) {
-                            alert("Error while adding data: " + JSON.stringify(e))
-                          }
-                        });
-                        
-                      })
-
-                }
 
         });
 
