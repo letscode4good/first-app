@@ -297,6 +297,7 @@
     <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
     <!-- https://jqueryui.com/download/ -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/WangYuLue/image-conversion/build/conversion.js"></script>
     <!-- https://getbootstrap.com/ -->
     <script>
         
@@ -395,26 +396,29 @@
         
         //files.append('file', $('#imageData')[0].files[0]); 
 
-        $.each($('#imageData')[0].files, function(i, file) {
-          let files = new FormData();
-          files.append('file', file);
-          files.append('maintenanceID', document.getElementById("myform").elements.maintenanceID.value)
-          files.append('serviceReport', document.getElementById("myform").elements.serviceReport.value)
-          files.append('type', "maintenance")
-          $.ajax({
-            type: 'POST',
-            data: files,
-            url: "/upload",
-            contentType: false,
-            processData: false,
-            success: function (data) {
-               //addImageInfoInDB(data);   
-            },
-            error: function (e) {
-              alert("Error while adding data: " + JSON.stringify(e))
-            }
+          $.each($('#imageData')[0].files, function(i, file) {
+
+             imageConversion.compress(file,0.3).then(res=>{
+                let files = new FormData();
+                files.append('file', file);
+                files.append('maintenanceID', document.getElementById("myform").elements.maintenanceID.value)
+                files.append('serviceReport', document.getElementById("myform").elements.serviceReport.value)
+                files.append('type', "maintenance")
+                $.ajax({
+                  type: 'POST',
+                  data: files,
+                  url: "/upload",
+                  contentType: false,
+                  processData: false,
+                  success: function (data) {
+                    //addImageInfoInDB(data);   
+                  },
+                  error: function (e) {
+                    alert("Error while adding data: " + JSON.stringify(e))
+                  }
+                });
+             })
           });
-        });
 
 
         //alert("Images added successfully")

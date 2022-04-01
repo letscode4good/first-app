@@ -220,6 +220,7 @@
     <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
     <!-- https://jqueryui.com/download/ -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/WangYuLue/image-conversion/build/conversion.js"></script>
     <!-- https://getbootstrap.com/ -->
     <script>
 
@@ -298,33 +299,30 @@
 
       function uploadImage()
       {
-        
-        //files.append('file', $('#imageData')[0].files[0]); 
-
         $.each($('#imageData')[0].files, function(i, file) {
-          let files = new FormData();
-          files.append('file', file);
-          files.append('file', file);
-          files.append('statusID', document.getElementById("myform").elements.statusID.value)
-          files.append('type', "status")
-          $.ajax({
-            type: 'POST',
-            data: files,
-            url: "/upload",
-            async: false,
-            contentType: false,
-            processData: false,
-            success: function (data) {
-               //addImageInfoInDB(data);   
-            },
-            error: function (e) {
-              alert("Error while adding data: " + JSON.stringify(e))
-            }
-          });
+
+          imageConversion.compress(file,0.3).then(res=>{
+              let files = new FormData();
+              files.append('file', file);
+              files.append('statusID', document.getElementById("myform").elements.statusID.value)
+              files.append('type', "status")
+              $.ajax({
+                type: 'POST',
+                data: files,
+                url: "/upload",
+                async: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                  //addImageInfoInDB(data);   
+                },
+                error: function (e) {
+                  alert("Error while adding data: " + JSON.stringify(e))
+                }
+              });
+          })
+
         });
-
-        //alert("Images added successfully")
-
       }
 
       function addImageInfoInDB(imageUrl)

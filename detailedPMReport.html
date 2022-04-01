@@ -128,7 +128,7 @@
             </div>
             <div class="row tm-edit-product-row">
                 <div class="col-xl-6 col-lg-6 col-md-12">
-                  <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="myfun()" class="tm-edit-product-form" >
+                  <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” class="tm-edit-product-form" >
                       
                     <div class="row">
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -384,27 +384,6 @@
             $("#myCarousel").carousel();
 
             }
-
-
-      function myfun()
-      {
-        let files = new FormData();
-        files.append('file', $('#imageData')[0].files[0]); 
-        $.ajax({
-            type: 'POST',
-            data: files,
-            url: "/upload",
-            contentType: false,
-            processData: false,
-            success: function (data) {
-               alert("Image added successfully")
-               addImageInfoInDB(data);   
-            },
-            error: function (e) {
-              alert("Error while adding data: " + JSON.stringify(e))
-            }
-          });
-      }
 
 
       function completeTask()
