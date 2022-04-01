@@ -135,7 +135,7 @@
             </div>
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
-                <form  id = "myform"  class="tm-edit-product-form" >
+                <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="preview_image()" class="tm-edit-product-form" >
 
 
 
@@ -198,13 +198,13 @@
                         for="imageData"
                         >Upload Status Image
                       </label>
-                      <input class="form-control validate" id="imageData" name="imageData" onclick="clearImage()" type="file" multiple />
+                      <input class="form-control validate" id="imageData" name="imageData"  onchange="preview_image()" onclick="clearImage()" type="file" multiple />
                     </div>
                  </div>
 
                  <div class="row">
                   <div class="form-group mb-3 col-xs-12 col-sm-6">
-                      <button type="submit" class="btn btn-primary btn-block text-uppercase" action="javascript:;"  onclick="preview_image()">Preview Image</button>
+                      <button type="submit" class="btn btn-primary btn-block text-uppercase" >Preview Image</button>
                   </div>
                 </div>
 
