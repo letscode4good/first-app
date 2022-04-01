@@ -163,6 +163,7 @@
                             <option value="AMC">AMC</option>
                             <option value="RENTAL">RENTAL</option>
                             <option value="SOLAR RENTAL">SOLAR RENTAL</option>
+                            <option value="OTC">ONE TIme Customer</option>
                           </select>
                           </div>
 
@@ -310,6 +311,7 @@
 
         let rentalCustCode =""
         let amcCustCode=""
+        let otcCustCode=""
         let flag=""
 
       $(function() {
@@ -322,6 +324,7 @@
             success: function (responseData) {
                rentalCustCode = "RENTAL" + responseData.custRental;
                amcCustCode = "AMC"+ responseData.custAMC;
+               otcCustCode = "OTC"+ responseData.custOTC;
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
@@ -341,6 +344,11 @@
           {
             document.getElementById("myform").elements.custId.value = rentalCustCode
             flag = "RENTAL"
+          }
+          else if(x == "OTC")
+          {
+            document.getElementById("myform").elements.custId.value = otcCustCode
+            flag = "OTC"
           }
       }
 
@@ -406,6 +414,27 @@
                       alert("Error while adding data: " + JSON.stringify(e))
                     }
                   });
+               }
+               else if(flag =="OTC")
+               {
+
+                  $.ajax({
+                      type: 'POST',
+                      url: "/incrementOTCCustCounter",
+                      async: false,
+                      contentType: "application/x-www-form-urlencoded",
+                      success: function (data) {
+                        console.log("Maintenance counter incremented");
+                        alert("New Customer added successfully")
+                        
+                        sessionStorage.setItem("newCustomerID", rentalCustCode);
+                        window.location.href = "/addCustomerInventory.html"
+                      },
+                      error: function (e) {
+                        alert("Error while adding data: " + JSON.stringify(e))
+                      }
+                    });
+
                }
 
               }

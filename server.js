@@ -177,7 +177,8 @@ var countersSchema = new mongoose.Schema({
     statusCount: Number,
     searchId : String,
     custAMC: Number,
-    custRental: Number
+    custRental: Number,
+    custOTC : Number
 });
 
 var userDetailsSchemaObject = mongoose.model('UserDetails', userDetailsSchema,'UserDetails');
@@ -611,6 +612,20 @@ app.post('/incrementAMCCustCounter', function(req, res){
 
 app.post('/incrementRentalCustCounter', function(req, res){
     countersSchemaObject.findOneAndUpdate({searchId: "keywordforsearch"}, {$inc:{ custRental: 1}}, function (err, docs) {
+        if (err){
+            console.log(err)
+            res.send('failure');
+        }
+        else{
+            //console.log("Result : ", docs);
+            res.send(docs);   
+        }
+    });
+})
+
+
+app.post('/incrementOTCCustCounter', function(req, res){
+    countersSchemaObject.findOneAndUpdate({searchId: "keywordforsearch"}, {$inc:{ custOTC: 1}}, function (err, docs) {
         if (err){
             console.log(err)
             res.send('failure');
