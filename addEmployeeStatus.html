@@ -255,38 +255,39 @@
 
         $(function() {
 
-          $.ajax({
-                type: "GET",
-                url: "/getAllEngineers",
-                dataType: "json",
-                global: false,
-                success: function (result, status, xhr) {
-                $.each(result,function(key, value)
-                {
-                    $("#userName").append('<option value="' + value.userName + '">' + value.userName + '</option>');
-                });
-                },
-                error: function (xhr, status, error) {
-                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-                }
-            });
-
             $.ajax({
-            type: 'GET',
-            url: "/getCounters",
-            /*async: false,*/
-            contentType: "text/plain",
-            global: false,
-            dataType: 'json',
-            success: function (responseData) {
-               futureSid = "S_" + responseData.statusCount;
-               document.getElementById("myform").elements.statusID.value = futureSid;
-            },
-            error: function (e) {
-              alert("Error while adding data: " + JSON.stringify(e))
-            }
-          }); 
+                  type: "GET",
+                  url: "/getAllEngineers",
+                  dataType: "json",
+                  global: false,
+                  success: function (result, status, xhr) {
+                  $.each(result,function(key, value)
+                  {
+                      $("#userName").append('<option value="' + value.userName + '">' + value.userName + '</option>');
+                  });
+                  },
+                  error: function (xhr, status, error) {
+                      alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                  }
+              });
 
+              $.ajax({
+              type: 'GET',
+              url: "/getCounters",
+              /*async: false,*/
+              contentType: "text/plain",
+              global: false,
+              dataType: 'json',
+              success: function (responseData) {
+                futureSid = "S_" + responseData.statusCount;
+                document.getElementById("myform").elements.statusID.value = futureSid;
+              },
+              error: function (e) {
+                alert("Error while adding data: " + JSON.stringify(e))
+              }
+            }); 
+
+            document.getElementById("image_preview").style.display = "none";
 
           });
 
