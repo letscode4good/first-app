@@ -163,7 +163,7 @@
                             <option value="AMC">AMC</option>
                             <option value="RENTAL">RENTAL</option>
                             <option value="SOLAR RENTAL">SOLAR RENTAL</option>
-                            <option value="OTC">ONE TIme Customer</option>
+                            <option value="OTC">ONE TIME CUSTOMER</option>
                           </select>
                           </div>
 
@@ -427,7 +427,7 @@
                         console.log("Maintenance counter incremented");
                         alert("New Customer added successfully")
                         
-                        sessionStorage.setItem("newCustomerID", rentalCustCode);
+                        sessionStorage.setItem("newCustomerID", otcCustCode);
                         window.location.href = "/addCustomerInventory.html"
                       },
                       error: function (e) {
