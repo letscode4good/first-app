@@ -134,7 +134,7 @@
             </div>
             <div class="row tm-edit-product-row">
                 <div class="col-xl-6 col-lg-6 col-md-12">
-                  <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="preview_image()" class="tm-edit-product-form" >
+                  <form  id = "myform" action="javascript:preview_image();" method="post" enctype="multipart/form-data" class="tm-edit-product-form" >
                       
                     <div class="row">
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
@@ -329,6 +329,7 @@
           console.log(mID);
           document.getElementById("myform").elements.maintenanceID.value = mID;
           document.getElementById("myform1").reset();
+          document.getElementById("image_preview").style.display = "none";
         });
 
 
