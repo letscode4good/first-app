@@ -130,7 +130,7 @@
             </div>
             <div class="row tm-edit-product-row">
               <div class="col-xl-6 col-lg-6 col-md-12">
-                <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="preview_image()" class="tm-edit-product-form" >
+                <form  id = "myform"  action="javascript:preview_image();" method="post" enctype="multipart/form-data"  class="tm-edit-product-form" >
 
 
                   <div class="row">
@@ -226,19 +226,21 @@
 
         $(function() {
 
-          $.ajax({
-            type: 'GET',
-            url: "/getCounters",
-            contentType: "text/plain",
-            dataType: 'json',
-            success: function (responseData) {
-               futureSid = "S_" + responseData.statusCount;
-               document.getElementById("myform").elements.statusID.value = futureSid;
-            },
-            error: function (e) {
-              alert("Error while adding data: " + JSON.stringify(e))
-            }
-          }); 
+            $.ajax({
+              type: 'GET',
+              url: "/getCounters",
+              contentType: "text/plain",
+              dataType: 'json',
+              success: function (responseData) {
+                futureSid = "S_" + responseData.statusCount;
+                document.getElementById("myform").elements.statusID.value = futureSid;
+              },
+              error: function (e) {
+                alert("Error while adding data: " + JSON.stringify(e))
+              }
+            }); 
+
+            document.getElementById("image_preview").style.display = "none";
 
         });
 
