@@ -341,7 +341,17 @@
               }
               else
               {
+                
+                console.time('doSomething')
+    
+
+
                 uploadImage()
+
+                    
+                console.timeEnd('doSomething')
+
+
                   $.ajax({
                   type: 'POST',
                   url: "/incrementStatusCounter",
