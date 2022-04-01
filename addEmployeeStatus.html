@@ -404,7 +404,7 @@
                       })
 
                 }
-                else if(fileSize >= 1096 )
+               else
                 {
                     console.log("file size greater than 1mb");
 
@@ -439,7 +439,7 @@
                 {
                     console.log("file size less than 1mb");
 
-                     imageConversion.compress(file,0.6).then(res=>{
+                     imageConversion.compress(file,0.5).then(res=>{
                       //  imageConversion.compressAccurately(file,200).then(res=>{
                         //The res in the promise is a compressed Blob type (which can be treated as a File type) file;
                         console.log(res);
