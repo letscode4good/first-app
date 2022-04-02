@@ -63,8 +63,12 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="allupcomingPM.html">All Upcoming Maintenance</a>
                 <a class="dropdown-item" href="completedPM.html">Completed Maintenance</a>
-                <a class="dropdown-item" href="generateMaintenanceReport.html">Generate Maintenance Report</a>
-                <a class="dropdown-item" href="generateStatusReport.html">Generate Status Report</a>
+                
+                <div id = "editRecordButton" style ="display:none">
+                  <a class="dropdown-item" href="generateMaintenanceReport.html">Generate Maintenance Report</a>
+                  <a class="dropdown-item" href="generateStatusReport.html">Generate Status Report</a>
+                </div>
+                
               </div>
             </li>
 <!--            
@@ -333,32 +337,13 @@
     <!-- https://getbootstrap.com/ -->
     <script>
       $(function() {
-        $("#expire_date").datepicker();
 
-        /*
-        $.ajax({
-                type: "GET",
-                url: "/getCustomerDetails",
-                dataType: "json",
-                success: function (result, status, xhr) {
-                $.each(result,function(key, value)
-                {
-                    $("#customerName").append('<option value=' + value.custId + '>' + value.customerName + '</option>');
-                });
-                },
-                error: function (xhr, status, error) {
-                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-                }
-            });
-*/
-
-
-document.getElementById("myform").elements.customerName.value = sessionStorage.getItem("custName");
-document.getElementById("myform").elements.custId.value = sessionStorage.getItem("custID");
-document.getElementById("myform").elements.customerType.value = sessionStorage.getItem("custType");
-document.getElementById("myform").elements.address.value = sessionStorage.getItem("custAddress");
-document.getElementById("myform").elements.upsName.value = sessionStorage.getItem("upsName");
-document.getElementById("myform").elements.upsCapacity.value = sessionStorage.getItem("upsCapacity");
+          document.getElementById("myform").elements.customerName.value = sessionStorage.getItem("custName");
+          document.getElementById("myform").elements.custId.value = sessionStorage.getItem("custID");
+          document.getElementById("myform").elements.customerType.value = sessionStorage.getItem("custType");
+          document.getElementById("myform").elements.address.value = sessionStorage.getItem("custAddress");
+          document.getElementById("myform").elements.upsName.value = sessionStorage.getItem("upsName");
+          document.getElementById("myform").elements.upsCapacity.value = sessionStorage.getItem("upsCapacity");
 
 
             $.ajax({
@@ -391,6 +376,30 @@ document.getElementById("myform").elements.upsCapacity.value = sessionStorage.ge
               alert("Error while adding data: " + JSON.stringify(e))
             }
           });        
+      
+            $.ajax({
+            type: 'GET',
+            url: "/whoami",
+            contentType: "text/plain",
+            global: false,
+            dataType: 'json',
+            success: function (resposeJson) {
+
+              if(resposeJson.message == "admin" || resposeJson.message == "coordinator" )
+              {
+                document.getElementById("editRecordButton").style.display = "block";
+              }
+              else
+              {
+                document.getElementById("editRecordButton").style.display = "none";
+              }
+            },
+            error: function (e) {
+              console.log("Error while adding data: " + JSON.stringify(e))
+              document.getElementById("editRecordButton").style.display = "none";
+            }
+          });
+      
       });
 
       function myfun()

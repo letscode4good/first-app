@@ -62,8 +62,12 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="allupcomingPM.html">All Upcoming Maintenance</a>
                   <a class="dropdown-item" href="completedPM.html">Completed Maintenance</a>
-                  <a class="dropdown-item" href="generateMaintenanceReport.html">Generate Maintenance Report</a>
-                  <a class="dropdown-item" href="generateStatusReport.html">Generate Status Report</a>
+                  
+                  <div id = "editRecordButton" style ="display:none">
+                    <a class="dropdown-item" href="generateMaintenanceReport.html">Generate Maintenance Report</a>
+                    <a class="dropdown-item" href="generateStatusReport.html">Generate Status Report</a>
+                  </div>
+
                 </div>
               </li>
     <!--
@@ -174,6 +178,30 @@
     <script>
 
          $(function() {
+
+          $.ajax({
+            type: 'GET',
+            url: "/whoami",
+            contentType: "text/plain",
+            global: false,
+            dataType: 'json',
+            success: function (resposeJson) {
+
+              if(resposeJson.message == "admin" || resposeJson.message == "coordinator" )
+              {
+                document.getElementById("editRecordButton").style.display = "block";
+              }
+              else
+              {
+                document.getElementById("editRecordButton").style.display = "none";
+              }
+            },
+            error: function (e) {
+              console.log("Error while adding data: " + JSON.stringify(e))
+              document.getElementById("editRecordButton").style.display = "none";
+            }
+          });
+
           document.getElementById("myform").reset();
         });
 
