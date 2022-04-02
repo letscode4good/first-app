@@ -339,12 +339,18 @@
                           </div>   
                   </div>
                   
-              </div>
-              </div>
-              <div class="col-12">
-                <button id ="submit" id ="submitbutton" type="submit" class="btn btn-primary btn-block text-uppercase">Add Maintenance</button>
-              </div>
-            </form>
+
+                  <div class="col-12">
+                    <button id ="submit" id ="submitbutton" type="submit" class="btn btn-primary btn-block text-uppercase">Add Maintenance</button>
+                  </div>
+
+                  </div>
+                  </div>
+                  
+
+
+                  
+                </form>
             </div>
           </div>
         </div>
@@ -367,14 +373,6 @@
     <script>
       $(function() {
 
-          document.getElementById("myform").elements.customerName.value = sessionStorage.getItem("custName");
-          document.getElementById("myform").elements.custId.value = sessionStorage.getItem("custID");
-          document.getElementById("myform").elements.customerType.value = sessionStorage.getItem("custType");
-          document.getElementById("myform").elements.address.value = sessionStorage.getItem("custAddress");
-          document.getElementById("myform").elements.upsName.value = sessionStorage.getItem("upsName");
-          document.getElementById("myform").elements.upsCapacity.value = sessionStorage.getItem("upsCapacity");
-
-
             $.ajax({
                 type: "GET",
                 url: "/getAllEngineers",
@@ -390,21 +388,7 @@
                     alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
                 }
             });
-
-            $.ajax({
-            type: 'GET',
-            url: "/getCounters",
-            contentType: "text/plain",
-            dataType: 'json',
-            global : false,
-            success: function (responseData) {
-               futureMid = "M_" + responseData.maintenanceCount;
-               document.getElementById("myform").elements.maintenanceID.value = futureMid;
-            },
-            error: function (e) {
-              alert("Error while adding data: " + JSON.stringify(e))
-            }
-          });        
+     
       
           $.ajax({
             type: 'GET',
@@ -454,31 +438,12 @@
                     upsCapacity: document.getElementById("myform").elements.upsCapacity.value,
                     description: document.getElementById("myform").elements.description.value
                   },
-            url: "/addupcomingPM",
+            url: "/editupcomingPM",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
 
-              if(data.message == "duplicatefound")
-              {
-                alert("An entry is already present.")
-              }
-              else if (data.message == "success")
-              {
-                    $.ajax({
-                    type: 'POST',
-                    url: "/incrementMaintenanceCounter",
-                    async: false,
-                    contentType: "application/x-www-form-urlencoded",
-                    success: function (data) {
-                      console.log("Maintenance counter incremented");
-                      alert("Data added Successfully")
-                    },
-                    error: function (e) {
-                      alert("Error while adding data: " + JSON.stringify(e))
-                    }
-                  });
-              }
-              
+              alert("Maintenance data modified Successfully")
+
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))
@@ -489,12 +454,41 @@
 
       function fetchRecord()
       {
+        $.ajax({
+            type: 'GET',
+            data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
+            url: "/getUpcomingPMForMid",
+            contentType: "text/plain",
+            global: false,
+            dataType: 'json',
+            success: function (resposeJson) {
+
+              document.getElementById("myform").elements.customerName.value = resposeJson.customerName;
+              document.getElementById("myform").elements.custId.value = resposeJson.custId;
+              document.getElementById("myform").elements.maintenanceType.value = resposeJson.maintenanceType;
+              document.getElementById("myform").elements.issueType.value = resposeJson.issueType;
+              document.getElementById("myform").elements.dateWhenScheduled.value = resposeJson.dateWhenScheduled;
+              document.getElementById("myform").elements.engineer.value = resposeJson.engineer;
+              document.getElementById("myform").elements.maintenanceID.value = resposeJson.maintenanceID;
+              document.getElementById("myform").elements.customerType.value = resposeJson.customerType;
+              document.getElementById("myform").elements.address.value = resposeJson.address;
+              document.getElementById("myform").elements.upsName.value = resposeJson.upsName;
+              document.getElementById("myform").elements.upsCapacity.value = resposeJson.upsCapacity;
+              document.getElementById("myform").elements.description.value = resposeJson.description;
+
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+        
         document.getElementById("myform").style.display = "block";
+
       }
 
       $( document ).ajaxStop(function() {
          console.log("all ajx calls are done")
-         window.location.href = "/schedulePM.html";
+         window.location.href = "/allupcomingPM.html";
         });
 
     </script>
