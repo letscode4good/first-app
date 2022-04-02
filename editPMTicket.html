@@ -143,6 +143,7 @@
                       name="mid"
                       type="input"
                       class="form-control validate"
+                      required
                     />
                   </div>
   
@@ -479,7 +480,7 @@
 
             },
             error: function (e) {
-              alert("Error while adding data: " + JSON.stringify(e))
+              alert("No record found for given Mid")
             }
           });
         
