@@ -105,9 +105,9 @@
         -->
                 <a class="dropdown-item" href="view-customer-info.html">View Customers</a>
                 <div id = "hideMenu" style ="display:none">
-                  <a class="dropdown-item" href="schedulePM.html">Add Maintenace Request</a>
+                  <a class="dropdown-item" href="schedulePM.html">Add Maintenance Request</a>
                   <a class="dropdown-item" href="add-customer-info.html">Add Customer</a>
-                  <a class="dropdown-item" href="deleteUpcomingPM.html">Delete Maintenace Request</a>
+                  <a class="dropdown-item" href="deleteUpcomingPM.html">Delete Maintenance Request</a>
                 </div>
             </div>
             </li>
@@ -328,7 +328,7 @@
                           <div class="form-group mb-3 col-xs-12 col-sm-6">
                             <label
                               for="maintenanceID"
-                              >Maintenace ID
+                              >Maintenance ID
                             </label>
                             <input
                               id="maintenanceID"
@@ -343,7 +343,7 @@
                   
 
                   <div class="col-12">
-                    <button id ="submit" id ="submitbutton" type="submit" class="btn btn-primary btn-block text-uppercase">Add Maintenance</button>
+                    <button id ="submit" id ="submitbutton" type="submit" class="btn btn-primary btn-block text-uppercase">Save new Data</button>
                   </div>
 
                   </div>
@@ -478,14 +478,15 @@
               document.getElementById("myform").elements.upsCapacity.value = resposeJson.upsCapacity;
               document.getElementById("myform").elements.description.value = resposeJson.description;
 
+              document.getElementById("myform").style.display = "block";
+
             },
             error: function (e) {
-              alert("No record found for given Mid")
+              alert("No record found for given Maintenance ID")
+              
             }
           });
         
-        document.getElementById("myform").style.display = "block";
-
       }
 
       $( document ).ajaxStop(function() {
