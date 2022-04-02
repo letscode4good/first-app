@@ -141,7 +141,7 @@
                     <input
                       id="mid"
                       name="mid"
-                      type="inout"
+                      type="input"
                       class="form-control validate"
                     />
                   </div>
@@ -158,6 +158,7 @@
                   </div>
   
                 </form>
+                &nbsp;
 
 
                 <form id = "myform" action="javascript:;" style ="display:none" onsubmit="myfun()"  class="tm-edit-product-form">
@@ -456,7 +457,7 @@
       {
         $.ajax({
             type: 'GET',
-            data: {maintenanceID: document.getElementById("myform").elements.maintenanceID.value},
+            data: {maintenanceID: document.getElementById("myform1").elements.mid.value},
             url: "/getUpcomingPMForMid",
             contentType: "text/plain",
             global: false,
