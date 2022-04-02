@@ -559,6 +559,20 @@ app.post('/addupcomingPM', function(req, res){
     
 })
 
+
+app.post('/editupcomingPM', function(req, res){
+    upcomingMaintenanceSchemaObject.findOneAndUpdate({'maintenanceID':req.body.maintenanceID} ,{'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'issueType':req.body.issueType , 'dateWhenScheduled': req.body.dateWhenScheduled, 'engineer':req.body.engineer, 'maintenanceID':req.body.maintenanceID ,'customerType':req.body.customerType, 'address':req.body.address, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity, 'description': req.body.description}, function (err, docs) {
+        if (err){
+            //console.log(err)
+            res.send('failure');
+        }
+        else{
+            res.json({message : 'success'})
+        }
+    });
+})
+
+
 app.post('/delupcomingPM', function(req, res){
     upcomingMaintenanceSchemaObject.findOneAndDelete({'maintenanceID':req.body.maintenanceID}, function (err, docs) {
         if (err){
@@ -1166,6 +1180,8 @@ app.get('/login.html', (req, res) => res.sendFile(__dirname+'/login.html'))
 app.get('/products.html', (req, res) => res.sendFile(__dirname+'/products.html'))
 
 app.get('/deleteUpcomingPM.html', (req, res) => res.sendFile(__dirname+'/deleteUpcomingPM.html'))
+
+app.get('/editPMTicket.html', (req, res) => res.sendFile(__dirname+'/editPMTicket.html'))
 
 
 app.get('/upcomingCustomerPM.html', (req, res) => res.sendFile(__dirname+'/upcomingCustomerPM.html'))
