@@ -128,7 +128,7 @@
           <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
             <div class="row">
               <div class="col-12">
-                <h2 class="tm-block-title d-inline-block">Add Maintenance Info</h2>
+                <h2 class="tm-block-title d-inline-block">Edit Maintenance Record</h2>
               </div>
             </div>
             <div class="row tm-edit-product-row">
@@ -164,6 +164,23 @@
 
                 <form id = "myform" action="javascript:;" style ="display:none" onsubmit="myfun()"  class="tm-edit-product-form">
                     <div class="row">
+
+
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="maintenanceID"
+                            >Maintenance ID
+                          </label>
+                          <input
+                            id="maintenanceID"
+                            name="maintenanceID"
+                            type="text"
+                            class="form-control validate"
+                            required
+                            style="background-color: #54659d;" readonly=""
+                          />
+                        </div>   
+
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
                             for="customerName"
@@ -175,7 +192,8 @@
                             type="text"
                             class="form-control validate"
                             required 
-                            style="background-color: #54657d;" readonly=""
+                            readonly=""
+                            style="background-color: #54659d;"
                           />
 
                         </div>
@@ -191,7 +209,7 @@
                             type="text"
                             class="form-control validate"
                             required 
-                            style="background-color: #54657d;" readonly=""
+                            sstyle="background-color: #54659d;" readonly=""
                           />
                         </div>
 
@@ -206,7 +224,7 @@
                               type="text"
                               class="form-control validate"
                               required 
-                              style="background-color: #54657d;" readonly=""
+                              style="background-color: #54659d;" readonly=""
                             />
                           </div>
 
@@ -221,7 +239,7 @@
                                 type="text"
                                 class="form-control validate"
                                 required 
-                                style="background-color: #54657d;" readonly=""
+                                style="background-color: #54659d;" readonly=""
                               />
                             </div>
 
@@ -236,7 +254,7 @@
                                   type="text"
                                   class="form-control validate"
                                   required 
-                                  style="background-color: #54657d;" readonly=""
+                                  style="background-color: #54659d;" readonly=""
                                 />
                               </div>
 
@@ -251,7 +269,7 @@
                                     type="text"
                                     class="form-control validate"
                                     required 
-                                    style="background-color: #54657d;" readonly=""
+                                    style="background-color: #54659d;" readonly=""
                                   />
                                 </div>
 
@@ -324,21 +342,7 @@
                            <option value="">Select Engineer</option>
                            </select>
                           </div>
-
-                          <div class="form-group mb-3 col-xs-12 col-sm-6">
-                            <label
-                              for="maintenanceID"
-                              >Maintenance ID
-                            </label>
-                            <input
-                              id="maintenanceID"
-                              name="maintenanceID"
-                              type="text"
-                              class="form-control validate"
-                              required
-                              style="background-color: #54657d;" readonly=""
-                            />
-                          </div>   
+  
                   </div>
                   
 
