@@ -61,7 +61,7 @@
                 <a class="dropdown-item" href="allupcomingPM.html">All Upcoming Maintenance</a>
                 <a class="dropdown-item" href="completedPM.html">Completed Maintenance</a>
                
-                <div id = "editRecordButton" style ="display:none">
+                <div id = "hideReport" style ="display:none">
                   <a class="dropdown-item" href="generateMaintenanceReport.html">Generate Maintenance Report</a>
                   <a class="dropdown-item" href="generateStatusReport.html">Generate Status Report</a>
                 </div>
@@ -102,9 +102,11 @@
                 <a class="dropdown-item" href="add-customer-info.html">Add Customer</a>
         -->
                 <a class="dropdown-item" href="view-customer-info.html">View Customers</a>
-                <a class="dropdown-item" href="schedulePM.html">Add Maintenace Request</a>
-                <a class="dropdown-item" href="add-customer-info.html">Add Customer</a>
-                <a class="dropdown-item" href="deleteUpcomingPM.html">Delete Maintenace Request</a>
+                <div id = "hideMenu" style ="display:none">
+                  <a class="dropdown-item" href="schedulePM.html">Add Maintenace Request</a>
+                  <a class="dropdown-item" href="add-customer-info.html">Add Customer</a>
+                  <a class="dropdown-item" href="deleteUpcomingPM.html">Delete Maintenace Request</a>
+                </div>
             </div>
             </li>
           </ul>
@@ -221,16 +223,20 @@
 
               if(resposeJson.message == "admin" || resposeJson.message == "coordinator" )
               {
-                document.getElementById("editRecordButton").style.display = "block";
+                document.getElementById("hideReport").style.display = "block";
+                document.getElementById("hideMenu").style.display = "block";
+                
               }
               else
               {
-                document.getElementById("editRecordButton").style.display = "none";
+                document.getElementById("hideReport").style.display = "none";
+                document.getElementById("hideMenu").style.display = "none";
               }
             },
             error: function (e) {
               console.log("Error while adding data: " + JSON.stringify(e))
-              document.getElementById("editRecordButton").style.display = "none";
+              document.getElementById("hideReport").style.display = "none";
+              document.getElementById("hideMenu").style.display = "none";
             }
           });
 
