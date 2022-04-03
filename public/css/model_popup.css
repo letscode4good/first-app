@@ -201,7 +201,7 @@ a:link {
 }
 
 .dataTables_wrapper {
-  width: 1200px;
+  width:inherit;
   margin: 0 auto;
 }
 
