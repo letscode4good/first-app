@@ -177,7 +177,8 @@ var countersSchema = new mongoose.Schema({
     statusCount: Number,
     searchId : String,
     custAMC: Number,
-    custRental: Number
+    custRental: Number,
+    custOTC : Number
 });
 
 var userDetailsSchemaObject = mongoose.model('UserDetails', userDetailsSchema,'UserDetails');
@@ -371,7 +372,7 @@ app.post('/addStatusDetail', function(req, res){
 
     statusDetailsSchemaObject.find({ 'date': req.body.statusDate, 'name': session.userName }, function (err, docs) {
         if(err) return next(err);
-        if (docs == null) {
+        if (docs.length == 0) {
             var newDBEntry = new statusDetailsSchemaObject({'date': req.body.statusDate , 'name': session.userName , 'status':req.body.status, 'statusID': req.body.statusID}) 
             newDBEntry.save(function(err, savedUser){
                 if(err)
@@ -382,7 +383,7 @@ app.post('/addStatusDetail', function(req, res){
         }
         else
         {
-            res.send('A status entry is already present for -' + session.userName);
+            res.json({error : 'A status entry is already present for -' + session.userName })
         }
         
       });
@@ -558,6 +559,20 @@ app.post('/addupcomingPM', function(req, res){
     
 })
 
+
+app.post('/editupcomingPM', function(req, res){
+    upcomingMaintenanceSchemaObject.findOneAndUpdate({'maintenanceID':req.body.maintenanceID} ,{'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'issueType':req.body.issueType , 'dateWhenScheduled': req.body.dateWhenScheduled, 'engineer':req.body.engineer, 'maintenanceID':req.body.maintenanceID ,'customerType':req.body.customerType, 'address':req.body.address, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity, 'description': req.body.description}, function (err, docs) {
+        if (err){
+            //console.log(err)
+            res.send('failure');
+        }
+        else{
+            res.json({message : 'success'})
+        }
+    });
+})
+
+
 app.post('/delupcomingPM', function(req, res){
     upcomingMaintenanceSchemaObject.findOneAndDelete({'maintenanceID':req.body.maintenanceID}, function (err, docs) {
         if (err){
@@ -611,6 +626,20 @@ app.post('/incrementAMCCustCounter', function(req, res){
 
 app.post('/incrementRentalCustCounter', function(req, res){
     countersSchemaObject.findOneAndUpdate({searchId: "keywordforsearch"}, {$inc:{ custRental: 1}}, function (err, docs) {
+        if (err){
+            console.log(err)
+            res.send('failure');
+        }
+        else{
+            //console.log("Result : ", docs);
+            res.send(docs);   
+        }
+    });
+})
+
+
+app.post('/incrementOTCCustCounter', function(req, res){
+    countersSchemaObject.findOneAndUpdate({searchId: "keywordforsearch"}, {$inc:{ custOTC: 1}}, function (err, docs) {
         if (err){
             console.log(err)
             res.send('failure');
@@ -977,7 +1006,7 @@ app.get("/getAllUpcomingPMBetweenDates",function(req, res) {
           });
     }
     else if(session.userId && (session.userType == 'engineer')){
-        upcomingMaintenanceSchemaObject.find({engineer: session.userName}, function (err, docs) {
+        upcomingMaintenanceSchemaObject.find({engineer: session.userName, dateWhenScheduled: {$gte: req.query.startDate, $lte: req.query.endDate} }, function (err, docs) {
             if(err) return next(err);
             if (docs == null) {
                 res.send('Upcoming maintenance record not found.');
@@ -1151,6 +1180,8 @@ app.get('/login.html', (req, res) => res.sendFile(__dirname+'/login.html'))
 app.get('/products.html', (req, res) => res.sendFile(__dirname+'/products.html'))
 
 app.get('/deleteUpcomingPM.html', (req, res) => res.sendFile(__dirname+'/deleteUpcomingPM.html'))
+
+app.get('/editPMTicket.html', (req, res) => res.sendFile(__dirname+'/editPMTicket.html'))
 
 
 app.get('/upcomingCustomerPM.html', (req, res) => res.sendFile(__dirname+'/upcomingCustomerPM.html'))

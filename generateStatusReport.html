@@ -51,7 +51,7 @@
     <div class="" id="home">
         <nav class="navbar navbar-expand-xl">
             <div class="container h-100">
-                <img src="img/logo.png" alt="Rspowerlogo" width="90" height="90">
+                <img src="img/logo.png" alt="Rspowerlogo" width="80" height="80">
                 <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-bars tm-nav-icon"></i>
@@ -78,8 +78,12 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="allupcomingPM.html">All Upcoming Maintenance</a>
                                 <a class="dropdown-item" href="completedPM.html">Completed Maintenance</a>
-                                <a class="dropdown-item" href="generateMaintenanceReport.html">Generate Maintenance Report</a>
-                                <a class="dropdown-item" href="generateStatusReport.html">Generate Status Report</a>
+                               
+                                <div id = "hideReport" style ="display:none">
+                                    <a class="dropdown-item" href="generateMaintenanceReport.html">Generate Maintenance Report</a>
+                                    <a class="dropdown-item" href="generateStatusReport.html">Generate Status Report</a>
+                                </div>
+                  
                             </div>
                         </li>
 
@@ -114,9 +118,12 @@
                                 <a class="dropdown-item" href="add-customer-info.html">Add Customer</a>
                     -->
                                 <a class="dropdown-item" href="view-customer-info.html">View Customers</a>
-                                <a class="dropdown-item" href="schedulePM.html">Add Maintenace Request</a>
-                                <a class="dropdown-item" href="add-customer-info.html">Add Customer</a>
-                                <a class="dropdown-item" href="deleteUpcomingPM.html">Delete Maintenace Request</a>
+                                <div id = "hideMenu" style ="display:none">
+                                    <a class="dropdown-item" href="schedulePM.html">Add Maintenance Request</a>
+                                    <a class="dropdown-item" href="add-customer-info.html">Add Customer</a>
+                                    <a class="dropdown-item" href="deleteUpcomingPM.html">Delete Maintenance Request</a>
+                                    <a class="dropdown-item" href="editPMTicket.html">Edit Maintenance Request</a>
+                                  </div>
                             </div>
                         </li>
                     </ul>
@@ -133,7 +140,7 @@
         </nav>
         <div class="row">
             <div class="col">
-                <p class="text-white mt-4 mb-2"style="font-size:160%; text-align:center" > <b>Generate Status Report </b></p>
+                <p class="text-white mt-5 mb-2"style="font-size:160%; text-align:center" > <b>Generate Status Report </b></p>
             </div>                  
         </div>
 
@@ -272,21 +279,48 @@
 
         $(function() {
 
-        $.ajax({
-            type: "GET",
-            url: "/getAllEngineers",
-            dataType: "json",
-            global: false,
-            success: function (result, status, xhr) {
-            $.each(result,function(key, value)
-            {
-                $("#userName").append('<option value="' + value.userName + '">' + value.userName + '</option>');
-            });
-            },
-            error: function (xhr, status, error) {
-                alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-            }
-        });
+                $.ajax({
+                    type: "GET",
+                    url: "/getAllEngineers",
+                    dataType: "json",
+                    global: false,
+                    success: function (result, status, xhr) {
+                    $.each(result,function(key, value)
+                    {
+                        $("#userName").append('<option value="' + value.userName + '">' + value.userName + '</option>');
+                    });
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                    }
+                });
+
+                $.ajax({
+                    type: 'GET',
+                    url: "/whoami",
+                    contentType: "text/plain",
+                    global: false,
+                    dataType: 'json',
+                    success: function (resposeJson) {
+
+                    if(resposeJson.message == "admin" || resposeJson.message == "coordinator" )
+                    {
+                        document.getElementById("hideReport").style.display = "block";
+                        document.getElementById("hideMenu").style.display = "block";
+                        
+                    }
+                    else
+                    {
+                        document.getElementById("hideReport").style.display = "none";
+                        document.getElementById("hideMenu").style.display = "none";
+                    }
+                    },
+                    error: function (e) {
+                    console.log("Error while adding data: " + JSON.stringify(e))
+                    document.getElementById("hideReport").style.display = "none";
+                    document.getElementById("hideMenu").style.display = "none";
+                    }
+                });
  
         });
 

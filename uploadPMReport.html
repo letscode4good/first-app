@@ -27,7 +27,7 @@
   <body>
     <nav class="navbar navbar-expand-xl">
       <div class="container h-100">
-        <img src="img/logo.png" alt="Rspowerlogo" width="90" height="90">
+        <img src="img/logo.png" alt="Rspowerlogo" width="80" height="80">
         <button
           class="navbar-toggler ml-auto mr-0"
           type="button"
@@ -64,8 +64,12 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="allupcomingPM.html">All Upcoming Maintenance</a>
                 <a class="dropdown-item" href="completedPM.html">Completed Maintenance</a>
-                <a class="dropdown-item" href="generateMaintenanceReport.html">Generate Maintenance Report</a>
-                <a class="dropdown-item" href="generateStatusReport.html">Generate Status Report</a>
+                
+                <div id = "hideReport" style ="display:none">
+                  <a class="dropdown-item" href="generateMaintenanceReport.html">Generate Maintenance Report</a>
+                  <a class="dropdown-item" href="generateStatusReport.html">Generate Status Report</a>
+                </div>
+                
               </div>
             </li>
 
@@ -103,9 +107,12 @@
                 <a class="dropdown-item" href="add-customer-info.html">Add Customer</a>
         -->
                 <a class="dropdown-item" href="view-customer-info.html">View Customers</a>
-                <a class="dropdown-item" href="schedulePM.html">Add Maintenace Request</a>
-                <a class="dropdown-item" href="add-customer-info.html">Add Customer</a>
-                <a class="dropdown-item" href="deleteUpcomingPM.html">Delete Maintenace Request</a>
+                <div id = "hideMenu" style ="display:none">
+                  <a class="dropdown-item" href="schedulePM.html">Add Maintenance Request</a>
+                  <a class="dropdown-item" href="add-customer-info.html">Add Customer</a>
+                  <a class="dropdown-item" href="deleteUpcomingPM.html">Delete Maintenance Request</a>
+                  <a class="dropdown-item" href="editPMTicket.html">Edit Maintenance Request</a>
+                </div>
             </div>
             </li>
           </ul>
@@ -134,13 +141,13 @@
             </div>
             <div class="row tm-edit-product-row">
                 <div class="col-xl-6 col-lg-6 col-md-12">
-                  <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="preview_image()" class="tm-edit-product-form" >
+                  <form  id = "myform" action="javascript:preview_image();" method="post" enctype="multipart/form-data" class="tm-edit-product-form" >
                       
                     <div class="row">
                       <div class="form-group mb-3 col-xs-12 col-sm-6">
                         <label
                           for="maintenanceID"
-                          >Maintenace ID
+                          >Maintenance ID
                         </label>
                         <input class="form-control validate"  type="input" id="maintenanceID" required name="maintenanceID" STYLE="background-color: #54657d;" readonly>
                       </div>
@@ -297,6 +304,7 @@
     <script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
     <!-- https://jqueryui.com/download/ -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/WangYuLue/image-conversion/build/conversion.js"></script>
     <!-- https://getbootstrap.com/ -->
     <script>
         
@@ -328,6 +336,35 @@
           console.log(mID);
           document.getElementById("myform").elements.maintenanceID.value = mID;
           document.getElementById("myform1").reset();
+          document.getElementById("image_preview").style.display = "none";
+
+          $.ajax({
+            type: 'GET',
+            url: "/whoami",
+            contentType: "text/plain",
+            global: false,
+            dataType: 'json',
+            success: function (resposeJson) {
+
+              if(resposeJson.message == "admin" || resposeJson.message == "coordinator" )
+              {
+                document.getElementById("hideReport").style.display = "block";
+                document.getElementById("hideMenu").style.display = "block";
+                
+              }
+              else
+              {
+                document.getElementById("hideReport").style.display = "none";
+                document.getElementById("hideMenu").style.display = "none";
+              }
+            },
+            error: function (e) {
+              console.log("Error while adding data: " + JSON.stringify(e))
+              document.getElementById("hideReport").style.display = "none";
+              document.getElementById("hideMenu").style.display = "none";
+            }
+          });
+
         });
 
 
@@ -362,31 +399,30 @@
       function myfun()
       {
         
-        //files.append('file', $('#imageData')[0].files[0]); 
+          $.each($('#imageData')[0].files, function(i, file) {
 
-        $.each($('#imageData')[0].files, function(i, file) {
-          let files = new FormData();
-          files.append('file', file);
-          files.append('maintenanceID', document.getElementById("myform").elements.maintenanceID.value);
-          files.append('serviceReport', document.getElementById("myform").elements.serviceReport.value);
-          files.append('type', "maintenance");
-          $.ajax({
-            type: 'POST',
-            data: files,
-            url: "/upload",
-            contentType: false,
-            processData: false,
-            success: function (data) {
-               //addImageInfoInDB(data);   
-            },
-            error: function (e) {
-              alert("Error while adding data: " + JSON.stringify(e))
-            }
+              imageConversion.compress(file,0.3).then(res=>{
+                    let files = new FormData();
+                    files.append('file', file);
+                    files.append('maintenanceID', document.getElementById("myform").elements.maintenanceID.value);
+                    files.append('serviceReport', document.getElementById("myform").elements.serviceReport.value);
+                    files.append('type', "maintenance");
+                    $.ajax({
+                      type: 'POST',
+                      data: files,
+                      url: "/upload",
+                      contentType: false,
+                      processData: false,
+                      success: function (data) {
+                        //addImageInfoInDB(data);   
+                      },
+                      error: function (e) {
+                        alert("Error while adding data: " + JSON.stringify(e))
+                      }
+                    });
+
+              })
           });
-        });
-
-
-        //alert("Images added successfully")
 
       }
 
