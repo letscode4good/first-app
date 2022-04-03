@@ -1006,7 +1006,7 @@ app.get("/getAllUpcomingPMBetweenDates",function(req, res) {
           });
     }
     else if(session.userId && (session.userType == 'engineer')){
-        upcomingMaintenanceSchemaObject.find({engineer: session.userName}, function (err, docs) {
+        upcomingMaintenanceSchemaObject.find({engineer: session.userName, dateWhenScheduled: {$gte: req.query.startDate, $lte: req.query.endDate} }, function (err, docs) {
             if(err) return next(err);
             if (docs == null) {
                 res.send('Upcoming maintenance record not found.');
