@@ -201,9 +201,15 @@ a:link {
 }
 
 .dataTables_wrapper {
-  width: 70%;
+  width: 1200px;
   margin: 0 auto;
 }
+
+.dataTables_wrapper_inventory {
+width: 60%;
+margin: 0 auto;
+}
+
 
 .dataTables_scrollHead{
   height: 70px;
