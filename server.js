@@ -902,7 +902,10 @@ app.get("/getPMHistoryForMid",function(req, res) {
             if (docs == null) {
                 res.send('Preventive maintenance history not found for given M_id.');
             }
-            res.send(docs);
+            else
+            {
+                res.send(docs);
+            }
           });
 })
 
