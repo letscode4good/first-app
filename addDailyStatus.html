@@ -292,7 +292,21 @@
       {
         
         var todaysDate= new Date();
+
+        
+
         var selectedDate = new Date(todaysDate.getFullYear() + "-"+(todaysDate.getMonth()+1) + "-" + todaysDate.getDate()); 
+
+
+        var test1= todaysDate.getDate();
+        var test2= selectedDate.getDate();
+
+        if(test1 != test2)
+        {
+          selectedDate.setDate( selectedDate.getDate()+1);
+
+        }
+
         console.log(selectedDate)
         selectedDate.setUTCHours(0,0,0,0);
         console.log(selectedDate)
