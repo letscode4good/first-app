@@ -275,7 +275,7 @@
       {
         
         var todaysDate= new Date();
-        var selectedDate = new Date(todaysDate.getFullYear(),todaysDate.getMonth(),todaysDate.getDate()); 
+        var selectedDate = new Date(todaysDate.getFullYear() + "-"+todaysDate.getMonth() + "-" + todaysDate.getDate()); 
         
         document.getElementById("submitbutton").disabled = true;
         document.getElementById("pageloader").style.display = "block";
