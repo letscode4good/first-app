@@ -272,6 +272,14 @@
 
             document.getElementById("image_preview").style.display = "none";
 
+
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(showPosition);
+            }
+            else { 
+            console.log("Geolocation is not supported by this browser.");
+            }
+
         });
 
         function showPosition(position) {
@@ -289,13 +297,6 @@
         document.getElementById("submitbutton").disabled = true;
         document.getElementById("pageloader").style.display = "block";
 
-
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition);
-        }
-        else { 
-         console.log("Geolocation is not supported by this browser.");
-        }
 
         $.ajax({
             type: 'POST',
