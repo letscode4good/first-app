@@ -190,6 +190,7 @@
                               <th scope="col">Date</th>
                               <th scope="col">Name</th>
                               <th scope="col">Status</th>
+                              <th scope="col">Location</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -320,6 +321,7 @@
                 statusDate,
                 data[i].name,
                 data[i].status,
+                `https://nominatim.openstreetmap.org/ui/reverse.html?lat=${data[i].lattitude}&lon=${data[i].longitude}&zoom=18`
               ]);
             }
           }
