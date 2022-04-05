@@ -294,6 +294,8 @@
         var todaysDate= new Date();
         var selectedDate = new Date(todaysDate.getUTCFullYear() + "-"+(todaysDate.getUTCMonth()+1) + "-" + todaysDate.getUTCDate()); 
         
+        selectedDate.setUTCHours(0,0,0,0);
+
         document.getElementById("submitbutton").disabled = true;
         document.getElementById("pageloader").style.display = "block";
 
