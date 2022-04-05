@@ -108,6 +108,17 @@
     <!-- https://getbootstrap.com/ -->
 
     <script>
+
+        function showPosition(position) {
+          console.log("showPosition called.");
+        }
+
+        function errorHandler(errorObj)
+        {
+          console.log(errorObj.code + ": " + errorObj.message); 
+        }
+
+
       $(function() {
      $.ajax({
             type: 'GET',
@@ -121,6 +132,14 @@
               console.log("Could not remove Old session.");
             }
           });
+
+          if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(showPosition, errorHandler,{enableHighAccuracy: true, maximumAge: 10000});
+            }
+            else { 
+            alert("Geolocation is not supported by this browser.");
+            }
+
       });
 
       function myfun()
