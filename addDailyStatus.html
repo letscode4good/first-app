@@ -293,24 +293,9 @@
         
         var todaysDate= new Date();
 
-        
-
         var selectedDate = new Date(todaysDate.getFullYear() + "-"+(todaysDate.getMonth()+1) + "-" + todaysDate.getDate()); 
 
-
-        var test1= todaysDate.getDate();
-        var test2= selectedDate.getDate();
-
-        alert(test2)
-
-        if(test1 != test2)
-        {
-          selectedDate.setDate( selectedDate.getDate()+1);
-
-        }
-
-        alert(selectedDate)
-        selectedDate.setUTCHours(0,0,0,0);
+        selectedDate.setUTCHours(5,30,0,0);
         alert(selectedDate)
 
         document.getElementById("submitbutton").disabled = true;
