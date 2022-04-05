@@ -292,7 +292,7 @@
       {
         
         var todaysDate= new Date();
-        var selectedDate = new Date(todaysDate.getFullYear() + "/"+(todaysDate.getMonth()+1) + "/" + todaysDate.getDate()); 
+        var selectedDate = new Date(todaysDate.getUTCFullYear() + "-"+(todaysDate.getUTCMonth()+1) + "-" + todaysDate.getUTCDate()); 
         
         document.getElementById("submitbutton").disabled = true;
         document.getElementById("pageloader").style.display = "block";
