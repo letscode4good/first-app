@@ -222,6 +222,9 @@
     <script>
        var showSuccessAlert = true;
 
+       var current_Lat = ""
+       var current_Long = ""
+
         $(function() {
 
             $.ajax({
@@ -271,6 +274,11 @@
 
         });
 
+        function showPosition(position) {
+          current_Lat = position.coords.latitude;
+          current_Long = position.coords.longitude;
+        }
+
       function myfun()
       {
         
@@ -280,11 +288,18 @@
         document.getElementById("submitbutton").disabled = true;
         document.getElementById("pageloader").style.display = "block";
 
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        }
+
         $.ajax({
             type: 'POST',
             data: { statusDate: selectedDate,
                     status: document.getElementById("myform").elements.status.value,
-                    statusID: document.getElementById("myform").elements.statusID.value},
+                    statusID: document.getElementById("myform").elements.statusID.value,
+                    latitude:current_Lat,
+                    longitude:current_Long},
             url: "/addStatusDetail",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {

@@ -158,6 +158,8 @@ var statusDetailsSchema = new mongoose.Schema({
     name : String,
     status : String,
     statusID: String,
+    latitude: String,
+    longitude: String
 });
 
 var pmImagesSchema = new mongoose.Schema({
