@@ -271,10 +271,10 @@
           });
 
             document.getElementById("image_preview").style.display = "none";
-
+            
 
             if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(showPosition);
+              navigator.geolocation.getCurrentPosition(showPosition, errorHandler,{enableHighAccuracy: true, maximumAge: 10000});
             }
             else { 
             alert("Geolocation is not supported by this browser.");
@@ -289,6 +289,12 @@
 
           alert(current_Lat)
           alert(current_Long)
+        }
+
+        function errorHandler(errorObj)
+        {
+          alert(errorObj.code + ": " + errorObj.message); 
+
         }
 
       function myfun()
