@@ -275,6 +275,7 @@
         });
 
         function showPosition(position) {
+          console.log("showPosition called.");
           current_Lat = position.coords.latitude;
           current_Long = position.coords.longitude;
         }
@@ -291,6 +292,9 @@
 
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(showPosition);
+        }
+        else { 
+         console.log("Geolocation is not supported by this browser.");
         }
 
         $.ajax({
