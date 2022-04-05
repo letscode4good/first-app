@@ -150,16 +150,6 @@
                     </div>
                   </div>
 
-                    <div class="row">
-                        <div class="form-group mb-3 col-xs-12 col-sm-6">
-                          <label
-                            for="statusDate"
-                            >Select Date
-                          </label>
-                          <input class="form-control validate"  type="date" id="statusDate" name="statusDate" required>
-                        </div>
-                  </div>
-
                   <div class="row">
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
@@ -284,7 +274,7 @@
       function myfun()
       {
        
-        var selectedDate = new Date(document.getElementById("myform").elements.statusDate.value); 
+        var selectedDate = new Date(); 
         
         document.getElementById("submitbutton").disabled = true;
         document.getElementById("pageloader").style.display = "block";
