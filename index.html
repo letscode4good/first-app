@@ -315,13 +315,23 @@
             for(var i = 0; i < length; i++) {
               //var statusDate =new Date(data[i].date).toLocaleDateString();
               var statusDate = moment(data[i].date).format('LL');
+
+              var linktext = ""
+              if(data[i].latitude == "" && data[i].longitude =="")
+              {
+                linktext  = "Not Available"
+              }
+              else
+              {
+                linktext = `<a href="https://nominatim.openstreetmap.org/ui/reverse.html?lat=${data[i].latitude}&lon=${data[i].longitude}&zoom=18">View location</a>`
+              }
               // You could also use an ajax property on the data table initialization
               $('#stockTable').dataTable().fnAddData( [
                 data[i].statusID,
                 statusDate,
                 data[i].name,
                 data[i].status,
-                `<a href="https://nominatim.openstreetmap.org/ui/reverse.html?lat=${data[i].latitude}&lon=${data[i].longitude}&zoom=18">Click here</a>`
+                linktext
               ]);
             }
           }
