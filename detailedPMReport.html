@@ -247,13 +247,13 @@
 
                 <button type="submit" onclick="loadImages();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">View Reports</button>
 
- 
-                    <div id = "editRecordButton" style ="display:none">
-                      <button type="submit" onclick="editCustInventory();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Edit Customer Inventory</button>
-                      
-                      <br>
-                      <br>
+                <div id = "editInventoryButton" style ="display:none">
+                    <button type="submit" onclick="editCustInventory();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Edit Customer Inventory</button>
+                 </div>
 
+                <br>
+                <br>
+                    <div id = "editRecordButton" style ="display:none">
                        <button type="submit" onclick="editRecord();"  style="margin-top: 25px;" class="btn btn-primary btn-block text-uppercase">Edit record</button>
                      </div>
               </div>
@@ -319,18 +319,26 @@
             dataType: 'json',
             success: function (resposeJson) {
 
-              if(resposeJson.message == "admin" || resposeJson.message == "coordinator" )
+              if(resposeJson.message == "admin")
               {
                 document.getElementById("editRecordButton").style.display = "block";
                 document.getElementById("hideReport").style.display = "block";
                 document.getElementById("hideMenu").style.display = "block";
-                
+                document.getElementById("editInventoryButton").style.display = "block";
+              }
+              if(resposeJson.message == "coordinator" )
+              {
+                document.getElementById("editRecordButton").style.display = "none";
+                document.getElementById("editInventoryButton").style.display = "block";
+                document.getElementById("hideReport").style.display = "block";
+                document.getElementById("hideMenu").style.display = "block";
               }
               else
               {
                 document.getElementById("editRecordButton").style.display = "none";
                 document.getElementById("hideReport").style.display = "none";
                 document.getElementById("hideMenu").style.display = "none";
+                document.getElementById("editInventoryButton").style.display = "none";
               }
             },
             error: function (e) {
@@ -338,6 +346,7 @@
               document.getElementById("editRecordButton").style.display = "none";
               document.getElementById("hideReport").style.display = "none";
               document.getElementById("hideMenu").style.display = "none";
+              document.getElementById("editInventoryButton").style.display = "none";
             }
           });
 
