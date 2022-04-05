@@ -286,6 +286,9 @@
           console.log("showPosition called.");
           current_Lat = position.coords.latitude;
           current_Long = position.coords.longitude;
+
+          alert(current_Lat)
+          alert(current_Long)
         }
 
       function myfun()
@@ -294,10 +297,7 @@
         var todaysDate= new Date();
 
         var selectedDate = new Date(todaysDate.getFullYear() + "-"+(todaysDate.getMonth()+1) + "-" + todaysDate.getDate()); 
-
         selectedDate.setHours(5,30,0,0);
-        alert(selectedDate)
-
         document.getElementById("submitbutton").disabled = true;
         document.getElementById("pageloader").style.display = "block";
 
