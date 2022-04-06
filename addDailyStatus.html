@@ -323,19 +323,7 @@
               else{
                     uploadImage()
 
-                      $.ajax({
-                      type: 'POST',
-                      url: "/incrementStatusCounter",
-                      async: false,
-                      contentType: "application/x-www-form-urlencoded",
-                      success: function (data) {
-                        console.log("Status counter incremented");
-                      },
-                      error: function (e) {
-                        alert("Error while adding data: " + JSON.stringify(e))
-                      }
-                      });
-
+                
               }
  
                //document.getElementById('myform').reset();
@@ -359,6 +347,7 @@
                 type: 'POST',
                 data: files,
                 url: "/upload",
+                async: false,
                 contentType: false,
                 processData: false,
                 success: function (data) {
@@ -371,6 +360,20 @@
           })
 
         });
+
+                  $.ajax({
+                      type: 'POST',
+                      url: "/incrementStatusCounter",
+                      async: false,
+                      contentType: "application/x-www-form-urlencoded",
+                      success: function (data) {
+                        console.log("Status counter incremented");
+                      },
+                      error: function (e) {
+                        alert("Error while adding data: " + JSON.stringify(e))
+                      }
+                      });
+
       }
 
       function addImageInfoInDB(imageUrl)
