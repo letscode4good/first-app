@@ -343,9 +343,9 @@
 
         $.each($('#imageData')[0].files, function(i, file) {
 
-          imageConversion.compress(file,0.9).then(res=>{
+          imageConversion.compress(file,0.3).then(res=>{
               let files = new FormData();
-              files.append('file', file);
+              files.append('file', res);
               files.append('statusID', document.getElementById("myform").elements.statusID.value)
               files.append('type', "status")
               $.ajax({
