@@ -132,6 +132,7 @@
       <div class="row tm-edit-product-row">
           <div class="col-xl-6 col-lg-6 col-md-12">
 
+            <div id = "hideFilter" style ="display:none">
               <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="loadDataDates()" class="tm-edit-product-form" >
 
 
@@ -163,6 +164,7 @@
               </div>
 
               </form>
+            </div>
 
           </div>
 
@@ -261,18 +263,20 @@
               {
                 document.getElementById("hideReport").style.display = "block";
                 document.getElementById("hideMenu").style.display = "block";
-                
+                document.getElementById("hideFilter").style.display = "block";
               }
               else
               {
                 document.getElementById("hideReport").style.display = "none";
                 document.getElementById("hideMenu").style.display = "none";
+                document.getElementById("hideFilter").style.display = "none";
               }
             },
             error: function (e) {
               console.log("Error while adding data: " + JSON.stringify(e))
               document.getElementById("hideReport").style.display = "none";
               document.getElementById("hideMenu").style.display = "none";
+              document.getElementById("hideFilter").style.display = "none";
             }
           });
 
