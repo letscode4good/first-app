@@ -282,7 +282,8 @@
         $("#custInfo").DataTable();
         $("#custInventory").DataTable({searching: false, paging: false, info: false});
 
-        loadData();
+        //loadData();
+        loadDataToday();
 
       
       });
@@ -366,6 +367,45 @@
             }
           });
         }
+
+
+
+        function loadDataToday() {
+
+          var todaysDate= new Date();
+
+          var sDate = new Date(todaysDate.getFullYear() + "-"+(todaysDate.getMonth()+1) + "-" + todaysDate.getDate()); 
+          var eDate = new Date(todaysDate.getFullYear() + "-"+(todaysDate.getMonth()+1) + "-" + todaysDate.getDate()); 
+          sDate.setHours(5,30,0,0);
+          eDate.setHours(23,59,59,999);
+          console.log(sDate);
+          console.log(eDate);
+
+         // var sdate = new Date(document.getElementById("myform").elements.startDate.value);
+          //var edate = new Date(document.getElementById("myform").elements.endDate.value);
+
+          //sdate.setUTCHours(0,0,0,0);
+          //edate.setUTCHours(23,59,59,999);
+
+          $.ajax({
+            type: 'GET',
+            data: { startDate:sDate,
+                    endDate: edate},
+            url: "/getAllUpcomingPMBetweenDates",
+            contentType: "text/plain",
+            dataType: 'json',
+            success: function (data) {
+              myJsonData = data;
+              populateDataTable(myJsonData);
+            },
+            error: function (e) {
+              console.log("There was an error with your request...");
+              console.log("error: " + JSON.stringify(e));
+            }
+          });
+          }
+
+
 
       function showInventory(cutomerID) 
       {
