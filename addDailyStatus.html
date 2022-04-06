@@ -343,7 +343,7 @@
 
         $.each($('#imageData')[0].files, function(i, file) {
 
-          imageConversion.compress(file,{quality: 0.5,width: 500,height: 500,scale: 0.5}).then(res=>{
+          imageConversion.compress(file,{quality: 0.6,width: 500,height: 500,scale: 0.5}).then(res=>{
               let files = new FormData();
               files.append('file', file);
               files.append('statusID', document.getElementById("myform").elements.statusID.value)
