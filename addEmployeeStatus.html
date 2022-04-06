@@ -258,6 +258,8 @@
     <script>
 
       var showSuccessAlert = true;
+      var totalImages = 0
+      var currentCount =0
 
 
         $(function() {
@@ -371,18 +373,6 @@
 
                 uploadImage()
 
-                  $.ajax({
-                  type: 'POST',
-                  url: "/incrementStatusCounter",
-                  /*async: false,*/
-                  contentType: "application/x-www-form-urlencoded",
-                  success: function (data) {
-                    console.log("Status counter incremented");
-                  },
-                  error: function (e) {
-                    alert("Error while adding data: " + JSON.stringify(e))
-                  }
-                  });
               }
              
             },
@@ -396,7 +386,7 @@
 
       function uploadImage()
       {
-        
+        totalImages = document.getElementById("imageData").files.length;
         //files.append('file', $('#imageData')[0].files[0]); 
 
         $.each($('#imageData')[0].files, function(i, file) {
@@ -414,10 +404,10 @@
                           type: 'POST',
                           data: files,
                           url: "/upload",
-                          /*async: false,*/
                           contentType: false,
                           processData: false,
                           success: function (data) {
+                            currentCount = currentCount + 1
                             // addImageInfoInDB(data);   
                           },
                           error: function (e) {
@@ -430,6 +420,19 @@
 
         });
 
+
+        $.ajax({
+                  type: 'POST',
+                  url: "/incrementStatusCounter",
+                  /*async: false,*/
+                  contentType: "application/x-www-form-urlencoded",
+                  success: function (data) {
+                    console.log("Status counter incremented");
+                  },
+                  error: function (e) {
+                    alert("Error while adding data: " + JSON.stringify(e))
+                  }
+                  });
         //alert("Images added successfully")
 
       }
@@ -485,12 +488,12 @@
       $( document ).ajaxStop(function() {
          console.log("all ajx calls are done")
          //$("#pageloader").fadeOut();
-         if(showSuccessAlert == true)
+         if(showSuccessAlert == true && (currentCount == totalImages) )
          {
           document.getElementById("pageloader").style.display = "none";
            alert("Daily status detail added successfully")
+           window.location.href = "/addEmployeeStatus.html";
          }
-         window.location.href = "/addEmployeeStatus.html";
         });
 
 

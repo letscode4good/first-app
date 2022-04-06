@@ -158,6 +158,8 @@ var statusDetailsSchema = new mongoose.Schema({
     name : String,
     status : String,
     statusID: String,
+    latitude: String,
+    longitude: String
 });
 
 var pmImagesSchema = new mongoose.Schema({
@@ -373,7 +375,7 @@ app.post('/addStatusDetail', function(req, res){
     statusDetailsSchemaObject.find({ 'date': req.body.statusDate, 'name': session.userName }, function (err, docs) {
         if(err) return next(err);
         if (docs.length == 0) {
-            var newDBEntry = new statusDetailsSchemaObject({'date': req.body.statusDate , 'name': session.userName , 'status':req.body.status, 'statusID': req.body.statusID}) 
+            var newDBEntry = new statusDetailsSchemaObject({'date': req.body.statusDate , 'name': session.userName , 'status':req.body.status, 'statusID': req.body.statusID,   'latitude': req.body.latitude, 'longitude': req.body.longitude  }) 
             newDBEntry.save(function(err, savedUser){
                 if(err)
                     res.json({message : 'failures'})

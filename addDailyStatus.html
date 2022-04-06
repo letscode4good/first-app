@@ -150,16 +150,6 @@
                     </div>
                   </div>
 
-                    <div class="row">
-                        <div class="form-group mb-3 col-xs-12 col-sm-6">
-                          <label
-                            for="statusDate"
-                            >Select Date
-                          </label>
-                          <input class="form-control validate"  type="date" id="statusDate" name="statusDate" required>
-                        </div>
-                  </div>
-
                   <div class="row">
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
                           <label
@@ -232,6 +222,11 @@
     <script>
        var showSuccessAlert = true;
 
+       var current_Lat = ""
+       var current_Long = ""
+       var totalImages = 0
+       var currentCount =0
+
         $(function() {
 
             $.ajax({
@@ -278,22 +273,46 @@
           });
 
             document.getElementById("image_preview").style.display = "none";
+            
+
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(showPosition, errorHandler,{enableHighAccuracy: true, maximumAge: 10000});
+            }
+            else { 
+            alert("Geolocation is not supported by this browser.");
+            }
 
         });
 
+        function showPosition(position) {
+          console.log("showPosition called.");
+          current_Lat = position.coords.latitude;
+          current_Long = position.coords.longitude;
+        }
+
+        function errorHandler(errorObj)
+        {
+          console.log(errorObj.code + ": " + errorObj.message); 
+        }
+
       function myfun()
       {
-       
-        var selectedDate = new Date(document.getElementById("myform").elements.statusDate.value); 
         
+        var todaysDate= new Date();
+
+        var selectedDate = new Date(todaysDate.getFullYear() + "-"+(todaysDate.getMonth()+1) + "-" + todaysDate.getDate()); 
+        selectedDate.setHours(5,30,0,0);
         document.getElementById("submitbutton").disabled = true;
         document.getElementById("pageloader").style.display = "block";
+
 
         $.ajax({
             type: 'POST',
             data: { statusDate: selectedDate,
                     status: document.getElementById("myform").elements.status.value,
-                    statusID: document.getElementById("myform").elements.statusID.value},
+                    statusID: document.getElementById("myform").elements.statusID.value,
+                    latitude:current_Lat,
+                    longitude:current_Long},
             url: "/addStatusDetail",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
@@ -306,19 +325,7 @@
               else{
                     uploadImage()
 
-                      $.ajax({
-                      type: 'POST',
-                      url: "/incrementStatusCounter",
-                      async: false,
-                      contentType: "application/x-www-form-urlencoded",
-                      success: function (data) {
-                        console.log("Status counter incremented");
-                      },
-                      error: function (e) {
-                        alert("Error while adding data: " + JSON.stringify(e))
-                      }
-                      });
-
+                
               }
  
                //document.getElementById('myform').reset();
@@ -331,21 +338,24 @@
 
       function uploadImage()
       {
+
+        totalImages = document.getElementById("imageData").files.length;
+
         $.each($('#imageData')[0].files, function(i, file) {
 
           imageConversion.compress(file,0.3).then(res=>{
               let files = new FormData();
-              files.append('file', file);
+              files.append('file', res);
               files.append('statusID', document.getElementById("myform").elements.statusID.value)
               files.append('type', "status")
               $.ajax({
                 type: 'POST',
                 data: files,
                 url: "/upload",
-                async: false,
                 contentType: false,
                 processData: false,
                 success: function (data) {
+                  currentCount = currentCount + 1
                   //addImageInfoInDB(data);   
                 },
                 error: function (e) {
@@ -355,6 +365,20 @@
           })
 
         });
+
+                  $.ajax({
+                      type: 'POST',
+                      url: "/incrementStatusCounter",
+                      async: false,
+                      contentType: "application/x-www-form-urlencoded",
+                      success: function (data) {
+                        console.log("Status counter incremented");
+                      },
+                      error: function (e) {
+                        alert("Error while adding data: " + JSON.stringify(e))
+                      }
+                      });
+
       }
 
       function addImageInfoInDB(imageUrl)
@@ -405,12 +429,13 @@
         $( document ).ajaxStop(function() {
          console.log("all ajx calls are done")
          //$("#pageloader").fadeOut();
-         if(showSuccessAlert == true)
+         if(showSuccessAlert == true && (currentCount == totalImages) )
          {
            document.getElementById("pageloader").style.display = "none";
            alert("Daily status detail added successfully")
+           window.location.href = "/addDailyStatus.html";
          }
-         window.location.href = "/addDailyStatus.html";
+         
         }); 
 
     </script>
