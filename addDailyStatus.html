@@ -224,6 +224,8 @@
 
        var current_Lat = ""
        var current_Long = ""
+       var totalImages = 0
+       var currentCount =0
 
         $(function() {
 
@@ -336,6 +338,8 @@
 
       function uploadImage()
       {
+
+        totalImages = document.getElementById("imageData").files.length;
         $.each($('#imageData')[0].files, function(i, file) {
 
           imageConversion.compress(file,0.3).then(res=>{
@@ -351,6 +355,7 @@
                 contentType: false,
                 processData: false,
                 success: function (data) {
+                  currentCount = currentCount + 1
                   //addImageInfoInDB(data);   
                 },
                 error: function (e) {
@@ -424,7 +429,7 @@
         $( document ).ajaxStop(function() {
          console.log("all ajx calls are done")
          //$("#pageloader").fadeOut();
-         if(showSuccessAlert == true)
+         if(showSuccessAlert == true && (currentCount == totalImages) )
          {
            document.getElementById("pageloader").style.display = "none";
            alert("Daily status detail added successfully")
