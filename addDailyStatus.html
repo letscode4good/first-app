@@ -339,8 +339,8 @@
       function uploadImage()
       {
 
-        totalImages = document.getElementById("imageData").files.length + 1;
-        alert(totalImages)
+        totalImages = document.getElementById("imageData").files.length;
+
         $.each($('#imageData')[0].files, function(i, file) {
 
           imageConversion.compress(file,0.3).then(res=>{
