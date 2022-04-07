@@ -403,7 +403,7 @@
 
               imageConversion.compress(file,0.3).then(res=>{
                     let files = new FormData();
-                    files.append('file', file);
+                    files.append('file', res);
                     files.append('maintenanceID', document.getElementById("myform").elements.maintenanceID.value);
                     files.append('serviceReport', document.getElementById("myform").elements.serviceReport.value);
                     files.append('type', "maintenance");
