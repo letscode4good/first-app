@@ -307,6 +307,20 @@
     <script src="https://cdn.jsdelivr.net/gh/WangYuLue/image-conversion/build/conversion.js"></script>
     <!-- https://getbootstrap.com/ -->
     <script>
+
+
+        var current_Lat = ""
+        var current_Long = ""
+        function showPosition(position) {
+          console.log("showPosition called.");
+          current_Lat = position.coords.latitude;
+          current_Long = position.coords.longitude;
+        }
+
+        function errorHandler(errorObj)
+        {
+          console.log(errorObj.code + ": " + errorObj.message); 
+        }
         
 
         $(function() {
@@ -342,6 +356,13 @@
               document.getElementById("hideMenu").style.display = "none";
             }
           });
+
+          if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(showPosition, errorHandler,{enableHighAccuracy: true, maximumAge: 10000});
+            }
+            else { 
+            alert("Geolocation is not supported by this browser.");
+            }
 
         });
 
@@ -571,7 +592,9 @@
                     address:  resposeJson.address,
                     upsName:  resposeJson.upsName,
                     upsCapacity:  resposeJson.upsCapacity,
-                    description : document.getElementById("description").value
+                    description : document.getElementById("description").value,
+                    latitude:current_Lat,
+                    longitude:current_Long,
                   },
             url: "/addPMHistory",
             contentType: "application/x-www-form-urlencoded",

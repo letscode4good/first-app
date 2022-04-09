@@ -240,8 +240,19 @@
 
                 <label class = "tm-block-title d-inline-block"
                 for="description"
+                >Location
+                </label>
+
+                <div id = "locationDiv" >  
+
+                </div>
+
+                <br>
+
+                <label class = "tm-block-title d-inline-block"
+                for="description"
                 >Summary
-              </label>
+                </label>
 
                <input id="description" class="form-control validate"  type="text" required name="description" STYLE="background-color: #54657d;"  readonly>
 
@@ -280,6 +291,18 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
     <script>
+        var current_Lat = ""
+        var current_Long = ""
+        function showPosition(position) {
+          console.log("showPosition called.");
+          current_Lat = position.coords.latitude;
+          current_Long = position.coords.longitude;
+        }
+
+        function errorHandler(errorObj)
+        {
+          console.log(errorObj.code + ": " + errorObj.message); 
+        }
         
         $(function() {
           document.getElementById("inventoryDiv").style.opacity = "0";
@@ -303,6 +326,22 @@
               document.getElementById("myform").elements.dueAmount.value = resposeJson.dueAmount;
               document.getElementById("myform").elements.returnAmount.value = resposeJson.returnAmount;
               document.getElementById("description").value = resposeJson.description;
+
+              var linktext = ""
+
+              if(resposeJson.hasOwnProperty('latitude') && resposeJson.hasOwnProperty('longitude')){
+                if(resposeJson.latitude == "" && resposeJson.longitude =="")
+                {
+                  linktext  = "<h3>Not Available</h3>"
+                  document.getElementById("locationDiv").innerHTML = linktext;
+                }
+                else
+                {
+                  linktext = `<a href="https://nominatim.openstreetmap.org/ui/reverse.html?lat=${resposeJson.latitude}&lon=${resposeJson.longitude}&zoom=18">View location</a>`
+                  document.getElementById("locationDiv").innerHTML = linktext;
+                }
+              
+              }
             
             },
             error: function (e) {
@@ -349,6 +388,13 @@
               document.getElementById("editInventoryButton").style.display = "none";
             }
           });
+
+          if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(showPosition, errorHandler,{enableHighAccuracy: true, maximumAge: 10000});
+            }
+            else { 
+            alert("Geolocation is not supported by this browser.");
+            }
 
         });
 
@@ -470,6 +516,8 @@
                     upsName:  resposeJson.upsName,
                     upsCapacity:  resposeJson.upsCapacity,
                     description : document.getElementById("description").value,
+                    latitude:current_Lat,
+                    longitude:current_Long,
                   },
             url: "/addPMHistory",
             contentType: "application/x-www-form-urlencoded",
