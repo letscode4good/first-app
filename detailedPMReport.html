@@ -240,10 +240,10 @@
 
                 <label class = "tm-block-title d-inline-block"
                 for="description"
-                >Location
+                >Location - 
                 </label>
 
-                <div id = "locationDiv" >  
+                <div id = "locationDiv" class = "tm-block-title d-inline-block" >  
 
                 </div>
 
@@ -332,7 +332,7 @@
               if(resposeJson.hasOwnProperty('latitude') && resposeJson.hasOwnProperty('longitude')){
                 if(resposeJson.latitude == "" && resposeJson.longitude =="")
                 {
-                  linktext  = "<h3>Not Available</h3>";
+                  linktext  = "<h6>Not Available</h6>";
                   document.getElementById("locationDiv").innerHTML = linktext;
                 }
                 else
@@ -343,7 +343,7 @@
               }
               else
               {
-                linktext  = "<h3>Not Available</h3>";
+                linktext  = "<h6> Not Available</h6>";
                 document.getElementById("locationDiv").innerHTML = linktext;
               }
             
