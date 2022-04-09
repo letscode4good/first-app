@@ -54,21 +54,7 @@
     <script>
 
      
-        function loadData(flag) {
-            $.ajax({
-              type: 'GET',
-              url: "/getItemNames",
-              contentType: "text/plain",
-              dataType: 'json',
-              success: function (data) {
-
-                  populateDataTable(myJsonData);
-              },
-              error: function (e) {
-                console.log("There was an error with your request...");
-                console.log("error: " + JSON.stringify(e));
-              }
-            });
+        function loadData() {
 
             $.ajax({
                   type: "GET",
@@ -92,17 +78,7 @@
 
 
         $(function() {
-          //$("#stockTable").DataTable();
-
-          $('#stockTable').dataTable( {
-            "columnDefs": [
-                { "width": "10%", "targets": [0,1] },
-                { "width": "15%", "targets": [2,3] }
-            ]
-            } );
-
-          loadData();
-          document.getElementById("inventoryDiv").style.opacity = "0";
+         loadData()
         });
 
   
