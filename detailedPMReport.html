@@ -332,7 +332,7 @@
               if(resposeJson.hasOwnProperty('latitude') && resposeJson.hasOwnProperty('longitude')){
                 if(resposeJson.latitude == "" && resposeJson.longitude =="")
                 {
-                  linktext  = "<h3>Not Available</h3>"
+                  linktext  = "<h3>Not Available</h3>";
                   document.getElementById("locationDiv").innerHTML = linktext;
                 }
                 else
@@ -340,7 +340,11 @@
                   linktext = `<a href="https://nominatim.openstreetmap.org/ui/reverse.html?lat=${resposeJson.latitude}&lon=${resposeJson.longitude}&zoom=18">View location</a>`
                   document.getElementById("locationDiv").innerHTML = linktext;
                 }
-              
+              }
+              else
+              {
+                linktext  = "<h3>Not Available</h3>";
+                document.getElementById("locationDiv").innerHTML = linktext;
               }
             
             },
