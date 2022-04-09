@@ -74,7 +74,7 @@ app.post('/adddailyExpense', function(req, res){
 
 
 app.get('/getItemNames',function(req, res) {
-    itemNameSchema.find({}, function (err, docs) {
+  itemNameSchemaObject.find({}, function (err, docs) {
         if(err) return next(err);
         res.send(docs);
       });
