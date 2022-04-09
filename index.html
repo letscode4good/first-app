@@ -37,17 +37,31 @@
 
 
 
+    <form action="">
+      <label for="itemName">Select item</label>
+      <select id="itemName" >
+        <option value="volvo">Volvo</option>
+      </select>
+      <label for="fname">Quantity in grams</label><br>
+      <input type="text" id="quantity" ><br><br>
+      <input type="submit">
+    </form>
+    
+
+
+
+
     <script>
 
      
         function loadData(flag) {
             $.ajax({
               type: 'GET',
-              url: "/getStatusDetail",
+              url: "/getItemNames",
               contentType: "text/plain",
               dataType: 'json',
               success: function (data) {
-                myJsonData = data;
+
                   populateDataTable(myJsonData);
               },
               error: function (e) {
@@ -55,7 +69,26 @@
                 console.log("error: " + JSON.stringify(e));
               }
             });
+
+            $.ajax({
+                  type: "GET",
+                  url: "/getItemNames",
+                  dataType: "json",
+                  global: false,
+                  success: function (result, status, xhr) {
+                  $.each(result,function(key, value)
+                  {
+                      $("#itemName").append('<option value="' + value.itemName + '">' + value.itemName + '</option>');
+                  });
+                  },
+                  error: function (xhr, status, error) {
+                      alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                  }
+              });
+
           }
+
+
 
 
         $(function() {
