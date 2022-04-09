@@ -258,8 +258,23 @@
     <script>
 
       var showSuccessAlert = true;
+      var current_Lat = ""
+      var current_Long = ""
       var totalImages = 0
       var currentCount =0
+
+
+
+      function showPosition(position) {
+          console.log("showPosition called.");
+          current_Lat = position.coords.latitude;
+          current_Long = position.coords.longitude;
+        }
+
+        function errorHandler(errorObj)
+        {
+          console.log(errorObj.code + ": " + errorObj.message); 
+        }
 
 
         $(function() {
@@ -326,7 +341,15 @@
 
             document.getElementById("image_preview").style.display = "none";
 
-          });
+
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(showPosition, errorHandler,{enableHighAccuracy: true, maximumAge: 10000});
+            }
+            else { 
+            alert("Geolocation is not supported by this browser.");
+            }
+
+      });
 
       function myfun()
       {
@@ -357,7 +380,9 @@
             data: { statusDate: selectedDate,
                     userName: document.getElementById("myform").elements.userName.value,
                     status: document.getElementById("myform").elements.status.value,
-                    statusID: document.getElementById("myform").elements.statusID.value},
+                    statusID: document.getElementById("myform").elements.statusID.value,
+                    latitude:current_Lat,
+                    longitude:current_Long},
             url: "/addEmployeeStatusDetail",
             /*async: false,*/
             contentType: "application/x-www-form-urlencoded",
@@ -380,10 +405,9 @@
               alert("Error while adding data: " + JSON.stringify(e))
             }
           });
+
       }
     
-
-
       function uploadImage()
       {
         totalImages = document.getElementById("imageData").files.length;

@@ -121,7 +121,9 @@ var preventiveMaintenanceHistorySchema = new mongoose.Schema({
     address : String,
     upsName: String,
     upsCapacity: String,
-    description: String
+    description: String,
+    latitude: String,
+    longitude: String
 });
 
 
@@ -396,7 +398,7 @@ app.post('/addEmployeeStatusDetail', function(req, res){
     statusDetailsSchemaObject.find({ 'date': req.body.statusDate, 'name': req.body.userName }, function (err, docs) {
         if(err) return next(err);
         if (docs.length == 0) {
-            var newDBEntry = new statusDetailsSchemaObject({'date': req.body.statusDate , 'name': req.body.userName , 'status':req.body.status, 'statusID': req.body.statusID}) 
+            var newDBEntry = new statusDetailsSchemaObject({'date': req.body.statusDate , 'name': req.body.userName , 'status':req.body.status, 'statusID': req.body.statusID ,  'latitude': req.body.latitude, 'longitude': req.body.longitude    }) 
             newDBEntry.save(function(err, savedUser){
                 if(err)
                     res.json({message : 'failures'})
@@ -521,7 +523,7 @@ app.post('/updateCustomerInventory', function(req, res){
 
 
 app.post('/addPMHistory', function(req, res){
-    var newDBEntry = new preventiveMaintenanceHistorySchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'issueType':req.body.issueType,'dateWhenDone': req.body.dateWhenDone, 'engineer':req.body.engineer, 'maintenanceID':req.body.maintenanceID, 'advanceAmount':req.body.advanceAmount, 'transportExpense':req.body.transportExpense, 'travelExpense':req.body.travelExpense, 'MiscellaneousExpense':req.body.MiscellaneousExpense, 'dueAmount':req.body.dueAmount, 'returnAmount':req.body.returnAmount,'customerType':req.body.customerType, 'address':req.body.address, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity, 'description': req.body.description }) 
+    var newDBEntry = new preventiveMaintenanceHistorySchemaObject({'customerName': req.body.customerName , 'custId': req.body.custId , 'maintenanceType':req.body.maintenanceType, 'issueType':req.body.issueType,'dateWhenDone': req.body.dateWhenDone, 'engineer':req.body.engineer, 'maintenanceID':req.body.maintenanceID, 'advanceAmount':req.body.advanceAmount, 'transportExpense':req.body.transportExpense, 'travelExpense':req.body.travelExpense, 'MiscellaneousExpense':req.body.MiscellaneousExpense, 'dueAmount':req.body.dueAmount, 'returnAmount':req.body.returnAmount,'customerType':req.body.customerType, 'address':req.body.address, 'upsName':req.body.upsName, 'upsCapacity':req.body.upsCapacity, 'description': req.body.description, 'latitude': req.body.latitude, 'longitude': req.body.longitude }) 
 
     newDBEntry.save(function(err, savedUser){
         if(err)
