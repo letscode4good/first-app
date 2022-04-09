@@ -271,6 +271,11 @@
           current_Long = position.coords.longitude;
         }
 
+        function errorHandler(errorObj)
+        {
+          console.log(errorObj.code + ": " + errorObj.message); 
+        }
+
 
         $(function() {
 
