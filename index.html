@@ -41,18 +41,53 @@
       <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
         <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
 
-            <form id = "myform" action="javascript:submitExpense();" method="post" enctype="multipart/form-data">
-              <label for="expenseDate">Select Date</label>
-              <input type="date" id="expenseDate">
-              <label for="itemName">Select item</label>
-              <select id="itemName" >
-              </select>
-              <label for="quantity">Quantity in grams</label><br>
-              <input type="text" id="quantity" ><br><br>
 
-              <label for="cost">Cost</label><br>
-              <input type="text" id="cost" ><br><br>
-              <input type="submit">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="tm-block-title d-inline-block">Add Daily Expense</h2>
+            </div>
+          </div>
+
+            <form id = "myform" action="javascript:submitExpense();" method="post" enctype="multipart/form-data">
+
+              <div class="row">
+                <div class="col-12">
+                  <label for="expenseDate">Select Date</label>
+                  <input type="date" id="expenseDate">
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-12">
+                    <label for="itemName">Select item</label>
+                    <select id="itemName" >
+                  </select>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-12">
+                  <label for="quantity">Quantity in grams</label><br>
+                  <input type="text" id="quantity" ><br><br>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-12">
+                  <label for="cost">Cost</label><br>
+                  <input type="text" id="cost" ><br><br>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                      <input type="submit">
+                </div>
+              </div>
+
             </form>
 
         </div>
