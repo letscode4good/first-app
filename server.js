@@ -104,7 +104,7 @@ app.get('/getItemNames',function(req, res) {
 
 
 app.get('/',(req,res) => {
-    res.sendFile(__dirname+'/index.html')
+    res.sendFile(__dirname+'/addItem.html')
 })
 
 app.get('/addItem.html',(req,res) => {
