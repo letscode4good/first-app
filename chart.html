@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script>
+window.onload = function() {
+
+var dataPoints = [];
+const dataPointsTotal = new Map();
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2",
+	title: {
+		text: "Daily Expense Data"
+	},
+	axisY: {
+		title: "Cost",
+		titleFontSize: 24,
+		includeZero: true
+	},
+	data: [{
+		type: "column",
+		yValueFormatString: "#,### Cost",
+		dataPoints: dataPoints
+	}]
+});
+
+function addData(data) {
+
+
+	for (var i = 0; i < data.length; i++) {
+
+
+       if ( dataPointsTotal.has(data[i].dateOfExpense)  )
+       {
+                dataPointsTotal.set(data[i].dateOfExpense,  dataPointsTotal.get(data[i].dateOfExpense) + data[i].cost)
+       }
+       else
+       {
+            dataPointsTotal.set(data[i].dateOfExpense, data[i].cost)
+       }
+
+
+	}
+
+
+
+    for (let [key, value] of dataPointsTotal) {
+
+        dataPoints.push({
+			x: new Date(key),
+			y: value
+		});
+        
+    }
+
+
+		
+
+	chart.render();
+
+}
+
+
+
+
+
+
+
+        $.ajax({
+                  type: "GET",
+                  url: "/getDailyExpense",
+                  dataType: "json",
+                  global: false,
+                  success: function (result, status, xhr) {
+                        addData(result);
+                  },
+                  error: function (xhr, status, error) {
+                      alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                  }
+              });
+
+}
+
+
+// chart code taken from
+// https://canvasjs.com/javascript-charts/json-data-api-ajax-chart/
+
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>

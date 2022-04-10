@@ -45,7 +45,7 @@ mongoose.connect('mongodb+srv://dbadmin:dbpassword@cluster0-v6hog.mongodb.net/ho
 var dailyExpenseSchema = new mongoose.Schema({
     itemName : String,
     quantity : Number,
-    cost : String,
+    cost : Number,
     dateOfExpense : Date,
 });
 
@@ -81,15 +81,28 @@ app.get('/getItemNames',function(req, res) {
   })
 
 
+  app.get('/getDailyExpense',function(req, res) {
+    dailyExpenseSchemaObject.find({}, function (err, docs) {
+          if(err) return next(err);
+          res.send(docs);
+        });
+    })
+
+
 app.get('/',(req,res) => {
     res.sendFile(__dirname+'/index.html')
 })
 
 
-
 app.get('/index.html',(req,res) => {
    
     res.sendFile(__dirname+'/index.html')
+
+})
+
+app.get('/chart.html',(req,res) => {
+   
+  res.sendFile(__dirname+'/chart.html')
 
 })
 
