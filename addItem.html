@@ -135,6 +135,7 @@
               contentType: "application/x-www-form-urlencoded",
               success: function (data) {
                 alert("New Item added successfully")
+                document.getElementById("myform").elements.itemName.value = "";
               
               },
               error: function (e) {
