@@ -36,16 +36,28 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
 
+    <div class="container tm-mt-big tm-mb-big">
 
-    <form action="">
-      <label for="itemName">Select item</label>
-      <select id="itemName" >
-        <option value="volvo">Volvo</option>
-      </select>
-      <label for="fname">Quantity in grams</label><br>
-      <input type="text" id="quantity" ><br><br>
-      <input type="submit">
-    </form>
+      <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+        <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+
+            <form id = "myform" action="javascript:submitExpense();" method="post" enctype="multipart/form-data">
+              <label for="expenseDate">Select Date</label>
+              <input type="date" id="expenseDate">
+              <label for="itemName">Select item</label>
+              <select id="itemName" >
+              </select>
+              <label for="quantity">Quantity in grams</label><br>
+              <input type="text" id="quantity" ><br><br>
+
+              <label for="cost">Cost</label><br>
+              <input type="text" id="cost" ><br><br>
+              <input type="submit">
+            </form>
+
+        </div>
+      </div>
+    </div>
     
 
 
@@ -75,7 +87,31 @@
           }
 
 
+          function submitExpense()
+          {
+            var selectedDate = new Date(document.getElementById("myform").elements.expenseDate.value); 
 
+              $.ajax({
+              type: 'POST',
+              data: { itemName: document.getElementById("myform").elements.itemName.value,
+                      quantity: document.getElementById("myform").elements.quantity.value,
+                      cost: document.getElementById("myform").elements.cost.value,
+                      dateOfExpense: selectedDate},
+              url: "/adddailyExpense",
+              /*async: false,*/
+              contentType: "application/x-www-form-urlencoded",
+              success: function (data) {
+
+                alert("Expense added successfully")
+              
+              },
+              error: function (e) {
+                alert("Error while adding data: " + JSON.stringify(e))
+              }
+            });
+
+
+          }
 
         $(function() {
          loadData()
