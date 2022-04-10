@@ -68,8 +68,22 @@ app.post('/adddailyExpense', function(req, res){
             res.json({ error: err.message || err.toString() });
         }
         else
-            res.json({message : 'successs'})
+            res.json({message : 'success'})
     });
+})
+
+
+app.post('/addNewItem', function(req, res){
+  var newDBEntry = new itemNameSchemaObject({'itemName': req.body.itemName }) 
+
+  newDBEntry.save(function(err, savedUser){
+      if(err)
+      {
+          res.json({ error: err.message || err.toString() });
+      }
+      else
+          res.json({message : 'success'})
+  });
 })
 
 
@@ -91,6 +105,10 @@ app.get('/getItemNames',function(req, res) {
 
 app.get('/',(req,res) => {
     res.sendFile(__dirname+'/index.html')
+})
+
+app.get('/addItem.html',(req,res) => {
+  res.sendFile(__dirname+'/addItem.html')
 })
 
 
