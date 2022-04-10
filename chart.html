@@ -34,10 +34,12 @@ function addData(data) {
        if ( dataPointsTotal.has(data[i].dateOfExpense)  )
        {
                 dataPointsTotal.set(data[i].dateOfExpense,  dataPointsTotal.get(data[i].dateOfExpense) + data[i].cost)
+                console.log("updating value for");
        }
        else
        {
             dataPointsTotal.set(data[i].dateOfExpense, data[i].cost)
+            console.log("adding new value");
        }
 
 
@@ -48,10 +50,10 @@ function addData(data) {
     for (let [key, value] of dataPointsTotal) {
 
         dataPoints.push({
-			x: (key),
+			x: new Date(key),
 			y: value
 		});
-
+        
     }
 
 
