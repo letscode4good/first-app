@@ -374,7 +374,9 @@ app.post('/addStockDetail', function(req, res){
 app.post('/addStatusDetail', function(req, res){
     session = req.session;
 
-    statusDetailsSchemaObject.find({ 'date': req.body.statusDate, 'name': session.userName }, function (err, docs) {
+    if(session.userName)
+    {
+      statusDetailsSchemaObject.find({ 'date': req.body.statusDate, 'name': session.userName}, function (err, docs) {
         if(err) return next(err);
         if (docs.length == 0) {
             var newDBEntry = new statusDetailsSchemaObject({'date': req.body.statusDate , 'name': session.userName , 'status':req.body.status, 'statusID': req.body.statusID,   'latitude': req.body.latitude, 'longitude': req.body.longitude  }) 
@@ -391,6 +393,14 @@ app.post('/addStatusDetail', function(req, res){
         }
         
       });
+
+    }
+    else
+    {
+      res.sendFile(__dirname+'/login.html')
+    }
+
+    
     
 })
 
@@ -417,7 +427,6 @@ app.post('/addEmployeeStatusDetail', function(req, res){
 })
 
 app.post('/addPMImages', function(req, res){
-    session = req.session;
     var newDBEntry = new pmImagesSchemaObject({'maintenanceID': req.body.maintenanceID , 'serviceReport': req.body.serviceReport , 'imageLink':req.body.imageLink}) 
     newDBEntry.save(function(err, savedUser){
         if(err)
@@ -428,7 +437,6 @@ app.post('/addPMImages', function(req, res){
 })
 
 app.post('/addStatusImages', function(req, res){
-    session = req.session;
     var newDBEntry = new statusImagesSchemaObject({'statusID': req.body.statusID , 'imageLink':req.body.imageLink}) 
     newDBEntry.save(function(err, savedUser){
         if(err)
