@@ -397,10 +397,8 @@ app.post('/addStatusDetail', function(req, res){
     }
     else
     {
-      res.sendFile(__dirname+'/login.html')
+      res.json({error : 'Please login again to make data entry.'})
     }
-
-    
     
 })
 
