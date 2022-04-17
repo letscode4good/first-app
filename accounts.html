@@ -242,10 +242,14 @@
                 document.getElementById("hideMenu").style.display = "block";
                 
               }
-              else
+              else if (resposeJson.message == "engineer")
               {
                 document.getElementById("hideReport").style.display = "none";
                 document.getElementById("hideMenu").style.display = "none";
+              }
+              else
+              {
+                window.location.href = "/login.html";
               }
             },
             error: function (e) {

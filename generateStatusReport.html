@@ -303,17 +303,21 @@
                     dataType: 'json',
                     success: function (resposeJson) {
 
-                    if(resposeJson.message == "admin" || resposeJson.message == "coordinator" )
-                    {
-                        document.getElementById("hideReport").style.display = "block";
-                        document.getElementById("hideMenu").style.display = "block";
-                        
-                    }
-                    else
-                    {
-                        document.getElementById("hideReport").style.display = "none";
-                        document.getElementById("hideMenu").style.display = "none";
-                    }
+                        if(resposeJson.message == "admin" || resposeJson.message == "coordinator" )
+                        {
+                            document.getElementById("hideReport").style.display = "block";
+                            document.getElementById("hideMenu").style.display = "block";
+                            
+                        }
+                        else if (resposeJson.message == "engineer")
+                        {
+                            document.getElementById("hideReport").style.display = "none";
+                            document.getElementById("hideMenu").style.display = "none";
+                        }
+                        else
+                        {
+                            window.location.href = "/login.html";
+                        }
                     },
                     error: function (e) {
                     console.log("Error while adding data: " + JSON.stringify(e))
