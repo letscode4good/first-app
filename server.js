@@ -1144,6 +1144,7 @@ app.get('/',(req,res) => {
         res.sendFile(__dirname+'/login.html')
 })
 
+
 app.get('/whoami',(req,res) => {
     session=req.session;
     if(session.userId && (session.userType == 'admin')){
