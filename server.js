@@ -348,14 +348,31 @@ app.post('/addUserDetail', function(req, res){
 })
 
 app.post('/addUserLogin', function(req, res){
-    var newDBEntry = new userLoginSchemaObject({'userId': req.body.userId , 'password': req.body.password , 'userType':req.body.userType, 'userName':req.body.userName, 'phone':req.body.phone, 'email':req.body.email}) 
+
+    userLoginSchemaObject.findOne({ userId: req.body.userId }, function (err, docs) {
+        if(err) return next(err);
+        else{
+            if (docs == null) {
+               
+                var newDBEntry = new userLoginSchemaObject({'userId': req.body.userId , 'password': req.body.password , 'userType':req.body.userType, 'userName':req.body.userName, 'phone':req.body.phone, 'email':req.body.email}) 
     
-    newDBEntry.save(function(err, savedUser){
-        if(err)
-            res.json({message : 'failures'})
-        else
-            res.json({message : 'successs'})
-    });
+                newDBEntry.save(function(err, savedUser){
+                    if(err)
+                    {
+                        res.json({ error: err.message || err.toString() });
+                    }
+                    else
+                        res.json({message : 'success'})
+                });
+
+            }
+            else{
+                res.json({message : 'duplicatefound'})
+            }
+        }
+
+      });
+
 })
 
 app.post('/addStockDetail', function(req, res){

@@ -329,9 +329,17 @@
             url: "/addUserLogin",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
-               console.log(data);
-               alert("New Employee added successfully.")
-               window.location.href = "/"
+
+            if(data.message == "duplicatefound")
+              {
+                alert("Same UserID already present, choose a different one.")
+              }
+              else if(data.message == "success")
+              {
+                alert("New Employee added successfully.")
+                window.location.href = "/"
+              }
+
             },
             error: function (e) {
               alert("Error while adding new employee")
