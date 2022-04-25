@@ -62,7 +62,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="allupcomingPM.html">All Upcoming Maintenance</a>
                   <a class="dropdown-item" href="completedPM.html">Completed Maintenance</a>
-                  
+
                   <div id = "hideReport" style ="display:none">
                     <a class="dropdown-item" href="generateMaintenanceReport.html">Generate Maintenance Report</a>
                     <a class="dropdown-item" href="generateStatusReport.html">Generate Status Report</a>
@@ -107,15 +107,19 @@
 
           -->
                   <a class="dropdown-item" href="view-customer-info.html">View Customers</a>
+
                   <div id = "hideMenu" style ="display:none">
                     <a class="dropdown-item" href="schedulePM.html">Add Maintenance Request</a>
                     <a class="dropdown-item" href="add-customer-info.html">Add Customer</a>
                     <a class="dropdown-item" href="deleteUpcomingPM.html">Delete Maintenance Request</a>
                     <a class="dropdown-item" href="editPMTicket.html">Edit Maintenance Request</a>
                   </div>
+
                   <div id = "showAdminOnly" style ="display:none">
                     <a class="dropdown-item" href="addNewEmployee.html">Add New Employee</a>
                   </div>
+
+                 
               </div>
               </li>
             </ul>
@@ -133,23 +137,111 @@
 
       <div class="container mt-5">
 
+        <!-- row -->
         <div class="row tm-content-row">
+
+    <!--      
+          <div class="tm-block-col tm-col-avatar">
+            <div class="tm-bg-primary-dark tm-block tm-block-avatar">
+              <h2 class="tm-block-title">Change Avatar</h2>
+              <div class="tm-avatar-container">
+                <img
+                  src="img/avatar.png"
+                  alt="Avatar"
+                  class="tm-avatar img-fluid mb-4"
+                />
+                <a href="#" class="tm-avatar-delete-link">
+                  <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                </a>
+              </div>
+              <button class="btn btn-primary btn-block text-uppercase">
+                Upload New Photo
+              </button>
+            </div>
+
+    -->
+
 
           </div>
           <div class="tm-block-col tm-col-account-settings">
             <div class="tm-bg-primary-dark tm-block tm-block-settings">
-              <h2 class="tm-block-title">Delete Upcoming Maintenance Record</h2>
-              <form id ="myform" action="javascript:;" onsubmit="myfun()" class="tm-signup-form">
+              <h2 class="tm-block-title">Add new Employee</h2>
+              <form id ="myform" action="javascript:;" onsubmit="myfun()" class="tm-signup-form row">
+
+
+                    <div class="form-group col-lg-6">
+                      <label
+                        for="userType"
+                        >Employee type
+                      </label>
+                      <select
+                      class="custom-select tm-select-accounts"
+                      id="userType"
+                      name="userType"
+                    >
+                    <option value="engineer">ENGINEER</option>
+                    <option value="admin">ADMIN</option>
+                    <option value="coordinator">COORDINATOR</option>
+                    </select>
+
+                    </div>
+                
 
                 <div class="form-group col-lg-6">
-                  <label for="mid">Enter Maintenance ID</label>
+                  <label for="userId">User ID</label>
                   <input
-                    id="mid"
-                    name="mid"
-                    type="inout"
+                    id="userId"
+                    name="userId"
+                    type="input"
                     class="form-control validate"
+                    required
                   />
                 </div>
+
+                <div class="form-group col-lg-6">
+                  <label for="userName">Name</label>
+                  <input
+                    id="userName"
+                    name="userName"
+                    type="input"
+                    class="form-control validate"
+                    required
+                  />
+                </div>
+
+                <div class="form-group col-lg-6">
+                  <label for="password">Password</label>
+                  <input
+                    id="password"
+                    name="password"
+                    type="input"
+                    class="form-control validate"
+                    required
+                  />
+                </div>
+
+                <div class="form-group col-lg-6">
+                    <label for="phone">Phone</label>
+                    <input
+                      id="phone"
+                      name="phone"
+                      type="input"
+                      class="form-control validate"
+                      required
+                    />
+                  </div>
+
+
+                  <div class="form-group col-lg-6">
+                    <label for="email">Email</label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="input"
+                      class="form-control validate"
+                      required
+                    />
+                  </div>
 
 
                 <div class="form-group col-lg-6">
@@ -158,7 +250,7 @@
                     type="submit"
                     class="btn btn-primary btn-block text-uppercase"
                   >
-                    Delete Record
+                    Add New Employee
                   </button>
                 </div>
 
@@ -184,6 +276,7 @@
     <script>
 
          $(function() {
+          document.getElementById("myform").reset();
 
           $.ajax({
             type: 'GET',
@@ -221,42 +314,44 @@
             }
           });
 
-          document.getElementById("myform").reset();
+
         });
 
       function myfun()
       {
 
-        if(document.getElementById("myform").elements.mid.value == "")
+        if(document.getElementById("myform").elements.userType.value == "")
         {
-          alert("Maintenance ID cannot be empty.");
+          alert("Select Employee type.");
           return;
         }
 
         $.ajax({
             type: 'POST',
-            data: { maintenanceID: document.getElementById("myform").elements.mid.value.toUpperCase()
+            data: { userId: document.getElementById("myform").elements.userId.value,
+            password: document.getElementById("myform").elements.password.value,
+            userType : document.getElementById("myform").elements.userType.value,
+            userName : document.getElementById("myform").elements.userName.value,
+            phone : document.getElementById("myform").elements.phone.value, 
+            email : document.getElementById("myform").elements.email.value
                   },
-            url: "/delupcomingPM",
+            url: "/addUserLogin",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
 
-             if(data == "failure")
+            if(data.message == "duplicatefound")
               {
-                alert("Failed to delete record")
+                alert("Same UserID already present, choose a different one.")
               }
-              if(data == "notfound")
+              else if(data.message == "success")
               {
-                alert("No record found for given maintenance id.")
+                alert("New Employee added successfully.")
+                window.location.href = "/"
               }
-              else
-              {
-                alert("Successfully deleted record")
-                window.location.href = "/allupcomingPM.html"
-              }
+
             },
             error: function (e) {
-              alert("Error while deleteing record")
+              alert("Error while adding new employee")
             }
           });
       }
