@@ -45,7 +45,7 @@ const Multer = require('multer');
 
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://dbadmin:dbpassword@cluster0-v6hog.mongodb.net/devProdDB?retryWrites=true', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://dbadmin:dbpassword@cluster0-v6hog.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
 
 var userDetailsSchema = new mongoose.Schema({
     fName: String,
