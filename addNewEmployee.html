@@ -175,8 +175,6 @@
                       id="userType"
                       name="userType"
                     >
-                    <option>Employee Type</option>
-
                     <option value="engineer">ENGINEER</option>
                     <option value="admin">ADMIN</option>
                     <option value="coordinator">COORDINATOR</option>
@@ -327,17 +325,16 @@
             userName : document.getElementById("myform").elements.userName.value,
             phone : document.getElementById("myform").elements.phone.value, 
             email : document.getElementById("myform").elements.email.value
-
                   },
             url: "/addUserLogin",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
                console.log(data);
-               alert(data)
-               window.location.href = "/login.html"
+               alert("New Employee added successfully.")
+               window.location.href = "/"
             },
             error: function (e) {
-              alert("Error while changing password: ")
+              alert("Error while adding new employee")
             }
           });
       }
