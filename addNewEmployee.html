@@ -161,7 +161,7 @@
           </div>
           <div class="tm-block-col tm-col-account-settings">
             <div class="tm-bg-primary-dark tm-block tm-block-settings">
-              <h2 class="tm-block-title">Change Password</h2>
+              <h2 class="tm-block-title">Add new Employee</h2>
               <form id ="myform" action="javascript:;" onsubmit="myfun()" class="tm-signup-form row">
 
 
@@ -313,39 +313,9 @@
       function myfun()
       {
 
-        if(document.getElementById("myform").elements.userType.value != "")
+        if(document.getElementById("myform").elements.userType.value == "")
         {
           alert("Select Employee type.");
-          return;
-        }
-
-        if(document.getElementById("myform").elements.password.value == "")
-        {
-          alert("Password cannot be empty");
-          return;
-        }
-
-        if(document.getElementById("myform").elements.userName.value == "")
-        {
-          alert("User Name cannot be empty");
-          return;
-        }
-
-        if(document.getElementById("myform").elements.userId.value == "")
-        {
-          alert("User Id cannot be empty");
-          return;
-        }
-
-        if(document.getElementById("myform").elements.email.value == "")
-        {
-          alert("Email cannot be empty");
-          return;
-        }
-
-        if(document.getElementById("myform").elements.phone.value == "")
-        {
-          alert("Phone cannot be empty");
           return;
         }
 
