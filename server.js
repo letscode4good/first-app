@@ -1211,6 +1211,9 @@ app.get('/generateStatusReport.html', (req, res) => res.sendFile(__dirname+'/gen
 
 app.get('/generateMaintenanceReport.html', (req, res) => res.sendFile(__dirname+'/generateMaintenanceReport.html'))
 
+
+app.get('/addNewEmployee.html', (req, res) => res.sendFile(__dirname+'/addNewEmployee.html'))
+
 app.get('/editInventory.html', (req, res) => res.sendFile(__dirname+'/editInventory.html'))
 
 app.get('/editCompletedPMReport.html',function(req, res)
