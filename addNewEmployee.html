@@ -164,8 +164,8 @@
               <h2 class="tm-block-title">Change Password</h2>
               <form id ="myform" action="javascript:;" onsubmit="myfun()" class="tm-signup-form row">
 
-                <div class="row">
-                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+
+                    <div class="form-group col-lg-6">
                       <label
                         for="userType"
                         >Employee type
@@ -183,7 +183,7 @@
                     </select>
 
                     </div>
-                </div>
+                
 
                 <div class="form-group col-lg-6">
                   <label for="userId">User ID</label>
@@ -192,6 +192,7 @@
                     name="userId"
                     type="input"
                     class="form-control validate"
+                    required
                   />
                 </div>
 
@@ -202,6 +203,7 @@
                     name="userName"
                     type="input"
                     class="form-control validate"
+                    required
                   />
                 </div>
 
@@ -212,6 +214,7 @@
                     name="password"
                     type="input"
                     class="form-control validate"
+                    required
                   />
                 </div>
 
@@ -222,6 +225,7 @@
                       name="phone"
                       type="input"
                       class="form-control validate"
+                      required
                     />
                   </div>
 
@@ -233,9 +237,9 @@
                       name="email"
                       type="input"
                       class="form-control validate"
+                      required
                     />
                   </div>
-
 
 
                 <div class="form-group col-lg-6">
@@ -309,27 +313,39 @@
       function myfun()
       {
 
-        if(document.getElementById("myform").elements.newpassword1.value != document.getElementById("myform").elements.newpassword2.value)
+        if(document.getElementById("myform").elements.userType.value != "")
         {
-          alert("Password mismatch in New Password and Confirm Password textbox.");
+          alert("Select Employee type.");
           return;
         }
 
-        if(document.getElementById("myform").elements.oldpassword.value == "")
+        if(document.getElementById("myform").elements.password.value == "")
         {
           alert("Password cannot be empty");
           return;
         }
 
-        if(document.getElementById("myform").elements.newpassword1.value == "")
+        if(document.getElementById("myform").elements.userName.value == "")
         {
-          alert("New Password textbox cannot be empty");
+          alert("User Name cannot be empty");
           return;
         }
 
-        if(document.getElementById("myform").elements.newpassword2.value == "")
+        if(document.getElementById("myform").elements.userId.value == "")
         {
-          alert("Confirm Password textbox cannot be empty");
+          alert("User Id cannot be empty");
+          return;
+        }
+
+        if(document.getElementById("myform").elements.email.value == "")
+        {
+          alert("Email cannot be empty");
+          return;
+        }
+
+        if(document.getElementById("myform").elements.phone.value == "")
+        {
+          alert("Phone cannot be empty");
           return;
         }
 
