@@ -178,6 +178,10 @@
 
                 <canvas id="myChart1" style="width:50%;max-width:530px"></canvas>
 
+                <canvas id="myChart2" style="width:50%;max-width:530px"></canvas>
+
+                
+
                 </div>
           </div>
         </div>
@@ -245,6 +249,7 @@
             var total_call = 0;
             var total_installation = 0;
 
+            const engineerWork = new Map([]);
 
 
             var length = Object.keys(data).length;
@@ -268,6 +273,14 @@
                 total_installation = total_installation + 1;
               }
 
+              if(engineerWork.has(data[i].engineer)
+              {
+                engineerWork.set(data[i].engineer, engineerWork.get(data[i].engineer) + 1);
+              }
+              else
+              {
+                engineerWork.set(data[i].engineer,  1);
+              }
 
 
             }
@@ -359,6 +372,47 @@
 
                     }
                   });
+
+
+
+
+                  // Engineer work bar chart--
+
+                  var xValues2 = [];
+                  var yValues2 = [];
+
+                  $('#myChart2').remove(); // this is my <canvas> element
+                  $('#chartContainer').append('<canvas id="myChart2" style="width:50%;max-width:530px"></canvas>');
+
+                  engineerWork.forEach((values,keys)=>{
+                    xValues2.set(keys)
+                    yValues2.set(values)
+                    
+                  })
+
+                  new Chart("myChart2", {
+                    type: "bar",
+                    data: {
+                      labels: xValues2,
+                      datasets: [{
+                        data: yValues2
+                      }]
+                    },
+                    options: {
+                      title: {
+                        display: true,
+                        fontColor: 'white',
+                        text: "Issue Distribution"
+                      },
+                      legend: {
+                        labels: {
+                            fontColor: 'white'
+                        }
+                    }
+
+                    }
+                  });
+
 
 
         }
