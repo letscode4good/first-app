@@ -173,7 +173,7 @@
 
           </div>
 
-          <div class="row">
+          <div class="row" id="chartContainer">
 
             <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
 
@@ -200,6 +200,7 @@
 
         <script>
 
+          
         $(function() {
 
          
@@ -266,7 +267,11 @@
             yValues.push(total_miscellaneous);
 
 
-            new Chart("myChart", {
+            $('#myChart').remove(); // this is my <canvas> element
+            $('#chartContainer').append('<canvas id="myChart" style="width:100%;max-width:600px"></canvas>');
+
+
+             new Chart("myChart", {
               type: "pie",
               data: {
                 labels: xValues,
