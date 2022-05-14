@@ -132,51 +132,51 @@
         <div class="container tm-mt-big tm-mb-big">
 
           <div class="col-xl-6 col-lg-6 col-md-12">
-          <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="loadData()" class="tm-edit-product-form" >
+              <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="loadData()" class="tm-edit-product-form" >
 
-                  <div class="row">
-                          <!---
-                          <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('1')">Today</button>
-                          <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('2')">This Month</button>
-                          <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('0')">Show All</button>
-                      
-                          -->
+                      <div class="row">
+                              <!---
+                              <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('1')">Today</button>
+                              <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('2')">This Month</button>
+                              <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('0')">Show All</button>
                           
-                              <div class="form-group mb-3 col-xs-12 col-sm-6">
-                              <label
-                                  for="startDate"
-                                  >Start Date
-                              </label>
-                              <input class="form-control validate"  type="date" id="startDate" name="statusDate" required>
-                              </div>
-
-                              <div class="form-group mb-3 col-xs-12 col-sm-6">
+                              -->
+                              
+                                  <div class="form-group mb-3 col-xs-12 col-sm-6">
                                   <label
-                                  for="endDate"
-                                  >End Date
+                                      for="startDate"
+                                      >Start Date
                                   </label>
-                                  <input class="form-control validate"  type="date" id="endDate" name="statusDate" required>
-                              </div>
-                      
-                      
-                      
-                  </div>
+                                  <input class="form-control validate"  type="date" id="startDate" name="statusDate" required>
+                                  </div>
 
-                  <div class="row">
-                    <div class="form-group mb-3 col-xs-12 col-sm-6">
-                    <button type="submit"  id = "submitbutton" class="btn btn-primary btn-block text-uppercase">Generate Report</button>
+                                  <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                      <label
+                                      for="endDate"
+                                      >End Date
+                                      </label>
+                                      <input class="form-control validate"  type="date" id="endDate" name="statusDate" required>
+                                  </div>
+                          
+                          
+                          
+                      </div>
+
+                      <div class="row">
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                        <button type="submit"  id = "submitbutton" class="btn btn-primary btn-block text-uppercase">Generate Report</button>
+                        </div>
                     </div>
-                </div>
 
-            </form>
+                </form>
 
           </div>
 
-          <div class="row" id="chartContainer">
+              <div class="row" id="chartContainer">
 
-            <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+                <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
 
-            </div>
+                </div>
           </div>
         </div>
         <footer class="tm-footer row tm-mt-small">
@@ -194,8 +194,9 @@
         <script async src="js/bootstrap.min.js"></script>
 
          <!-- charts js by google,   https://developers.google.com/chart/interactive/docs/basic_multiple_charts -->
-        <script async src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"> </script>
-
+        <!-- 
+         <script async src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"> </script>
+     -->
 
         <script>
 
