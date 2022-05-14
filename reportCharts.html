@@ -178,7 +178,7 @@
 
                 <canvas id="myChart1" style="width:50%;max-width:530px"></canvas>
 
-                <canvas id="myChart2" style="width:50%;max-width:530px"></canvas>
+                <canvas id="myChart2" style="width:100%;"></canvas>
 
                 
 
@@ -381,7 +381,7 @@
                   var yValues2 = [];
 
                   $('#myChart2').remove(); // this is my <canvas> element
-                  $('#chartContainer').append('<canvas id="myChart2" style="width:50%;max-width:530px"></canvas>');
+                  $('#chartContainer').append('<canvas id="myChart2" style="width:100%;"></canvas>');
 
                   engineerWork.forEach((values,keys)=>{
                     xValues2.push(keys)
@@ -392,22 +392,37 @@
                   new Chart("myChart2", {
                     type: "bar",
                     data: {
+                      
                       labels: xValues2,
                       datasets: [{
+                        label: 'Engineer Workload',
                         data: yValues2
                       }]
                     },
                     options: {
-                      title: {
-                        display: true,
-                        fontColor: 'white',
-                        text: "Issue Distribution"
-                      },
                       legend: {
                         labels: {
                             fontColor: 'white'
                         }
-                    }
+                    },
+                    scales: {
+                              yAxes: [{
+                                  ticks: {
+                                      fontColor: "green",
+                                      fontSize: 18,
+                                      stepSize: 1,
+                                      beginAtZero: true
+                                  }
+                              }],
+                              xAxes: [{
+                                  ticks: {
+                                      fontColor: "purple",
+                                      fontSize: 14,
+                                      stepSize: 1,
+                                      beginAtZero: true
+                                  }
+                              }]
+                          }
 
                     }
                   });
