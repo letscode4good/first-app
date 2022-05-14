@@ -131,6 +131,39 @@
           </div>
         </nav>
         <div class="container tm-mt-big tm-mb-big">
+
+          <form  id = "myform" action="javascript:;" enctype=”multipart/form-data” onsubmit="loadData()" class="tm-edit-product-form" >
+
+                  <div class="row">
+                          <!---
+                          <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('1')">Today</button>
+                          <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('2')">This Month</button>
+                          <button type="submit" class="btn btn-primary btn-block " style="border: 2px solid white; background-color: #54657d; margin: 0 8px;  " onclick="loadData('0')">Show All</button>
+                      
+                          -->
+                          
+                              <div class="form-group mb-3 col-xs-12 col-sm-6">
+                              <label
+                                  for="startDate"
+                                  >Start Date
+                              </label>
+                              <input class="form-control validate"  type="date" id="startDate" name="statusDate" required>
+                              </div>
+
+                              <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                  <label
+                                  for="endDate"
+                                  >End Date
+                                  </label>
+                                  <input class="form-control validate"  type="date" id="endDate" name="statusDate" required>
+                              </div>
+                      
+                      
+                      
+                  </div>
+
+            </form>f
+
           <div class="row">
 
             <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
@@ -188,6 +221,82 @@
             });
    
         });
+
+
+
+        function loadData() {
+
+
+          var sdate = new Date(document.getElementById("myform").elements.startDate.value);
+          var edate = new Date(document.getElementById("myform").elements.endDate.value);
+
+          sdate.setUTCHours(0,0,0,0);
+          edate.setUTCHours(23,59,59,999);
+
+
+                    $.ajax({
+                    type: 'GET',
+                    data: { startDate:sdate,
+                            endDate: edate},
+                    url: "/generatePMHistoryReport",
+                    contentType: "text/plain",
+                    dataType: 'json',
+                    success: function (data) {
+                    myJsonData = data;
+                    drawChart(myJsonData);
+                    },
+                    error: function (e) {
+                    console.log("There was an error with your request...");
+                    console.log("error: " + JSON.stringify(e));
+                    }
+                });
+
+
+        }
+
+        function drawChart(data)
+        {
+
+            var total_travel = 0;
+            var total_transport = 0;
+            var total_miscellaneous = 0;
+            var length = Object.keys(data).length;
+            for (var i = 0; i < length; i++) {
+
+              total_travel += data[i].travelExpense;
+              total_transport += data[i].transportExpense;
+              total_miscellaneous += data[i].MiscellaneousExpense;
+
+            }
+
+            var xValues = ["Travel", "Transport", "Miscellaneous"];
+            var yValues = [];
+
+            //order of entry is impotant
+            yValues.push(total_travel);
+            yValues.push(total_transport);
+            yValues.push(total_miscellaneous);
+
+
+            new Chart("myChart", {
+              type: "pie",
+              data: {
+                labels: xValues,
+                datasets: [{
+                  data: yValues
+                }]
+              },
+              options: {
+                title: {
+                  display: true,
+                  text: "Expense Distribution"
+                }
+              }
+            });
+
+
+        }
+
 
         </script>
       </body>
