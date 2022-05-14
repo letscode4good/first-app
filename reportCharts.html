@@ -254,6 +254,11 @@
 
             var xValues = ["Travel", "Transport", "Miscellaneous"];
             var yValues = [];
+            var barColors = [
+                "#b91d47",
+                "#2b5797",
+                "#1e7145"
+              ];
 
             //order of entry is impotant
             yValues.push(total_travel);
@@ -266,6 +271,7 @@
               data: {
                 labels: xValues,
                 datasets: [{
+                  backgroundColor: barColors,
                   data: yValues
                 }]
               },
