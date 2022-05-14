@@ -1250,6 +1250,9 @@ app.get('/detailedPMReport.html', (req, res) => res.sendFile(__dirname+'/detaile
 
 app.get('/addEmployeeStatus.html', (req, res) => res.sendFile(__dirname+'/addEmployeeStatus.html'))
 
+app.get('/reportCharts.html', (req, res) => res.sendFile(__dirname+'/reportCharts.html'))
+
+
 
 app.post('/login', function(req, res){
     console.log(process.cwd())
