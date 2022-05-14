@@ -76,6 +76,7 @@
                     <div id = "hideReport" style ="display:none">
                       <a class="dropdown-item" href="generateMaintenanceReport.html">Generate Maintenance Report</a>
                       <a class="dropdown-item" href="generateStatusReport.html">Generate Status Report</a>
+                      <a class="dropdown-item" href="reportCharts.html">Generate Charts</a>
                     </div>
                     
                   </div>
@@ -163,7 +164,7 @@
 
                       <div class="row">
                         <div class="form-group mb-3 col-xs-12 col-sm-6">
-                        <button type="submit"  id = "submitbutton" class="btn btn-primary btn-block text-uppercase">Generate Report</button>
+                        <button type="submit"  id = "submitbutton" class="btn btn-primary btn-block text-uppercase">Generate Charts</button>
                         </div>
                     </div>
 
@@ -399,7 +400,7 @@
                       labels: xValues2,
                       datasets: [{
                         label: 'Engineer Workload',
-                        backgroundColor: "green",
+                        backgroundColor: "lightskyblue",
                         data: yValues2
                       }]
                     },
