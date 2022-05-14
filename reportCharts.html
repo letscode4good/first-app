@@ -174,7 +174,9 @@
 
               <div class="row" id="chartContainer">
 
-                <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+                <canvas id="myChart" style="width:50%;max-width:600px"></canvas>
+
+                <canvas id="myChart1" style="width:50%;max-width:600px"></canvas>
 
                 </div>
           </div>
@@ -238,6 +240,13 @@
             var total_travel = 0;
             var total_transport = 0;
             var total_miscellaneous = 0;
+
+            var total_maintenance = 0;
+            var total_call = 0;
+            var total_installation = 0;
+
+
+
             var length = Object.keys(data).length;
             for (var i = 0; i < length; i++) {
 
@@ -245,49 +254,111 @@
               total_transport += data[i].transportExpense;
               total_miscellaneous += data[i].MiscellaneousExpense;
 
+
+              if(data[i].issueType == "CALL")
+              {
+                total_call=total_call + 1;
+              }
+              else if(data[i].issueType == "MAINTENANCE")
+              {
+                total_maintenance = total_maintenance + 1;
+              }
+              else if( data[i].issueType == "INSTALLATION")
+              {
+                total_installation = total_installation + 1;
+              }
+
+
+
             }
 
-            var xValues = ["Travel", "Transport", "Miscellaneous"];
-            var yValues = [];
-            var barColors = [
-                "#b91d47",
-                "#2b5797",
-                "#1e7145"
-              ];
+            // Expense chart code--
+                  var xValues = ["Travel", "Transport", "Miscellaneous"];
+                  var yValues = [];
+                  var barColors = [
+                      "#b91d47",
+                      "#2b5797",
+                      "#1e7145"
+                    ];
 
-            //order of entry is impotant
-            yValues.push(total_travel);
-            yValues.push(total_transport);
-            yValues.push(total_miscellaneous);
-
-
-            $('#myChart').remove(); // this is my <canvas> element
-            $('#chartContainer').append('<canvas id="myChart" style="width:100%;max-width:600px"></canvas>');
+                  //order of entry is impotant
+                  yValues.push(total_travel);
+                  yValues.push(total_transport);
+                  yValues.push(total_miscellaneous);
 
 
-             new Chart("myChart", {
-              type: "pie",
-              data: {
-                labels: xValues,
-                datasets: [{
-                  backgroundColor: barColors,
-                  data: yValues
-                }]
-              },
-              options: {
-                title: {
-                  display: true,
-                  fontColor: 'white',
-                  text: "Expense Distribution"
-                },
-                legend: {
-                  labels: {
-                      fontColor: 'white'
-                  }
-              }
+                  $('#myChart').remove(); // this is my <canvas> element
+                  $('#chartContainer').append('<canvas id="myChart" style="width:50%;max-width:600px"></canvas>');
 
-              }
-            });
+
+                  new Chart("myChart", {
+                    type: "pie",
+                    data: {
+                      labels: xValues,
+                      datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+                      }]
+                    },
+                    options: {
+                      title: {
+                        display: true,
+                        fontColor: 'white',
+                        text: "Expense Distribution"
+                      },
+                      legend: {
+                        labels: {
+                            fontColor: 'white'
+                        }
+                    }
+
+                    }
+                  });
+
+
+
+        // IssueType  chart code--
+                  var xValues1 = ["Maintenance", "Call", "Installation"];
+                  var yValues1 = [];
+                  var barColors1 = [
+                      "#b91d47",
+                      "#2b5797",
+                      "#1e7145"
+                    ];
+
+                  //order of entry is impotant
+                  yValues1.push(total_maintenance);
+                  yValues1.push(total_call);
+                  yValues1.push(total_installation);
+
+
+                  $('#myChart1').remove(); // this is my <canvas> element
+                  $('#chartContainer').append('<canvas id="myChart1" style="width:50%;max-width:600px"></canvas>');
+
+
+                  new Chart("myChart1", {
+                    type: "pie",
+                    data: {
+                      labels: xValues1,
+                      datasets: [{
+                        backgroundColor: barColors1,
+                        data: yValues1
+                      }]
+                    },
+                    options: {
+                      title: {
+                        display: true,
+                        fontColor: 'white',
+                        text: "Issue Distribution"
+                      },
+                      legend: {
+                        labels: {
+                            fontColor: 'white'
+                        }
+                    }
+
+                    }
+                  });
 
 
         }
