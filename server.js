@@ -9,7 +9,7 @@ cron.schedule("*/5 * * * *", function() {
 
 
 const port = process.env.PORT || 80
-app.use(express.static('public'))
+app.use(express.static('public',{ maxAge:86400000}))
 app.use(express.urlencoded({
     extended: true
   }))
@@ -1249,6 +1249,9 @@ app.get('/editCompletedPMReport.html',function(req, res)
 app.get('/detailedPMReport.html', (req, res) => res.sendFile(__dirname+'/detailedPMReport.html'))
 
 app.get('/addEmployeeStatus.html', (req, res) => res.sendFile(__dirname+'/addEmployeeStatus.html'))
+
+app.get('/reportCharts.html', (req, res) => res.sendFile(__dirname+'/reportCharts.html'))
+
 
 
 app.post('/login', function(req, res){
