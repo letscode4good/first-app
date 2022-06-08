@@ -428,6 +428,7 @@
           }
 
 
+        $.fn.dataTable.moment( 'D/M/YYYY' );
 
         $(function() {
           //$("#stockTable").DataTable();
@@ -435,7 +436,8 @@
           $('#stockTable').dataTable( {
             "columnDefs": [
                 { "width": "10%", "targets": [0,1] },
-                { "width": "15%", "targets": [2,3] }
+                { "width": "15%", "targets": [2,3] },
+                { "target": "1", "type": 'datetime-moment'}
             ],
             dom: 'Blfrtip',
             buttons: [
