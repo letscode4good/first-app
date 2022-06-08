@@ -298,15 +298,6 @@
         
         document.getElementById("inventoryDiv").style.opacity = "0";
 
-        /*
-        $("#custInfo").DataTable({
-            "columnDefs": [
-                { "target": "7", "type": 'datetime-moment'}
-            ],
-            "aaSorting": [[ 7, 'asc' ]]
-            } );
-*/
-
         $("#custInventory").DataTable({searching: false, paging: false, info: false});
 
         $.fn.dataTable.moment( 'LL' );
