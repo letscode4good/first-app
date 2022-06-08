@@ -414,6 +414,9 @@
             console.log("populating data table for all data");
             // clear the table before populating it with more data
             $("#stockTable").DataTable().clear().draw();
+
+            $("#stockTable").DataTable().moment( 'D/M/YYYY' );
+
             var length = Object.keys(data).length;
             for(var i = 0; i < length; i++) {
               //var statusDate =new Date(data[i].date).toLocaleDateString();
@@ -449,7 +452,6 @@
             } );
           document.getElementById("inventoryDiv").style.opacity = "0";
 
-          $.fn.dataTable.moment( 'D/M/YYYY' );
 
         });
 
