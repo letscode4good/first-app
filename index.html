@@ -35,6 +35,9 @@
     <link rel="stylesheet" href="css/model_popup.css">
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
+    <!-- for sorting based on date -->
+    <script src="https://cdn.datatables.net/plug-ins/1.10.11/sorting/datetime-moment.js"></script>
+
 
     <div class="" id="home">
         <nav class="navbar navbar-expand-xl">
@@ -350,9 +353,12 @@
           $('#stockTable').dataTable( {
             "columnDefs": [
                 { "width": "15%", "targets": [0,1] },
-                { "width": "25%", "targets": [2,3,4] }
+                { "width": "25%", "targets": [2,3,4] },
+                { "target": "1", "type": 'datetime-moment'}
             ]
             } );
+
+            $.fn.dataTable.moment( 'LL' );
 
             $.ajax({
               type: 'GET',
