@@ -302,12 +302,10 @@
             "columnDefs": [
                 { "target": "7", "type": 'datetime-moment'}
             ],
-            "aaSorting": [[ 7, 'asc' ]],
-            "searching": "false",
-             "paging": "false", 
-             "info": "false"
+            "aaSorting": [[ 7, 'asc' ]]
             } );
-        //$("#custInventory").DataTable({searching: false, paging: false, info: false});
+
+        $("#custInventory").DataTable({searching: false, paging: false, info: false});
 
         $.fn.dataTable.moment( 'LL' );
 
