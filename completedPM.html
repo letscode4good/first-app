@@ -16,13 +16,18 @@
     <!-- includes for datatable -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type = "text/JavaScript" src = " https://MomentJS.com/downloads/moment.js"></script>
+
+            <!-- for sorting based on date -->
+            <script src="https://cdn.datatables.net/plug-ins/1.10.11/sorting/datetime-moment.js"></script>
+
     <!-- https://fontawesome.com/ -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <script src="js/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="css/templatemo-style.css">
     <link rel="stylesheet" href="css/model_popup.css">
-    <script type = "text/JavaScript" src = " https://MomentJS.com/downloads/moment.js"></script>
+
 
     <!--
 	Product Admin CSS Template
@@ -306,8 +311,10 @@
         
         document.getElementById("inventoryDiv").style.opacity = "0";
 
-        $("#custInfo").DataTable();
+        //$("#custInfo").DataTable();
         //$("#custInventory").DataTable({searching: false, paging: false, info: false});
+
+        $.fn.dataTable.moment( 'LL' );
 
         loadData();
       
@@ -453,8 +460,14 @@
         });
       }
 
-
-      var table = $("#custInfo").DataTable();
+      var table = $("#custInfo").DataTable(
+        {
+            "columnDefs": [
+                { "target": "7", "type": 'datetime-moment'}
+            ],
+            "aaSorting": [[ 7, 'asc' ]]
+          } 
+      );
       $('#custInfo tbody').on('click', 'tr', function () {
         var data = table.row( this ).data();
         //alert( 'You clicked on '+data[0]+'\'s row' );

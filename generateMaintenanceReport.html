@@ -15,6 +15,7 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <!-- includes for datatable -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="js/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <!-- https://fontawesome.com/ -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -35,6 +36,10 @@
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
 
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+
+    <!-- for sorting based on date -->
+    <script src="https://cdn.datatables.net/plug-ins/1.10.11/sorting/datetime-moment.js"></script>
+
     <!--
 	Product Admin CSS Template
 	https://templatemo.com/tm-524-product-admin
@@ -475,11 +480,12 @@
         
         document.getElementById("inventoryDiv").style.opacity = "0";
 
-        $("#custInfo").DataTable();
+        //$("#custInfo").DataTable();
         //$("#custInventory").DataTable({searching: false, paging: false, info: false});
 
         document.getElementById("myform").reset();
         document.getElementById("myform1").reset();
+        $.fn.dataTable.moment( 'LL' );
         
        
       });
@@ -688,6 +694,8 @@
             if(data[i].hasOwnProperty('issueType')){
               issuetype = data[i].issueType
             }
+            var completionDate = moment(data[i].dateWhenDone).format('LL');
+
             $('#custInfo').dataTable().fnAddData( [
               data[i].custId,
               data[i].maintenanceID,
@@ -696,7 +704,7 @@
               data[i].customerType,
               data[i].maintenanceType,
               issuetype,
-              data[i].dateWhenDone,
+              completionDate,
               data[i].engineer,
               data[i].upsName,
               data[i].upsCapacity,
@@ -790,10 +798,14 @@
 
       var table = $("#custInfo").DataTable(
           {
+            "columnDefs": [
+                { "target": "7", "type": 'datetime-moment'}
+            ],
         dom: 'Blfrtip',
             buttons: [
                  'excel', 'pdf'
             ],
+            "aaSorting": [[ 7, 'asc' ]],
           }
       );
       $('#custInfo tbody').on('click', 'tr', function () {
