@@ -430,7 +430,7 @@
           }
 
 
-        $.fn.dataTable.moment( 'D/M/YYYY' );
+        
 
         $(function() {
           //$("#stockTable").DataTable();
@@ -448,6 +448,9 @@
             "aaSorting": [[ 1, 'asc' ]], 
             } );
           document.getElementById("inventoryDiv").style.opacity = "0";
+
+          $.fn.dataTable.moment( 'D/M/YYYY' );
+
         });
 
 
