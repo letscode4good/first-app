@@ -27,7 +27,11 @@
     <!-- https://jquery.com/download/ -->
     <script src="js/moment.min.js"></script>
      <!-- for sorting based on date -->
-    <script src="https://cdn.datatables.net/plug-ins/1.12.1/sorting/datetime-moment.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.datatables.net/plug-ins/1.10.11/sorting/datetime-moment.js"></script>
     <!-- https://momentjs.com/ -->
     <script src="js/Chart.min.js"></script>
     <!-- http://www.chartjs.org/docs/latest/ -->
@@ -415,8 +419,6 @@
             // clear the table before populating it with more data
             $("#stockTable").DataTable().clear().draw();
 
-            $("#stockTable").DataTable().moment( 'D/M/YYYY' );
-
             var length = Object.keys(data).length;
             for(var i = 0; i < length; i++) {
               //var statusDate =new Date(data[i].date).toLocaleDateString();
@@ -438,6 +440,7 @@
         $(function() {
           //$("#stockTable").DataTable();
 
+
           $('#stockTable').dataTable( {
             "columnDefs": [
                 { "width": "10%", "targets": [0,1] },
@@ -451,6 +454,8 @@
             "aaSorting": [[ 1, 'asc' ]], 
             } );
           document.getElementById("inventoryDiv").style.opacity = "0";
+
+          $.fn.dataTable.moment( 'LL' );
 
 
         });
