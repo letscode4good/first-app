@@ -242,6 +242,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
+        <!-- for sorting based on date -->
+        <script src="https://cdn.datatables.net/plug-ins/1.10.11/sorting/datetime-moment.js"></script>
+
 
     <!-- https://jquery.com/download/ -->
     <script src="js/bootstrap.min.js"></script>
@@ -295,8 +298,15 @@
         
         document.getElementById("inventoryDiv").style.opacity = "0";
 
-        $("#custInfo").DataTable();
+        $("#custInfo").DataTable({
+            "columnDefs": [
+                { "target": "7", "type": 'datetime-moment'}
+            ],
+            "aaSorting": [[ 7, 'asc' ]]
+            } );
         $("#custInventory").DataTable({searching: false, paging: false, info: false});
+
+        $.fn.dataTable.moment( 'LL' );
 
         loadData();
         //loadDataToday();
