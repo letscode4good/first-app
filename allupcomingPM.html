@@ -298,11 +298,14 @@
         
         document.getElementById("inventoryDiv").style.opacity = "0";
 
+        /*
         $("#custInfo").DataTable({
             "columnDefs": [
                 { "target": "7", "type": 'datetime-moment'}
-            ]
+            ],
+            "aaSorting": [[ 7, 'asc' ]]
             } );
+*/
 
         $("#custInventory").DataTable({searching: false, paging: false, info: false});
 
@@ -488,7 +491,14 @@
         document.getElementById("custInfo").style.opacity = "1";
       }
 
-      var table = $("#custInfo").DataTable();
+      var table = $("#custInfo").DataTable(
+        {
+            "columnDefs": [
+                { "target": "7", "type": 'datetime-moment'}
+            ],
+            "aaSorting": [[ 7, 'asc' ]]
+            } 
+      );
       $('#custInfo tbody').on('click', 'tr', function () {
         var data = table.row( this ).data();
         //alert( 'You clicked on '+data[0]+'\'s row' );
