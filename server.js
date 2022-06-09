@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 
 const port = process.env.PORT || 80
-app.use(express.static('public'))
+app.use(express.static('public',{ maxAge:86400000}))
 app.use(express.urlencoded({
     extended: true
   }))
