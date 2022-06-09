@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 
 const port = process.env.PORT || 80
-app.use(express.static('public'))
+app.use(express.static(root))
 app.use(express.urlencoded({
     extended: true
   }))
@@ -103,7 +103,7 @@ app.get('/getItemNames',function(req, res) {
 
 
 app.get('/',(req,res) => {
-    res.sendFile(__dirname+'/addItem.html')
+    res.sendFile(__dirname+'/index.html')
 })
 
 app.get('/addItem.html',(req,res) => {
