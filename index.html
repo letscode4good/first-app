@@ -808,6 +808,9 @@ RS Power Solution established in year 2003 is a professional Dealer, supplier an
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
+    <!-- for fancy alert -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+
   <script>
 
     function sendInquiry()
@@ -826,9 +829,14 @@ RS Power Solution established in year 2003 is a professional Dealer, supplier an
               if (data.hasOwnProperty('error'))
               {
                 alert(data.error);
+                swal("Your message could not be sent.", "Thank you!", "error", {
+                  button: "okay",
+                  });
               }
               else{
-                alert("Your message has been sent. Thank you!");
+                  swal("Your message has been sent.", "Thank you!", "success", {
+                  button: "okay",
+                  });
               }
               document.getElementById("myform").reset();
             },
