@@ -106,6 +106,10 @@ app.get('/',(req,res) => {
     res.sendFile(__dirname+'/index.html')
 })
 
+app.get('/pricing.html',(req,res) => {
+    res.sendFile(__dirname+'/pricing.html')
+})
+
 app.get('/addItem.html',(req,res) => {
   res.sendFile(__dirname+'/addItem.html')
 })
