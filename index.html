@@ -827,7 +827,10 @@ RS Power Solution established in year 2003 is a professional Dealer, supplier an
               {
                 alert(data.error);
               }
-              document.getElementById("myForm").reset();
+              else{
+                alert("Your message has been sent. Thank you!");
+              }
+              document.getElementById("myform").reset();
             },
             error: function (e) {
               alert("Error while adding data: " + JSON.stringify(e))

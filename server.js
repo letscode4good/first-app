@@ -158,11 +158,11 @@ app.post('/addNewEnquiry', function(req, res){
         to: 'rspower1pmdatastore@gmail.com',
         subject: `Customer Inquiry by ${req.body.customerName}`,
         text: `Please find the inquiry info- \n \n\
-Customer Name : ${req.body.customerName} \n \
-Customer Email : ${req.body.customerEmail} \n \
-Customer Phone : ${req.body.customerPhone} \n \
-Customer Inquiry Subject  : ${req.body.customerInquirySubject} \n \
-Customer msg  : ${req.body.customerInquiryMsg} \n \
+Name : ${req.body.customerName} \n \
+ Email : ${req.body.customerEmail} \n \
+ Phone : ${req.body.customerPhone} \n \
+ Inquiry Subject  : ${req.body.customerInquirySubject} \n \
+ Msg : ${req.body.customerInquiryMsg} \n \
         `      
     };
 
