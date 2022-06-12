@@ -684,7 +684,7 @@ RS Power Solution established in year 2003 is a professional Dealer, supplier an
 
           <div class="col-lg-8 mt-5 mt-lg-0">
 
-            <form  action="javascript:sendInquiry();" method="post" enctype="multipart/form-data">
+            <form name ="myform" action="javascript:sendInquiry();" method="post" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-6 form-group">
                   <input type="text" name="customerName" class="form-control" id="customerName" placeholder="Your Name" required>
@@ -816,11 +816,11 @@ RS Power Solution established in year 2003 is a professional Dealer, supplier an
 
       $.ajax({
             type: 'POST',
-            data: { customerName: document.getElementById("form").elements.customerName.value,
-                    customerEmail: document.getElementById("form").elements.customerEmail.value,
-                    customerPhone: document.getElementById("form").elements.customerPhone.value,
-                    customerInquirySubject: document.getElementById("form").elements.customerInquirySubject.value,
-                    customerInquiryMsg: document.getElementById("form").elements.customerInquiryMsg.value},
+            data: { customerName: document.getElementById("myform").elements.customerName.value,
+                    customerEmail: document.getElementById("myform").elements.customerEmail.value,
+                    customerPhone: document.getElementById("myform").elements.customerPhone.value,
+                    customerInquirySubject: document.getElementById("myform").elements.customerInquirySubject.value,
+                    customerInquiryMsg: document.getElementById("myform").elements.customerInquiryMsg.value},
             url: "/addNewEnquiry",
             contentType: "application/x-www-form-urlencoded",
             success: function (data) {
