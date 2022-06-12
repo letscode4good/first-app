@@ -41,6 +41,29 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://dbadmin:dbpassword@cluster0-v6hog.mongodb.net/hostel?retryWrites=true', {useNewUrlParser: true});
 
 
+
+var nodemailer = require('nodemailer');
+
+let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+        type: 'OAuth2',
+        user: 'rspower1pmreport@gmail.com',
+        clientId: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
+        accessToken: process.env.GOOGLE_ACCESS_TOKEN,
+        expires: 1484314697598
+    }
+});
+
+
+
+
+
+
 var dailyExpenseSchema = new mongoose.Schema({
     itemName : String,
     quantity : Number,
@@ -126,6 +149,67 @@ app.get('/chart.html',(req,res) => {
   res.sendFile(__dirname+'/chart.html')
 
 })
+
+
+app.post('/addNewEnquiry', function(req, res){
+
+    var mailOptions = {
+        from: 'rspower1pmreport@gmail.com',
+        to: 'rspower1pmdatastore@gmail.com',
+        subject: `Customer Inquiry by ${req.body.customerName}`,
+        text: `Please find the inquiry info- \n \n\
+        Customer Name : ${req.body.customerName} \n \
+        Customer Email : ${req.body.customerEmail} \n \
+        Customer Phone : ${req.body.customerPhone} \n \
+        Customer Inquiry Subject  : ${req.body.customerInquirySubject} \n \
+        Customer msg  : ${req.body.customerInquiryMsg} \n \
+        `      
+    };
+
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+        //res.json({message : error})
+        console.log("could not send email")
+        res.json({ error: error.message || error.toString() });
+        } else {
+            //res.json({message : 'emailsent'})
+            console.log("emailsent")
+            res.json({message : 'success'})
+        }
+    });
+
+})
+
+function sendEmail()
+{
+
+    var mailOptions = {
+        from: 'rspower1pmreport@gmail.com',
+        to: 'rspower1pmdatastore@gmail.com',
+        subject: `Customer Inquiry by ${customerName}`,
+        text: `Please find the inquiry info- \n \n\
+        Customer Id : ${custId} \n\
+        Customer Name : ${customerName} \n \
+        Customer Email : ${customerEmail} \n \
+        Customer Phone : ${customerPhone} \n \
+        Customer Inquiry Subject  : ${customerInquirySubject} \n \
+        Customer msg  : ${customerInquiryMsg} \n \
+        `      
+    };
+
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+        //res.json({message : error})
+            console.log("could not send email")
+        } else {
+            //res.json({message : 'emailsent'})
+            console.log("emailsent")
+        }
+    });
+
+}
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

@@ -684,20 +684,23 @@ RS Power Solution established in year 2003 is a professional Dealer, supplier an
 
           <div class="col-lg-8 mt-5 mt-lg-0">
 
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <form  action="javascript:sendInquiry();" method="post" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                  <input type="text" name="customerName" class="form-control" id="customerName" placeholder="Your Name" required>
                 </div>
                 <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                  <input type="email" class="form-control" name="customerEmail" id="customerEmail" placeholder="Your Email" required>
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <input type="text" class="form-control" name="customerPhone" id="customerPhone" placeholder="Your Phone" required>
                 </div>
               </div>
               <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                <input type="text" class="form-control" name="customerInquirySubject" id="customerInquirySubject" placeholder="Subject" required>
               </div>
               <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                <textarea class="form-control" name="customerInquiryMsg"  id ="customerInquiryMsg" rows="5" placeholder="Message" required></textarea>
               </div>
               <div class="my-3">
                 <div class="loading">Loading</div>
@@ -804,6 +807,34 @@ RS Power Solution established in year 2003 is a professional Dealer, supplier an
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+
+    function sendInquiry()
+    {
+
+      $.ajax({
+            type: 'POST',
+            data: { customerName: document.getElementById("form").elements.customerName.value,
+                    customerEmail: document.getElementById("form").elements.customerEmail.value,
+                    customerPhone: document.getElementById("form").elements.customerPhone.value,
+                    customerInquirySubject: document.getElementById("form").elements.customerInquirySubject.value,
+                    customerInquiryMsg: document.getElementById("form").elements.customerInquiryMsg.value},
+            url: "/addNewEnquiry",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (data) {
+              if (data.hasOwnProperty('error'))
+              {
+                alert(data.error);
+              }
+            },
+            error: function (e) {
+              alert("Error while adding data: " + JSON.stringify(e))
+            }
+          });
+    }
+
+    </script>
 
 </body>
 
