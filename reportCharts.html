@@ -210,6 +210,47 @@
 
         <script>
 
+$(function() {
+
+
+        $.ajax({
+            type: 'GET',
+            url: "/whoami",
+            contentType: "text/plain",
+            global: false,
+            dataType: 'json',
+            success: function (resposeJson) {
+
+              if(resposeJson.message == "admin" || resposeJson.message == "coordinator" )
+              {
+                document.getElementById("hideReport").style.display = "block";
+                document.getElementById("hideMenu").style.display = "block";
+
+                if(resposeJson.message == "admin")
+                {
+                  document.getElementById("showAdminOnly").style.display = "block";
+                }
+                
+              }
+              else if (resposeJson.message == "engineer")
+              {
+                document.getElementById("hideReport").style.display = "none";
+                document.getElementById("hideMenu").style.display = "none";
+              }
+              else
+              {
+                window.location.href = "/login.html";
+              }
+            },
+            error: function (e) {
+              console.log("Error while adding data: " + JSON.stringify(e))
+              document.getElementById("hideReport").style.display = "none";
+              document.getElementById("hideMenu").style.display = "none";
+            }
+          });
+
+        
+      });
           
 
         function loadData() {
