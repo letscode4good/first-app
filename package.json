@@ -11,7 +11,7 @@
     "dependencies": {
       "body-parser": "^1.19.0",
       "express": "^4.16.4",
-      "mongoose": "^5.5.6",
+      "mongoose": "^6.7.3",
       "express-session":"^1.17.2",
       "cookie-parser":"^1.4.5",
       "@google-cloud/storage": "^5.3.0",
